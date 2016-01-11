@@ -9,6 +9,7 @@
   @if REVISION_HISTORY_INCLUDED
   @par Edit History
   @li [0]    wojciech.rynczuk@wp.pl    13-JAN-2015    Initial file revision.
+  @li [1]    wojciech.rynczuk@wp.pl    11-JAN-2016    Verbose mode added.
   @endif
 
   @ingroup Main
@@ -87,6 +88,11 @@ int main(int argc, char *argv[])
     char *vcd_file = CLI.GetParamValue("-o");
     char *tbase = CLI.GetParamValue("-t");
 
+    // Check if the verbose mode has been enabled
+    bool is_verbose = CLI.CheckParam("-v");
+    uint32_t valid_lines = 0;
+    uint32_t invalid_lines = 0;
+
     // Validate the time base.
     TRACER::VCDTracer::TimeUnit::_TimeUnit tunit = TRACER::VCDTracer::TimeUnit::invalid;
     if (0 == strcmp(tbase, "s"))
@@ -144,15 +150,25 @@ int main(int argc, char *argv[])
         if (pSignal != NULL)
         {
             VcdTrace.Log(pSignal);
+            valid_lines++;
         }
         else
         {
-            std::cout << "Invalid log line: " << line << std::endl;
+            if (true == is_verbose)
+            {
+                std::cout << "Invalid log line " << valid_lines + invalid_lines << " : " << line << std::endl;
+            }
+            invalid_lines++;
         }
     }
 
     // Create the VCD file
     VcdTrace.Dump();
+
+    // Summary
+    std::cout << std::endl << "Parsed " << log_file << ": " << std::endl;
+    std::cout << "\t Valid lines:   " << valid_lines << std::endl;
+    std::cout << "\t Invalid lines: " << invalid_lines << std::endl;
     return 0;
 }
 

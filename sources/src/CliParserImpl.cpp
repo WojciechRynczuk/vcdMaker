@@ -9,6 +9,7 @@
   @if REVISION_HISTORY_INCLUDED
   @par Edit History
   @li [0]    wojciech.rynczuk@wp.pl    20-JAN-2015    Initial file revision.
+  @li [1]    wojciech.rynczuk@wp.pl    11-JAN-2016    Verbose mode added.
   @endif
 
   @ingroup CLI
@@ -107,11 +108,12 @@ void CLI::CliParserImpl::Help() const
 {
     std::cout << std::endl;
     std::cout << "Usage: " << std::endl;
-    std::cout << "vcdMaker -f file_in -o file_out -t [s|ms|us|ns|ps|fs]" << std::endl;
+    std::cout << "vcdMaker -f file_in -o file_out -t [s|ms|us|ns|ps|fs] [-v]" << std::endl;
     std::cout << "\t file_in  - Input log filename." << std::endl;
     std::cout << "\t file_out - Ouput VCD filename." << std::endl;
     std::cout << "\t tbase    - Base time unit to be selected. One of the available options shall be used, e.g. \"ms\"." <<
               std::endl;
+    std::cout << "\t -v       - This optional parameter enables the verbose mode." << std::endl;
     std::cout << std::endl;
     std::cout << "\t Example: vcdMaker -f log.txt -o wave.vcd -t ms" << std::endl;
 }

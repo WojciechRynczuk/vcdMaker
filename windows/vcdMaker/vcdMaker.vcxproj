@@ -95,21 +95,21 @@
     <ClInclude Include="..\..\sources\inc\VCDTracer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\scr\CliParser.cpp" />
-    <ClCompile Include="..\..\sources\scr\CliParserImpl.cpp" />
-    <ClCompile Include="..\..\sources\scr\FSignal.cpp" />
-    <ClCompile Include="..\..\sources\scr\FSignalCreator.cpp" />
-    <ClCompile Include="..\..\sources\scr\ISignal.cpp" />
-    <ClCompile Include="..\..\sources\scr\ISignalCreator.cpp" />
-    <ClCompile Include="..\..\sources\scr\Signal.cpp" />
-    <ClCompile Include="..\..\sources\scr\SignalCreator.cpp" />
-    <ClCompile Include="..\..\sources\scr\SignalFactory.cpp" />
-    <ClCompile Include="..\..\sources\scr\stdafx.cpp">
+    <ClCompile Include="..\..\sources\src\CliParser.cpp" />
+    <ClCompile Include="..\..\sources\src\CliParserImpl.cpp" />
+    <ClCompile Include="..\..\sources\src\FSignal.cpp" />
+    <ClCompile Include="..\..\sources\src\FSignalCreator.cpp" />
+    <ClCompile Include="..\..\sources\src\ISignal.cpp" />
+    <ClCompile Include="..\..\sources\src\ISignalCreator.cpp" />
+    <ClCompile Include="..\..\sources\src\Signal.cpp" />
+    <ClCompile Include="..\..\sources\src\SignalCreator.cpp" />
+    <ClCompile Include="..\..\sources\src\SignalFactory.cpp" />
+    <ClCompile Include="..\..\sources\src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\vcdMaker.cpp" />
-    <ClCompile Include="..\..\sources\scr\VCDTracer.cpp" />
+    <ClCompile Include="..\..\sources\src\vcdMaker.cpp" />
+    <ClCompile Include="..\..\sources\src\VCDTracer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

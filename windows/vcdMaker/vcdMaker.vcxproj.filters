@@ -56,40 +56,40 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\scr\CliParser.cpp">
+    <ClCompile Include="..\..\sources\src\CliParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\CliParserImpl.cpp">
+    <ClCompile Include="..\..\sources\src\CliParserImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\FSignal.cpp">
+    <ClCompile Include="..\..\sources\src\FSignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\FSignalCreator.cpp">
+    <ClCompile Include="..\..\sources\src\FSignalCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\ISignal.cpp">
+    <ClCompile Include="..\..\sources\src\ISignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\ISignalCreator.cpp">
+    <ClCompile Include="..\..\sources\src\ISignalCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\Signal.cpp">
+    <ClCompile Include="..\..\sources\src\Signal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\SignalCreator.cpp">
+    <ClCompile Include="..\..\sources\src\SignalCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\SignalFactory.cpp">
+    <ClCompile Include="..\..\sources\src\SignalFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\stdafx.cpp">
+    <ClCompile Include="..\..\sources\src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\vcdMaker.cpp">
+    <ClCompile Include="..\..\sources\src\vcdMaker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\scr\VCDTracer.cpp">
+    <ClCompile Include="..\..\sources\src\VCDTracer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

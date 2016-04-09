@@ -1,1 +1,21 @@
-* -text
+# Autodetect and normalize text files
+* text=auto
+
+# MSVC use CRLF
+*.sln eol=crlf
+*.csproj eol=crlf
+*.wixproj eol=crlf
+
+*.vcxproj eol=crlf
+*.vcxitems eol=crlf
+*.props eol=crlf
+*.filters eol=crlf
+*.wxs eol=crlf
+
+# For installer
+windows/Installer/guid_list.txt eol=crlf
+
+# Other
+*.rtf -text
+LICENSE eol=lf
+*.md eol=lf

@@ -18,4 +18,5 @@ windows/Installer/guid_list.txt eol=crlf
 # Other
 *.rtf -text
 LICENSE eol=lf
-*.md eol=lf
+.gitignore eol=lf
+.gitattributes eol=lf

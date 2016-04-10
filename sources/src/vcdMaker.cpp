@@ -1,79 +1,42 @@
-/*!
-  @file vcdMaker.cpp
+/// @file vcdMaker.cpp
+///
+/// The main module of the vcdMaker application.
+///
+/// @par Copyright (c) 2016 Wojciech Rynczuk
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a
+/// copy of this software and associated documentation files (the "Software"),
+/// to deal in the Software without restriction, including without limitation
+/// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+/// and/or sell copies of the Software, and to permit persons to whom the
+/// Software is furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included
+/// in all copies or substantial portions of the Software.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+/// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+/// IN THE SOFTWARE.
 
-  The main module of the vcdMaker application.
+#include "stdafx.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
-  @par Full Description
-  This is the vcdMaker executor.
+#include "VCDTracer.h"
+#include "SignalFactory.h"
+#include "CliParserImpl.h"
 
-  @if REVISION_HISTORY_INCLUDED
-  @par Edit History
-  @li [0]    wojciech.rynczuk@wp.pl    13-JAN-2015    Initial file revision.
-  @li [1]    wojciech.rynczuk@wp.pl    11-JAN-2016    Verbose mode added.
-  @endif
 
-  @ingroup Main
-
-  @par Copyright (c) MMXV Wojciech Rynczuk
-
-  Permission is hereby granted, free of charge, to any person obtaining a
-  copy of this software and associated documentation files (the "Software"),
-  to deal in the Software without restriction, including without limitation
-  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-  and/or sell copies of the Software, and to permit persons to whom the
-  Software is furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included
-  in all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-  IN THE SOFTWARE.
-
-*/
-
-/*!
-    @defgroup Main Main
-
-    @brief The main file of the vcdMaker.
-
-    @par Full Description
-    This is the main file of the vcdMaker.
-
-*/
-
-// SYSTEM INCLUDES
-#include "stdafx.h"  // Precompiled header for the Windows platform
-// Create the empty stdafx.h file for other platforms.
-#include <iostream>  // std::cout
-#include <fstream>   // std::ifstream
-#include <string>    // std::getline
-
-// C PROJECT INCLUDES
-// (none)
-
-// C++ PROJECT INCLUDES
-#include "VCDTracer.h"     // VCDTracer
-#include "SignalFactory.h" // SignalFactory
-#include "CliParserImpl.h" // CliParser
-
-// FORWARD REFERENCES
-// (none)
-
-/*!
-  The vcdMaker main function.
-
-  @par Full Description
-  The vcdMaker main function.
-
-  @param argc Number of arguments.
-  @param argv The table of arguments.
-  @return The execution status.
-*/
+///  The vcdMaker main function.
+///
+///  @param argc Number of arguments.
+///  @param argv The table of arguments.
+///  @return The execution status.
 int main(int argc, char *argv[])
 {
     // Parse input parameters
@@ -169,6 +132,5 @@ int main(int argc, char *argv[])
     std::cout << std::endl << "Parsed " << log_file << ": " << std::endl;
     std::cout << "\t Valid lines:   " << valid_lines << std::endl;
     std::cout << "\t Invalid lines: " << invalid_lines << std::endl;
-    return 0;
 }
 

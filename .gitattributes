@@ -1,5 +1,9 @@
 # Autodetect and normalize text files
-* text=auto
+* text=auto eol=lf
+
+# Source files
+*.h eol=lf
+*.cpp eol=lf
 
 # MSVC use CRLF
 *.sln eol=crlf

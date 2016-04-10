@@ -1,73 +1,41 @@
-/*!
-  @file vcdtracer.cpp
+/// @file vcdtracer.h
+///
+/// The VCD generation module.
+///
+/// @par Full Description
+/// The class provides means for collecting signals
+/// and storing the data in the VCD format.
+///
+/// @ingroup Tracer
+///
+/// @par Copyright (c) 2016 Wojciech Rynczuk
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a
+/// copy of this software and associated documentation files (the "Software"),
+/// to deal in the Software without restriction, including without limitation
+/// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+/// and/or sell copies of the Software, and to permit persons to whom the
+/// Software is furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included
+/// in all copies or substantial portions of the Software.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+/// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+/// IN THE SOFTWARE.
 
-  The VCD generation module.
+#include "stdafx.h"
+#include <iostream>
 
-  @par Full Description
-  The class allows for collecting signals
-  and storing the data in the VCD format.
-
-  @if REVISION_HISTORY_INCLUDED
-  @par Edit History
-  @li [0]    wojciech.rynczuk@wp.pl    16-DEC-2014    Initial file revision.
-  @endif
-
-  @ingroup Tracer
-
-  @par Copyright (c) MMXV Wojciech Rynczuk
-
-  Permission is hereby granted, free of charge, to any person obtaining a
-  copy of this software and associated documentation files (the "Software"),
-  to deal in the Software without restriction, including without limitation
-  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-  and/or sell copies of the Software, and to permit persons to whom the
-  Software is furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included
-  in all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-  IN THE SOFTWARE.
-
-*/
-
-// SYSTEM INCLUDES
-#include "stdafx.h"     // Precompiled header for the Windows platform
-// Create the empty stdafx.h file for other platforms.
-#include <iostream>     // Streams
-
-// C PROJECT INCLUDES
-// (none)
-
-// C++ PROJECT INCLUDES
 #include "VCDTracer.h"
 
-// FORWARD REFERENCES
-// (none)
-
-// MACROS
-//! Simplify outputting the VCD lines
+/// Simplify outputting the VCD lines
 #define VCD_LINE(x) m_File << x << std::endl
 
-//***************************************************************************
-// PUBLIC METHODS
-//***************************************************************************
-
-/*!
-  The VCD tracer constructor.
-
-  @par Full Description
-  The constructor initializes the output VCD file and sets the time unit.
-
-  @param outputFile The name of the output VCD file.
-  @param tunit The time base.
-  @return None
-*/
 TRACER::VCDTracer::VCDTracer(std::string const &outputFile, TimeUnit::_TimeUnit tunit)
 {
     // Just open the output file
@@ -100,15 +68,6 @@ TRACER::VCDTracer::VCDTracer(std::string const &outputFile, TimeUnit::_TimeUnit 
     }
 }
 
-/*!
-  Log a signal.
-
-  @par Full Description
-  Adds the traced signal to the collection.
-
-  @param signal A signal.
-  @return None
-*/
 void TRACER::VCDTracer::Log(const SIGNAL::Signal *signal)
 {
     // Is this a new signal to be logged?
@@ -121,45 +80,16 @@ void TRACER::VCDTracer::Log(const SIGNAL::Signal *signal)
     m_SignalSet.insert(signal);
 }
 
-/*!
-  Create the content of the VCD file.
-
-  @par Full Description
-  It creates the header of the VCF file as well as the body
-  listing all signal changes.
-
-  @return None
-*/
 void TRACER::VCDTracer::Dump()
 {
     GenerateHeader();
     GenerateBody();
 }
 
-/*!
-  The VCD tracer default destructor.
-
-  @par Full Description
-  The default destructor.
-
-  @return None
-*/
 TRACER::VCDTracer::~VCDTracer()
 {
 }
 
-//***************************************************************************
-// PRIVATE METHODS
-//***************************************************************************
-
-/*!
-  Generate the header of the VCD file.
-
-  @par Full Description
-  Generates the header of the VCD file.
-
-  @return None
-*/
 void TRACER::VCDTracer::GenerateHeader()
 {
     // So as to make things simpler the header has been split into three
@@ -169,15 +99,6 @@ void TRACER::VCDTracer::GenerateHeader()
     GenerateSignalDefaults();
 }
 
-/*!
-  Generate the basic VCD header information.
-
-  @par Full Description
-  Generates the basic header information. Currently, the creation date and
-  time are constant. Only the time unit is adjustable.
-
-  @return None
-*/
 void TRACER::VCDTracer::GenerateBasicInformation()
 {
     VCD_LINE("$date December 8, 2014 14:15:00");
@@ -188,16 +109,6 @@ void TRACER::VCDTracer::GenerateBasicInformation()
     VCD_LINE("$end");
 }
 
-/*!
-  Generate the VCD signals structure.
-
-  @par Full Description
-  Generates the structure of the traced signals. Although indents are
-  not necessary they have been intruduced to improve the readability
-  of the VCD file.
-
-  @return None
-*/
 void TRACER::VCDTracer::GenerateSignalStructure()
 {
     std::vector<std::string> structure; // Tokenized signal
@@ -283,14 +194,6 @@ void TRACER::VCDTracer::GenerateSignalStructure()
     }
 }
 
-/*!
-  Generate the VCD signals default values.
-
-  @par Full Description
-  Generates the default values of the traced signals.
-
-  @return None
-*/
 void TRACER::VCDTracer::GenerateSignalDefaults()
 {
     VCD_LINE("$dumpvars");
@@ -304,15 +207,6 @@ void TRACER::VCDTracer::GenerateSignalDefaults()
     m_SignalState.clear();
 }
 
-/*!
-  Generate the VCD body.
-
-  @par Full Description
-  Generates the body of the VCD file. It dumps signals values in the time-ordered
-  fashion.
-
-  @return None
-*/
 void TRACER::VCDTracer::GenerateBody()
 {
     SignalCollectionT::const_iterator iter;
@@ -366,15 +260,6 @@ void TRACER::VCDTracer::GenerateBody()
     m_File.close();
 }
 
-/*!
-  Dumps the signals changes for the given timestamp.
-
-  @par Full Description
-  Dumps the signals changes for the given timestamp.
-
-  @param timestamp The timestamp for which the dump is made.
-  @return None
-*/
 void TRACER::VCDTracer::DumpSignals(uint64_t timestamp)
 {
     uint32_t changes_present = 0;
@@ -427,17 +312,6 @@ void TRACER::VCDTracer::DumpSignals(uint64_t timestamp)
     }
 }
 
-/*!
-  Splits the signal name into the module, the sub-module(s) and the signal name.
-
-  @par Full Description
-  Splits the signal name. The module, the sub-module and the signal name must
-  be separated by a single '.'.
-
-  @param name The full signal name.
-  @param delim The delimiter.
-  @return The vector containing the separated strings.
-*/
 std::vector<std::string> TRACER::VCDTracer::SplitSignal(std::string name, const char delim)
 {
     std::vector<std::string> tokenized_string;
@@ -461,4 +335,3 @@ std::vector<std::string> TRACER::VCDTracer::SplitSignal(std::string name, const 
     }
     return tokenized_string;
 }
-

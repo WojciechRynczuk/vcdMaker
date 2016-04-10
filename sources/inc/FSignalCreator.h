@@ -39,10 +39,9 @@ namespace CONSTRUCTION
         public:
 
             /// The real signal creator constructor.
-            FSignalCreator();
-
-            /// The destructor.
-            ~FSignalCreator();
+            FSignalCreator() : SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f.*$")
+            {
+            }
 
             /// @copydoc SignalCreator::Create()
             SIGNAL::Signal *Create(std::string &logLine);

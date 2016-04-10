@@ -29,14 +29,6 @@
 #include "isignalcreator.h"
 #include "isignal.h"
 
-CONSTRUCTION::ISignalCreator::ISignalCreator() : SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+).*$")
-{
-};
-
-CONSTRUCTION::ISignalCreator::~ISignalCreator()
-{
-}
-
 SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(std::string &logLine)
 {
     std::tr1::cmatch result;

@@ -71,15 +71,6 @@
     <ClCompile Include="..\..\sources\src\ISignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\src\ISignalCreator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\src\Signal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\sources\src\SignalCreator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\sources\src\SignalFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\sources\src\VCDTracer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\sources\src\ISignalCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

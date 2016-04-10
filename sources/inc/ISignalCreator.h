@@ -38,10 +38,9 @@ namespace CONSTRUCTION
     {
         public:
             /// The integer signal creator constructor.
-            ISignalCreator();
-
-            /// The destructor.
-            ~ISignalCreator();
+            ISignalCreator() : SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+).*$")
+            {
+            }
 
             /// @copydoc SignalCreator::Create()
             SIGNAL::Signal *Create(std::string &logLine);

@@ -101,8 +101,6 @@
     <ClCompile Include="..\..\sources\src\FSignalCreator.cpp" />
     <ClCompile Include="..\..\sources\src\ISignal.cpp" />
     <ClCompile Include="..\..\sources\src\ISignalCreator.cpp" />
-    <ClCompile Include="..\..\sources\src\Signal.cpp" />
-    <ClCompile Include="..\..\sources\src\SignalCreator.cpp" />
     <ClCompile Include="..\..\sources\src\SignalFactory.cpp" />
     <ClCompile Include="..\..\sources\src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -51,19 +51,27 @@ namespace SIGNAL
             /// The name shall consist of any alphanumeric string in which the module's
             /// levels are separated with '.'.
             /// E.g. Module1.Level3.Variable6
-            FSignal(const std::string &name, uint64_t timestamp, double value);
-
-            /// The destructor.
-            ~FSignal();
+            FSignal(const std::string &name, uint64_t timestamp, double value) : Signal(name, 64, "real"),
+                m_Value(value)
+            {
+                m_Timestamp = timestamp;
+            }
 
             /// Sets the signal's value.
             ///
             /// Sets the signal's value and the timestamp indicating when the change
             /// occured.
-            void SetValue(uint64_t timestamp, double value);
+            void SetValue(uint64_t timestamp, double value)
+            {
+                m_Timestamp = timestamp;
+                m_Value = value;
+            }
 
             /// Returns the signal's value.
-            double GetValue() const;
+            double GetValue() const
+            {
+                return m_Value;
+            }
 
             /// @copydoc Signal::Print()
             virtual std::string Print() const;

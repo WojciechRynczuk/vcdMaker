@@ -49,10 +49,12 @@ namespace CONSTRUCTION
             ///
             /// The constructor initializes the regular expression member variable
             /// which will be matched against the log line.
-            SignalCreator(char *signalRegEx);
+            SignalCreator(char *signalRegEx) : m_SignalRegEx(signalRegEx)
+            {
+            }
 
             /// The destructor.
-            ~SignalCreator();
+            virtual ~SignalCreator() = 0;
 
             /// Return the pointer to the newly created object or NULL.
             ///
@@ -70,5 +72,7 @@ namespace CONSTRUCTION
             /// The RegEx matching the signal description.
             std::tr1::regex m_SignalRegEx;
     };
+
+    inline SignalCreator::~SignalCreator() = default;
 
 }

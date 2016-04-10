@@ -65,52 +65,76 @@ namespace SIGNAL
             ///
             /// The type string is used to produce the VCD header. It describes
             /// the type of the signal and shall equal to "wire" or "real".
-            Signal(const std::string &name, uint32_t size, const std::string &type);
+            Signal(const std::string &name, uint32_t size, const std::string &type) : m_Name(name), m_Size(size),
+                m_Timestamp(0), m_Type(type)
+            {
+            }
 
             /// The default constructor.
             ///
             /// It is needed by the multiset container within the VCD tracer module.
-            Signal();
+            Signal() = default;
 
             /// The descrucotor.
-            ~Signal();
+            virtual ~Signal() = default;
 
             /// Returns the signal's name.
             ///
             /// The method is used while generating the header and the body
             /// of the VCD file.
-            std::string GetName() const;
+            std::string GetName() const
+            {
+                return m_Name;
+            }
 
             /// Returns the signal's size in bits.
             ///
             /// The method is used while generating the VCD header.
-            uint32_t GetSize() const;
+            uint32_t GetSize() const
+            {
+                return m_Size;
+            }
 
             /// Returns the signal's timestamp in time units.
             ///
             /// The method is used while generating the body of the VCD file.
-            uint64_t GetTimestamp() const;
+            uint64_t GetTimestamp() const
+            {
+                return m_Timestamp;
+            }
 
             /// Returns the signal's type.
             ///
             /// The method is used while generating the VCD header.
-            std::string GetType() const;
+            std::string GetType() const
+            {
+                return m_Type;
+            }
 
             /// Returns the signal's value as a string in the VCD format.
             ///
             /// The method is used while generating the body of the VCD file.
-            virtual std::string Print() const;
+            virtual std::string Print() const
+            {
+                return "";
+            }
 
             /// Returns the signal's footprint as a string in the VCD format.
             ///
             /// The method is used while generating the header of the VCD file.
-            virtual std::string Footprint() const;
+            virtual std::string Footprint() const
+            {
+                return "";
+            }
 
             /// The overloaded () operator.
             ///
             /// The () operator has to be overloaded so as the multiset container
             /// could use pointers to the Signal class.
-            bool operator() (const Signal *signal1, const Signal *signal2) const;
+            bool operator() (const Signal *signal1, const Signal *signal2) const
+            {
+                return signal1->m_Timestamp < signal2->m_Timestamp;
+            }
 
         protected:
 
@@ -120,19 +144,22 @@ namespace SIGNAL
             /// within the base class. It allows for comparing two signals of the same
             /// type. It is not important if it's greater or lesser. It is crucial to
             /// determine its change.
-            virtual bool equal_to(Signal const &other) const;
+            virtual bool equal_to(Signal const &other) const
+            {
+                return 0;
+            }
 
             /// The signal's name.
-            std::string m_Name;
+            std::string m_Name{};
 
             /// The signal's type.
-            std::string m_Type;
+            std::string m_Type{};
 
             /// The signal's size.
-            uint32_t m_Size;
+            uint32_t m_Size = 0;
 
             /// The signal's timestamp.
-            uint64_t m_Timestamp;
+            uint64_t m_Timestamp = 0;
 
         private:
 
@@ -140,12 +167,18 @@ namespace SIGNAL
             ///
             /// It is used to compare two signals of the same type so as to tell
             /// if's changed or not.
-            friend bool operator == (const Signal &lsignal, const Signal &rsignal);
+            friend bool operator == (const Signal &lsignal, const Signal &rsignal)
+            {
+                return lsignal.equal_to(rsignal);
+            }
 
             /// The overloaded != operator.
             ///
             /// Not used but implemented to main the consistency with the == operator.
-            friend bool operator != (const Signal &lsignal, const Signal &rsignal);
+            friend bool operator != (const Signal &lsignal, const Signal &rsignal)
+            {
+                return !lsignal.equal_to(rsignal);
+            }
 
     };
 

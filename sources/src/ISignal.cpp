@@ -32,28 +32,6 @@
 
 #include "isignal.h"
 
-SIGNAL::ISignal::ISignal(const std::string &name, uint32_t size, uint64_t timestamp, uint64_t value) : Signal(name,
-            size, "wire")
-{
-    m_Timestamp = timestamp;
-    m_Value = value;
-};
-
-SIGNAL::ISignal::~ISignal()
-{
-}
-
-void SIGNAL::ISignal::SetValue(uint64_t timestamp, uint64_t value)
-{
-    m_Timestamp = timestamp;
-    m_Value = value;
-};
-
-uint64_t SIGNAL::ISignal::GetValue() const
-{
-    return m_Value;
-};
-
 std::string SIGNAL::ISignal::Print() const
 {
     std::string vcd_value = "b";

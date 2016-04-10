@@ -51,10 +51,12 @@ namespace CLI
             ///
             /// @param begin The beginning of the input string(argv).
             /// @param end The end of the input string(argv + argc).
-            CliParser(char **begin, char **end);
+            CliParser(char **begin, char **end) : m_Begin(begin), m_End(end)
+            {
+            }
 
             /// Destructor.
-            ~CliParser();
+            virtual ~CliParser() = 0;
 
             /// Returns the value of the given parameter.
             ///
@@ -100,5 +102,7 @@ namespace CLI
             /// The end of the CLI string.
             char **m_End;
     };
+
+    inline CliParser::~CliParser() = default;
 
 }

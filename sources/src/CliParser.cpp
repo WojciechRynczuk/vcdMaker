@@ -32,14 +32,6 @@
 
 #include "cliparser.h"
 
-CLI::CliParser::CliParser(char **begin, char **end) : m_Begin(begin), m_End(end)
-{
-};
-
-CLI::CliParser::~CliParser()
-{
-};
-
 char *CLI::CliParser::GetParamValue(const std::string &param) const
 {
     char **itr = std::find(m_Begin, m_End, param);
@@ -48,12 +40,12 @@ char *CLI::CliParser::GetParamValue(const std::string &param) const
         return *itr;
     }
     return NULL;
-};
+}
 
 bool CLI::CliParser::CheckParam(const std::string &param) const
 {
     return std::find(m_Begin, m_End, param) != m_End;
-};
+}
 
 bool CLI::CliParser::Validate() const
 {
@@ -70,4 +62,4 @@ bool CLI::CliParser::Validate() const
     }
 
     return Validator();
-};
+}

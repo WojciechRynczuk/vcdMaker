@@ -86,10 +86,6 @@ void TRACER::VCDTracer::Dump()
     GenerateBody();
 }
 
-TRACER::VCDTracer::~VCDTracer()
-{
-}
-
 void TRACER::VCDTracer::GenerateHeader()
 {
     // So as to make things simpler the header has been split into three

@@ -38,7 +38,9 @@ namespace CLI
     {
         public:
             /// @copydoc CliParser::CliParser()
-            CliParserImpl(char **begin, char **end);
+            CliParserImpl(char **begin, char **end) : CliParser(begin, end)
+            {
+            }
 
         protected:
 

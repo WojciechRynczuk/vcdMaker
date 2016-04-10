@@ -29,14 +29,6 @@
 
 #include "cliparserimpl.h"
 
-CLI::CliParserImpl::CliParserImpl(char **begin, char **end) : CliParser(begin, end)
-{
-};
-
-CLI::CliParserImpl::~CliParserImpl()
-{
-};
-
 void CLI::CliParserImpl::OneLineHelp() const
 {
     std::cout << "Use: 'vcdMaker.exe -h' for help." << std::endl;

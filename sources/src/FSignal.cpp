@@ -33,27 +33,6 @@
 
 #include "fsignal.h"
 
-SIGNAL::FSignal::FSignal(const std::string &name, uint64_t timestamp, double value) : Signal(name, 64, "real")
-{
-    m_Timestamp = timestamp;
-    m_Value = value;
-};
-
-SIGNAL::FSignal::~FSignal()
-{
-}
-
-void SIGNAL::FSignal::SetValue(uint64_t timestamp, double value)
-{
-    m_Timestamp = timestamp;
-    m_Value = value;
-};
-
-double SIGNAL::FSignal::GetValue() const
-{
-    return m_Value;
-};
-
 std::string SIGNAL::FSignal::Print() const
 {
     std::string vcd_value = "r";

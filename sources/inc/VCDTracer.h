@@ -92,9 +92,6 @@ namespace TRACER
             /// listing all signal changes.
             void Dump();
 
-            /// The destructor.
-            ~VCDTracer();
-
         private:
 
             /// A type defining a container for pointers to Signal objects.

@@ -29,15 +29,6 @@
 #include "fsignalcreator.h"
 #include "fsignal.h"
 
-CONSTRUCTION::FSignalCreator::FSignalCreator() : SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f.*$")
-{
-};
-
-
-CONSTRUCTION::FSignalCreator::~FSignalCreator()
-{
-}
-
 SIGNAL::Signal *CONSTRUCTION::FSignalCreator::Create(std::string &logLine)
 {
     std::tr1::cmatch result;

@@ -19,8 +19,12 @@
 # For installer
 windows/Installer/guid_list.txt eol=crlf
 
-# Other
+# Binary files
 *.rtf -text
+*.odt -text
+*.pdf -text
+
+# Other
 LICENSE eol=lf
 .gitignore eol=lf
 .gitattributes eol=lf

@@ -116,7 +116,7 @@ namespace SIGNAL
             /// The method is used while generating the body of the VCD file.
             virtual std::string Print() const
             {
-                return "";
+                return {};
             }
 
             /// Returns the signal's footprint as a string in the VCD format.
@@ -124,7 +124,7 @@ namespace SIGNAL
             /// The method is used while generating the header of the VCD file.
             virtual std::string Footprint() const
             {
-                return "";
+                return {};
             }
 
             /// The overloaded () operator.

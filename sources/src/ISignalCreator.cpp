@@ -31,12 +31,12 @@
 
 SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(std::string &logLine)
 {
-    std::tr1::cmatch result;
+    std::cmatch result;
     SIGNAL::Signal *pSignal = NULL;
-    if (true == std::tr1::regex_search(logLine.begin(), logLine.end(), m_SignalRegEx))
+    if (true == std::regex_search(logLine.begin(), logLine.end(), m_SignalRegEx))
     {
         //Parse the log line
-        std::tr1::regex_search(logLine.c_str(), result, m_SignalRegEx);
+        std::regex_search(logLine.c_str(), result, m_SignalRegEx);
 
         //Create the signal object
         pSignal = new SIGNAL::ISignal(result[2].str(), std::stoi(result[4].str()), std::stoll(result[1].str()),

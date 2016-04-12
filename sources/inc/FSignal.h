@@ -81,8 +81,8 @@ namespace SIGNAL
 
         protected:
 
-            /// @copydoc Signal::equal_to()
-            virtual bool equal_to(Signal const &other) const;
+            /// @copydoc Signal::EqualTo()
+            virtual bool EqualTo(Signal const &other) const;
 
             /// The signal's value.
             double m_Value;

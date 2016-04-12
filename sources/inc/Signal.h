@@ -144,7 +144,7 @@ namespace SIGNAL
             /// within the base class. It allows for comparing two signals of the same
             /// type. It is not important if it's greater or lesser. It is crucial to
             /// determine its change.
-            virtual bool equal_to(Signal const &other) const
+            virtual bool EqualTo(Signal const &other) const
             {
                 return 0;
             }
@@ -169,7 +169,7 @@ namespace SIGNAL
             /// if's changed or not.
             friend bool operator == (const Signal &lsignal, const Signal &rsignal)
             {
-                return lsignal.equal_to(rsignal);
+                return lsignal.EqualTo(rsignal);
             }
 
             /// The overloaded != operator.
@@ -177,7 +177,7 @@ namespace SIGNAL
             /// Not used but implemented to main the consistency with the == operator.
             friend bool operator != (const Signal &lsignal, const Signal &rsignal)
             {
-                return !lsignal.equal_to(rsignal);
+                return !lsignal.EqualTo(rsignal);
             }
 
     };

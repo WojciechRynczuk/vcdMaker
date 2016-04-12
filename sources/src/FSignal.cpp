@@ -61,7 +61,7 @@ std::string SIGNAL::FSignal::Footprint() const
     return vcd_value;
 }
 
-bool SIGNAL::FSignal::equal_to(Signal const &other) const
+bool SIGNAL::FSignal::EqualTo(Signal const &other) const
 {
     if (FSignal const *p = dynamic_cast<FSignal const *>(&other))
     {

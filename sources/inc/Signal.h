@@ -38,7 +38,7 @@
 /// The group consists of the base class defining the common behaviours as
 /// well as of the inheriting signal classes specifying concrete signals.
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 
 namespace SIGNAL
@@ -65,7 +65,7 @@ namespace SIGNAL
             ///
             /// The type string is used to produce the VCD header. It describes
             /// the type of the signal and shall equal to "wire" or "real".
-            Signal(const std::string &name, uint32_t size, const std::string &type) : m_Name(name), m_Size(size),
+            Signal(const std::string &name, size_t size, const std::string &type) : m_Name(name), m_Size(size),
                 m_Timestamp(0), m_Type(type)
             {
             }
@@ -90,7 +90,7 @@ namespace SIGNAL
             /// Returns the signal's size in bits.
             ///
             /// The method is used while generating the VCD header.
-            uint32_t GetSize() const
+            size_t GetSize() const
             {
                 return m_Size;
             }
@@ -156,7 +156,7 @@ namespace SIGNAL
             std::string m_Type{};
 
             /// The signal's size.
-            uint32_t m_Size = 0;
+            size_t m_Size = 0;
 
             /// The signal's timestamp.
             uint64_t m_Timestamp = 0;

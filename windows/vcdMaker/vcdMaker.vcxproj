@@ -78,9 +78,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\sources\inc\CliParser.h" />
     <ClInclude Include="..\..\sources\inc\CliParserImpl.h" />
     <ClInclude Include="..\..\sources\inc\FSignal.h" />

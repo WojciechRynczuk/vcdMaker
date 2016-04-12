@@ -1,4 +1,4 @@
-/// @file isignalcreator.h
+/// @file ISignalCreator.h
 ///
 /// The integer signal creator.
 ///
@@ -26,7 +26,7 @@
 
 #pragma once
 
-#include "signalcreator.h"
+#include "SignalCreator.h"
 
 namespace CONSTRUCTION
 {

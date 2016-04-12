@@ -1,4 +1,4 @@
-/// @file cliparserimpl.h
+/// @file CliParserImpl.h
 ///
 /// The VCD maker CliParser implementation.
 ///

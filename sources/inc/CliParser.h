@@ -1,4 +1,4 @@
-/// @file cliparser.h
+/// @file CliParser.h
 ///
 /// The base class of the CLI parser.
 ///

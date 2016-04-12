@@ -30,7 +30,7 @@
 
 #pragma once
 
-#include "signal.h"
+#include "Signal.h"
 
 namespace SIGNAL
 {

@@ -1,4 +1,4 @@
-/// @file signalfactory.h
+/// @file SignalFactory.h
 ///
 /// The signal factory class.
 ///
@@ -29,7 +29,7 @@
 
 #include "stdafx.h"
 
-#include "signalfactory.h"
+#include "SignalFactory.h"
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 

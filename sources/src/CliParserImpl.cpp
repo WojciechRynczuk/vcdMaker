@@ -1,4 +1,4 @@
-/// @file cliparserimpl.h
+/// @file CliParserImpl.h
 ///
 /// The VCD maker CliParser implementation.
 ///
@@ -27,7 +27,7 @@
 #include "stdafx.h"
 #include <iostream>
 
-#include "cliparserimpl.h"
+#include "CliParserImpl.h"
 
 void CLI::CliParserImpl::OneLineHelp() const
 {

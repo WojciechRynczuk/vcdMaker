@@ -1,4 +1,4 @@
-/// @file signalfactory.h
+/// @file SignalFactory.h
 ///
 /// The signal factory class.
 ///

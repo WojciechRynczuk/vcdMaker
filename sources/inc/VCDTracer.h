@@ -1,4 +1,4 @@
-/// @file vcdtracer.h
+/// @file VCDTracer.h
 ///
 /// The VCD generation module.
 ///
@@ -44,7 +44,7 @@
 #include <set>
 #include <vector>
 
-#include "signal.h"
+#include "Signal.h"
 
 namespace TRACER
 {

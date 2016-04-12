@@ -1,4 +1,4 @@
-/// @file fsignalcreator.h
+/// @file FSignalCreator.h
 ///
 /// The real signal creator.
 ///
@@ -26,7 +26,7 @@
 
 #pragma once
 
-#include "signalcreator.h"
+#include "SignalCreator.h"
 
 namespace CONSTRUCTION
 {

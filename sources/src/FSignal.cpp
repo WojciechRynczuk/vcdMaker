@@ -31,7 +31,7 @@
 #include "stdafx.h"
 #include <stdio.h>
 
-#include "fsignal.h"
+#include "FSignal.h"
 
 std::string SIGNAL::FSignal::Print() const
 {

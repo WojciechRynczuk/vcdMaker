@@ -30,7 +30,7 @@
 
 #include "stdafx.h"
 
-#include "isignal.h"
+#include "ISignal.h"
 
 std::string SIGNAL::ISignal::Print() const
 {

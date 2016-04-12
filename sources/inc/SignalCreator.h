@@ -1,4 +1,4 @@
-/// @file signalcreator.h
+/// @file SignalCreator.h
 ///
 /// The signal creator interface class.
 ///
@@ -33,7 +33,7 @@
 #include <string>
 #include <regex>
 
-#include "signal.h"
+#include "Signal.h"
 
 namespace CONSTRUCTION
 {

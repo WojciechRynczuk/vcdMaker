@@ -1,4 +1,4 @@
-/// @file cliparser.h
+/// @file CliParser.h
 ///
 /// The base class of the CLI parser.
 ///
@@ -30,7 +30,7 @@
 #include "stdafx.h"
 #include <algorithm>
 
-#include "cliparser.h"
+#include "CliParser.h"
 
 char *CLI::CliParser::GetParamValue(const std::string &param) const
 {

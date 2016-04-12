@@ -1,4 +1,4 @@
-/// @file fsignalcreator.h
+/// @file FSignalCreator.h
 ///
 /// The real signal creator.
 ///
@@ -26,8 +26,8 @@
 
 #include "stdafx.h"
 
-#include "fsignalcreator.h"
-#include "fsignal.h"
+#include "FSignalCreator.h"
+#include "FSignal.h"
 
 SIGNAL::Signal *CONSTRUCTION::FSignalCreator::Create(std::string &logLine)
 {

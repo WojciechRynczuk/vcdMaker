@@ -1,4 +1,4 @@
-/// @file isignalcreator.h
+/// @file ISignalCreator.h
 ///
 /// The integer signal creator.
 ///
@@ -26,8 +26,8 @@
 
 #include "stdafx.h"
 
-#include "isignalcreator.h"
-#include "isignal.h"
+#include "ISignalCreator.h"
+#include "ISignal.h"
 
 SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(std::string &logLine)
 {

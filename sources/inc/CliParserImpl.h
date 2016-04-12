@@ -26,8 +26,6 @@
 
 #pragma once
 
-#include <string>
-
 #include "CliParser.h"
 
 namespace CLI
@@ -38,7 +36,7 @@ namespace CLI
     {
         public:
             /// @copydoc CliParser::CliParser()
-            CliParserImpl(char **begin, char **end) : CliParser(begin, end)
+            CliParserImpl(std::size_t argc, char **argv) : CliParser(argc, argv)
             {
             }
 

@@ -31,24 +31,28 @@
 
 #include "CliParser.h"
 
-char *CLI::CliParser::GetParamValue(const std::string &param) const
+std::string CLI::CliParser::GetParamValue(const std::string &param) const
 {
-    char **itr = std::find(m_Begin, m_End, param);
-    if (itr != m_End && ++itr != m_End)
+    auto it = std::find(m_Parameters.cbegin(), m_Parameters.cend(), param);
+
+    if ((it != m_Parameters.end()) && (it != m_Parameters.end() - 1))
     {
-        return *itr;
+        return *(++it);
     }
-    return NULL;
+    else
+    {
+        return {};
+    }
 }
 
 bool CLI::CliParser::CheckParam(const std::string &param) const
 {
-    return std::find(m_Begin, m_End, param) != m_End;
+    return (std::find(m_Parameters.cbegin(), m_Parameters.cend(), param) != m_Parameters.end());
 }
 
 bool CLI::CliParser::Validate() const
 {
-    if ((m_End - m_Begin) < 2)
+    if (m_Parameters.size() < 2)
     {
         OneLineHelp();
         return false;

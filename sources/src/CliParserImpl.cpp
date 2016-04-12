@@ -30,44 +30,45 @@
 
 void CLI::CliParserImpl::OneLineHelp() const
 {
-    std::cout << "Use: 'vcdMaker.exe -h' for help." << std::endl;
+    std::cout << "Use: 'vcdMaker.exe -h' for help.\n";
 }
 
 void CLI::CliParserImpl::Help() const
 {
-    std::cout << std::endl;
-    std::cout << "Usage: " << std::endl;
-    std::cout << "vcdMaker -f file_in -o file_out -t [s|ms|us|ns|ps|fs] [-v]" << std::endl;
-    std::cout << "\t file_in  - Input log filename." << std::endl;
-    std::cout << "\t file_out - Ouput VCD filename." << std::endl;
-    std::cout << "\t tbase    - Base time unit to be selected. One of the available options shall be used, e.g. \"ms\"." <<
-              std::endl;
-    std::cout << "\t -v       - This optional parameter enables the verbose mode." << std::endl;
-    std::cout << std::endl;
-    std::cout << "\t Example: vcdMaker -f log.txt -o wave.vcd -t ms" << std::endl;
+    std::cout << "\n"
+              << "Usage: \n"
+              << "vcdMaker -f file_in -o file_out -t [s|ms|us|ns|ps|fs] [-v]\n"
+              << "\t file_in  - Input log filename.\n"
+              << "\t file_out - Ouput VCD filename.\n"
+              << "\t tbase    - Base time unit to be selected. One of the available options shall be used, e.g. \"ms\".\n"
+              << "\n"
+              << "\t -v       - This optional parameter enables the verbose mode.\n"
+              << "\n"
+              << "\t Example: vcdMaker -f log.txt -o wave.vcd -t ms\n";
 }
 
 bool CLI::CliParserImpl::Validator() const
 {
     bool result = true;
-    char *log_file = GetParamValue("-f");
-    if (log_file == NULL)
+
+    const std::string log_file = GetParamValue("-f");
+    if (log_file.empty())
     {
-        std::cout << "No log filename provided." << std::endl;
+        std::cout << "No log filename provided.\n";
         result = false;
     }
 
-    char *vcd_file = GetParamValue("-o");
-    if (vcd_file == NULL)
+    const std::string vcd_file = GetParamValue("-o");
+    if (vcd_file.empty())
     {
-        std::cout << "No VCD filename provided." << std::endl;
+        std::cout << "No VCD filename provided.\n";
         result = false;
     }
 
-    char *tbase = GetParamValue("-t");
-    if (tbase == NULL)
+    const std::string tbase = GetParamValue("-t");
+    if (tbase.empty())
     {
-        std::cout << "No time base unit provided." << std::endl;
+        std::cout << "No time base unit provided.\n";
         result = false;
     }
 

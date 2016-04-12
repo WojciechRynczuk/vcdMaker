@@ -37,6 +37,7 @@
 /// This is a simple CLI parser.
 
 #include <string>
+#include <vector>
 
 namespace CLI
 {
@@ -49,9 +50,9 @@ namespace CLI
             ///
             /// This constructor shall be used by the iheriting classes.
             ///
-            /// @param begin The beginning of the input string(argv).
-            /// @param end The end of the input string(argv + argc).
-            CliParser(char **begin, char **end) : m_Begin(begin), m_End(end)
+            /// @param argc Arguments count from main function.
+            /// @param argv Arguments array from main function.
+            CliParser(std::size_t argc, char **argv) : m_Parameters(argv, argv + argc)
             {
             }
 
@@ -64,7 +65,7 @@ namespace CLI
             /// If not found, NULL is returned.
             ///
             /// @param param Parameter name.
-            char *GetParamValue(const std::string &param) const;
+            std::string GetParamValue(const std::string &param) const;
 
             /// Checks the parameter's existence.
             ///
@@ -96,11 +97,8 @@ namespace CLI
 
         private:
 
-            /// The beginning of the CLI string.
-            char **m_Begin;
-
-            /// The end of the CLI string.
-            char **m_End;
+            /// Parameters vector
+            std::vector<std::string> m_Parameters;
     };
 
     inline CliParser::~CliParser() = default;

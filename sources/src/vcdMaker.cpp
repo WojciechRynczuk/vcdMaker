@@ -39,16 +39,16 @@
 int main(int argc, char *argv[])
 {
     // Parse input parameters
-    CLI::CliParserImpl CLI(argv, argv + argc);
+    CLI::CliParserImpl CLI(argc, argv);
     if (false == CLI.Validate())
     {
         return -1;
     }
 
     // Get parameters' values
-    char *log_file = CLI.GetParamValue("-f");
-    char *vcd_file = CLI.GetParamValue("-o");
-    char *tbase = CLI.GetParamValue("-t");
+    const std::string log_file = CLI.GetParamValue("-f");
+    const std::string vcd_file = CLI.GetParamValue("-o");
+    const std::string tbase = CLI.GetParamValue("-t");
 
     // Check if the verbose mode has been enabled
     bool is_verbose = CLI.CheckParam("-v");
@@ -57,33 +57,33 @@ int main(int argc, char *argv[])
 
     // Validate the time base.
     TRACER::VCDTracer::TimeUnit::_TimeUnit tunit = TRACER::VCDTracer::TimeUnit::invalid;
-    if (0 == strcmp(tbase, "s"))
+    if (tbase == "s")
     {
         tunit = TRACER::VCDTracer::TimeUnit::s;
     }
-    if (0 == strcmp(tbase, "ms"))
+    if (tbase == "ms")
     {
         tunit = TRACER::VCDTracer::TimeUnit::ms;
     }
-    if (0 == strcmp(tbase, "us"))
+    if (tbase == "us")
     {
         tunit = TRACER::VCDTracer::TimeUnit::us;
     }
-    if (0 == strcmp(tbase, "ns"))
+    if (tbase == "ns")
     {
         tunit = TRACER::VCDTracer::TimeUnit::ns;
     }
-    if (0 == strcmp(tbase, "ps"))
+    if (tbase == "ps")
     {
         tunit = TRACER::VCDTracer::TimeUnit::ps;
     }
-    if (0 == strcmp(tbase, "fs"))
+    if (tbase ==  "fs")
     {
         tunit = TRACER::VCDTracer::TimeUnit::fs;
     }
     if (TRACER::VCDTracer::TimeUnit::invalid == tunit)
     {
-        std::cout << "Invalid time base." << std::endl;
+        std::cout << "Invalid time base.\n";
         return -1;
     }
 
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
     std::ifstream file(log_file);
     if (!file)
     {
-        std::cout << "File " << log_file << " does not exist." << std::endl;
+        std::cout << "File " << log_file << " does not exist.\n";
         return -1;
     }
     std::string line;
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
         {
             if (true == is_verbose)
             {
-                std::cout << "Invalid log line " << valid_lines + invalid_lines << " : " << line << std::endl;
+                std::cout << "Invalid log line " << valid_lines + invalid_lines << " : " << line << '\n';
             }
             invalid_lines++;
         }
@@ -128,8 +128,8 @@ int main(int argc, char *argv[])
     VcdTrace.Dump();
 
     // Summary
-    std::cout << std::endl << "Parsed " << log_file << ": " << std::endl;
-    std::cout << "\t Valid lines:   " << valid_lines << std::endl;
-    std::cout << "\t Invalid lines: " << invalid_lines << std::endl;
+    std::cout << std::endl << "Parsed " << log_file << ": \n";
+    std::cout << "\t Valid lines:   " << valid_lines << '\n';
+    std::cout << "\t Invalid lines: " << invalid_lines << '\n';
 }
 

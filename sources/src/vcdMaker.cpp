@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
     VcdTrace.Dump();
 
     // Summary
-    std::cout << std::endl << "Parsed " << log_file << ": \n";
+    std::cout << '\n' << "Parsed " << log_file << ": \n";
     std::cout << "\t Valid lines:   " << valid_lines << '\n';
     std::cout << "\t Invalid lines: " << invalid_lines << '\n';
 }

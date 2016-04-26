@@ -28,43 +28,23 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include <bitset>
+
 #include "ISignal.h"
 
 std::string SIGNAL::ISignal::Print() const
 {
-    std::string vcd_value = "b";
+    const std::bitset<64> valueBits(m_Value);
+    const std::string valueBitStr =
+        valueBits.to_string().substr(valueBits.size() - m_Size);
 
-    for (int pos = m_Size - 1; pos >= 0; pos--)
-    {
-        if (m_Value & ((uint64_t)1 << pos))
-        {
-            vcd_value += "1";
-        }
-        else
-        {
-            vcd_value += "0";
-        }
-    }
-    vcd_value += " ";
-    vcd_value += m_Name;
-    vcd_value += "\n";
-
-    return vcd_value;
+    return "b" + valueBitStr + " " + m_Name + "\n";
 }
 
 std::string SIGNAL::ISignal::Footprint() const
 {
-    std::string vcd_value;
-    vcd_value = "b";
-    for (int pos = m_Size - 1; pos >= 0; pos--)
-    {
-        vcd_value += "x";
-    }
-    vcd_value += " ";
-    vcd_value += m_Name;
-    vcd_value += "\n";
-
-    return vcd_value;
+    const std::string sizeFootprint(m_Size, 'x');
+    return ("b" + sizeFootprint + " " + m_Name + "\n");
 }
 
 bool SIGNAL::ISignal::EqualTo(Signal const &other) const

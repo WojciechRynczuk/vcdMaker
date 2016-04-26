@@ -33,12 +33,12 @@
 #include "VCDTracer.h"
 
 /// Simplify outputting the VCD lines
-#define VCD_LINE(x) m_File << x << std::endl
+#define VCD_LINE(x) m_File << x << '\n'
 
 TRACER::VCDTracer::VCDTracer(std::string const &outputFile, TimeUnit::_TimeUnit tunit)
 {
     // Just open the output file
-    m_File.open(outputFile.c_str(), std::ifstream::out);
+    m_File.open(outputFile.c_str(), std::ifstream::out | std::ifstream::binary);
 
     // Set the time unit
     switch (tunit)
@@ -273,7 +273,7 @@ void TRACER::VCDTracer::DumpSignals(uint64_t timestamp)
                 m_LastSignalState[(*iter).second->GetName().c_str()] = (*iter).second;
                 if (0 == changes_present)
                 {
-                    m_File << "#" << timestamp << std::endl;
+                    m_File << "#" << timestamp << '\n';
                     changes_present = 1;
                 }
                 m_File << (*iter).second->Print();
@@ -298,7 +298,7 @@ void TRACER::VCDTracer::DumpSignals(uint64_t timestamp)
             m_LastSignalState[(*iter).second->GetName().c_str()] = (*iter).second;
             if (0 == changes_present)
             {
-                m_File << "#" << timestamp << std::endl;
+                m_File << "#" << timestamp << '\n';
                 changes_present = 1;
             }
             m_File << (*iter).second->Print();

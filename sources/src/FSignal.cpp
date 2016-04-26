@@ -28,37 +28,23 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <stdio.h>
+#include <sstream>
 
 #include "FSignal.h"
 
 std::string SIGNAL::FSignal::Print() const
 {
-    std::string vcd_value = "r";
-    char buffer[30];
+    std::stringstream conversionStream;
 
-    #ifdef WIN32
-    sprintf_s(buffer, 30, "%.16g", m_Value);
-    #else
-    snprintf(buffer, 30, "%.16g", m_Value);
-    #endif
-    vcd_value += buffer;
+    conversionStream.precision(16);
+    conversionStream << "r" << m_Value << ' ' << m_Name << '\n';
 
-    vcd_value += " ";
-    vcd_value += m_Name;
-    vcd_value += "\n";
-
-    return vcd_value;
+    return conversionStream.str();
 }
 
 std::string SIGNAL::FSignal::Footprint() const
 {
-    std::string vcd_value = "r0.0 ";
-
-    vcd_value += m_Name;
-    vcd_value += "\n";
-
-    return vcd_value;
+    return ("r0.0 " + m_Name + "\n");
 }
 
 bool SIGNAL::FSignal::EqualTo(Signal const &other) const

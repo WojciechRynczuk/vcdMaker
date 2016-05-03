@@ -29,15 +29,16 @@
 
 SIGNAL::Signal *CONSTRUCTION::FSignalCreator::Create(std::string &logLine)
 {
-    std::cmatch result;
-    SIGNAL::Signal *pSignal = nullptr;
-    if (true == std::regex_search(logLine.begin(), logLine.end(), m_SignalRegEx))
-    {
-        //Parse the log line
-        std::regex_search(logLine.c_str(), result, m_SignalRegEx);
+    std::smatch result;
 
-        //Create the signal object
-        pSignal = new SIGNAL::FSignal(result[2].str(), std::stoll(result[1].str()), std::stod(result[3].str()));
+    if (true == std::regex_search(logLine, result, m_SignalRegEx))
+    {
+        return new SIGNAL::FSignal(result[2].str(),
+                                   std::stoll(result[1].str()),
+                                   std::stod(result[3].str()));
     }
-    return pSignal;
+    else
+    {
+        return nullptr;
+    }
 }

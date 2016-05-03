@@ -62,7 +62,7 @@ namespace CLI
             /// Returns the value of the given parameter.
             ///
             /// Eg. for "-f" it could return the file name.
-            /// If not found, NULL is returned.
+            /// If not found, empty string is returned.
             ///
             /// @param param Parameter name.
             std::string GetParamValue(const std::string &param) const;

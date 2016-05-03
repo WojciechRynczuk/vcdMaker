@@ -67,10 +67,10 @@ SIGNAL::Signal *CONSTRUCTION::SignalFactory::Create(std::string &logLine)
     std::vector<SignalCreator *>::const_reverse_iterator rit;
 
     // Signal object pointer
-    SIGNAL::Signal *pSignal = NULL;
+    SIGNAL::Signal *pSignal = nullptr;
 
     // Try to use any of the available constructors
-    for (rit = m_vpSignalCreators.crbegin(); (rit != m_vpSignalCreators.crend()) && (pSignal == NULL); ++rit)
+    for (rit = m_vpSignalCreators.crbegin(); (rit != m_vpSignalCreators.crend()) && (pSignal == nullptr); ++rit)
     {
         pSignal = (*rit)->Create(logLine);
     }

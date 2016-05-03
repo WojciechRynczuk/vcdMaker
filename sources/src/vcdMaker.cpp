@@ -103,13 +103,13 @@ int main(int argc, char *argv[])
     CONSTRUCTION::SignalFactory signalFactory;
 
     // A signal
-    SIGNAL::Signal *pSignal = NULL;
+    SIGNAL::Signal *pSignal = nullptr;
 
     // Process the log file
     while (std::getline(file, line))
     {
         pSignal = signalFactory.Create(line);
-        if (pSignal != NULL)
+        if (pSignal != nullptr)
         {
             VcdTrace.Log(pSignal);
             valid_lines++;

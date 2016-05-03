@@ -56,15 +56,15 @@ namespace CONSTRUCTION
             /// The destructor.
             virtual ~SignalCreator() = 0;
 
-            /// Return the pointer to the newly created object or NULL.
+            /// Return the pointer to the newly created object or nullptr.
             ///
             /// It creates the integer signal object if the log line is valid and returns
             /// the pointer to the newly created object.
             /// If the log line is not matching the integer object specification
-            /// then NULL is returned.
+            /// then nullptr is returned.
             ///
             /// @param logLine The log line serving as the creation specification.
-            /// @return Signal pointer if the object has been created or NULL.
+            /// @return Signal pointer if the object has been created or nullptr.
             virtual SIGNAL::Signal *Create(std::string &logLine) = 0;
 
         protected:

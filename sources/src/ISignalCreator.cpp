@@ -30,7 +30,7 @@
 SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(std::string &logLine)
 {
     std::cmatch result;
-    SIGNAL::Signal *pSignal = NULL;
+    SIGNAL::Signal *pSignal = nullptr;
     if (true == std::regex_search(logLine.begin(), logLine.end(), m_SignalRegEx))
     {
         //Parse the log line

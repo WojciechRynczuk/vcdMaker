@@ -66,7 +66,7 @@ namespace CONSTRUCTION
             /// Creates the appropriate signal object.
             ///
             /// Returns the pointer to the appropriate signal object.
-            /// Or NULL if it couldn't be created.
+            /// Or nullptr if it couldn't be created.
             SIGNAL::Signal *Create(std::string &logLine);
 
         private:

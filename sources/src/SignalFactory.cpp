@@ -31,13 +31,6 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 
-// FORWARD REFERENCES
-// (none)
-
-//***************************************************************************
-// PUBLIC METHODS
-//***************************************************************************
-
 CONSTRUCTION::SignalFactory::SignalFactory()
 {
     // Create creators objects

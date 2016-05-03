@@ -30,7 +30,6 @@
 #include "SignalFactory.h"
 #include "CliParserImpl.h"
 
-
 ///  The vcdMaker main function.
 ///
 ///  @param argc Number of arguments.

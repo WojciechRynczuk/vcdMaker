@@ -51,7 +51,8 @@ namespace SIGNAL
             /// The name shall consist of any alphanumeric string in which the module's
             /// levels are separated with '.'.
             /// E.g. Module1.Level3.Variable6
-            ISignal(const std::string &name, size_t size, uint64_t timestamp, uint64_t value) : Signal(name, size, "wire"),
+            ISignal(const std::string &name, size_t size, uint64_t timestamp, uint64_t value) :
+                Signal(name, size, "wire"),
                 m_Value(value)
             {
                 m_Timestamp = timestamp;

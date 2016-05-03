@@ -49,7 +49,8 @@ namespace CONSTRUCTION
             ///
             /// The constructor initializes the regular expression member variable
             /// which will be matched against the log line.
-            SignalCreator(char *signalRegEx) : m_SignalRegEx(signalRegEx)
+            SignalCreator(char *signalRegEx) :
+                m_SignalRegEx(signalRegEx)
             {
             }
 

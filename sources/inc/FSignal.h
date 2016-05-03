@@ -51,7 +51,8 @@ namespace SIGNAL
             /// The name shall consist of any alphanumeric string in which the module's
             /// levels are separated with '.'.
             /// E.g. Module1.Level3.Variable6
-            FSignal(const std::string &name, uint64_t timestamp, double value) : Signal(name, 64, "real"),
+            FSignal(const std::string &name, uint64_t timestamp, double value) :
+                Signal(name, 64, "real"),
                 m_Value(value)
             {
                 m_Timestamp = timestamp;

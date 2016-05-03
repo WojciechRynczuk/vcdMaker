@@ -39,7 +39,8 @@ namespace CONSTRUCTION
         public:
 
             /// The real signal creator constructor.
-            FSignalCreator() : SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f.*$")
+            FSignalCreator() :
+                SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f.*$")
             {
             }
 

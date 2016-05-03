@@ -38,7 +38,8 @@ namespace CONSTRUCTION
     {
         public:
             /// The integer signal creator constructor.
-            ISignalCreator() : SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+).*$")
+            ISignalCreator() :
+                SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+).*$")
             {
             }
 

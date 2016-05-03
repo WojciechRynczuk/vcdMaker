@@ -36,7 +36,8 @@ namespace CLI
     {
         public:
             /// @copydoc CliParser::CliParser()
-            CliParserImpl(size_t argc, char **argv) : CliParser(argc, argv)
+            CliParserImpl(size_t argc, char **argv) :
+                CliParser(argc, argv)
             {
             }
 

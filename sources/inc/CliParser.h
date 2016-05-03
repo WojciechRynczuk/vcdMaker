@@ -52,7 +52,8 @@ namespace CLI
             ///
             /// @param argc Arguments count from main function.
             /// @param argv Arguments array from main function.
-            CliParser(size_t argc, char **argv) : m_Parameters(argv, argv + argc)
+            CliParser(size_t argc, char **argv) :
+                m_Parameters(argv, argv + argc)
             {
             }
 

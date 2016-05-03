@@ -66,13 +66,13 @@ namespace SIGNAL
             {
                 m_Timestamp = timestamp;
                 m_Value = value;
-            };
+            }
 
             /// Returns the signal's value.
             uint64_t GetValue() const
             {
                 return m_Value;
-            };
+            }
 
             /// @copydoc Signal::Print()
             virtual std::string Print() const;

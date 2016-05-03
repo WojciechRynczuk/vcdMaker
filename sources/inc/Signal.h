@@ -77,7 +77,7 @@ namespace SIGNAL
             Signal() = default;
 
             /// The descrucotor.
-            virtual ~Signal() = default;
+            virtual ~Signal() = 0;
 
             /// Returns the signal's name.
             ///
@@ -115,18 +115,12 @@ namespace SIGNAL
             /// Returns the signal's value as a string in the VCD format.
             ///
             /// The method is used while generating the body of the VCD file.
-            virtual std::string Print() const
-            {
-                return {};
-            }
+            virtual std::string Print() const = 0;
 
             /// Returns the signal's footprint as a string in the VCD format.
             ///
             /// The method is used while generating the header of the VCD file.
-            virtual std::string Footprint() const
-            {
-                return {};
-            }
+            virtual std::string Footprint() const = 0;
 
         protected:
 
@@ -136,10 +130,7 @@ namespace SIGNAL
             /// within the base class. It allows for comparing two signals of the same
             /// type. It is not important if it's greater or lesser. It is crucial to
             /// determine its change.
-            virtual bool EqualTo(Signal const &other) const
-            {
-                return 0;
-            }
+            virtual bool EqualTo(Signal const &other) const = 0;
 
             /// The signal's name.
             std::string m_Name{};
@@ -184,5 +175,7 @@ namespace SIGNAL
                 return (lhs->GetTimestamp() < rhs->GetTimestamp());
             }
     };
+
+    inline Signal::~Signal() = default;
 
 }

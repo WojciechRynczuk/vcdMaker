@@ -44,7 +44,7 @@ namespace CONSTRUCTION
             }
 
             /// @copydoc SignalCreator::Create()
-            SIGNAL::Signal *Create(std::string &logLine);
+            virtual SIGNAL::Signal *Create(std::string &logLine) const;
     };
 
 }

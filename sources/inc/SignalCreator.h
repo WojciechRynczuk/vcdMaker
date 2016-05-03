@@ -66,7 +66,7 @@ namespace CONSTRUCTION
             ///
             /// @param logLine The log line serving as the creation specification.
             /// @return Signal pointer if the object has been created or nullptr.
-            virtual SIGNAL::Signal *Create(std::string &logLine) = 0;
+            virtual SIGNAL::Signal *Create(std::string &logLine) const = 0;
 
         protected:
 

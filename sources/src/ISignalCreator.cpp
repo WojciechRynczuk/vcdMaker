@@ -27,7 +27,7 @@
 #include "ISignalCreator.h"
 #include "ISignal.h"
 
-SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(std::string &logLine)
+SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(std::string &logLine) const
 {
     std::smatch result;
 

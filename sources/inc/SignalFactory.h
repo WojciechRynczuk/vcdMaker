@@ -39,6 +39,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Signal.h"
 #include "SignalCreator.h"
@@ -55,13 +56,7 @@ namespace CONSTRUCTION
         public:
 
             /// The signal factory default constructor.
-            ///
-            /// The constructor initializes the basic signal's properties like the name,
-            /// the size and the type.
             SignalFactory();
-
-            /// The destructor.
-            ~SignalFactory();
 
             /// Creates the appropriate signal object.
             ///
@@ -72,7 +67,7 @@ namespace CONSTRUCTION
         private:
 
             /// The table of pointers to signal creators.
-            std::vector<SignalCreator *> m_vpSignalCreators;
+            std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
     };
 
 }

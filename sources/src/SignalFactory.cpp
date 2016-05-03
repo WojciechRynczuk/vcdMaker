@@ -31,41 +31,27 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 
-CONSTRUCTION::SignalFactory::SignalFactory()
+CONSTRUCTION::SignalFactory::SignalFactory() :
+    m_vpSignalCreators()
 {
-    // Create creators objects
-    ISignalCreator *iMaker = new ISignalCreator();
-    FSignalCreator *fMaker = new FSignalCreator();
-
     // Register creators
-    m_vpSignalCreators.push_back(iMaker);
-    m_vpSignalCreators.push_back(fMaker);
-};
-
-CONSTRUCTION::SignalFactory::~SignalFactory()
-{
-    // Creators iterator
-    std::vector<SignalCreator *>::const_reverse_iterator it;
-
-    //Destroy signal creators
-    for (it = m_vpSignalCreators.crbegin(); it != m_vpSignalCreators.crend(); ++it)
-    {
-        delete *it;
-    }
-};
+    m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
+    m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
+}
 
 SIGNAL::Signal *CONSTRUCTION::SignalFactory::Create(std::string &logLine)
 {
-    // Creators iterator
-    std::vector<SignalCreator *>::const_reverse_iterator rit;
-
-    // Signal object pointer
-    SIGNAL::Signal *pSignal = nullptr;
-
-    // Try to use any of the available constructors
-    for (rit = m_vpSignalCreators.crbegin(); (rit != m_vpSignalCreators.crend()) && (pSignal == nullptr); ++rit)
+    for (const auto &creator : m_vpSignalCreators)
     {
-        pSignal = (*rit)->Create(logLine);
+        // Try to use creator.
+        SIGNAL::Signal *pSignal = creator->Create(logLine);
+
+        // If successful return created Signal, if not try next one.
+        if (pSignal != nullptr)
+        {
+            return pSignal;
+        }
     }
-    return pSignal;
+
+    return nullptr;
 }

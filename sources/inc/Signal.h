@@ -166,8 +166,7 @@ namespace SIGNAL
 
             /// The overloaded == operator.
             ///
-            /// It is used to compare two signals of the same type so as to tell
-            /// if's changed or not.
+            /// Checks if two signal values are equal. Virtual EqualTo is used.
             friend bool operator == (const Signal &lsignal, const Signal &rsignal)
             {
                 return lsignal.EqualTo(rsignal);
@@ -175,7 +174,7 @@ namespace SIGNAL
 
             /// The overloaded != operator.
             ///
-            /// Not used but implemented to main the consistency with the == operator.
+            /// Checks if two signal values are not equal. Virtual EqualTo is used.
             friend bool operator != (const Signal &lsignal, const Signal &rsignal)
             {
                 return !lsignal.EqualTo(rsignal);

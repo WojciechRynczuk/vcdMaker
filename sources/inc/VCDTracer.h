@@ -95,10 +95,11 @@ namespace TRACER
         private:
 
             /// A type defining a container for pointers to Signal objects.
-            typedef std::multiset<const SIGNAL::Signal *, SIGNAL::Signal>  SignalCollectionT;
+            typedef std::multiset<const SIGNAL::Signal *,
+                                  SIGNAL::PtrTimestampLtComparator> SignalCollectionT;
 
             /// A type defining a state of signals.
-            typedef std::map<std::string, const SIGNAL::Signal *>  SignalStateT;
+            typedef std::map<std::string, const SIGNAL::Signal *> SignalStateT;
 
             /// Generates the VCD header.
             void GenerateHeader();

@@ -128,15 +128,6 @@ namespace SIGNAL
                 return {};
             }
 
-            /// The overloaded () operator.
-            ///
-            /// The () operator has to be overloaded so as the multiset container
-            /// could use pointers to the Signal class.
-            bool operator() (const Signal *signal1, const Signal *signal2) const
-            {
-                return signal1->m_Timestamp < signal2->m_Timestamp;
-            }
-
         protected:
 
             /// The signal comparison method.
@@ -180,6 +171,18 @@ namespace SIGNAL
                 return !lsignal.EqualTo(rsignal);
             }
 
+    };
+
+    /// Comparator for multiset.
+    ///
+    /// Checks if one signal's timestamp is lower than other signal's timestamp.
+    class PtrTimestampLtComparator
+    {
+        public:
+            bool operator()(const Signal *lhs, const Signal *rhs)
+            {
+                return (lhs->GetTimestamp() < rhs->GetTimestamp());
+            }
     };
 
 }

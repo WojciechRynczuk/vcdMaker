@@ -310,7 +310,7 @@ std::vector<std::string> TRACER::VCDTracer::SplitSignal(std::string name, const 
     return tokenized_string;
 }
 
-bool TRACER::VCDTracer::isTimeUnitValid(const std::string &timeUnit)
+bool TRACER::VCDTracer::IsTimeUnitValid(const std::string &timeUnit)
 {
     const std::array<std::string, 6> validTimeUnits = { "s", "ms", "us", "ns", "ps", "fs" };
 

@@ -76,7 +76,8 @@ namespace TRACER
             /// listing all signal changes.
             void Dump();
 
-            static bool isTimeUnitValid(const std::string &timeUnit);
+            /// Validates given time unit string.
+            static bool IsTimeUnitValid(const std::string &timeUnit);
 
         private:
 

@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 
     // Validate the time base.
     const std::string tbase = CLI.GetParamValue("-t");
-    if (!TRACER::VCDTracer::isTimeUnitValid(tbase))
+    if (!TRACER::VCDTracer::IsTimeUnitValid(tbase))
     {
         std::cout << "Invalid time base.\n";
         return -1;

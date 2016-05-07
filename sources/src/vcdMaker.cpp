@@ -44,62 +44,58 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // Get parameters' values
-    const std::string log_file = CLI.GetParamValue("-f");
-    const std::string vcd_file = CLI.GetParamValue("-o");
-    const std::string tbase = CLI.GetParamValue("-t");
-
-    // Check if the verbose mode has been enabled
-    bool is_verbose = CLI.CheckParam("-v");
-    uint32_t valid_lines = 0;
-    uint32_t invalid_lines = 0;
-
     // Validate the time base.
+    const std::string tbase = CLI.GetParamValue("-t");
     if (!TRACER::VCDTracer::isTimeUnitValid(tbase))
     {
         std::cout << "Invalid time base.\n";
         return -1;
     }
 
-    // Open the log file
-    std::ifstream file(log_file);
-    if (!file)
+    // Open the log file.
+    const std::string log_file = CLI.GetParamValue("-f");
+    std::ifstream input_file(log_file);
+    if (!input_file)
     {
         std::cout << "File " << log_file << " does not exist.\n";
         return -1;
     }
-    std::string line;
 
-    // Create VCD tracer
-    TRACER::VCDTracer  VcdTrace(vcd_file, tbase);
+    // Check if the verbose mode has been enabled.
+    const bool is_verbose = CLI.CheckParam("-v");
 
-    // Create the signal factory
-    CONSTRUCTION::SignalFactory signalFactory;
+    // Create VCD tracer.
+    const std::string vcd_file = CLI.GetParamValue("-o");
+    TRACER::VCDTracer vcd_trace(vcd_file, tbase);
 
-    // A signal
-    SIGNAL::Signal *pSignal = nullptr;
+    // Create the signal factory.
+    const CONSTRUCTION::SignalFactory signal_factory;
 
-    // Process the log file
-    while (std::getline(file, line))
+    // Process the log file.
+    uint32_t valid_lines = 0;
+    uint32_t invalid_lines = 0;
+
+    std::string input_line;
+    while (std::getline(input_file, input_line))
     {
-        pSignal = signalFactory.Create(line);
-        if (pSignal != nullptr)
+        SIGNAL::Signal *signal = signal_factory.Create(input_line);
+        if (signal)
         {
-            VcdTrace.Log(pSignal);
+            vcd_trace.Log(signal);
             valid_lines++;
         }
         else
         {
-            if (true == is_verbose)
+            if (is_verbose)
             {
-                std::cout << "Invalid log line " << valid_lines + invalid_lines << " : " << line << '\n';
+                std::cout << "Invalid log line " << valid_lines + invalid_lines << ": " << input_line << '\n';
             }
-            invalid_lines++;
+            ++invalid_lines;
         }
     }
 
     // Create the VCD file
-    VcdTrace.Dump();
+    vcd_trace.Dump();
 
     // Summary
     std::cout << '\n' << "Parsed " << log_file << ": \n";

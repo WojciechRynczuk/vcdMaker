@@ -52,20 +52,9 @@ namespace SIGNAL
             /// levels are separated with '.'.
             /// E.g. Module1.Level3.Variable6
             ISignal(const std::string &name, size_t size, uint64_t timestamp, uint64_t value) :
-                Signal(name, size, "wire"),
+                Signal(name, size, timestamp, "wire"),
                 m_Value(value)
             {
-                m_Timestamp = timestamp;
-            }
-
-            /// Sets the signal's value.
-            ///
-            /// Sets the signal's value and the timestamp indicating when the change
-            /// occured.
-            void SetValue(uint64_t timestamp, uint64_t value)
-            {
-                m_Timestamp = timestamp;
-                m_Value = value;
             }
 
             /// Returns the signal's value.

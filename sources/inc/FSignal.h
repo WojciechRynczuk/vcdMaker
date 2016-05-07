@@ -52,20 +52,9 @@ namespace SIGNAL
             /// levels are separated with '.'.
             /// E.g. Module1.Level3.Variable6
             FSignal(const std::string &name, uint64_t timestamp, double value) :
-                Signal(name, 64, "real"),
+                Signal(name, 64, timestamp, "real"),
                 m_Value(value)
             {
-                m_Timestamp = timestamp;
-            }
-
-            /// Sets the signal's value.
-            ///
-            /// Sets the signal's value and the timestamp indicating when the change
-            /// occured.
-            void SetValue(uint64_t timestamp, double value)
-            {
-                m_Timestamp = timestamp;
-                m_Value = value;
             }
 
             /// Returns the signal's value.

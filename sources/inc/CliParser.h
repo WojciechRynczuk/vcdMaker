@@ -99,7 +99,7 @@ namespace CLI
         private:
 
             /// Parameters vector
-            std::vector<std::string> m_Parameters;
+            const std::vector<std::string> m_Parameters;
     };
 
     inline CliParser::~CliParser() = default;

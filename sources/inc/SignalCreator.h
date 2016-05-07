@@ -71,7 +71,7 @@ namespace CONSTRUCTION
         protected:
 
             /// The RegEx matching the signal description.
-            std::regex m_SignalRegEx;
+            const std::regex m_SignalRegEx;
     };
 
     inline SignalCreator::~SignalCreator() = default;

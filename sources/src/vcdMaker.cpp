@@ -55,32 +55,7 @@ int main(int argc, char *argv[])
     uint32_t invalid_lines = 0;
 
     // Validate the time base.
-    TRACER::VCDTracer::TimeUnit tunit = TRACER::VCDTracer::TimeUnit::invalid;
-    if (tbase == "s")
-    {
-        tunit = TRACER::VCDTracer::TimeUnit::s;
-    }
-    if (tbase == "ms")
-    {
-        tunit = TRACER::VCDTracer::TimeUnit::ms;
-    }
-    if (tbase == "us")
-    {
-        tunit = TRACER::VCDTracer::TimeUnit::us;
-    }
-    if (tbase == "ns")
-    {
-        tunit = TRACER::VCDTracer::TimeUnit::ns;
-    }
-    if (tbase == "ps")
-    {
-        tunit = TRACER::VCDTracer::TimeUnit::ps;
-    }
-    if (tbase ==  "fs")
-    {
-        tunit = TRACER::VCDTracer::TimeUnit::fs;
-    }
-    if (TRACER::VCDTracer::TimeUnit::invalid == tunit)
+    if (!TRACER::VCDTracer::isTimeUnitValid(tbase))
     {
         std::cout << "Invalid time base.\n";
         return -1;
@@ -96,7 +71,7 @@ int main(int argc, char *argv[])
     std::string line;
 
     // Create VCD tracer
-    TRACER::VCDTracer  VcdTrace(vcd_file, tunit);
+    TRACER::VCDTracer  VcdTrace(vcd_file, tbase);
 
     // Create the signal factory
     CONSTRUCTION::SignalFactory signalFactory;

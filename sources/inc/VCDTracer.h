@@ -57,23 +57,11 @@ namespace TRACER
     {
         public:
 
-            /// This enumeration defines time units in which signals are timestamped.
-            enum class TimeUnit
-            {
-                s,
-                ms,
-                us,
-                ns,
-                ps,
-                fs,
-                invalid
-            };
-
             /// The VCDTracer constructor.
             ///
             /// @param outputFile Name of the output VCD file.
             /// @param tunit Selection of time units in which logged signals are timestamped.
-            VCDTracer(std::string const &outputFile, TimeUnit tunit);
+            VCDTracer(const std::string &outputFile, const std::string &timeUnit);
 
             /// Logs a signal.
             ///
@@ -87,6 +75,8 @@ namespace TRACER
             /// Funcgtion creates the header of the VCF file as well as the body
             /// listing all signal changes.
             void Dump();
+
+            static bool isTimeUnitValid(const std::string &timeUnit);
 
         private:
 

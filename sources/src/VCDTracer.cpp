@@ -29,42 +29,21 @@
 /// IN THE SOFTWARE.
 
 #include <iostream>
+#include <array>
+#include <algorithm>
 
 #include "VCDTracer.h"
 
 /// Simplify outputting the VCD lines
 #define VCD_LINE(x) m_File << x << '\n'
 
-TRACER::VCDTracer::VCDTracer(std::string const &outputFile, TimeUnit tunit)
+TRACER::VCDTracer::VCDTracer(const std::string &outputFile, const std::string &timeUnit) :
+    m_File(outputFile, std::ifstream::out | std::ifstream::binary),
+    m_TimeUnit(timeUnit),
+    m_SignalState(),
+    m_LastSignalState(),
+    m_SignalSet()
 {
-    // Just open the output file
-    m_File.open(outputFile.c_str(), std::ifstream::out | std::ifstream::binary);
-
-    // Set the time unit
-    switch (tunit)
-    {
-        case TimeUnit::s:
-            m_TimeUnit = "s";
-            break;
-        case TimeUnit::ms:
-            m_TimeUnit = "ms";
-            break;
-        case TimeUnit::us:
-            m_TimeUnit = "us";
-            break;
-        case TimeUnit::ns:
-            m_TimeUnit = "ns";
-            break;
-        case TimeUnit::ps:
-            m_TimeUnit = "ps";
-            break;
-        case TimeUnit::fs:
-            m_TimeUnit = "fs";
-            break;
-        default:
-            m_TimeUnit = "s";
-            break;
-    }
 }
 
 void TRACER::VCDTracer::Log(const SIGNAL::Signal *signal)
@@ -329,4 +308,11 @@ std::vector<std::string> TRACER::VCDTracer::SplitSignal(std::string name, const 
         tokenized_string.push_back(word);
     }
     return tokenized_string;
+}
+
+bool TRACER::VCDTracer::isTimeUnitValid(const std::string &timeUnit)
+{
+    const std::array<std::string, 6> validTimeUnits = { "s", "ms", "us", "ns", "ps", "fs" };
+
+    return (std::find(validTimeUnits.begin(), validTimeUnits.end(), timeUnit) != validTimeUnits.end());
 }

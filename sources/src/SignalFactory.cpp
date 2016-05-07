@@ -39,7 +39,7 @@ CONSTRUCTION::SignalFactory::SignalFactory() :
     m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
 }
 
-SIGNAL::Signal *CONSTRUCTION::SignalFactory::Create(std::string &logLine)
+SIGNAL::Signal *CONSTRUCTION::SignalFactory::Create(std::string &logLine) const
 {
     for (const auto &creator : m_vpSignalCreators)
     {

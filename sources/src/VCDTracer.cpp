@@ -35,7 +35,7 @@
 /// Simplify outputting the VCD lines
 #define VCD_LINE(x) m_File << x << '\n'
 
-TRACER::VCDTracer::VCDTracer(std::string const &outputFile, TimeUnit::_TimeUnit tunit)
+TRACER::VCDTracer::VCDTracer(std::string const &outputFile, TimeUnit tunit)
 {
     // Just open the output file
     m_File.open(outputFile.c_str(), std::ifstream::out | std::ifstream::binary);

@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     uint32_t invalid_lines = 0;
 
     // Validate the time base.
-    TRACER::VCDTracer::TimeUnit::_TimeUnit tunit = TRACER::VCDTracer::TimeUnit::invalid;
+    TRACER::VCDTracer::TimeUnit tunit = TRACER::VCDTracer::TimeUnit::invalid;
     if (tbase == "s")
     {
         tunit = TRACER::VCDTracer::TimeUnit::s;

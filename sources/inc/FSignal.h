@@ -78,7 +78,10 @@ namespace SIGNAL
             virtual std::string Print() const;
 
             /// @copydoc Signal::Footprint()
-            virtual std::string Footprint() const;
+            virtual std::string Footprint() const
+            {
+                return ("r0.0 " + m_Name + "\n");
+            }
 
         protected:
 

@@ -42,11 +42,6 @@ std::string SIGNAL::FSignal::Print() const
     return conversionStream.str();
 }
 
-std::string SIGNAL::FSignal::Footprint() const
-{
-    return ("r0.0 " + m_Name + "\n");
-}
-
 bool SIGNAL::FSignal::EqualTo(Signal const &other) const
 {
     if (FSignal const *p = dynamic_cast<FSignal const *>(&other))

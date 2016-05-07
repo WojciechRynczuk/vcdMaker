@@ -34,9 +34,6 @@
 
 #include "VCDTracer.h"
 
-/// Simplify outputting the VCD lines
-#define VCD_LINE(x) m_File << x << '\n'
-
 TRACER::VCDTracer::VCDTracer(const std::string &outputFile, const std::string &timeUnit) :
     m_File(outputFile, std::ifstream::out | std::ifstream::binary),
     m_TimeUnit(timeUnit),
@@ -75,12 +72,12 @@ void TRACER::VCDTracer::GenerateHeader()
 
 void TRACER::VCDTracer::GenerateBasicInformation()
 {
-    VCD_LINE("$date December 8, 2014 14:15:00");
-    VCD_LINE("$end");
-    VCD_LINE("$version VCD Tracer \"Matylda\" Release v.1.0.1");
-    VCD_LINE("$end");
-    VCD_LINE("$timescale 1 " + m_TimeUnit);
-    VCD_LINE("$end");
+    DumpLine("$date December 8, 2014 14:15:00");
+    DumpLine("$end");
+    DumpLine("$version VCD Tracer \"Matylda\" Release v.1.0.1");
+    DumpLine("$end");
+    DumpLine("$timescale 1 " + m_TimeUnit);
+    DumpLine("$end");
 }
 
 void TRACER::VCDTracer::GenerateSignalStructure()
@@ -109,7 +106,7 @@ void TRACER::VCDTracer::GenerateSignalStructure()
                     while (pos != level)
                     {
                         vline = indents.back() + "$upscope $end";
-                        VCD_LINE(vline);
+                        DumpLine(vline);
                         structure.pop_back();
                         indents.pop_back();
                         level--;
@@ -124,7 +121,7 @@ void TRACER::VCDTracer::GenerateSignalStructure()
                     structure.push_back(signals[pos]);
                     indents.push_back(indent);
                     level++;
-                    VCD_LINE(vline);
+                    DumpLine(vline);
                 }
             }
             else
@@ -138,14 +135,14 @@ void TRACER::VCDTracer::GenerateSignalStructure()
                 structure.push_back(signals[pos]);
                 indents.push_back(indent);
                 level++;
-                VCD_LINE(vline);
+                DumpLine(vline);
             }
         }
 
         while ((signals.size() - 1) != level)
         {
             vline = indents.back() + "$upscope $end";
-            VCD_LINE(vline);
+            DumpLine(vline);
             structure.pop_back();
             indents.pop_back();
             level--;
@@ -155,13 +152,13 @@ void TRACER::VCDTracer::GenerateSignalStructure()
         vline = indents.back() + "\t" + "$var " + it->second->GetType() + " " + \
                 std::to_string(it->second->GetSize()) + " " + it->second->GetName() + \
                 " " + signals[pos] + " $end";
-        VCD_LINE(vline);
+        DumpLine(vline);
     }
 
     while (0 != level)
     {
         vline = indents.back() + "$upscope $end";
-        VCD_LINE(vline);
+        DumpLine(vline);
         structure.pop_back();
         indents.pop_back();
         level--;
@@ -170,12 +167,12 @@ void TRACER::VCDTracer::GenerateSignalStructure()
 
 void TRACER::VCDTracer::GenerateSignalDefaults()
 {
-    VCD_LINE("$dumpvars");
+    DumpLine("$dumpvars");
     for (SignalStateT::iterator it = m_SignalState.begin(); it != m_SignalState.end(); ++it)
     {
         m_File << it->second->Footprint();
     }
-    VCD_LINE("$end");
+    DumpLine("$end");
 
     // Refresh the current state of signals
     m_SignalState.clear();

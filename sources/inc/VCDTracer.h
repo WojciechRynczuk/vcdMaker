@@ -115,6 +115,12 @@ namespace TRACER
             /// Dumps signals states with the given timestamp.
             void DumpSignals(uint64_t timestamp);
 
+            /// Write on line to output file.
+            void DumpLine(const std::string &line)
+            {
+                m_File << line << '\n';
+            }
+
             /// Splits the signal name into fields.
             /// The module, the sub-module and the signal name must
             /// be separated by a single '.'.

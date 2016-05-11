@@ -168,11 +168,10 @@ namespace SIGNAL
     };
 
     /// Comparator for multiset.
-    ///
-    /// Checks if one signal's timestamp is lower than other signal's timestamp.
     class PtrTimestampLtComparator
     {
         public:
+            /// Checks if one signal's timestamp is lower than other signal's timestamp.
             bool operator()(const Signal *lhs, const Signal *rhs)
             {
                 return (lhs->GetTimestamp() < rhs->GetTimestamp());

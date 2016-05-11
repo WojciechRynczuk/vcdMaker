@@ -60,7 +60,7 @@ namespace TRACER
             /// The VCDTracer constructor.
             ///
             /// @param outputFile Name of the output VCD file.
-            /// @param tunit Selection of time units in which logged signals are timestamped.
+            /// @param timeUnit Selection of time units in which logged signals are timestamped.
             VCDTracer(const std::string &outputFile, const std::string &timeUnit);
 
             /// Logs a signal.

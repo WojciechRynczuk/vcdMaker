@@ -1,36 +1,37 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='vcdMaker 1.0' Id='0E0B8006-8388-4DC6-B2A2-1EA0E6A954B7' UpgradeCode='3A563016-E31D-4D93-A36B-105420BA6E57'
-    Language='1033' Codepage='1252' Version='1.0.1' Manufacturer='Wojciech Rynczuk'>
+  <Product Name='vcdMaker 2.0' Id='E11FE905-A80F-4764-B77C-AC7EADDF98CE' UpgradeCode='4D660398-6AB3-4B41-BD90-D77581B91A89'
+    Language='1033' Codepage='1252' Version='2.0.1' Manufacturer='Wojciech Rynczuk'>
 
     <Package Id='*' Keywords='vcdMaker Installer'
-      Description="vcdMaker 1.0 Installer"
+      Description="vcdMaker 2.0 Installer"
       Comments='vcdMaker Package' Manufacturer='Wojciech Rynczuk'
       InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
     <Media Id='1' Cabinet='Install.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="vcdMaker 1.0 Installation [1]" />
+    <Property Id='DiskPrompt' Value="vcdMaker 2.0 Installation [1]" />
+    <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
         <Directory Id='INSTALLDIR' Name='vcdMaker'>
 
-          <Component Id='vcdMakerExecutable' Guid='CF176F63-6DA4-45A6-837B-CD1AFF3F5C12'>
+          <Component Id='vcdMakerExecutable' Guid='5A12ED7E-8977-44D3-BB79-70B7130718F2'>
             <Environment Id='UpdatePath' Name='PATH' Action='set' Permanent='no' System='no' Part='last' Value='[INSTALLDIR]' />
             <File Id='vcdMakerEXE' Name='$(var.vcdMaker.TargetFileName)' DiskId='1' Source='$(var.vcdMaker.TargetPath)' KeyPath='yes'>
             </File>
           </Component>
 
-          <Component Id='vcdMakerManual' Guid='82B593FF-F018-4D28-87F3-A253FE5D4F7D'>
+          <Component Id='vcdMakerManual' Guid='F3A2D8F6-2FE0-4CE9-9A67-C41BBF3F5824'>
             <File Id="ManualPdf" Name="Manual.pdf" Source="$(var.SolutionDir)..\..\sources\doc\manual.pdf" KeyPath='yes'>
-              <Shortcut Id="vcdMakerManual.ico" Directory="ProgramMenuDir" Name="vcdMaker 1.0 Manual" WorkingDirectory='INSTALLDIR' Icon="IconPdf.ico" IconIndex="0" Advertise="yes" />
+              <Shortcut Id="vcdMakerManualLnk" Directory="ProgramMenuDir" Name="vcdMaker 2.0 Manual" WorkingDirectory='INSTALLDIR' IconIndex="0" Advertise="yes" />
             </File>
           </Component>
           
           <Directory Id='SampleDir' Name='samples'>
-            <Component Id='SampleFiles' Guid='C87B5829-C991-4527-9D16-3507C907395F'>
+            <Component Id='SampleFiles' Guid='00CB08B4-C7F5-4CCD-AF3F-854F68138B68'>
               <File Id="SampleTtx" Name="example.txt" Source="$(var.SolutionDir)..\..\sources\doc\examples\example.txt" KeyPath='yes'></File>
               <File Id="SampleVcd" Name="example.vcd" Source="$(var.SolutionDir)..\..\sources\doc\examples\example.vcd"></File>
             </Component>
@@ -40,8 +41,8 @@
       </Directory>
 
       <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="vcdMaker 1.0">
-          <Component Id="ProgramMenuDir" Guid="FE343CAE-C7B4-47DF-B133-FAAC5F90F2DF">
+        <Directory Id="ProgramMenuDir" Name="vcdMaker 2.0">
+          <Component Id="ProgramMenuDir" Guid="8CE0301F-EEC9-4696-B0E8-74F9C1942495">
             <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
             <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
           </Component>
@@ -51,7 +52,7 @@
     <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
 
-    <Feature Id='MainProgram' Title='vcdMaker 1.0' Description='The vcdMaker package.' Level='1'>
+    <Feature Id='MainProgram' Title='vcdMaker 2.0' Description='The vcdMaker package.' Level='1'>
       <ComponentRef Id='vcdMakerExecutable' />
       <ComponentRef Id='vcdMakerManual' />
       <ComponentRef Id='SampleFiles' />
@@ -62,8 +63,6 @@
     <UIRef Id="WixUI_InstallDir" />
     
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)\resources\license.rtf" />
-
-    <Icon Id="IconPdf.ico" SourceFile="$(var.SolutionDir)\resources\pdf.ico" />
 
   </Product>
 </Wix>

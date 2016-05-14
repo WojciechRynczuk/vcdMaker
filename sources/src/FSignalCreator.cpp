@@ -27,7 +27,7 @@
 #include "FSignalCreator.h"
 #include "FSignal.h"
 
-SIGNAL::Signal *CONSTRUCTION::FSignalCreator::Create(std::string &logLine) const
+SIGNAL::Signal *CONSTRUCTION::FSignalCreator::Create(const std::string &logLine) const
 {
     std::smatch result;
 

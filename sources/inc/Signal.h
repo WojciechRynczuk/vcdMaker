@@ -68,9 +68,9 @@ namespace SIGNAL
             /// the type of the signal and shall equal to "wire" or "real".
             Signal(const std::string &name, size_t size, uint64_t timestamp, const std::string &type) :
                 m_Name(name),
+                m_Type(type),
                 m_Size(size),
-                m_Timestamp(timestamp),
-                m_Type(type)
+                m_Timestamp(timestamp)
             {
             }
 

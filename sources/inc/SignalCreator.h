@@ -49,7 +49,7 @@ namespace CONSTRUCTION
             ///
             /// The constructor initializes the regular expression member variable
             /// which will be matched against the log line.
-            SignalCreator(char *signalRegEx) :
+            SignalCreator(const std::string &signalRegEx) :
                 m_SignalRegEx(signalRegEx)
             {
             }
@@ -66,7 +66,7 @@ namespace CONSTRUCTION
             ///
             /// @param logLine The log line serving as the creation specification.
             /// @return Signal pointer if the object has been created or nullptr.
-            virtual SIGNAL::Signal *Create(std::string &logLine) const = 0;
+            virtual SIGNAL::Signal *Create(const std::string &logLine) const = 0;
 
         protected:
 

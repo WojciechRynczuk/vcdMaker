@@ -37,6 +37,7 @@ set(SOURCES
     ${SOURCES_DIR}/ISignal.cpp
     ${SOURCES_DIR}/ISignalCreator.cpp
     ${SOURCES_DIR}/SignalFactory.cpp
+    ${SOURCES_DIR}/Signal.cpp
     ${SOURCES_DIR}/vcdMaker.cpp
     ${SOURCES_DIR}/VCDTracer.cpp)
 

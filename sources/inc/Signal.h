@@ -40,6 +40,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 
 namespace SIGNAL
 {
@@ -51,6 +52,12 @@ namespace SIGNAL
     class Signal
     {
         public:
+            /// A type for splited signal name fields.
+            using SignalNameFieldsT = std::vector<std::string>;
+
+            /// Signal name components delimeter.
+            static const char SIGNAL_NAME_DELIM = '.';
+
             /// The signal constructor.
             ///
             /// This constructor shall be used by the iheriting classes.
@@ -90,6 +97,12 @@ namespace SIGNAL
             {
                 return m_Name;
             }
+
+            /// Returns signal name splited into fields.
+            ///
+            /// The module, the sub-module and the signal name must
+            /// be separated by a single '.'.
+            SignalNameFieldsT GetNameFields() const;
 
             /// Returns the signal's size in bits.
             ///

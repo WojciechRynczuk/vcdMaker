@@ -92,7 +92,7 @@ void TRACER::VCDTracer::GenerateSignalStructure()
     for (SignalStateT::iterator it = m_SignalState.begin(); it != m_SignalState.end(); ++it)
     {
         // Split the signal name into the path elements
-        std::vector<std::string> signals = SplitSignal(it->second->GetName(), '.');
+        SIGNAL::Signal::SignalNameFieldsT signals = it->second->GetNameFields();
 
         uint32_t pos = 0;
         // Create the current structure
@@ -281,30 +281,6 @@ void TRACER::VCDTracer::DumpSignals(uint64_t timestamp)
             m_SignalState.erase(iter++);
         }
     }
-}
-
-std::vector<std::string> TRACER::VCDTracer::SplitSignal(std::string name, const char delim)
-{
-    std::vector<std::string> tokenized_string;
-    std::string word;
-
-    for (std::string::const_iterator i = name.begin(); i < name.end(); ++i)
-    {
-        if (*i != delim)
-        {
-            word += *i;
-        }
-        else
-        {
-            tokenized_string.push_back(word);
-            word = "";
-        }
-    }
-    if (word.size() != 0)
-    {
-        tokenized_string.push_back(word);
-    }
-    return tokenized_string;
 }
 
 bool TRACER::VCDTracer::IsTimeUnitValid(const std::string &timeUnit)

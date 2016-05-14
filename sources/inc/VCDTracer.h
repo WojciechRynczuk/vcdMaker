@@ -121,11 +121,6 @@ namespace TRACER
                 m_File << line << '\n';
             }
 
-            /// Splits the signal name into fields.
-            /// The module, the sub-module and the signal name must
-            /// be separated by a single '.'.
-            std::vector<std::string> SplitSignal(std::string name, const char delim);
-
             /// The VCD output file.
             std::ofstream m_File;
 

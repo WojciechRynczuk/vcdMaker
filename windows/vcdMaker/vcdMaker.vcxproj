@@ -96,6 +96,7 @@
     <ClCompile Include="..\..\sources\src\FSignalCreator.cpp" />
     <ClCompile Include="..\..\sources\src\ISignal.cpp" />
     <ClCompile Include="..\..\sources\src\ISignalCreator.cpp" />
+    <ClCompile Include="..\..\sources\src\Signal.cpp" />
     <ClCompile Include="..\..\sources\src\SignalFactory.cpp" />
     <ClCompile Include="..\..\sources\src\vcdMaker.cpp" />
     <ClCompile Include="..\..\sources\src\VCDTracer.cpp" />

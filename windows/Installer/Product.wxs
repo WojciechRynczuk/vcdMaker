@@ -5,11 +5,11 @@
 
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='vcdMaker $(var.ProductVersionInfo)' Id='E11FE905-A80F-4764-B77C-AC7EADDF98CE' UpgradeCode='$(var.UpgradeCode)'
-    Language='1033' Codepage='1252' Version='$(var.ProductVersion)' Manufacturer='Wojciech Rynczuk'>
+    Language='1033' Codepage='1252' Version='$(var.ProductVersion)' Manufacturer='vcdMaker team'>
 
     <Package Id='*' Keywords='vcdMaker Installer'
       Description="vcdMaker $(var.ProductVersionInfo) Installer"
-      Comments='vcdMaker Package' Manufacturer='Wojciech Rynczuk'
+      Comments='vcdMaker Package' Manufacturer='vcdMaker team'
       InstallerVersion='200' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed. Setup will now exit." />

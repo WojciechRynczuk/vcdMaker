@@ -33,6 +33,7 @@
 #include <algorithm>
 
 #include "VCDTracer.h"
+#include "SignalStructureBuilder.h"
 
 TRACER::VCDTracer::VCDTracer(const std::string &outputFile, const std::string &timeUnit) :
     m_File(outputFile, std::ifstream::out | std::ifstream::binary),
@@ -82,87 +83,8 @@ void TRACER::VCDTracer::GenerateBasicInformation()
 
 void TRACER::VCDTracer::GenerateSignalStructure()
 {
-    std::vector<std::string> structure; // Tokenized signal
-    std::vector<std::string> indents;   // Indents stack
-    std::string vline = ""; // VCD line
-    std::string indent = ""; // Indent tabs
-    uint32_t    level = 0;  // Indent level
-
-    // Iterate through the all collected signals
-    for (SignalStateT::iterator it = m_SignalState.begin(); it != m_SignalState.end(); ++it)
-    {
-        // Split the signal name into the path elements
-        SIGNAL::Signal::SignalNameFieldsT signals = it->second->GetNameFields();
-
-        uint32_t pos = 0;
-        // Create the current structure
-        for (pos = 0; pos < signals.size() - 1; pos++)
-        {
-            if (pos < level)
-            {
-                if (signals[pos] != structure[pos])
-                {
-                    // Roll down the existing structure and create the new one
-                    while (pos != level)
-                    {
-                        vline = indents.back() + "$upscope $end";
-                        DumpLine(vline);
-                        structure.pop_back();
-                        indents.pop_back();
-                        level--;
-                    }
-
-                    // Add new element to the structure
-                    if (indents.size() > 0)
-                    {
-                        indent = indents.back() + "\t";
-                    }
-                    vline = indent + "$scope module " + signals[pos] + " $end";
-                    structure.push_back(signals[pos]);
-                    indents.push_back(indent);
-                    level++;
-                    DumpLine(vline);
-                }
-            }
-            else
-            {
-                // Add new element to the structure
-                if (indents.size() > 0 )
-                {
-                    indent = indents.back() + "\t";
-                }
-                vline = indent + "$scope module " + signals[pos] + " $end";
-                structure.push_back(signals[pos]);
-                indents.push_back(indent);
-                level++;
-                DumpLine(vline);
-            }
-        }
-
-        while ((signals.size() - 1) != level)
-        {
-            vline = indents.back() + "$upscope $end";
-            DumpLine(vline);
-            structure.pop_back();
-            indents.pop_back();
-            level--;
-        }
-
-        // Add the signal
-        vline = indents.back() + "\t" + "$var " + it->second->GetType() + " " + \
-                std::to_string(it->second->GetSize()) + " " + it->second->GetName() + \
-                " " + signals[pos] + " $end";
-        DumpLine(vline);
-    }
-
-    while (0 != level)
-    {
-        vline = indents.back() + "$upscope $end";
-        DumpLine(vline);
-        structure.pop_back();
-        indents.pop_back();
-        level--;
-    }
+    SignalStructureBuilder structure_builder(m_SignalState, m_File);
+    structure_builder.Dump();
 }
 
 void TRACER::VCDTracer::GenerateSignalDefaults()

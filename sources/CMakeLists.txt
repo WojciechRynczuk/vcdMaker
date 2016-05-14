@@ -37,6 +37,7 @@ set(SOURCES
     ${SOURCES_DIR}/ISignal.cpp
     ${SOURCES_DIR}/ISignalCreator.cpp
     ${SOURCES_DIR}/SignalFactory.cpp
+	${SOURCES_DIR}/SignalStructureBuilder.cpp
     ${SOURCES_DIR}/Signal.cpp
     ${SOURCES_DIR}/vcdMaker.cpp
     ${SOURCES_DIR}/VCDTracer.cpp)
@@ -53,6 +54,7 @@ set(HEADERS
     ${HEADERS_DIR}/ISignal.h
     ${HEADERS_DIR}/SignalCreator.h
     ${HEADERS_DIR}/SignalFactory.h
+	${SOURCES_DIR}/SignalStructureBuilder.h
     ${HEADERS_DIR}/Signal.h
     ${HEADERS_DIR}/VCDTracer.h)
 

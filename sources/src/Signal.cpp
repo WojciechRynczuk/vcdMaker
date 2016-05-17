@@ -1,8 +1,12 @@
-/// @file FSignalCreator.h
+/// @file Signal.cpp
 ///
-/// The real signal creator.
+/// The base VCD signal class.
 ///
-/// @ingroup Construction
+/// @par Full Description
+/// The base signal class contains the common signal properties and
+/// methods.
+///
+/// @ingroup Signal
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -24,21 +28,19 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "FSignalCreator.h"
-#include "FSignal.h"
+#include <sstream>
 
-SIGNAL::Signal *CONSTRUCTION::FSignalCreator::Create(const std::string &logLine) const
+#include "Signal.h"
+
+SIGNAL::Signal::SignalNameFieldsT SIGNAL::Signal::GetNameFields() const
 {
-    std::smatch result;
+    SignalNameFieldsT name_fields;
+    std::stringstream name_stream(m_Name);
+    std::string name_field;
 
-    if (true == std::regex_search(logLine, result, m_SignalRegEx))
-    {
-        return new SIGNAL::FSignal(result[2].str(),
-                                   std::stoll(result[1].str()),
-                                   std::stod(result[3].str()));
+    while (std::getline(name_stream, name_field, SIGNAL_NAME_DELIM)) {
+        name_fields.push_back(name_field);
     }
-    else
-    {
-        return nullptr;
-    }
+
+    return name_fields;
 }

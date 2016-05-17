@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 Wojciech Rynczuk
+/// @par Copyright (c) 2016 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -40,6 +40,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 
 namespace SIGNAL
 {
@@ -51,6 +52,12 @@ namespace SIGNAL
     class Signal
     {
         public:
+            /// A type for splited signal name fields.
+            using SignalNameFieldsT = std::vector<std::string>;
+
+            /// Signal name components delimeter.
+            static const char SIGNAL_NAME_DELIM = '.';
+
             /// The signal constructor.
             ///
             /// This constructor shall be used by the iheriting classes.
@@ -68,9 +75,9 @@ namespace SIGNAL
             /// the type of the signal and shall equal to "wire" or "real".
             Signal(const std::string &name, size_t size, uint64_t timestamp, const std::string &type) :
                 m_Name(name),
+                m_Type(type),
                 m_Size(size),
-                m_Timestamp(timestamp),
-                m_Type(type)
+                m_Timestamp(timestamp)
             {
             }
 
@@ -90,6 +97,12 @@ namespace SIGNAL
             {
                 return m_Name;
             }
+
+            /// Returns signal name splited into fields.
+            ///
+            /// The module, the sub-module and the signal name must
+            /// be separated by a single '.'.
+            SignalNameFieldsT GetNameFields() const;
 
             /// Returns the signal's size in bits.
             ///

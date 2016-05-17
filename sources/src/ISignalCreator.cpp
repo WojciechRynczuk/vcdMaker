@@ -4,7 +4,7 @@
 ///
 /// @ingroup Construction
 ///
-/// @par Copyright (c) 2016 Wojciech Rynczuk
+/// @par Copyright (c) 2016 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -27,7 +27,7 @@
 #include "ISignalCreator.h"
 #include "ISignal.h"
 
-SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(std::string &logLine) const
+SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(const std::string &logLine) const
 {
     std::smatch result;
 

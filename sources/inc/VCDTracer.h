@@ -8,7 +8,7 @@
 ///
 /// @ingroup Tracer
 ///
-/// @par Copyright (c) 2016 Wojciech Rynczuk
+/// @par Copyright (c) 2016 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -82,11 +82,11 @@ namespace TRACER
         private:
 
             /// A type defining a container for pointers to Signal objects.
-            typedef std::multiset<const SIGNAL::Signal *,
-                                  SIGNAL::PtrTimestampLtComparator> SignalCollectionT;
+            using SignalCollectionT = std::multiset<const SIGNAL::Signal *,
+                                                    SIGNAL::PtrTimestampLtComparator>;
 
             /// A type defining a state of signals.
-            typedef std::map<std::string, const SIGNAL::Signal *> SignalStateT;
+            using SignalStateT = std::map<std::string, const SIGNAL::Signal *>;
 
             /// Generates the VCD header.
             void GenerateHeader();
@@ -120,11 +120,6 @@ namespace TRACER
             {
                 m_File << line << '\n';
             }
-
-            /// Splits the signal name into fields.
-            /// The module, the sub-module and the signal name must
-            /// be separated by a single '.'.
-            std::vector<std::string> SplitSignal(std::string name, const char delim);
 
             /// The VCD output file.
             std::ofstream m_File;

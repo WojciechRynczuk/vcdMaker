@@ -14,7 +14,7 @@
     
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed. Setup will now exit." />
 	
-	  <Upgrade Id='$(var.UpgradeCode)'>
+    <Upgrade Id='$(var.UpgradeCode)'>
     <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
         Minimum='1.0.0' IncludeMinimum='yes'
         Maximum='2.0.1' IncludeMaximum='no' />
@@ -73,6 +73,11 @@
     <UIRef Id="WixUI_InstallDir" />
     
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)\resources\license.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.SolutionDir)\resources\vM-bannrbmp.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.SolutionDir)\resources\vM-dlgbmp.bmp" />
+    
+    <Icon Id="icon.ico" SourceFile="$(var.SolutionDir)\resources\vcdMaker128.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
 
   </Product>
 </Wix>

@@ -23,6 +23,9 @@ windows/Installer/guid_list.txt eol=crlf
 *.rtf -text
 *.odt -text
 *.pdf -text
+*.ico -text
+*.bmp -text
+*.xcf -text
 
 # Other
 LICENSE eol=lf

@@ -44,7 +44,7 @@ std::string SIGNAL::ISignal::Print() const
 std::string SIGNAL::ISignal::Footprint() const
 {
     const std::string sizeFootprint(m_Size, 'x');
-    return ("b" + sizeFootprint + " " + m_Name + "\n");
+    return ("b" + sizeFootprint + " " + m_Name);
 }
 
 bool SIGNAL::ISignal::EqualTo(Signal const &other) const

@@ -90,9 +90,9 @@ void TRACER::VCDTracer::GenerateSignalStructure()
 void TRACER::VCDTracer::GenerateSignalDefaults()
 {
     DumpLine("$dumpvars");
-    for (SignalStateT::iterator it = m_SignalState.begin(); it != m_SignalState.end(); ++it)
+    for (const auto &signal : m_SignalState)
     {
-        m_File << it->second->Footprint();
+        DumpLine(signal.second->Footprint());
     }
     DumpLine("$end");
 

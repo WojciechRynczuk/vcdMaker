@@ -26,7 +26,6 @@
 
 #pragma once
 
-#include <map>
 #include <string>
 #include <ostream>
 #include <tuple>
@@ -40,16 +39,11 @@ namespace TRACER
     {
         public:
 
-            /// Type used for unique signals map: name => signal.
-            ///
-            /// Signal values doesn't matter, this map is only used to generate strucutre.
-            using UniqueSignalsCollectionT = std::map<std::string, const SIGNAL::Signal *>;
-
             /// Constructor.
             ///
             /// @param uniqueSignals Structure will be generated from this signals.
             /// @param output Structure will be written to this stream.
-            SignalStructureBuilder(const UniqueSignalsCollectionT &uniqueSignals,
+            SignalStructureBuilder(const SIGNAL::UniqueSignalsCollectionT &uniqueSignals,
                                    std::ostream &output) :
                 m_UniqueSignals(uniqueSignals),
                 m_Output(output)
@@ -94,7 +88,7 @@ namespace TRACER
                                 const SIGNAL::Signal *signal);
 
             /// Unique signals map.
-            const UniqueSignalsCollectionT m_UniqueSignals;
+            const SIGNAL::UniqueSignalsCollectionT m_UniqueSignals;
 
             /// Assigned output stream.
             std::ostream &m_Output;

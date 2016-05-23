@@ -41,6 +41,8 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <map>
+#include <set>
 
 namespace SIGNAL
 {
@@ -86,7 +88,7 @@ namespace SIGNAL
             /// It is needed by the multiset container within the VCD tracer module.
             Signal() = default;
 
-            /// The descrucotor.
+            /// The destructor.
             virtual ~Signal() = 0;
 
             /// Returns the signal's name.
@@ -190,6 +192,13 @@ namespace SIGNAL
                 return (lhs->GetTimestamp() < rhs->GetTimestamp());
             }
     };
+
+    /// A type defining a container for pointers to Signal objects.
+    using SignalCollectionT = std::multiset<const Signal *,
+                                            PtrTimestampLtComparator>;
+
+    /// Type used for unique signals map: name => signal pointer.
+    using UniqueSignalsCollectionT = std::map<std::string, const Signal *>;
 
     inline Signal::~Signal() = default;
 

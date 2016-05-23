@@ -40,9 +40,6 @@
 
 #include <fstream>
 #include <string>
-#include <map>
-#include <set>
-#include <vector>
 
 #include "Signal.h"
 
@@ -63,6 +60,9 @@ namespace TRACER
             /// @param timeUnit Selection of time units in which logged signals are timestamped.
             VCDTracer(const std::string &outputFile, const std::string &timeUnit);
 
+            /// The destructor.
+            ~VCDTracer();
+
             /// Logs a signal.
             ///
             /// This method adds a signal to the signals' container.
@@ -81,13 +81,6 @@ namespace TRACER
 
         private:
 
-            /// A type defining a container for pointers to Signal objects.
-            using SignalCollectionT = std::multiset<const SIGNAL::Signal *,
-                                                    SIGNAL::PtrTimestampLtComparator>;
-
-            /// A type defining a state of signals.
-            using SignalStateT = std::map<std::string, const SIGNAL::Signal *>;
-
             /// Generates the VCD header.
             void GenerateHeader();
 
@@ -97,9 +90,9 @@ namespace TRACER
             /// Only the time unit is adjustable.
             void GenerateBasicInformation();
 
-            ///  Generate the VCD signals structure.
+            /// Generate the VCD signals structure.
             ///
-            /// Generates the structure of the traced signals.Although indents are
+            /// Generates the structure of the traced signals. Although indents are
             /// not necessary they have been intruduced to improve the readability
             /// of the VCD file.
             void GenerateSignalStructure();
@@ -109,11 +102,9 @@ namespace TRACER
 
             /// Generates the VCD body.
             ///
-            /// Function dumps signal values in the time-ordered
+            /// Dumps time-ordered signal value changes.
+            /// @note Multiple changes in the same timestamp are not checked.
             void GenerateBody();
-
-            /// Dumps signals states with the given timestamp.
-            void DumpSignals(uint64_t timestamp);
 
             /// Write on line to output file.
             void DumpLine(const std::string &line)
@@ -125,16 +116,13 @@ namespace TRACER
             std::ofstream m_File;
 
             /// The VCD time unit in which the signals are timestamped.
-            std::string m_TimeUnit;
+            const std::string m_TimeUnit;
 
             /// The current signals state.
-            SignalStateT m_SignalState;
-
-            /// The previous signals state.
-            SignalStateT m_LastSignalState;
+            SIGNAL::UniqueSignalsCollectionT m_AddedSignals;
 
             /// The container for the signals.
-            SignalCollectionT m_SignalSet;
+            SIGNAL::SignalCollectionT m_SignalSet;
     };
 
 }

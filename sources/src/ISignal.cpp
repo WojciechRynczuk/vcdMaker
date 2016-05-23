@@ -38,13 +38,13 @@ std::string SIGNAL::ISignal::Print() const
     const std::string valueBitStr =
         valueBits.to_string().substr(valueBits.size() - m_Size);
 
-    return "b" + valueBitStr + " " + m_Name + "\n";
+    return 'b' + valueBitStr + ' ' + m_Name;
 }
 
 std::string SIGNAL::ISignal::Footprint() const
 {
     const std::string sizeFootprint(m_Size, 'x');
-    return ("b" + sizeFootprint + " " + m_Name);
+    return ('b' + sizeFootprint + ' ' + m_Name);
 }
 
 bool SIGNAL::ISignal::EqualTo(Signal const &other) const

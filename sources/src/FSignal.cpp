@@ -37,7 +37,7 @@ std::string SIGNAL::FSignal::Print() const
     std::stringstream conversionStream;
 
     conversionStream.precision(16);
-    conversionStream << "r" << m_Value << ' ' << m_Name << '\n';
+    conversionStream << 'r' << m_Value << ' ' << m_Name;
 
     return conversionStream.str();
 }

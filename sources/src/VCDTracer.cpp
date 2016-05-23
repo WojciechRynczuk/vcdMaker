@@ -38,18 +38,25 @@
 TRACER::VCDTracer::VCDTracer(const std::string &outputFile, const std::string &timeUnit) :
     m_File(outputFile, std::ifstream::out | std::ifstream::binary),
     m_TimeUnit(timeUnit),
-    m_SignalState(),
-    m_LastSignalState(),
+    m_AddedSignals(),
     m_SignalSet()
 {
+}
+
+TRACER::VCDTracer::~VCDTracer()
+{
+    for (const SIGNAL::Signal *signal : m_SignalSet)
+    {
+        delete signal;
+    }
 }
 
 void TRACER::VCDTracer::Log(const SIGNAL::Signal *signal)
 {
     // Is this a new signal to be logged?
-    if (m_SignalState.find(signal->GetName()) == m_SignalState.end())
+    if (m_AddedSignals.find(signal->GetName()) == m_AddedSignals.end())
     {
-        m_SignalState[signal->GetName()] = signal;
+        m_AddedSignals[signal->GetName()] = signal;
     }
 
     // Store the full signal data
@@ -83,124 +90,50 @@ void TRACER::VCDTracer::GenerateBasicInformation()
 
 void TRACER::VCDTracer::GenerateSignalStructure()
 {
-    SignalStructureBuilder structure_builder(m_SignalState, m_File);
+    SignalStructureBuilder structure_builder(m_AddedSignals, m_File);
     structure_builder.Dump();
 }
 
 void TRACER::VCDTracer::GenerateSignalDefaults()
 {
     DumpLine("$dumpvars");
-    for (const auto &signal : m_SignalState)
+    for (const auto &signal : m_AddedSignals)
     {
         DumpLine(signal.second->Footprint());
     }
     DumpLine("$end");
-
-    // Refresh the current state of signals
-    m_SignalState.clear();
 }
 
 void TRACER::VCDTracer::GenerateBody()
 {
-    SignalCollectionT::const_iterator iter;
-    uint64_t timestamp = 0;
-    uint64_t timestamp_prev = 0;
-    bool     initialised = false;
+    SIGNAL::UniqueSignalsCollectionT previous_signals;
+    uint64_t previous_timestamp = 0;
+    bool has_printed_first = false;
 
-    iter = m_SignalSet.begin();
-
-    // Iterate through all of the signals
-    while (iter != m_SignalSet.end())
+    for (const SIGNAL::Signal *current_signal : m_SignalSet)
     {
-        if (true == initialised)
+        const uint64_t current_timestamp = current_signal->GetTimestamp();
+
+        const bool should_print_timestamp =
+            (!has_printed_first || (current_timestamp != previous_timestamp));
+
+        const std::string signal_name = current_signal->GetName();
+
+        const auto previous_signal_it = previous_signals.find(signal_name);
+        const bool previous_signal_exists = (previous_signal_it != previous_signals.end());
+
+        if (!previous_signal_exists ||
+            (*current_signal != *(previous_signal_it->second)))
         {
-            timestamp = (*iter)->GetTimestamp();
-            if (timestamp != timestamp_prev)
+            if (should_print_timestamp)
             {
-                // Dump signals changes for the given timestamp
-                DumpSignals(timestamp_prev);
-                timestamp_prev = timestamp;
+                DumpLine('#' + std::to_string(current_timestamp));
+                previous_timestamp = current_timestamp;
+                has_printed_first = true;
             }
-        }
-        else
-        {
-            timestamp_prev = (*iter)->GetTimestamp();
-            initialised = true;
-        }
-        // Add the signal to the current signal collection
-        // It will be dumped with the next DumpSignals() call
-        m_SignalState[(*iter)->GetName()] = *iter;
-        m_SignalSet.erase(iter++);
-    }
 
-    // Dump the remaining signals
-    DumpSignals(timestamp);
-
-    // Release the memory
-    SignalStateT::iterator inner_iterator = m_SignalState.begin();
-    SignalStateT::iterator outer_iterator = m_LastSignalState.begin();
-    while (outer_iterator != m_LastSignalState.end())
-    {
-        if ((inner_iterator = m_SignalState.find((*outer_iterator).second->GetName().c_str())) != m_SignalState.end())
-        {
-            m_SignalState.erase(inner_iterator);
-        }
-        delete m_LastSignalState[(*outer_iterator).second->GetName().c_str()];
-        m_LastSignalState.erase(outer_iterator++);
-    }
-
-    // Close the VCD file
-    m_File.close();
-}
-
-void TRACER::VCDTracer::DumpSignals(uint64_t timestamp)
-{
-    uint32_t changes_present = 0;
-
-    // Dump only signals which changed
-    SignalStateT::iterator iter = m_SignalState.begin();
-    while (iter != m_SignalState.end())
-    {
-        if (m_LastSignalState.find((*iter).second->GetName().c_str()) != m_LastSignalState.end())
-        {
-            if (*m_LastSignalState.find((*iter).second->GetName())->second != *m_SignalState.find((
-                        *iter).second->GetName())->second)
-            {
-                //The signal value is no longer needed and the memory can be released
-                delete m_LastSignalState[(*iter).second->GetName().c_str()];
-                m_LastSignalState[(*iter).second->GetName().c_str()] = (*iter).second;
-                if (0 == changes_present)
-                {
-                    m_File << "#" << timestamp << '\n';
-                    changes_present = 1;
-                }
-                m_File << (*iter).second->Print();
-                iter++;
-            }
-            else
-            {
-                if (m_LastSignalState.find((*iter).second->GetName())->second != m_SignalState.find((*iter).second->GetName())->second)
-                {
-                    //The signal value is no longer needed and the memory can be released
-                    delete m_SignalState[(*iter).second->GetName().c_str()];
-                    m_SignalState.erase(iter++);
-                }
-                else
-                {
-                    iter++;
-                }
-            }
-        }
-        else
-        {
-            m_LastSignalState[(*iter).second->GetName().c_str()] = (*iter).second;
-            if (0 == changes_present)
-            {
-                m_File << "#" << timestamp << '\n';
-                changes_present = 1;
-            }
-            m_File << (*iter).second->Print();
-            m_SignalState.erase(iter++);
+            DumpLine(current_signal->Print());
+            previous_signals[signal_name] = current_signal;
         }
     }
 }

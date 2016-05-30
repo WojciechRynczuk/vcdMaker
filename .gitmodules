@@ -1,3 +1,3 @@
-[submodule "sources/third/tclap"]
-	path = sources/third/tclap
+[submodule "sources/3rdParty/tclap"]
+	path = sources/3rdParty/tclap
 	url = https://github.com/sjm324/tclap

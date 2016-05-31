@@ -28,32 +28,21 @@
 
 #include "VCDTracer.h"
 #include "SignalFactory.h"
-#include "CliParserImpl.h"
+#include "CliMaker.h"
 
 ///  The vcdMaker main function.
 ///
 ///  @param argc Number of arguments.
 ///  @param argv The table of arguments.
 ///  @return The execution status.
-int main(int argc, char *argv[])
+int main(int argc, const char *argv[])
 {
     // Parse input parameters
-    CLI::CliParserImpl CLI(argc, argv);
-    if (false == CLI.Validate())
-    {
-        return -1;
-    }
-
-    // Validate the time base.
-    const std::string tbase = CLI.GetParamValue("-t");
-    if (!TRACER::VCDTracer::IsTimeUnitValid(tbase))
-    {
-        std::cout << "Invalid time base.\n";
-        return -1;
-    }
+    CLI::CliMaker CLI;
+    CLI.Parse(argc, argv);
 
     // Open the log file.
-    const std::string log_file = CLI.GetParamValue("-f");
+    const std::string log_file = CLI.GetInputFileName();
     std::ifstream input_file(log_file);
     if (!input_file)
     {
@@ -62,11 +51,11 @@ int main(int argc, char *argv[])
     }
 
     // Check if the verbose mode has been enabled.
-    const bool is_verbose = CLI.CheckParam("-v");
+    const bool is_verbose = CLI.IsVerboseMode();
 
     // Create VCD tracer.
-    const std::string vcd_file = CLI.GetParamValue("-o");
-    TRACER::VCDTracer vcd_trace(vcd_file, tbase);
+    const std::string vcd_file = CLI.GetOutputFileName();
+    TRACER::VCDTracer vcd_trace(vcd_file, CLI.GetTimebase());
 
     // Create the signal factory.
     const CONSTRUCTION::SignalFactory signal_factory;

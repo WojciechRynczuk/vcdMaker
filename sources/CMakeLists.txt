@@ -27,43 +27,46 @@ cmake_minimum_required(VERSION 3.0)
 project(vcdMaker)
 
 # Set source files.
-set(SOURCES_DIR src)
+set(COMMON_SOURCES_DIR common/src)
+set(VMAKER_SOURCES_DIR vcdMaker/src)
 
 set(SOURCES
-    ${SOURCES_DIR}/CliParser.cpp
-    ${SOURCES_DIR}/CliParserImpl.cpp
-    ${SOURCES_DIR}/FSignal.cpp
-    ${SOURCES_DIR}/FSignalCreator.cpp
-    ${SOURCES_DIR}/ISignal.cpp
-    ${SOURCES_DIR}/ISignalCreator.cpp
-    ${SOURCES_DIR}/SignalFactory.cpp
-	${SOURCES_DIR}/SignalStructureBuilder.cpp
-    ${SOURCES_DIR}/Signal.cpp
-    ${SOURCES_DIR}/vcdMaker.cpp
-    ${SOURCES_DIR}/VCDTracer.cpp)
+    ${COMMON_SOURCES_DIR}/FSignal.cpp
+    ${COMMON_SOURCES_DIR}/FSignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/ISignal.cpp
+    ${COMMON_SOURCES_DIR}/ISignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/SignalFactory.cpp
+    ${COMMON_SOURCES_DIR}/SignalStructureBuilder.cpp
+    ${COMMON_SOURCES_DIR}/Signal.cpp
+    ${VMAKER_SOURCES_DIR}/vcdMaker.cpp
+    ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
 # Set header files. This shouldn't be needed, but helps IDE project generators.
-set(HEADERS_DIR inc)
+set(COMMON_HEADERS_DIR common/inc)
+set(VMAKER_HEADERS_DIR vcdMaker/inc)
 
 set(HEADERS
-    ${HEADERS_DIR}/CliParser.h
-    ${HEADERS_DIR}/CliParserImpl.h
-    ${HEADERS_DIR}/FSignalCreator.h
-    ${HEADERS_DIR}/FSignal.h
-    ${HEADERS_DIR}/ISignalCreator.h
-    ${HEADERS_DIR}/ISignal.h
-    ${HEADERS_DIR}/SignalCreator.h
-    ${HEADERS_DIR}/SignalFactory.h
-	${SOURCES_DIR}/SignalStructureBuilder.h
-    ${HEADERS_DIR}/Signal.h
-    ${HEADERS_DIR}/VCDTracer.h)
+    ${COMMON_HEADERS_DIR}/CliParser.h
+    ${VMAKER_HEADERS_DIR}/CliMaker.h
+    ${COMMON_HEADERS_DIR}/FSignalCreator.h
+    ${COMMON_HEADERS_DIR}/FSignal.h
+    ${COMMON_HEADERS_DIR}/ISignalCreator.h
+    ${COMMON_HEADERS_DIR}/ISignal.h
+    ${COMMON_HEADERS_DIR}/SignalCreator.h
+    ${COMMON_HEADERS_DIR}/SignalFactory.h
+    ${COMMON_HEADERS_DIR}/SignalStructureBuilder.h
+    ${COMMON_HEADERS_DIR}/Signal.h
+    ${COMMON_HEADERS_DIR}/VCDTracer.h)
+
+# 3rd party directories
+set(TCLAP_HEADERS_DIR 3rdParty/tclap/include)
 
 # Create target.
 set(VCDMAKER_TARGET vcdMaker)
 
 add_executable(${VCDMAKER_TARGET} ${SOURCES} ${HEADERS})
 
-target_include_directories(${VCDMAKER_TARGET} PUBLIC ${HEADERS_DIR})
+target_include_directories(${VCDMAKER_TARGET} PUBLIC ${COMMON_HEADERS_DIR} ${VMAKER_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
 
 # Set C++14 support.
 set_target_properties(${VCDMAKER_TARGET} PROPERTIES CXX_STANDARD 14)

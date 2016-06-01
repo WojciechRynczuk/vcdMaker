@@ -52,7 +52,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\sources\common\inc;$(ProjectDir)..\..\sources\vcdMaker\inc;$(ProjectDir)..\..\sources\3rdParty\tclap\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\vcdMaker\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -68,7 +68,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\sources\common\inc;$(ProjectDir)..\..\sources\vcdMaker\inc;$(ProjectDir)..\..\sources\3rdParty\tclap\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\vcdMaker\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -78,28 +78,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\common\inc\CliParser.h" />
-    <ClInclude Include="..\..\sources\common\inc\FSignal.h" />
-    <ClInclude Include="..\..\sources\common\inc\FSignalCreator.h" />
-    <ClInclude Include="..\..\sources\common\inc\ISignal.h" />
-    <ClInclude Include="..\..\sources\common\inc\ISignalCreator.h" />
-    <ClInclude Include="..\..\sources\common\inc\Signal.h" />
-    <ClInclude Include="..\..\sources\common\inc\SignalCreator.h" />
-    <ClInclude Include="..\..\sources\common\inc\SignalFactory.h" />
-    <ClInclude Include="..\..\sources\common\inc\SignalStructureBuilder.h" />
-    <ClInclude Include="..\..\sources\common\inc\VCDTracer.h" />
-    <ClInclude Include="..\..\sources\vcdMaker\inc\CliMaker.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\CliParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalFactory.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
+    <ClInclude Include="..\..\..\sources\vcdMaker\inc\CliMaker.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\common\src\FSignal.cpp" />
-    <ClCompile Include="..\..\sources\common\src\FSignalCreator.cpp" />
-    <ClCompile Include="..\..\sources\common\src\ISignal.cpp" />
-    <ClCompile Include="..\..\sources\common\src\ISignalCreator.cpp" />
-    <ClCompile Include="..\..\sources\common\src\Signal.cpp" />
-    <ClCompile Include="..\..\sources\common\src\SignalFactory.cpp" />
-    <ClCompile Include="..\..\sources\common\src\SignalStructureBuilder.cpp" />
-    <ClCompile Include="..\..\sources\common\src\VCDTracer.cpp" />
-    <ClCompile Include="..\..\sources\vcdMaker\src\vcdMaker.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />
+    <ClCompile Include="..\..\..\sources\vcdMaker\src\vcdMaker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

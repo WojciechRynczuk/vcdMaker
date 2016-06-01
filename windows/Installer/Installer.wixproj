@@ -26,9 +26,17 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\vcdMaker\vcdMaker.vcxproj">
+    <ProjectReference Include="..\vcdMaker\vcdMaker\vcdMaker.vcxproj">
       <Name>vcdMaker</Name>
       <Project>{39ce447a-c072-4e08-9042-2208df3a25d6}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\vcdMaker\vcdMerge\vcdMerge.vcxproj">
+      <Name>vcdMerge</Name>
+      <Project>{f2a67a23-8d8d-44fe-9f00-7c59dad8a954}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>

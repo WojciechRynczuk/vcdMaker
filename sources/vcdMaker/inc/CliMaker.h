@@ -29,15 +29,6 @@
 
 #pragma once
 
-/// @defgroup CliMaker vcdMaker CLI
-///
-/// @brief The vcdMaker CLI implementation.
-///
-/// @par Full Description
-/// The vcdMaker CLI implementation.
-
-#include <iostream>
-
 #include "CliParser.h"
 
 namespace CLI
@@ -51,39 +42,41 @@ namespace CLI
                 CliParser("Log to VCD converter.", "2.0.1")
             {
                 /// Allowed timebase units
-                allowed_timebase.push_back("s");
-                allowed_timebase.push_back("ms");
-                allowed_timebase.push_back("us");
-                allowed_timebase.push_back("ns");
-                allowed_timebase.push_back("ps");
-                allowed_timebase.push_back("fs");
-                allowedVals = new TCLAP::ValuesConstraint<std::string>(allowed_timebase);
+                m_AllowedTimebase.push_back("s");
+                m_AllowedTimebase.push_back("ms");
+                m_AllowedTimebase.push_back("us");
+                m_AllowedTimebase.push_back("ns");
+                m_AllowedTimebase.push_back("ps");
+                m_AllowedTimebase.push_back("fs");
+                m_pAllowedVals = new TCLAP::ValuesConstraint<std::string>(m_AllowedTimebase);
 
                 /// Define the timebase parameter.
-                timebase = new TCLAP::ValueArg<std::string>("t", "timebase", "Log timebase specification", true, "ms",
-                        allowedVals);
-                m_pCli->add(timebase);
+                m_pTimebase = new TCLAP::ValueArg<std::string>("t", "timebase", "Log timebase specification", true, "ms",
+                        m_pAllowedVals);
+                m_pCli->add(m_pTimebase);
             }
 
             /// Destructor.
             ~CliMaker()
             {
+                delete m_pTimebase;
+                delete m_pAllowedVals;
             }
 
             /// Returns the timebase parameter.
             std::string GetTimebase() const
             {
-                return timebase->getValue();
+                return m_pTimebase->getValue();
             }
 
         private:
             /// Points to the string containing valid timebase units.
-            TCLAP::ValuesConstraint<std::string> *allowedVals;
+            TCLAP::ValuesConstraint<std::string> *m_pAllowedVals;
 
             /// Points to the timbese parameter.
-            TCLAP::ValueArg<std::string> *timebase;
+            TCLAP::ValueArg<std::string> *m_pTimebase;
 
             /// A placeholder for the valid timebase units.
-            std::vector<std::string> allowed_timebase;
+            std::vector<std::string> m_AllowedTimebase;
     };
 }

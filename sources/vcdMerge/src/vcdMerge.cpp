@@ -1,4 +1,4 @@
-/// @file vcdMaker.cpp
+/// @file vcdMerge.cpp
 ///
 /// The main module of the vcdMerge application.
 ///
@@ -30,7 +30,7 @@
 #include "SignalFactory.h"
 #include "CliMerge.h"
 
-///  The vcdMaker main function.
+///  The vcdMerge main function.
 ///
 ///  @param argc Number of arguments.
 ///  @param argv The table of arguments.

@@ -1,6 +1,6 @@
 # CMakeLists.txt
 #
-# vcdMaker CMake file.
+# vcdMaker and vcdMerge CMake file.
 #
 # Copyright (c) 2016 vcdMaker team
 #
@@ -24,13 +24,12 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-project(vcdMaker)
+project(vcdLogTools)
 
-# Set source files.
+# Set common source files.
 set(COMMON_SOURCES_DIR common/src)
-set(VMAKER_SOURCES_DIR vcdMaker/src)
 
-set(SOURCES
+set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/FSignal.cpp
     ${COMMON_SOURCES_DIR}/FSignalCreator.cpp
     ${COMMON_SOURCES_DIR}/ISignal.cpp
@@ -38,16 +37,14 @@ set(SOURCES
     ${COMMON_SOURCES_DIR}/SignalFactory.cpp
     ${COMMON_SOURCES_DIR}/SignalStructureBuilder.cpp
     ${COMMON_SOURCES_DIR}/Signal.cpp
-    ${VMAKER_SOURCES_DIR}/vcdMaker.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
-# Set header files. This shouldn't be needed, but helps IDE project generators.
+# Set common header files.
+# This shouldn't be needed, but helps IDE project generators.
 set(COMMON_HEADERS_DIR common/inc)
-set(VMAKER_HEADERS_DIR vcdMaker/inc)
 
-set(HEADERS
+set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/CliParser.h
-    ${VMAKER_HEADERS_DIR}/CliMaker.h
     ${COMMON_HEADERS_DIR}/FSignalCreator.h
     ${COMMON_HEADERS_DIR}/FSignal.h
     ${COMMON_HEADERS_DIR}/ISignalCreator.h
@@ -58,24 +55,55 @@ set(HEADERS
     ${COMMON_HEADERS_DIR}/Signal.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h)
 
-# 3rd party directories
+# 3rd party directories.
 set(TCLAP_HEADERS_DIR 3rdParty/tclap/include)
 
-# Create target.
-set(VCDMAKER_TARGET vcdMaker)
+# Function for target creation.
+function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HEADERS_DIR)
+    add_executable(${TARGET_NAME} ${COMMON_SOURCES} ${TARGET_SOURCES} ${COMMON_HEADERS} ${TARGET_HEADERS})
 
-add_executable(${VCDMAKER_TARGET} ${SOURCES} ${HEADERS})
+    target_include_directories(${TARGET_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${TARGET_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
 
-target_include_directories(${VCDMAKER_TARGET} PUBLIC ${COMMON_HEADERS_DIR} ${VMAKER_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
+    # Set C++14 support.
+    set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 14)
+    set_target_properties(${TARGET_NAME} PROPERTIES CXX_EXTENSIONS OFF)
+    set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD_REQUIRED ON)
 
-# Set C++14 support.
-set_target_properties(${VCDMAKER_TARGET} PROPERTIES CXX_STANDARD 14)
-set_target_properties(${VCDMAKER_TARGET} PROPERTIES CXX_EXTENSIONS OFF)
-set_target_properties(${VCDMAKER_TARGET} PROPERTIES CXX_STANDARD_REQUIRED ON)
+    # Set warning flags.
+    if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
+      target_compile_options(${TARGET_NAME} PUBLIC -Wall -Wextra -pedantic)
+    elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
+      target_compile_options(${TARGET_NAME} PUBLIC /W4)
+    endif()
+endfunction(add_vcdtools_target)
 
-# Set warning flags.
-if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
-  target_compile_options(${VCDMAKER_TARGET} PUBLIC -Wall -Wextra -pedantic)
-elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
-  target_compile_options(${VCDMAKER_TARGET} PUBLIC /W4)
-endif()
+# Set vcdMaker build.
+
+set(VMAKER_SOURCES_DIR vcdMaker/src)
+set(VMAKER_SOURCES
+    ${VMAKER_SOURCES_DIR}/vcdMaker.cpp)
+
+set(VMAKER_HEADERS_DIR vcdMaker/inc)
+set(VMAKER_HEADERS
+    ${VMAKER_HEADERS_DIR}/CliMaker.h)
+
+add_vcdtools_target(vcdMaker
+                    ${VMAKER_SOURCES}
+                    ${VMAKER_HEADERS}
+                    ${VMAKER_HEADERS_DIR})
+
+# Set vcdMerge build.
+
+set(VMERGE_SOURCES_DIR vcdMerge/src)
+set(VMERGE_SOURCES
+    ${VMERGE_SOURCES_DIR}/vcdMerge.cpp)
+
+set(VMERGE_HEADERS_DIR vcdMerge/inc)
+set(VMERGE_HEADERS
+    ${VMERGE_HEADERS_DIR}/CliMerge.h)
+
+add_vcdtools_target(vcdMerge
+                    ${VMERGE_SOURCES}
+                    ${VMERGE_HEADERS}
+                    ${VMERGE_HEADERS_DIR})
+

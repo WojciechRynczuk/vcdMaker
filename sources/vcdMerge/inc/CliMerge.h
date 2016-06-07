@@ -33,19 +33,18 @@
 
 namespace CLI
 {
+
     /// The vcdMaker CLI child class.
     class CliMerge : public CliParser
     {
         public:
+
             /// The CLI default constructor.
             CliMerge() :
                 CliParser("VCD merging tool.", "2.0.1")
             {
             }
 
-            /// Destructor.
-            ~CliMerge()
-            {
-            }
     };
+
 }

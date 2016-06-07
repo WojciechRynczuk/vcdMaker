@@ -33,50 +33,36 @@
 
 namespace CLI
 {
+
     /// The vcdMaker CLI child class.
     class CliMaker : public CliParser
     {
         public:
+
             /// The CLI default constructor.
             CliMaker() :
-                CliParser("Log to VCD converter.", "2.0.1")
+                CliParser("Log file to VCD converter.", "2.0.1")
             {
-                /// Allowed timebase units
-                m_AllowedTimebase.push_back("s");
-                m_AllowedTimebase.push_back("ms");
-                m_AllowedTimebase.push_back("us");
-                m_AllowedTimebase.push_back("ns");
-                m_AllowedTimebase.push_back("ps");
-                m_AllowedTimebase.push_back("fs");
-                m_pAllowedVals = new TCLAP::ValuesConstraint<std::string>(m_AllowedTimebase);
-
-                /// Define the timebase parameter.
-                m_pTimebase = new TCLAP::ValueArg<std::string>("t", "timebase", "Log timebase specification", true, "ms",
-                        m_pAllowedVals);
-                m_pCli->add(m_pTimebase);
-            }
-
-            /// Destructor.
-            ~CliMaker()
-            {
-                delete m_pTimebase;
-                delete m_pAllowedVals;
+                m_Cli.add(m_Timebase);
             }
 
             /// Returns the timebase parameter.
-            std::string GetTimebase() const
+            std::string GetTimebase()
             {
-                return m_pTimebase->getValue();
+                return m_Timebase.getValue();
             }
 
         private:
-            /// Points to the string containing valid timebase units.
-            TCLAP::ValuesConstraint<std::string> *m_pAllowedVals;
 
-            /// Points to the timbese parameter.
-            TCLAP::ValueArg<std::string> *m_pTimebase;
+            /// A list of valid timebase units.
+            std::vector<std::string> m_AllowedTimebaseValues{"s", "ms", "us", "ns", "ps", "fs"};
 
-            /// A placeholder for the valid timebase units.
-            std::vector<std::string> m_AllowedTimebase;
+            /// Valid timebases constraint.
+            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{m_AllowedTimebaseValues};
+
+            /// Timbese parameter.
+            TCLAP::ValueArg<std::string> m_Timebase
+                {"t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases};
     };
+
 }

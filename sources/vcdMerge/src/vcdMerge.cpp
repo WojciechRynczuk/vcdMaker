@@ -22,12 +22,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <iostream>
-#include <fstream>
-#include <string>
-
-#include "VCDTracer.h"
-#include "SignalFactory.h"
 #include "CliMerge.h"
 
 ///  The vcdMerge main function.
@@ -38,7 +32,7 @@
 int main(int argc, const char *argv[])
 {
     // Parse input parameters
-    CLI::CliMerge CLI;
-    CLI.Parse(argc, argv);
+    CLI::CliMerge cli;
+    cli.Parse(argc, argv);
 }
 

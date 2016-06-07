@@ -38,11 +38,11 @@
 int main(int argc, const char *argv[])
 {
     // Parse input parameters
-    CLI::CliMaker CLI;
-    CLI.Parse(argc, argv);
+    CLI::CliMaker cli;
+    cli.Parse(argc, argv);
 
     // Open the log file.
-    const std::string log_file = CLI.GetInputFileName();
+    const std::string log_file = cli.GetInputFileName();
     std::ifstream input_file(log_file);
     if (!input_file)
     {
@@ -51,11 +51,11 @@ int main(int argc, const char *argv[])
     }
 
     // Check if the verbose mode has been enabled.
-    const bool is_verbose = CLI.IsVerboseMode();
+    const bool is_verbose = cli.IsVerboseMode();
 
     // Create VCD tracer.
-    const std::string vcd_file = CLI.GetOutputFileName();
-    TRACER::VCDTracer vcd_trace(vcd_file, CLI.GetTimebase());
+    const std::string vcd_file = cli.GetOutputFileName();
+    TRACER::VCDTracer vcd_trace(vcd_file, cli.GetTimebase());
 
     // Create the signal factory.
     const CONSTRUCTION::SignalFactory signal_factory;

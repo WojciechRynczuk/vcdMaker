@@ -43,13 +43,15 @@ namespace CLI
             CliMerge() :
                 CliParser("VCD merging tool.", "2.0.1")
             {
-                m_Cli.add(m_InFiles);
+                m_Cli.add(m_FilesIn);
             }
 
-            /// Returns the input filename
+            /// Return by reference a list of files to be processed.
+            ///
+            /// @param filenames The list of filenames.
             void GetInputFileNames(std::vector<std::string> &filenames)
             {
-                filenames = m_InFiles.getValue();
+                filenames = m_FilesIn.getValue();
             }
 
         private:
@@ -65,7 +67,7 @@ namespace CLI
             { "t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases };
 
             /// Input file names.
-            TCLAP::UnlabeledMultiArg<std::string> m_InFiles{ "file_in", "Input log filenames", true, "Filename" };
+            TCLAP::UnlabeledMultiArg<std::string> m_FilesIn{ "file_in", "Input log filenames", true, "Filename" };
     };
 
 }

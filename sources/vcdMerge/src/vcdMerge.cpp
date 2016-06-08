@@ -34,5 +34,18 @@ int main(int argc, const char *argv[])
     // Parse input parameters
     CLI::CliMerge cli;
     cli.Parse(argc, argv);
+
+    // Get input filenames
+    std::vector<std::string> infiles;
+    cli.GetInputFileNames(infiles);
+
+    // Print all file to be merged
+    std::cout << "Merging: " << std::endl;
+    for (const std::string &filename : infiles)
+    {
+        std::cout << "\t" << filename << std::endl;
+    }
+    std::cout << std::endl;
 }
+
 

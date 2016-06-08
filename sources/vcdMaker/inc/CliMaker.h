@@ -44,12 +44,19 @@ namespace CLI
                 CliParser("Log file to VCD converter.", "2.0.1")
             {
                 m_Cli.add(m_Timebase);
+                m_Cli.add(m_InFile);
             }
 
             /// Returns the timebase parameter.
             std::string GetTimebase()
             {
                 return m_Timebase.getValue();
+            }
+
+            /// Returns the input filename
+            std::string GetInputFileName()
+            {
+                return m_InFile.getValue();
             }
 
         private:
@@ -62,7 +69,10 @@ namespace CLI
 
             /// Timbese parameter.
             TCLAP::ValueArg<std::string> m_Timebase
-                {"t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases};
+            {"t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases};
+
+            /// Input file name.
+            TCLAP::UnlabeledValueArg<std::string> m_InFile{ "file_in", "Input log filename", true, "log.txt", "Filename" };
     };
 
 }

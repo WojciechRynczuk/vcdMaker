@@ -43,8 +43,29 @@ namespace CLI
             CliMerge() :
                 CliParser("VCD merging tool.", "2.0.1")
             {
+                m_Cli.add(m_InFiles);
             }
 
+            /// Returns the input filename
+            void GetInputFileNames(std::vector<std::string> &filenames)
+            {
+                filenames = m_InFiles.getValue();
+            }
+
+        private:
+
+            /// A list of valid timebase units.
+            std::vector<std::string> m_AllowedTimebaseValues{ "s", "ms", "us", "ns", "ps", "fs" };
+
+            /// Valid timebases constraint.
+            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{ m_AllowedTimebaseValues };
+
+            /// Timbese parameter.
+            TCLAP::ValueArg<std::string> m_Timebase
+            { "t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases };
+
+            /// Input file names.
+            TCLAP::UnlabeledMultiArg<std::string> m_InFiles{ "file_in", "Input log filenames", true, "Filename" };
     };
 
 }

@@ -61,7 +61,6 @@ namespace CLI
             CliParser(const std::string &desc, const std::string &version) :
                 m_Cli(desc, ' ', version)
             {
-                m_Cli.add(m_FileIn);
                 m_Cli.add(m_FileOut);
                 m_Cli.add(m_VerboseMode);
             }
@@ -83,12 +82,6 @@ namespace CLI
                 return m_FileOut.getValue();
             }
 
-            /// Returns the input file name.
-            std::string GetInputFileName()
-            {
-                return m_FileIn.getValue();
-            }
-
             /// Returns the verbose mode value.
             ///
             /// Returns 'true' for the verbose mode enabled.
@@ -103,9 +96,6 @@ namespace CLI
             TCLAP::CmdLine m_Cli;
 
         private:
-
-            /// Input file parameter.
-            TCLAP::ValueArg<std::string> m_FileIn{"f", "file_in", "Input log filename", true, "log.txt", "string"};
 
             /// Output file parameter.
             TCLAP::ValueArg<std::string> m_FileOut{"o", "file_out", "Ouput VCD filename", true, "log.vcd", "string"};

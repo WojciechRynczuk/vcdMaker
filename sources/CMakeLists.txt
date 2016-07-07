@@ -37,6 +37,7 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/SignalFactory.cpp
     ${COMMON_SOURCES_DIR}/SignalStructureBuilder.cpp
     ${COMMON_SOURCES_DIR}/Signal.cpp
+    ${COMMON_SOURCES_DIR}/SignalDb.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
 # Set common header files.
@@ -53,6 +54,7 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/SignalFactory.h
     ${COMMON_HEADERS_DIR}/SignalStructureBuilder.h
     ${COMMON_HEADERS_DIR}/Signal.h
+    ${COMMON_HEADERS_DIR}/SignalDb.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h)
 
 # 3rd party directories.

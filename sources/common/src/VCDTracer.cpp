@@ -35,32 +35,16 @@
 #include "VCDTracer.h"
 #include "SignalStructureBuilder.h"
 
-TRACER::VCDTracer::VCDTracer(const std::string &outputFile, const std::string &timeUnit) :
+TRACER::VCDTracer::VCDTracer(const std::string &outputFile, SIGNAL::SignalDb *signalDb) :
     m_File(outputFile, std::ifstream::out | std::ifstream::binary),
-    m_TimeUnit(timeUnit),
-    m_AddedSignals(),
-    m_SignalSet()
+    m_pSignalDb(signalDb)
 {
+
 }
 
 TRACER::VCDTracer::~VCDTracer()
 {
-    for (const SIGNAL::Signal *signal : m_SignalSet)
-    {
-        delete signal;
-    }
-}
 
-void TRACER::VCDTracer::Log(const SIGNAL::Signal *signal)
-{
-    // Is this a new signal to be logged?
-    if (m_AddedSignals.find(signal->GetName()) == m_AddedSignals.end())
-    {
-        m_AddedSignals[signal->GetName()] = signal;
-    }
-
-    // Store the full signal data
-    m_SignalSet.insert(signal);
 }
 
 void TRACER::VCDTracer::Dump()
@@ -82,22 +66,22 @@ void TRACER::VCDTracer::GenerateBasicInformation()
 {
     DumpLine("$date December 8, 2014 14:15:00");
     DumpLine("$end");
-    DumpLine("$version VCD Tracer \"Matylda\" Release v.1.0.1");
+    DumpLine("$version VCD Tracer \"Matylda\" Release v.2.0.1");
     DumpLine("$end");
-    DumpLine("$timescale 1 " + m_TimeUnit);
+    DumpLine("$timescale 1 " + m_pSignalDb->GetTimeUnit());
     DumpLine("$end");
 }
 
 void TRACER::VCDTracer::GenerateSignalStructure()
 {
-    SignalStructureBuilder structure_builder(m_AddedSignals, m_File);
+    SignalStructureBuilder structure_builder(*(m_pSignalDb->GetSignalFootprint()), m_File);
     structure_builder.Dump();
 }
 
 void TRACER::VCDTracer::GenerateSignalDefaults()
 {
     DumpLine("$dumpvars");
-    for (const auto &signal : m_AddedSignals)
+    for (const auto &signal : * (m_pSignalDb->GetSignalFootprint()))
     {
         DumpLine(signal.second->Footprint());
     }
@@ -110,7 +94,7 @@ void TRACER::VCDTracer::GenerateBody()
     uint64_t previous_timestamp = 0;
     bool has_printed_first = false;
 
-    for (const SIGNAL::Signal *current_signal : m_SignalSet)
+    for (const SIGNAL::Signal *current_signal : * (m_pSignalDb->GetSignals()))
     {
         const uint64_t current_timestamp = current_signal->GetTimestamp();
 
@@ -123,7 +107,7 @@ void TRACER::VCDTracer::GenerateBody()
         const bool previous_signal_exists = (previous_signal_it != previous_signals.end());
 
         if (!previous_signal_exists ||
-            (*current_signal != *(previous_signal_it->second)))
+                (*current_signal != *(previous_signal_it->second)))
         {
             if (should_print_timestamp)
             {
@@ -138,9 +122,3 @@ void TRACER::VCDTracer::GenerateBody()
     }
 }
 
-bool TRACER::VCDTracer::IsTimeUnitValid(const std::string &timeUnit)
-{
-    const std::array<std::string, 6> validTimeUnits = { "s", "ms", "us", "ns", "ps", "fs" };
-
-    return (std::find(validTimeUnits.begin(), validTimeUnits.end(), timeUnit) != validTimeUnits.end());
-}

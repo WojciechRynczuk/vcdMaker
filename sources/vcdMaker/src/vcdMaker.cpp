@@ -53,9 +53,8 @@ int main(int argc, const char *argv[])
     // Check if the verbose mode has been enabled.
     const bool is_verbose = cli.IsVerboseMode();
 
-    // Create VCD tracer.
-    const std::string vcd_file = cli.GetOutputFileName();
-    TRACER::VCDTracer vcd_trace(vcd_file, cli.GetTimebase());
+    // Create the signals database.
+    SIGNAL::SignalDb signal_db(cli.GetTimebase());
 
     // Create the signal factory.
     const CONSTRUCTION::SignalFactory signal_factory;
@@ -70,7 +69,7 @@ int main(int argc, const char *argv[])
         SIGNAL::Signal *signal = signal_factory.Create(input_line);
         if (signal)
         {
-            vcd_trace.Log(signal);
+            signal_db.Add(signal);
             valid_lines++;
         }
         else
@@ -83,7 +82,9 @@ int main(int argc, const char *argv[])
         }
     }
 
-    // Create the VCD file
+    // Create the VCD tracer and dump the output file.
+	const std::string vcd_file = cli.GetOutputFileName();
+    TRACER::VCDTracer vcd_trace(vcd_file, &signal_db);
     vcd_trace.Dump();
 
     // Summary

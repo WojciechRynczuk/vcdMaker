@@ -41,7 +41,7 @@
 #include <fstream>
 #include <string>
 
-#include "Signal.h"
+#include "SignalDb.h"
 
 namespace TRACER
 {
@@ -57,27 +57,17 @@ namespace TRACER
             /// The VCDTracer constructor.
             ///
             /// @param outputFile Name of the output VCD file.
-            /// @param timeUnit Selection of time units in which logged signals are timestamped.
-            VCDTracer(const std::string &outputFile, const std::string &timeUnit);
+            /// @param signalDb Signals database to be traced to the output file.
+            VCDTracer(const std::string &outputFile, SIGNAL::SignalDb *signalDb);
 
             /// The destructor.
             ~VCDTracer();
-
-            /// Logs a signal.
-            ///
-            /// This method adds a signal to the signals' container.
-            /// IMPORTANT!!! The signals do not have to be ordered (in the terms of time).
-            /// They will be re-ordered automatically upon dumping the VCD file.
-            void Log(const SIGNAL::Signal *signal);
 
             /// Creates the output VCD file.
             ///
             /// Funcgtion creates the header of the VCF file as well as the body
             /// listing all signal changes.
             void Dump();
-
-            /// Validates given time unit string.
-            static bool IsTimeUnitValid(const std::string &timeUnit);
 
         private:
 
@@ -115,14 +105,8 @@ namespace TRACER
             /// The VCD output file.
             std::ofstream m_File;
 
-            /// The VCD time unit in which the signals are timestamped.
-            const std::string m_TimeUnit;
-
-            /// The current signals state.
-            SIGNAL::UniqueSignalsCollectionT m_AddedSignals;
-
-            /// The container for the signals.
-            SIGNAL::SignalCollectionT m_SignalSet;
+            /// The signals database.
+            SIGNAL::SignalDb *m_pSignalDb;
     };
 
 }

@@ -15,66 +15,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\sources\common\inc\FSignal.h">
+    <ClInclude Include="..\..\..\sources\common\inc\CliParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\FSignalCreator.h">
+    <ClInclude Include="..\..\..\sources\common\inc\FSignal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\ISignal.h">
+    <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\ISignalCreator.h">
+    <ClInclude Include="..\..\..\sources\common\inc\ISignal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\Signal.h">
+    <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\SignalCreator.h">
+    <ClInclude Include="..\..\..\sources\common\inc\Signal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\SignalFactory.h">
+    <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\SignalStructureBuilder.h">
+    <ClInclude Include="..\..\..\sources\common\inc\SignalFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\VCDTracer.h">
+    <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\common\inc\CliParser.h">
+    <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\sources\vcdMaker\inc\CliMaker.h">
+    <ClInclude Include="..\..\..\sources\vcdMaker\inc\CliMaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\sources\common\src\FSignal.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\common\src\FSignalCreator.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\common\src\ISignal.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\common\src\ISignalCreator.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\common\src\Signal.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\Signal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\common\src\SignalFactory.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\common\src\SignalStructureBuilder.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\common\src\VCDTracer.cpp">
+    <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\sources\vcdMaker\src\vcdMaker.cpp">
+    <ClCompile Include="..\..\..\sources\vcdMaker\src\vcdMaker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -85,6 +85,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalFactory.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
@@ -96,6 +97,7 @@
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />

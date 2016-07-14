@@ -23,12 +23,11 @@
 /// IN THE SOFTWARE.
 
 #include <iostream>
-#include <fstream>
 #include <string>
 
 #include "VCDTracer.h"
-#include "SignalFactory.h"
 #include "CliMaker.h"
+#include "TxtParser.h"
 
 ///  The vcdMaker main function.
 ///
@@ -41,55 +40,18 @@ int main(int argc, const char *argv[])
     CLI::CliMaker cli;
     cli.Parse(argc, argv);
 
-    // Open the log file.
-    const std::string log_file = cli.GetInputFileName();
-    std::ifstream input_file(log_file);
-    if (!input_file)
+    try
     {
-        std::cout << "File " << log_file << " does not exist.\n";
-        return -1;
+        // Parse the log file.
+        PARSER::TxtParser txtLog(cli.GetInputFileName(), cli.GetTimebase(), cli.IsVerboseMode());
+
+        // Create the VCD tracer and dump the output file.
+        TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), txtLog.GetSignalDb());
+        vcd_trace.Dump();
     }
-
-    // Check if the verbose mode has been enabled.
-    const bool is_verbose = cli.IsVerboseMode();
-
-    // Create the signals database.
-    SIGNAL::SignalDb signal_db(cli.GetTimebase());
-
-    // Create the signal factory.
-    const CONSTRUCTION::SignalFactory signal_factory;
-
-    // Process the log file.
-    uint32_t valid_lines = 0;
-    uint32_t invalid_lines = 0;
-
-    std::string input_line;
-    while (std::getline(input_file, input_line))
+    catch (std::runtime_error &e)
     {
-        SIGNAL::Signal *signal = signal_factory.Create(input_line);
-        if (signal)
-        {
-            signal_db.Add(signal);
-            valid_lines++;
-        }
-        else
-        {
-            if (is_verbose)
-            {
-                std::cout << "Invalid log line " << valid_lines + invalid_lines << ": " << input_line << '\n';
-            }
-            ++invalid_lines;
-        }
+        std::cerr << e.what() << std::endl;
     }
-
-    // Create the VCD tracer and dump the output file.
-	const std::string vcd_file = cli.GetOutputFileName();
-    TRACER::VCDTracer vcd_trace(vcd_file, &signal_db);
-    vcd_trace.Dump();
-
-    // Summary
-    std::cout << '\n' << "Parsed " << log_file << ": \n";
-    std::cout << "\t Valid lines:   " << valid_lines << '\n';
-    std::cout << "\t Invalid lines: " << invalid_lines << '\n';
 }
 

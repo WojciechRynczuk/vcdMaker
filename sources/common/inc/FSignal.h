@@ -34,11 +34,10 @@
 
 namespace SIGNAL
 {
-
-    /// This signal class handles real numbers.
-    ///
     /// The class inherits from the Signal class and handles the floating
     /// signal values.
+
+    /// This signal class handles real numbers.
     class FSignal : public Signal
     {
         public:

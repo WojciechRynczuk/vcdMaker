@@ -42,7 +42,7 @@
 namespace CLI
 {
 
-    /// The base CLI parser class.
+    /// The CLI base class.
     class CliParser
     {
         public:

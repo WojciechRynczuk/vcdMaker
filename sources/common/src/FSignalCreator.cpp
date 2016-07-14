@@ -2,7 +2,7 @@
 ///
 /// The real signal creator.
 ///
-/// @ingroup Construction
+/// @ingroup Parser
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -27,7 +27,7 @@
 #include "FSignalCreator.h"
 #include "FSignal.h"
 
-SIGNAL::Signal *CONSTRUCTION::FSignalCreator::Create(const std::string &logLine) const
+SIGNAL::Signal *PARSER::FSignalCreator::Create(const std::string &logLine) const
 {
     std::smatch result;
 

@@ -26,7 +26,6 @@
 
 #pragma once
 
-#include <string>
 #include <ostream>
 #include <tuple>
 
@@ -70,7 +69,7 @@ namespace TRACER
             /// @param previousFields Fields from previous iteration.
             /// @return Continuation index.
             std::tuple<bool, std::size_t> FindContinuation(const SIGNAL::Signal::SignalNameFieldsT &currentFields,
-                                                           const SIGNAL::Signal::SignalNameFieldsT &previousFields);
+                    const SIGNAL::Signal::SignalNameFieldsT &previousFields);
 
             /// Ends scopes from the end of fields to lowerLimit.
             ///
@@ -79,7 +78,7 @@ namespace TRACER
                                  std::size_t lowerLimit);
 
             /// Continues current scope (possibly after mismatch)
-            /// 
+            ///
             /// @param continueFrom Continuation index obtained from FindContinuation.
             /// @param fields Fields from current iteration.
             /// @param signal Signal in current iteration.

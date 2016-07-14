@@ -30,8 +30,6 @@
 
 #pragma once
 
-#include <string>
-
 #include "Signal.h"
 
 namespace SIGNAL

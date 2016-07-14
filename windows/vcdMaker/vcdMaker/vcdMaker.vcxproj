@@ -83,11 +83,13 @@
     <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\LogParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalFactory.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
     <ClInclude Include="..\..\..\sources\vcdMaker\inc\CliMaker.h" />
   </ItemGroup>

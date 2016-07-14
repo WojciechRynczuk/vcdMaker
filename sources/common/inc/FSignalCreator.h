@@ -2,7 +2,7 @@
 ///
 /// The real signal creator.
 ///
-/// @ingroup Construction
+/// @ingroup Parser
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -28,12 +28,12 @@
 
 #include "SignalCreator.h"
 
-namespace CONSTRUCTION
+namespace PARSER
 {
 
-    /// A real signal creator class.
-    ///
     /// The class provides means to create real signal objects.
+
+    /// A real signal creator class.
     class FSignalCreator : public SignalCreator
     {
         public:

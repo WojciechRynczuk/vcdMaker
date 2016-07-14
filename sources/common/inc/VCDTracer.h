@@ -3,8 +3,7 @@
 /// The VCD generation module.
 ///
 /// @par Full Description
-/// The class provides means for collecting signals
-/// and storing the data in the VCD format.
+/// The class provides means for creating the output VCD files.
 ///
 /// @ingroup Tracer
 ///
@@ -32,24 +31,21 @@
 
 /// @defgroup Tracer Tracer
 ///
-/// @brief The VCD tracer core.
+/// @brief The VCD tracer.
 ///
 /// @par Full Description
-/// The Tracer subsystem is the core of the application. It is responsible
-/// for collecting the signals and storing them in the VCD format.
+/// The Tracer subsystem is responsible for tracing output files.
 
 #include <fstream>
-#include <string>
 
 #include "SignalDb.h"
 
 namespace TRACER
 {
-
-    ///  This class collects signals and creates the output VCD file.
-    ///
-    /// The class provides means for storing signals and creating
+    /// The class provides means for creating
     /// the output VCD file.
+
+    ///  This class creates the output VCD file.
     class VCDTracer
     {
         public:

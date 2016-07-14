@@ -32,13 +32,14 @@ void TRACER::SignalStructureBuilder::Dump()
 {
     SIGNAL::Signal::SignalNameFieldsT previous_fields;
 
-    for (const auto &unique_signal : m_UniqueSignals) {
+    for (const auto &unique_signal : m_UniqueSignals)
+    {
         const SIGNAL::Signal *signal = unique_signal.second;
         const SIGNAL::Signal::SignalNameFieldsT current_fields = signal->GetNameFields();
 
         bool found_mismatch = false;
         std::size_t continue_index = 0;
-        
+
         std::tie(found_mismatch, continue_index) = FindContinuation(current_fields, previous_fields);
 
         if (found_mismatch)
@@ -54,13 +55,16 @@ void TRACER::SignalStructureBuilder::Dump()
     EndScopesDownTo(previous_fields, 0);
 }
 
-std::tuple<bool, std::size_t> TRACER::SignalStructureBuilder::FindContinuation(const SIGNAL::Signal::SignalNameFieldsT &currentFields,
-                                                                               const SIGNAL::Signal::SignalNameFieldsT &previousFields)
+std::tuple<bool, std::size_t> TRACER::SignalStructureBuilder::FindContinuation(const SIGNAL::Signal::SignalNameFieldsT
+        &currentFields,
+        const SIGNAL::Signal::SignalNameFieldsT &previousFields)
 {
     const std::size_t common_size = std::min(currentFields.size(), previousFields.size());
 
-    for (std::size_t i = 0; i < common_size; ++i) {
-        if (currentFields[i] != previousFields[i]) {
+    for (std::size_t i = 0; i < common_size; ++i)
+    {
+        if (currentFields[i] != previousFields[i])
+        {
             return std::make_tuple(true, i);
         }
     }
@@ -69,24 +73,27 @@ std::tuple<bool, std::size_t> TRACER::SignalStructureBuilder::FindContinuation(c
 }
 
 void TRACER::SignalStructureBuilder::EndScopesDownTo(const SIGNAL::Signal::SignalNameFieldsT &fields,
-                                                     std::size_t lowerLimit)
+        std::size_t lowerLimit)
 {
     if (fields.empty())
     {
         return;
     }
 
-    for (std::size_t j = fields.size() - 1; j > lowerLimit; --j) {
+    for (std::size_t j = fields.size() - 1; j > lowerLimit; --j)
+    {
         DumpIndented("$upscope $end", j - 1);
     }
 }
 
 void TRACER::SignalStructureBuilder::ContinueScopes(std::size_t continueFrom,
-                                                    const SIGNAL::Signal::SignalNameFieldsT &fields,
-                                                    const SIGNAL::Signal *signal)
+        const SIGNAL::Signal::SignalNameFieldsT &fields,
+        const SIGNAL::Signal *signal)
 {
-    for (std::size_t i = continueFrom; i < fields.size(); ++i) {
-        if (i == (fields.size() - 1)) {
+    for (std::size_t i = continueFrom; i < fields.size(); ++i)
+    {
+        if (i == (fields.size() - 1))
+        {
             DumpIndented("$var " +
                          signal->GetType() + " " +
                          std::to_string(signal->GetSize()) + " " +
@@ -94,7 +101,8 @@ void TRACER::SignalStructureBuilder::ContinueScopes(std::size_t continueFrom,
                          fields[i] + " $end",
                          i);
         }
-        else {
+        else
+        {
             DumpIndented("$scope module " + fields[i] + " $end", i);
         }
     }

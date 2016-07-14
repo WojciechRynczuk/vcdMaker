@@ -34,11 +34,10 @@
 
 namespace SIGNAL
 {
-
-    /// This signal class handles integer numbers.
-    ///
     /// The class inherits from the Signal class and handles the integer
     /// signal values.
+
+    /// This signal class handles integer numbers.
     class ISignal : public Signal
     {
         public:

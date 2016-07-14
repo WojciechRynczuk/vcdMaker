@@ -5,7 +5,7 @@
 /// @par Full Description
 /// The signal factory object creates the appropriate signal objects.
 ///
-/// @ingroup Construction
+/// @ingroup Parser
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -29,28 +29,16 @@
 
 #pragma once
 
-/// @defgroup Construction Construction
-///
-/// @brief The group provides means for creating different signal objects.
-///
-/// @par Full Description
-/// The subsystem is responsible for building the appropraite signal
-/// objects. It deploys the factory method design pattern.
-
-#include <string>
-#include <vector>
 #include <memory>
 
-#include "Signal.h"
 #include "SignalCreator.h"
 
-namespace CONSTRUCTION
+namespace PARSER
 {
-
-    /// The signal factory base class.
-    ///
     /// The class implements the factory method design pattern so as to handle
     /// building different types of signals.
+
+    /// The signal factory base class.
     class SignalFactory
     {
         public:

@@ -2,7 +2,7 @@
 ///
 /// The integer signal creator.
 ///
-/// @ingroup Construction
+/// @ingroup Parser
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -28,12 +28,11 @@
 
 #include "SignalCreator.h"
 
-namespace CONSTRUCTION
+namespace PARSER
 {
+    /// The class provides means to create integer signal objects.
 
     ///  An integer signal creator class.
-    ///
-    /// The class provides means to create integer signal objects.
     class ISignalCreator : public SignalCreator
     {
         public:

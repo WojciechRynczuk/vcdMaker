@@ -6,7 +6,7 @@
 /// Every signal can be created differently. The class provides the
 /// universal interface to create them.
 ///
-/// @ingroup Construction
+/// @ingroup Parser
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -30,17 +30,15 @@
 
 #pragma once
 
-#include <string>
 #include <regex>
 
 #include "Signal.h"
 
-namespace CONSTRUCTION
+namespace PARSER
 {
+    /// The class provides the interface to create the signal object.
 
     /// A base signal creator class.
-    ///
-    /// The class provides the interface to create the signal object.
     class SignalCreator
     {
         public:

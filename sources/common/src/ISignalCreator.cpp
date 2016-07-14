@@ -2,7 +2,7 @@
 ///
 /// The integer signal creator.
 ///
-/// @ingroup Construction
+/// @ingroup Parser
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -27,7 +27,7 @@
 #include "ISignalCreator.h"
 #include "ISignal.h"
 
-SIGNAL::Signal *CONSTRUCTION::ISignalCreator::Create(const std::string &logLine) const
+SIGNAL::Signal *PARSER::ISignalCreator::Create(const std::string &logLine) const
 {
     std::smatch result;
 

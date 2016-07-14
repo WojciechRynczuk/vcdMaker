@@ -38,7 +38,8 @@ SIGNAL::Signal::SignalNameFieldsT SIGNAL::Signal::GetNameFields() const
     std::stringstream name_stream(m_Name);
     std::string name_field;
 
-    while (std::getline(name_stream, name_field, SIGNAL_NAME_DELIM)) {
+    while (std::getline(name_stream, name_field, SIGNAL_NAME_DELIM))
+    {
         name_fields.push_back(name_field);
     }
 

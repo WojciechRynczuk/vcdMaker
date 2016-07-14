@@ -46,11 +46,10 @@
 
 namespace SIGNAL
 {
-
-    /// A base signal class.
-    ///
     /// The base VCD signal class. The integer and real signal classes
     /// inherit from it.
+
+    /// A base signal class.
     class Signal
     {
         public:
@@ -151,10 +150,10 @@ namespace SIGNAL
             virtual bool EqualTo(Signal const &other) const = 0;
 
             /// The signal's name.
-            const std::string m_Name{};
+            const std::string m_Name {};
 
             /// The signal's type.
-            const std::string m_Type{};
+            const std::string m_Type {};
 
             /// The signal's size.
             const size_t m_Size = 0;
@@ -195,7 +194,7 @@ namespace SIGNAL
 
     /// A type defining a container for pointers to Signal objects.
     using SignalCollectionT = std::multiset<const Signal *,
-                                            PtrTimestampLtComparator>;
+          PtrTimestampLtComparator>;
 
     /// Type used for unique signals map: name => signal pointer.
     using UniqueSignalsCollectionT = std::map<std::string, const Signal *>;

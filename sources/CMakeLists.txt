@@ -24,7 +24,7 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-project(vcdLogTools)
+project(vcdMakerTools)
 
 # Set common source files.
 set(COMMON_SOURCES_DIR common/src)
@@ -46,6 +46,8 @@ set(COMMON_HEADERS_DIR common/inc)
 
 set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/CliParser.h
+	${COMMON_HEADERS_DIR}/LogParser.h
+	${COMMON_HEADERS_DIR}/TxtParser.h
     ${COMMON_HEADERS_DIR}/FSignalCreator.h
     ${COMMON_HEADERS_DIR}/FSignal.h
     ${COMMON_HEADERS_DIR}/ISignalCreator.h

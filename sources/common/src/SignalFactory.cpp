@@ -5,7 +5,7 @@
 /// @par Full Description
 /// The signal factory object creates the appropriate signal objects.
 ///
-/// @ingroup Construction
+/// @ingroup Parser
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -31,7 +31,7 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 
-CONSTRUCTION::SignalFactory::SignalFactory() :
+PARSER::SignalFactory::SignalFactory() :
     m_vpSignalCreators()
 {
     // Register creators
@@ -39,7 +39,7 @@ CONSTRUCTION::SignalFactory::SignalFactory() :
     m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
 }
 
-SIGNAL::Signal *CONSTRUCTION::SignalFactory::Create(std::string &logLine) const
+SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine) const
 {
     for (const auto &creator : m_vpSignalCreators)
     {

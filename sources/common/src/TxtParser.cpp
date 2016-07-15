@@ -1,4 +1,4 @@
-/// @file TxtParser.h
+/// @file TxtParser.cpp
 ///
 /// The text log parser.
 ///
@@ -29,38 +29,56 @@
 
 #pragma once
 
-#include "LogParser.h"
+#include <iostream>
 
-namespace PARSER
+#include "TxtParser.h"
+#include "SignalFactory.h"
+
+
+PARSER::TxtParser::TxtParser(std::string filename, std::string tbase, bool verboseMode) : LogParser(filename,
+            verboseMode)
 {
-    /// The text log parser class.
-    class TxtParser : public LogParser
+    m_pSignalDb = new SIGNAL::SignalDb(tbase);
+    m_ValidLines = 0;
+    m_InvalidLines = 0;
+
+    // Process the log
+    Parse();
+}
+
+/// The destructor.
+PARSER::TxtParser::~TxtParser()
+{
+    // Print the summary.
+    std::cout << '\n' << "Parsed " << m_FileName << ": \n";
+    std::cout << "\t Valid lines:   " << m_ValidLines << '\n';
+    std::cout << "\t Invalid lines: " << m_InvalidLines << '\n';
+
+    delete m_pSignalDb;
+};
+
+void PARSER::TxtParser::Parse()
+{
+    // Create the signal factory.
+    const SignalFactory signal_factory;
+
+    // Process the log file.
+    std::string input_line;
+    while (std::getline(m_LogFile, input_line))
     {
-        public:
-
-            /// The text log parser constructor.
-            ///
-            /// This constructor is used by the vcdMaker app.
-            /// It opens the input log file, sets the timebase and the verbose mode.
-            ///
-            /// @param filename The name of the log file to be open.
-            /// @param tbase The time base used in the log.
-            /// @param verboseMode Value 'true' enables the verbose mode.
-            TxtParser(std::string filename, std::string tbase, bool verboseMode);
-
-            /// The destructor.
-            ~TxtParser();
-
-        private:
-
-            /// Parses the input file.
-            void Parse();
-
-            /// The number of valid lines.
-            uint64_t m_ValidLines;
-
-            /// The number of invalid lines.
-            uint64_t m_InvalidLines;
-    };
-
+        SIGNAL::Signal *signal = signal_factory.Create(input_line);
+        if (signal)
+        {
+            m_pSignalDb->Add(signal);
+            m_ValidLines++;
+        }
+        else
+        {
+            if (m_VerboseMode)
+            {
+                std::cout << "Invalid log line " << m_ValidLines + m_InvalidLines << ": " << input_line << '\n';
+            }
+            ++m_InvalidLines;
+        }
+    }
 }

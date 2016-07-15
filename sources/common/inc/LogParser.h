@@ -37,6 +37,7 @@
 /// The group provides means for reading input files.
 
 #include <fstream>
+#include <sstream>
 
 #include "SignalDb.h"
 

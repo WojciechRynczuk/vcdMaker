@@ -38,6 +38,7 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/SignalStructureBuilder.cpp
     ${COMMON_SOURCES_DIR}/Signal.cpp
     ${COMMON_SOURCES_DIR}/SignalDb.cpp
+	${COMMON_SOURCES_DIR}/TxtParser.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
 # Set common header files.

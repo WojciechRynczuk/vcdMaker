@@ -102,6 +102,7 @@
     <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\TxtParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />
     <ClCompile Include="..\..\..\sources\vcdMaker\src\vcdMaker.cpp" />
   </ItemGroup>

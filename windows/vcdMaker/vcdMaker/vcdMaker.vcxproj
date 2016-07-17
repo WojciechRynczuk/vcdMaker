@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\LogParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp" />

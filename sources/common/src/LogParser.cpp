@@ -1,4 +1,4 @@
-/// @file LogParser.h
+/// @file LogParser.cpp
 ///
 /// The log parser interface class.
 ///
@@ -29,53 +29,29 @@
 
 #pragma once
 
-/// @defgroup Parser Parser
-///
-/// @brief The log parser group.
-///
-/// @par Full Description
-/// The group provides means for reading input files.
+#include "LogParser.h"
 
-#include <fstream>
-#include <sstream>
-
-#include "SignalDb.h"
-
-namespace PARSER
+PARSER::LogParser::LogParser(std::string filename, bool verboseMode)
 {
-    /// The log parser base class.
-    class LogParser
+    m_FileName = filename;
+
+    m_LogFile.open(filename, std::ifstream::out);
+    if (false == m_LogFile.is_open())
     {
-        public:
+        std::ostringstream msg;
+        msg << "Opening file '" << filename
+            << "' failed, it either doesn't exist or is inaccessible.";
+        throw std::runtime_error(msg.str());
+    }
+    m_VerboseMode = verboseMode;
+}
 
-            /// The log parser constructor.
-            ///
-            /// This constructor shall be used by the iheriting classes.
-            /// It opens the input log file and sets the verbose mode.
-            ///
-            /// @param filename The name of the log file to be open.
-            /// @param verboseMode Value 'true' enables the verbose mode.
-            LogParser(std::string filename, bool verboseMode);
+PARSER::LogParser::~LogParser()
+{
+    m_LogFile.close();
+}
 
-            /// The destructor.
-            ~LogParser();
-
-            /// Returns the pointer to the signal database.
-            SIGNAL::SignalDb *GetSignalDb();
-
-        protected:
-
-            /// The signal databse.
-            SIGNAL::SignalDb *m_pSignalDb;
-
-            /// The input file name.
-            std::string m_FileName;
-
-            /// The input log file.
-            std::ifstream m_LogFile;
-
-            /// Verbose mode.
-            bool m_VerboseMode;
-    };
-
+SIGNAL::SignalDb *PARSER::LogParser::GetSignalDb()
+{
+    return m_pSignalDb;
 }

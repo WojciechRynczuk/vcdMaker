@@ -38,7 +38,8 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/SignalStructureBuilder.cpp
     ${COMMON_SOURCES_DIR}/Signal.cpp
     ${COMMON_SOURCES_DIR}/SignalDb.cpp
-	${COMMON_SOURCES_DIR}/TxtParser.cpp
+    ${COMMON_SOURCES_DIR}/TxtParser.cpp
+    ${COMMON_SOURCES_DIR}/LogParser.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
 # Set common header files.
@@ -47,8 +48,8 @@ set(COMMON_HEADERS_DIR common/inc)
 
 set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/CliParser.h
-	${COMMON_HEADERS_DIR}/LogParser.h
-	${COMMON_HEADERS_DIR}/TxtParser.h
+    ${COMMON_HEADERS_DIR}/LogParser.h
+    ${COMMON_HEADERS_DIR}/TxtParser.h
     ${COMMON_HEADERS_DIR}/FSignalCreator.h
     ${COMMON_HEADERS_DIR}/FSignal.h
     ${COMMON_HEADERS_DIR}/ISignalCreator.h

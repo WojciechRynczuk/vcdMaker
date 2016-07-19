@@ -44,9 +44,11 @@ namespace PARSER
             /// It opens the input log file, sets the timebase and the verbose mode.
             ///
             /// @param filename The name of the log file to be open.
-            /// @param tbase The time base used in the log.
+            /// @param timeBase The time base used in the log.
             /// @param verboseMode Value 'true' enables the verbose mode.
-            TxtParser(std::string filename, std::string tbase, bool verboseMode);
+            TxtParser(const std::string &filename,
+                      const std::string &timeBase,
+                      bool verboseMode);
 
             /// The destructor.
             ~TxtParser();

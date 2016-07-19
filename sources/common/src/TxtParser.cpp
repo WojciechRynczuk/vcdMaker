@@ -27,35 +27,31 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#pragma once
-
 #include <iostream>
 
 #include "TxtParser.h"
 #include "SignalFactory.h"
 
-
-PARSER::TxtParser::TxtParser(std::string filename, std::string tbase, bool verboseMode) : LogParser(filename,
-            verboseMode)
+PARSER::TxtParser::TxtParser(const std::string &filename,
+                             const std::string &timeBase,
+                             bool verboseMode) :
+    LogParser(filename, verboseMode),
+    m_ValidLines(0),
+    m_InvalidLines(0)
 {
-    m_pSignalDb = new SIGNAL::SignalDb(tbase);
-    m_ValidLines = 0;
-    m_InvalidLines = 0;
+    m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(timeBase);
 
     // Process the log
     Parse();
 }
 
-/// The destructor.
 PARSER::TxtParser::~TxtParser()
 {
     // Print the summary.
     std::cout << '\n' << "Parsed " << m_FileName << ": \n";
     std::cout << "\t Valid lines:   " << m_ValidLines << '\n';
     std::cout << "\t Invalid lines: " << m_InvalidLines << '\n';
-
-    delete m_pSignalDb;
-};
+}
 
 void PARSER::TxtParser::Parse()
 {
@@ -66,11 +62,11 @@ void PARSER::TxtParser::Parse()
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        SIGNAL::Signal *signal = signal_factory.Create(input_line);
+        const SIGNAL::Signal *signal = signal_factory.Create(input_line);
         if (signal)
         {
             m_pSignalDb->Add(signal);
-            m_ValidLines++;
+            ++m_ValidLines;
         }
         else
         {

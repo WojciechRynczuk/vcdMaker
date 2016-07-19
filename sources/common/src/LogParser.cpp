@@ -27,31 +27,17 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#pragma once
-
 #include "LogParser.h"
 
-PARSER::LogParser::LogParser(std::string filename, bool verboseMode)
+PARSER::LogParser::LogParser(const std::string &filename, bool verboseMode) :
+    m_pSignalDb(),
+    m_FileName(filename),
+    m_LogFile(m_FileName),
+    m_VerboseMode(verboseMode)
 {
-    m_FileName = filename;
-
-    m_LogFile.open(filename, std::ifstream::out);
-    if (false == m_LogFile.is_open())
+    if (!m_LogFile.is_open())
     {
-        std::ostringstream msg;
-        msg << "Opening file '" << filename
-            << "' failed, it either doesn't exist or is inaccessible.";
-        throw std::runtime_error(msg.str());
+        throw std::runtime_error("Opening file '" + m_FileName +
+                                 "' failed, it either doesn't exist or is inaccessible.");
     }
-    m_VerboseMode = verboseMode;
-}
-
-PARSER::LogParser::~LogParser()
-{
-    m_LogFile.close();
-}
-
-SIGNAL::SignalDb *PARSER::LogParser::GetSignalDb()
-{
-    return m_pSignalDb;
 }

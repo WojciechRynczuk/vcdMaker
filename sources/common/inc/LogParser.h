@@ -37,7 +37,7 @@
 /// The group provides means for reading input files.
 
 #include <fstream>
-#include <sstream>
+#include <memory>
 
 #include "SignalDb.h"
 
@@ -48,25 +48,25 @@ namespace PARSER
     {
         public:
 
+            /// Returns reference to the signal database.
+            const SIGNAL::SignalDb &GetSignalDb() const
+            {
+                return *(m_pSignalDb.get());
+            }
+
+        protected:
+
             /// The log parser constructor.
             ///
-            /// This constructor shall be used by the iheriting classes.
+            /// This constructor shall be used by the inheriting classes.
             /// It opens the input log file and sets the verbose mode.
             ///
             /// @param filename The name of the log file to be open.
             /// @param verboseMode Value 'true' enables the verbose mode.
-            LogParser(std::string filename, bool verboseMode);
+            LogParser(const std::string &filename, bool verboseMode);
 
-            /// The destructor.
-            ~LogParser();
-
-            /// Returns the pointer to the signal database.
-            SIGNAL::SignalDb *GetSignalDb();
-
-        protected:
-
-            /// The signal databse.
-            SIGNAL::SignalDb *m_pSignalDb;
+            /// The signal database.
+            std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
 
             /// The input file name.
             std::string m_FileName;

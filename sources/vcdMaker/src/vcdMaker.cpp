@@ -43,15 +43,18 @@ int main(int argc, const char *argv[])
     try
     {
         // Parse the log file.
-        PARSER::TxtParser txtLog(cli.GetInputFileName(), cli.GetTimebase(), cli.IsVerboseMode());
+        PARSER::TxtParser txtLog(cli.GetInputFileName(),
+                                 cli.GetTimebase(),
+                                 cli.IsVerboseMode());
 
         // Create the VCD tracer and dump the output file.
-        TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), txtLog.GetSignalDb());
+        TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),
+                                    txtLog.GetSignalDb());
         vcd_trace.Dump();
     }
-    catch (std::runtime_error &e)
+    catch (const std::runtime_error &exception)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << exception.what() << '\n';
     }
 }
 

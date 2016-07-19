@@ -69,10 +69,11 @@ namespace CLI
 
             /// Timbese parameter.
             TCLAP::ValueArg<std::string> m_Timebase
-            {"t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases};
+                {"t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases};
 
             /// Input filename parameter.
-            TCLAP::UnlabeledValueArg<std::string> m_FileIn{ "file_in", "Input log filename", true, "log.txt", "Filename" };
+            TCLAP::UnlabeledValueArg<std::string> m_FileIn
+                { "file_in", "Input log filename", true, "log.txt", "Filename" };
     };
 
 }

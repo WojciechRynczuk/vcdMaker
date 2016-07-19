@@ -43,9 +43,9 @@ int main(int argc, const char *argv[])
     std::cout << "Merging: " << std::endl;
     for (const std::string &filename : infiles)
     {
-        std::cout << "\t" << filename << std::endl;
+        std::cout << '\t' << filename << '\n';
     }
-    std::cout << std::endl;
+    std::cout << '\n';
 }
 
 

@@ -74,7 +74,10 @@ namespace SIGNAL
             ///
             /// The type string is used to produce the VCD header. It describes
             /// the type of the signal and shall equal to "wire" or "real".
-            Signal(const std::string &name, size_t size, uint64_t timestamp, const std::string &type) :
+            Signal(const std::string &name,
+                   size_t size,
+                   uint64_t timestamp,
+                   const std::string &type) :
                 m_Name(name),
                 m_Type(type),
                 m_Size(size),
@@ -150,10 +153,10 @@ namespace SIGNAL
             virtual bool EqualTo(Signal const &other) const = 0;
 
             /// The signal's name.
-            const std::string m_Name {};
+            const std::string m_Name{};
 
             /// The signal's type.
-            const std::string m_Type {};
+            const std::string m_Type{};
 
             /// The signal's size.
             const size_t m_Size = 0;

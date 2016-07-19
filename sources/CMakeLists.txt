@@ -77,9 +77,9 @@ function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HE
 
     # Set warning flags.
     if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
-      target_compile_options(${TARGET_NAME} PUBLIC -Wall -Wextra -pedantic)
+        target_compile_options(${TARGET_NAME} PUBLIC -Wall -Wextra -pedantic)
     elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
-      target_compile_options(${TARGET_NAME} PUBLIC /W4)
+        target_compile_options(${TARGET_NAME} PUBLIC /W4)
     endif()
 endfunction(add_vcdtools_target)
 
@@ -113,3 +113,15 @@ add_vcdtools_target(vcdMerge
                     ${VMERGE_HEADERS}
                     ${VMERGE_HEADERS_DIR})
 
+# Set installation (UNIX-like only)
+
+if (UNIX)
+    install(TARGETS vcdMaker vcdMerge
+            RUNTIME DESTINATION bin
+            COMPONENT runtime)
+
+    install(DIRECTORY common/doc/
+            DESTINATION share/doc/${CMAKE_PROJECT_NAME}
+            COMPONENT documentation
+            PATTERN "*.odt" EXCLUDE)
+endif()

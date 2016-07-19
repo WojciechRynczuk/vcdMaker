@@ -55,14 +55,23 @@ namespace SIGNAL
             /// They will be re-ordered automatically when needed.
             void Add(const SIGNAL::Signal *signal);
 
-            /// Returns a pointer to the signals collection.
-            SIGNAL::SignalCollectionT *GetSignals();
+            /// Returns a reference to the signals collection.
+            const SIGNAL::SignalCollectionT &GetSignals() const
+            {
+                return m_SignalSet;
+            }
 
-            /// Returns a pointer to the database signal footprint.
-            SIGNAL::UniqueSignalsCollectionT *GetSignalFootprint();
+            /// Returns a reference to the database signal footprint.
+            const SIGNAL::UniqueSignalsCollectionT &GetSignalFootprint() const
+            {
+                return m_AddedSignals;
+            }
 
             /// Returns a time unit used in the database.
-            std::string GetTimeUnit();
+            std::string GetTimeUnit() const
+            {
+                return m_TimeUnit;
+            }
 
         private:
             /// The VCD time unit in which the signals are timestamped.

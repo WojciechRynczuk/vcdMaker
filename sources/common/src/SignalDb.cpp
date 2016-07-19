@@ -30,7 +30,8 @@
 
 #include "SignalDb.h"
 
-SIGNAL::SignalDb::SignalDb(const std::string &timeUnit) : m_TimeUnit(timeUnit)
+SIGNAL::SignalDb::SignalDb(const std::string &timeUnit) :
+    m_TimeUnit(timeUnit)
 {
 }
 
@@ -52,19 +53,4 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *signal)
 
     // Store the full signal data
     m_SignalSet.insert(signal);
-}
-
-SIGNAL::SignalCollectionT *SIGNAL::SignalDb::GetSignals()
-{
-    return &m_SignalSet;
-}
-
-SIGNAL::UniqueSignalsCollectionT *SIGNAL::SignalDb::GetSignalFootprint()
-{
-    return &m_AddedSignals;
-}
-
-std::string SIGNAL::SignalDb::GetTimeUnit()
-{
-    return m_TimeUnit;
 }

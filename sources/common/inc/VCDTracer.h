@@ -54,14 +54,11 @@ namespace TRACER
             ///
             /// @param outputFile Name of the output VCD file.
             /// @param signalDb Signals database to be traced to the output file.
-            VCDTracer(const std::string &outputFile, SIGNAL::SignalDb *signalDb);
-
-            /// The destructor.
-            ~VCDTracer();
+            VCDTracer(const std::string &outputFile, const SIGNAL::SignalDb &signalDb);
 
             /// Creates the output VCD file.
             ///
-            /// Funcgtion creates the header of the VCF file as well as the body
+            /// Function creates the header of the VCF file as well as the body
             /// listing all signal changes.
             void Dump();
 
@@ -102,7 +99,7 @@ namespace TRACER
             std::ofstream m_File;
 
             /// The signals database.
-            SIGNAL::SignalDb *m_pSignalDb;
+            const SIGNAL::SignalDb &m_pSignalDb;
     };
 
 }

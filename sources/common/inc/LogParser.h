@@ -38,8 +38,10 @@
 
 #include <fstream>
 #include <memory>
+#include <sstream>
 
 #include "SignalDb.h"
+#include "SourceRegistry.h"
 
 namespace PARSER
 {
@@ -63,7 +65,8 @@ namespace PARSER
             ///
             /// @param filename The name of the log file to be open.
             /// @param verboseMode Value 'true' enables the verbose mode.
-            LogParser(const std::string &filename, bool verboseMode);
+            /// @param sourceRegistry Source registry.
+            LogParser(const std::string &filename, bool verboseMode, SIGNAL::SourceRegistry &sourceRegistry);
 
             /// The signal database.
             std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
@@ -76,6 +79,9 @@ namespace PARSER
 
             /// Verbose mode.
             bool m_VerboseMode;
+
+            /// Source handle.
+            SIGNAL::SourceRegistry::SignalSourceT m_SourceHandle;
     };
 
 }

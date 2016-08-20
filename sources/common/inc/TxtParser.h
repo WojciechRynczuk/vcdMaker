@@ -30,6 +30,7 @@
 #pragma once
 
 #include "LogParser.h"
+#include "LineCounter.h"
 
 namespace PARSER
 {
@@ -46,9 +47,13 @@ namespace PARSER
             /// @param filename The name of the log file to be open.
             /// @param timeBase The time base used in the log.
             /// @param verboseMode Value 'true' enables the verbose mode.
+            /// @param lineCounter The name of the line counting signal.
+            /// @param sourceRegistry Source registry.
             TxtParser(const std::string &filename,
                       const std::string &timeBase,
-                      bool verboseMode);
+                      bool verboseMode,
+                      const std::string &lineCounter,
+                      SIGNAL::SourceRegistry &sourceRegistry);
 
             /// The destructor.
             ~TxtParser();
@@ -58,11 +63,23 @@ namespace PARSER
             /// Parses the input file.
             void Parse();
 
+            /// Dump line counting information.
+            void DumpLineCounter();
+
             /// The number of valid lines.
             uint64_t m_ValidLines;
 
             /// The number of invalid lines.
             uint64_t m_InvalidLines;
+
+            /// The line counter.
+            LineCounter m_LineCounter;
+
+            /// The line counter mode.
+            bool m_LineCounterEnabled;
+
+            /// The line counter signal source handle.
+            SIGNAL::SourceRegistry::SignalSourceT m_LineCounterSourceHandle;
     };
 
 }

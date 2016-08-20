@@ -28,6 +28,7 @@
 #include "VCDTracer.h"
 #include "CliMaker.h"
 #include "TxtParser.h"
+#include "SourceRegistry.h"
 
 ///  The vcdMaker main function.
 ///
@@ -40,12 +41,17 @@ int main(int argc, const char *argv[])
     CLI::CliMaker cli;
     cli.Parse(argc, argv);
 
+	// Source registry.
+	SIGNAL::SourceRegistry Registry;
+
     try
     {
         // Parse the log file.
-        PARSER::TxtParser txtLog(cli.GetInputFileName(),
-                                 cli.GetTimebase(),
-                                 cli.IsVerboseMode());
+        PARSER::TxtParser txtLog(cli.GetInputFileName(), 
+								 cli.GetTimebase(), 
+			                     cli.IsVerboseMode(), 
+			                     cli.GetLineCounterName(),
+				                 Registry);
 
         // Create the VCD tracer and dump the output file.
         TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),

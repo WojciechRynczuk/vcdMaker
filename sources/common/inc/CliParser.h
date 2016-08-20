@@ -77,7 +77,7 @@ namespace CLI
             }
 
             /// Returns the output file name.
-            std::string GetOutputFileName()
+            const std::string &GetOutputFileName()
             {
                 return m_FileOut.getValue();
             }
@@ -99,11 +99,11 @@ namespace CLI
 
             /// Output file parameter.
             TCLAP::ValueArg<std::string> m_FileOut
-                {"o", "file_out", "Ouput VCD filename", true, "log.vcd", "string"};
+            {"o", "file_out", "Ouput VCD filename", true, "log.vcd", "string"};
 
             // Verbose mode switch state.
             TCLAP::SwitchArg m_VerboseMode
-                {"v", "verbose", "Enables verbose mode", false};
+            {"v", "verbose", "Enables verbose mode", false};
     };
 
 }

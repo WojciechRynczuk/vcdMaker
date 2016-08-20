@@ -31,18 +31,42 @@
 
 #include "TxtParser.h"
 #include "SignalFactory.h"
+#include "ISignal.h"
 
 PARSER::TxtParser::TxtParser(const std::string &filename,
                              const std::string &timeBase,
-                             bool verboseMode) :
-    LogParser(filename, verboseMode),
+                             bool verboseMode,
+                             const std::string &lineCounter,
+                             SIGNAL::SourceRegistry &sourceRegistry) :
+    LogParser(filename, verboseMode, sourceRegistry),
     m_ValidLines(0),
-    m_InvalidLines(0)
+    m_InvalidLines(0),
+    m_LineCounter(lineCounter)
 {
     m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(timeBase);
+    m_ValidLines = 0;
+    m_InvalidLines = 0;
+
+    // Check if the line counter has been enabled
+    if (lineCounter != "")
+    {
+        m_LineCounterEnabled = true;
+        m_LineCounterSourceHandle = sourceRegistry.Register(filename + "-" + lineCounter);
+    }
+    else
+    {
+        m_LineCounterEnabled = false;
+        m_LineCounterSourceHandle = 0;
+    }
 
     // Process the log
     Parse();
+
+    // Dump the line counting information.
+    if (m_LineCounterEnabled)
+    {
+        DumpLineCounter();
+    }
 }
 
 PARSER::TxtParser::~TxtParser()
@@ -56,17 +80,24 @@ PARSER::TxtParser::~TxtParser()
 void PARSER::TxtParser::Parse()
 {
     // Create the signal factory.
-    const SignalFactory signal_factory;
+    const SignalFactory signalFactory;
+
+    // Line counter.
+    LineCounter::LineNumberT lineNumber = 1;
 
     // Process the log file.
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        const SIGNAL::Signal *signal = signal_factory.Create(input_line);
+        const SIGNAL::Signal *signal = signalFactory.Create(input_line);
         if (signal)
         {
             m_pSignalDb->Add(signal);
-            ++m_ValidLines;
+            if (m_LineCounterEnabled)
+            {
+                m_LineCounter.Update(signal->GetTimestamp(), lineNumber);
+            }
+            m_ValidLines++;
         }
         else
         {
@@ -76,5 +107,18 @@ void PARSER::TxtParser::Parse()
             }
             ++m_InvalidLines;
         }
+        lineNumber++;
+    }
+}
+
+void PARSER::TxtParser::DumpLineCounter()
+{
+    LineCounter::LineCounterT record;
+    while (m_LineCounter.Get(record))
+    {
+        SIGNAL::ISignal *lowCounter = new SIGNAL::ISignal(record.counterNameLow, 32, record.time, record.low);
+        SIGNAL::ISignal *highCounter = new SIGNAL::ISignal(record.counterNameHigh, 32, record.time, record.high);
+        m_pSignalDb->Add(lowCounter);
+        m_pSignalDb->Add(highCounter);
     }
 }

@@ -56,8 +56,8 @@ void TRACER::SignalStructureBuilder::Dump()
 }
 
 std::tuple<bool, std::size_t> TRACER::SignalStructureBuilder::FindContinuation(const SIGNAL::Signal::SignalNameFieldsT
-                                                                               &currentFields,
-                                                                               const SIGNAL::Signal::SignalNameFieldsT &previousFields)
+        &currentFields,
+        const SIGNAL::Signal::SignalNameFieldsT &previousFields)
 {
     const std::size_t common_size = std::min(currentFields.size(), previousFields.size());
 
@@ -73,7 +73,7 @@ std::tuple<bool, std::size_t> TRACER::SignalStructureBuilder::FindContinuation(c
 }
 
 void TRACER::SignalStructureBuilder::EndScopesDownTo(const SIGNAL::Signal::SignalNameFieldsT &fields,
-                                                     std::size_t lowerLimit)
+        std::size_t lowerLimit)
 {
     if (fields.empty())
     {
@@ -87,8 +87,8 @@ void TRACER::SignalStructureBuilder::EndScopesDownTo(const SIGNAL::Signal::Signa
 }
 
 void TRACER::SignalStructureBuilder::ContinueScopes(std::size_t continueFrom,
-                                                    const SIGNAL::Signal::SignalNameFieldsT &fields,
-                                                    const SIGNAL::Signal *signal)
+        const SIGNAL::Signal::SignalNameFieldsT &fields,
+        const SIGNAL::Signal *signal)
 {
     for (std::size_t i = continueFrom; i < fields.size(); ++i)
     {

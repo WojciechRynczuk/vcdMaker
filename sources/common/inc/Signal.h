@@ -153,10 +153,10 @@ namespace SIGNAL
             virtual bool EqualTo(Signal const &other) const = 0;
 
             /// The signal's name.
-            const std::string m_Name{};
+            const std::string m_Name {};
 
             /// The signal's type.
-            const std::string m_Type{};
+            const std::string m_Type {};
 
             /// The signal's size.
             const size_t m_Size = 0;

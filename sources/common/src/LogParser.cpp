@@ -29,7 +29,7 @@
 
 #include "LogParser.h"
 
-PARSER::LogParser::LogParser(const std::string &filename, bool verboseMode) :
+PARSER::LogParser::LogParser(const std::string &filename, bool verboseMode, SIGNAL::SourceRegistry &sourceRegistry) :
     m_pSignalDb(),
     m_FileName(filename),
     m_LogFile(m_FileName),
@@ -40,4 +40,5 @@ PARSER::LogParser::LogParser(const std::string &filename, bool verboseMode) :
         throw std::runtime_error("Opening file '" + m_FileName +
                                  "' failed, it either doesn't exist or is inaccessible.");
     }
+    m_SourceHandle = sourceRegistry.Register(filename);
 }

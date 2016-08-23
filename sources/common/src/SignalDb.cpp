@@ -29,6 +29,7 @@
 /// IN THE SOFTWARE.
 
 #include "SignalDb.h"
+#include "vcdExceptions.h"
 
 SIGNAL::SignalDb::SignalDb(const std::string &timeUnit) :
     m_TimeUnit(timeUnit)
@@ -45,10 +46,21 @@ SIGNAL::SignalDb::~SignalDb()
 
 void SIGNAL::SignalDb::Add(const SIGNAL::Signal *signal)
 {
+    const auto it = m_AddedSignals.find(signal->GetName());
+
     // Is this a new signal to be logged?
-    if (m_AddedSignals.find(signal->GetName()) == m_AddedSignals.end())
+    if (it == m_AddedSignals.end())
     {
         m_AddedSignals[signal->GetName()] = signal;
+    }
+    else
+    {
+        if ( (it->second->GetName() == signal->GetName()) &&
+                (it->second->GetSource() != signal->GetSource()) )
+        {
+            // There are duplicated signal names in different sources.
+            throw EXCEPTION::ConflictingNames(signal->GetName(), it->second->GetSource(), signal->GetSource());
+        }
     }
 
     // Store the full signal data

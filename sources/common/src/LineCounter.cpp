@@ -28,9 +28,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <iostream>
 
 #include "LineCounter.h"
+
+PARSER::LineCounter::LineCounter(const std::string &counterName)
+{
+    std::size_t pos = counterName.find(".");
+    if (std::string::npos != pos)
+    {
+        if ("" == counterName.substr(0, pos))
+        {
+            m_CounterName = std::string("Top") + counterName;
+        }
+        else
+        {
+            m_CounterName = counterName;
+        }
+    }
+    else
+    {
+        m_CounterName = std::string("Top.") + counterName;
+    }
+}
 
 void PARSER::LineCounter::Update(uint64_t time, LineNumberT lineNumber)
 {

@@ -44,7 +44,7 @@ namespace PARSER
         public:
 
             /// The signal factory default constructor.
-            SignalFactory();
+            SignalFactory(SIGNAL::SourceRegistry::SignalSourceT sourceHandle);
 
             /// Creates the appropriate signal object.
             ///
@@ -56,6 +56,9 @@ namespace PARSER
 
             /// The table of pointers to signal creators.
             std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
+
+            /// The signal source handle.
+            SIGNAL::SourceRegistry::SignalSourceT m_SourceHandle;
     };
 
 }

@@ -44,6 +44,8 @@
 #include <map>
 #include <set>
 
+#include "SourceRegistry.h"
+
 namespace SIGNAL
 {
     /// The base VCD signal class. The integer and real signal classes
@@ -97,7 +99,7 @@ namespace SIGNAL
             ///
             /// The method is used while generating the header and the body
             /// of the VCD file.
-            std::string GetName() const
+            const std::string &GetName() const
             {
                 return m_Name;
             }
@@ -127,9 +129,23 @@ namespace SIGNAL
             /// Returns the signal's type.
             ///
             /// The method is used while generating the VCD header.
-            std::string GetType() const
+            const std::string &GetType() const
             {
                 return m_Type;
+            }
+
+            /// Sets the source of the signal.
+            ///
+            /// The method is used to set the signal's origin.
+            void SetSource(SourceRegistry::SignalSourceT sourceHandle)
+            {
+                m_SourceHandle = sourceHandle;
+            }
+
+            /// Returns the source handle of the signal.
+            SourceRegistry::SignalSourceT GetSource() const
+            {
+                return m_SourceHandle;
             }
 
             /// Returns the signal's value as a string in the VCD format.
@@ -163,6 +179,9 @@ namespace SIGNAL
 
             /// The signal's timestamp.
             const uint64_t m_Timestamp = 0;
+
+            /// The signal's source.
+            SourceRegistry::SignalSourceT m_SourceHandle = 0;
 
         private:
 

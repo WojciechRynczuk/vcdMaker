@@ -56,7 +56,7 @@ namespace SIGNAL
             /// @return The handle of the registered signal source.
             ///         Positive integer value for the successful operation.
             ///         0 when operation failed.
-            SignalSourceT Register(const std::string &sourceName);
+            SignalSourceT Register(const std::string sourceName);
 
             /// Returns the name of the signal source.
             const std::string *GetName(const SignalSourceT sourceHandle);

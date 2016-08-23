@@ -46,12 +46,13 @@ PARSER::TxtParser::TxtParser(const std::string &filename,
     m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(timeBase);
     m_ValidLines = 0;
     m_InvalidLines = 0;
+    m_SourceHandle = sourceRegistry.Register(filename);
 
     // Check if the line counter has been enabled
     if (lineCounter != "")
     {
         m_LineCounterEnabled = true;
-        m_LineCounterSourceHandle = sourceRegistry.Register(filename + "-" + lineCounter);
+        m_LineCounterSourceHandle = sourceRegistry.Register(filename + "-LineCounter");
     }
     else
     {
@@ -80,7 +81,7 @@ PARSER::TxtParser::~TxtParser()
 void PARSER::TxtParser::Parse()
 {
     // Create the signal factory.
-    const SignalFactory signalFactory;
+    const SignalFactory signalFactory(m_SourceHandle);
 
     // Line counter.
     LineCounter::LineNumberT lineNumber = 1;
@@ -118,6 +119,8 @@ void PARSER::TxtParser::DumpLineCounter()
     {
         SIGNAL::ISignal *lowCounter = new SIGNAL::ISignal(record.counterNameLow, 32, record.time, record.low);
         SIGNAL::ISignal *highCounter = new SIGNAL::ISignal(record.counterNameHigh, 32, record.time, record.high);
+        lowCounter->SetSource(m_LineCounterSourceHandle);
+        highCounter->SetSource(m_LineCounterSourceHandle);
         m_pSignalDb->Add(lowCounter);
         m_pSignalDb->Add(highCounter);
     }

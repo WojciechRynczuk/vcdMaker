@@ -30,6 +30,7 @@
 
 #pragma once
 
+#include <string>
 #include <map>
 #include <array>
 
@@ -67,17 +68,7 @@ namespace PARSER
             /// it will be automatically set to "Top".
             ///
             /// @param counterName The counter name.
-            LineCounter(const std::string &counterName)
-            {
-                if (std::string::npos != counterName.find("."))
-                {
-                    m_CounterName = counterName;
-                }
-                else
-                {
-                    m_CounterName = std::string("Top.") + counterName;
-                }
-            }
+            LineCounter(const std::string &counterName);
 
             /// The destructor.
             ~LineCounter()

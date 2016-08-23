@@ -92,6 +92,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SourceRegistry.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\vcdExceptions.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
     <ClInclude Include="..\..\..\sources\vcdMaker\inc\CliMaker.h" />
   </ItemGroup>

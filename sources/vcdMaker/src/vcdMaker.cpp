@@ -29,6 +29,7 @@
 #include "CliMaker.h"
 #include "TxtParser.h"
 #include "SourceRegistry.h"
+#include "vcdExceptions.h"
 
 ///  The vcdMaker main function.
 ///
@@ -58,6 +59,12 @@ int main(int argc, const char *argv[])
                                     txtLog.GetSignalDb());
         vcd_trace.Dump();
     }
+	catch (const EXCEPTION::ConflictingNames &exception)
+	{
+		// Conflicting signal names in different sources.
+		std::cerr << exception.what() << " Signal " << exception.GetName() << " in the sources: " 
+			<< *Registry.GetName(exception.GetSourceA()) << " and " << *Registry.GetName(exception.GetSourceB()) << '\n';
+	}
     catch (const std::runtime_error &exception)
     {
         std::cerr << exception.what() << '\n';

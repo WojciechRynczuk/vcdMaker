@@ -30,7 +30,7 @@
 
 #include "SourceRegistry.h"
 
-SIGNAL::SourceRegistry::SignalSourceT SIGNAL::SourceRegistry::Register(const std::string &sourceName)
+SIGNAL::SourceRegistry::SignalSourceT SIGNAL::SourceRegistry::Register(const std::string sourceName)
 {
     // Check if the source has been already registered.
     SignalSourceT handle = GetHandle(sourceName);

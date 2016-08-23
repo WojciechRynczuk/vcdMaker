@@ -63,6 +63,9 @@
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\vcdExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp">

@@ -46,6 +46,12 @@ SIGNAL::SignalDb::~SignalDb()
 
 void SIGNAL::SignalDb::Add(const SIGNAL::Signal *signal)
 {
+    // A signal shall have a valid source once added to the database.
+    if (0 == signal->GetSource())
+    {
+        throw std::logic_error("Invalid signal source.");
+    }
+
     const auto it = m_AddedSignals.find(signal->GetName());
 
     // Is this a new signal to be logged?

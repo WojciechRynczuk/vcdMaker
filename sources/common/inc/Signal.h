@@ -41,7 +41,6 @@
 #include <cstdint>
 #include <string>
 #include <vector>
-#include <map>
 #include <set>
 
 #include "SourceRegistry.h"

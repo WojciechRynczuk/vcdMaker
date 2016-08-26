@@ -33,6 +33,7 @@
 
 #include "VCDTracer.h"
 #include "SignalStructureBuilder.h"
+#include "TimeFrame.h"
 
 TRACER::VCDTracer::VCDTracer(const std::string &outputFile,
                              const SIGNAL::SignalDb &signalDb) :
@@ -85,35 +86,20 @@ void TRACER::VCDTracer::GenerateSignalDefaults()
 
 void TRACER::VCDTracer::GenerateBody()
 {
-    SIGNAL::UniqueSignalsCollectionT previous_signals;
+    TimeFrame frame(0, m_File);
     uint64_t previous_timestamp = 0;
-    bool has_printed_first = false;
 
     for (const SIGNAL::Signal *current_signal : m_pSignalDb.GetSignals())
     {
         const uint64_t current_timestamp = current_signal->GetTimestamp();
-
-        const bool should_print_timestamp =
-            (!has_printed_first || (current_timestamp != previous_timestamp));
-
-        const std::string signal_name = current_signal->GetName();
-
-        const auto previous_signal_it = previous_signals.find(signal_name);
-        const bool previous_signal_exists = (previous_signal_it != previous_signals.end());
-
-        if (!previous_signal_exists ||
-                (*current_signal != *(previous_signal_it->second)))
+        if (current_timestamp != previous_timestamp)
         {
-            if (should_print_timestamp)
-            {
-                DumpLine('#' + std::to_string(current_timestamp));
-                previous_timestamp = current_timestamp;
-                has_printed_first = true;
-            }
-
-            DumpLine(current_signal->Print());
-            previous_signals[signal_name] = current_signal;
+            frame.Dump();
+            previous_timestamp = current_timestamp;
+            frame.SetTime(current_timestamp);
         }
+        frame.Add(current_signal);
     }
+    frame.Dump();
 }
 

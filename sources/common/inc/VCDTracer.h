@@ -86,7 +86,6 @@ namespace TRACER
             /// Generates the VCD body.
             ///
             /// Dumps time-ordered signal value changes.
-            /// @note Multiple changes in the same timestamp are not checked.
             void GenerateBody();
 
             /// Write on line to output file.
@@ -101,5 +100,4 @@ namespace TRACER
             /// The signals database.
             const SIGNAL::SignalDb &m_pSignalDb;
     };
-
 }

@@ -41,7 +41,6 @@
 #include <sstream>
 
 #include "SignalDb.h"
-#include "SourceRegistry.h"
 
 namespace PARSER
 {

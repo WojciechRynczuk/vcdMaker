@@ -47,7 +47,7 @@ SIGNAL::SignalDb::~SignalDb()
 void SIGNAL::SignalDb::Add(const SIGNAL::Signal *signal)
 {
     // A signal shall have a valid source once added to the database.
-    if (0 == signal->GetSource())
+    if (signal->GetSource() == SourceRegistry::BAD_HANDLE)
     {
         throw std::logic_error("Invalid signal source.");
     }
@@ -62,10 +62,12 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *signal)
     else
     {
         if ( (it->second->GetName() == signal->GetName()) &&
-                (it->second->GetSource() != signal->GetSource()) )
+             (it->second->GetSource() != signal->GetSource()) )
         {
             // There are duplicated signal names in different sources.
-            throw EXCEPTION::ConflictingNames(signal->GetName(), it->second->GetSource(), signal->GetSource());
+            throw EXCEPTION::ConflictingNames(signal->GetName(),
+                                              it->second->GetSource(),
+                                              signal->GetSource());
         }
     }
 

@@ -45,7 +45,7 @@ namespace CLI
             {
                 m_Cli.add(m_Timebase);
                 m_Cli.add(m_FileIn);
-				m_Cli.add(m_LineCounter);
+                m_Cli.add(m_LineCounter);
             }
 
             /// Returns the timebase parameter.
@@ -60,11 +60,11 @@ namespace CLI
                 return m_FileIn.getValue();
             }
 
-			/// Returns the line counter signal name.
-			const std::string& GetLineCounterName()
-			{
-				return m_LineCounter.getValue();
-			}
+            /// Returns the line counter signal name.
+            const std::string& GetLineCounterName()
+            {
+                return m_LineCounter.getValue();
+            }
 
         private:
 
@@ -82,9 +82,9 @@ namespace CLI
             TCLAP::UnlabeledValueArg<std::string> m_FileIn
                 { "file_in", "Input log filename", true, "log.txt", "Filename" };
 
-			/// Line counter parameter.
-			TCLAP::ValueArg<std::string> m_LineCounter
-			    { "c", "lineCounter", "Line counter signal name", false, "", "Line counter signal name"};
+            /// Line counter parameter.
+            TCLAP::ValueArg<std::string> m_LineCounter
+                { "c", "lineCounter", "Line counter signal name", false, "", "Line counter signal name"};
     };
 
 }

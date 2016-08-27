@@ -69,7 +69,7 @@ namespace TRACER
             /// @param previousFields Fields from previous iteration.
             /// @return Continuation index.
             std::tuple<bool, std::size_t> FindContinuation(const SIGNAL::Signal::SignalNameFieldsT &currentFields,
-                    const SIGNAL::Signal::SignalNameFieldsT &previousFields);
+                                                           const SIGNAL::Signal::SignalNameFieldsT &previousFields);
 
             /// Ends scopes from the end of fields to lowerLimit.
             ///

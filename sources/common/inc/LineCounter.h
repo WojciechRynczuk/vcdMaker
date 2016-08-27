@@ -69,10 +69,6 @@ namespace PARSER
             /// @param counterName The counter name.
             LineCounter(const std::string &counterName);
 
-            /// The destructor.
-            ~LineCounter()
-            {}
-
             /// Updates the line counting information.
             ///
             /// @param time The time the signal has been registered.
@@ -80,7 +76,7 @@ namespace PARSER
             /// @return void
             void Update(uint64_t time, LineNumberT lineNumber);
 
-            /// Returns the consectutive line counter records.
+            /// Returns the consecutive line counter records.
             ///
             /// @param record The placeholder for the record to be returned.
             /// @return true if a valid record has been returned, false otherwise.

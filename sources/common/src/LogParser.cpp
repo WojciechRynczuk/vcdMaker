@@ -29,16 +29,18 @@
 
 #include "LogParser.h"
 
-PARSER::LogParser::LogParser(const std::string &filename, bool verboseMode, SIGNAL::SourceRegistry &sourceRegistry) :
+PARSER::LogParser::LogParser(const std::string &filename,
+                             bool verboseMode,
+                             SIGNAL::SourceRegistry &sourceRegistry) :
     m_pSignalDb(),
     m_FileName(filename),
     m_LogFile(m_FileName),
-    m_VerboseMode(verboseMode)
+    m_VerboseMode(verboseMode),
+    m_SourceHandle(sourceRegistry.Register(filename))
 {
     if (!m_LogFile.is_open())
     {
         throw std::runtime_error("Opening file '" + m_FileName +
                                  "' failed, it either doesn't exist or is inaccessible.");
     }
-    m_SourceHandle = sourceRegistry.Register(filename);
 }

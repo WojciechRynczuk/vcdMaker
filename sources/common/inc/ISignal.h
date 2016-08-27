@@ -53,8 +53,9 @@ namespace SIGNAL
             ISignal(const std::string &name,
                     size_t size,
                     uint64_t timestamp,
-                    uint64_t value) :
-                Signal(name, size, timestamp, "wire"),
+                    uint64_t value,
+                    SourceRegistry::HandleT sourceHandle) :
+                Signal(name, size, timestamp, "wire", sourceHandle),
                 m_Value(value)
             {
             }

@@ -78,11 +78,13 @@ namespace SIGNAL
             Signal(const std::string &name,
                    size_t size,
                    uint64_t timestamp,
-                   const std::string &type) :
+                   const std::string &type,
+                   SourceRegistry::HandleT sourceHandle) :
                 m_Name(name),
                 m_Type(type),
                 m_Size(size),
-                m_Timestamp(timestamp)
+                m_Timestamp(timestamp),
+                m_SourceHandle(sourceHandle)
             {
             }
 
@@ -133,14 +135,6 @@ namespace SIGNAL
                 return m_Type;
             }
 
-            /// Sets the source of the signal.
-            ///
-            /// The method is used to set the signal's origin.
-            void SetSource(SourceRegistry::HandleT sourceHandle)
-            {
-                m_SourceHandle = sourceHandle;
-            }
-
             /// Returns the source handle of the signal.
             SourceRegistry::HandleT GetSource() const
             {
@@ -180,7 +174,7 @@ namespace SIGNAL
             const uint64_t m_Timestamp = 0;
 
             /// The signal's source.
-            SourceRegistry::HandleT m_SourceHandle =
+            const SourceRegistry::HandleT m_SourceHandle =
                 SIGNAL::SourceRegistry::BAD_HANDLE;
 
         private:

@@ -27,7 +27,8 @@
 #include "FSignalCreator.h"
 #include "FSignal.h"
 
-SIGNAL::Signal *PARSER::FSignalCreator::Create(const std::string &logLine) const
+SIGNAL::Signal *PARSER::FSignalCreator::Create(const std::string &logLine,
+                                               SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 
@@ -35,7 +36,8 @@ SIGNAL::Signal *PARSER::FSignalCreator::Create(const std::string &logLine) const
     {
         return new SIGNAL::FSignal(result[2].str(),
                                    std::stoll(result[1].str()),
-                                   std::stod(result[3].str()));
+                                   std::stod(result[3].str()),
+                                   sourceHandle);
     }
     else
     {

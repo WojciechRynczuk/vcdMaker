@@ -81,7 +81,7 @@ PARSER::TxtParser::~TxtParser()
 void PARSER::TxtParser::Parse()
 {
     // Create the signal factory.
-    const SignalFactory signalFactory(m_SourceHandle);
+    const SignalFactory signalFactory;
 
     // Line counter.
     LineCounter::LineNumberT lineNumber = 1;
@@ -90,7 +90,8 @@ void PARSER::TxtParser::Parse()
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        const SIGNAL::Signal *signal = signalFactory.Create(input_line);
+        const SIGNAL::Signal *signal =
+            signalFactory.Create(input_line, m_SourceHandle);
         if (signal)
         {
             m_pSignalDb->Add(signal);
@@ -117,10 +118,10 @@ void PARSER::TxtParser::DumpLineCounter()
     LineCounter::LineCounterT record;
     while (m_LineCounter.Get(record))
     {
-        SIGNAL::ISignal *lowCounter = new SIGNAL::ISignal(record.counterNameLow, 32, record.time, record.low);
-        SIGNAL::ISignal *highCounter = new SIGNAL::ISignal(record.counterNameHigh, 32, record.time, record.high);
-        lowCounter->SetSource(m_LineCounterSourceHandle);
-        highCounter->SetSource(m_LineCounterSourceHandle);
+        SIGNAL::ISignal *lowCounter =
+            new SIGNAL::ISignal(record.counterNameLow, 32, record.time, record.low, m_LineCounterSourceHandle);
+        SIGNAL::ISignal *highCounter =
+            new SIGNAL::ISignal(record.counterNameHigh, 32, record.time, record.high, m_LineCounterSourceHandle);
         m_pSignalDb->Add(lowCounter);
         m_pSignalDb->Add(highCounter);
     }

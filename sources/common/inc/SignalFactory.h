@@ -43,24 +43,23 @@ namespace PARSER
     {
         public:
 
-            /// The signal factory constructor.
-            ///
-            /// @param sourceHandle Handle to registered signal source.
-            SignalFactory(SIGNAL::SourceRegistry::HandleT sourceHandle);
+            /// The signal factory default constructor.
+            SignalFactory();
 
             /// Creates the appropriate signal object.
             ///
             /// Returns the pointer to the appropriate signal object.
             /// Or nullptr if it couldn't be created.
-            SIGNAL::Signal *Create(std::string &logLine) const;
+            ///
+            /// @param logLine One line from the log.
+            /// @param sourceHandle Signal source handle.
+            SIGNAL::Signal *Create(std::string &logLine,
+                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
         private:
 
             /// The table of pointers to signal creators.
             std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
-
-            /// The signal source handle.
-            const SIGNAL::SourceRegistry::HandleT m_SourceHandle;
     };
 
 }

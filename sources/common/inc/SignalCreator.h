@@ -63,8 +63,10 @@ namespace PARSER
             /// then nullptr is returned.
             ///
             /// @param logLine The log line serving as the creation specification.
+            /// @param sourceHandle Signal source handle.
             /// @return Signal pointer if the object has been created or nullptr.
-            virtual SIGNAL::Signal *Create(const std::string &logLine) const = 0;
+            virtual SIGNAL::Signal *Create(const std::string &logLine,
+                                           SIGNAL::SourceRegistry::HandleT sourceHandle) const = 0;
 
         protected:
 

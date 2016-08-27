@@ -31,26 +31,25 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 
-PARSER::SignalFactory::SignalFactory(SIGNAL::SourceRegistry::HandleT sourceHandle) :
-    m_vpSignalCreators(),
-    m_SourceHandle(sourceHandle)
+PARSER::SignalFactory::SignalFactory() :
+    m_vpSignalCreators()
 {
     // Register creators
     m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
     m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
 }
 
-SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine) const
+SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine,
+                                              SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     for (const auto &creator : m_vpSignalCreators)
     {
         // Try to use creator.
-        SIGNAL::Signal *pSignal = creator->Create(logLine);
+        SIGNAL::Signal *pSignal = creator->Create(logLine, sourceHandle);
 
         // If successful return created Signal, if not try next one.
         if (pSignal != nullptr)
         {
-            pSignal->SetSource(m_SourceHandle);
             return pSignal;
         }
     }

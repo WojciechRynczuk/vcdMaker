@@ -27,7 +27,8 @@
 #include "ISignalCreator.h"
 #include "ISignal.h"
 
-SIGNAL::Signal *PARSER::ISignalCreator::Create(const std::string &logLine) const
+SIGNAL::Signal *PARSER::ISignalCreator::Create(const std::string &logLine,
+                                               SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 
@@ -36,7 +37,8 @@ SIGNAL::Signal *PARSER::ISignalCreator::Create(const std::string &logLine) const
         return new SIGNAL::ISignal(result[2].str(),
                                    std::stoi(result[4].str()),
                                    std::stoll(result[1].str()),
-                                   std::stoll(result[3].str()));
+                                   std::stoll(result[3].str()),
+                                   sourceHandle);
     }
     else
     {

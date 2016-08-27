@@ -45,7 +45,8 @@ namespace PARSER
             }
 
             /// @copydoc SignalCreator::Create()
-            virtual SIGNAL::Signal *Create(const std::string &logLine) const;
+            virtual SIGNAL::Signal *Create(const std::string &logLine,
+                                           SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
     };
 

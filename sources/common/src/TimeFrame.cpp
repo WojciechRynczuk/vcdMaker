@@ -30,38 +30,17 @@
 
 #include "TimeFrame.h"
 
-TRACER::TimeFrame::TimeFrame(uint64_t timestamp, std::ofstream &file) :
-    m_Timestamp(timestamp),
-    m_rFile(file)
+void TRACER::TimeFrame::DumpAndClear()
 {
-}
-
-void TRACER::TimeFrame::SetTime(uint64_t frameStart)
-{
-    m_Timestamp = frameStart;
-}
-
-void TRACER::TimeFrame::Add(const SIGNAL::Signal *signal)
-{
-    auto it = m_Signals.find(signal->GetName());
-    if ( (it == m_Signals.end()) ||
-            (*it->second != *signal) )
+    if (!m_FrameSignals.empty())
     {
-        // The signal wasn't logged yet or it had an old value.
-        m_Signals[signal->GetName()] = signal;
-        m_FrameSignals[signal->GetName()] = signal;
-    }
-}
+        DumpLine('#' + std::to_string(m_Timestamp));
 
-void TRACER::TimeFrame::Dump()
-{
-    if (m_FrameSignals.size() > 0)
-    {
-        m_rFile << "#" << std::to_string(m_Timestamp) << '\n';
-        for (auto it = m_FrameSignals.begin(); it != m_FrameSignals.end(); ++it)
+        for (const auto &signal : m_FrameSignals)
         {
-            m_rFile << it->second->Print() << '\n';
+            DumpLine(signal.second->Print());
         }
+
         m_FrameSignals.clear();
     }
 }

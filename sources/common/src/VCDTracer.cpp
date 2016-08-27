@@ -92,14 +92,18 @@ void TRACER::VCDTracer::GenerateBody()
     for (const SIGNAL::Signal *current_signal : m_pSignalDb.GetSignals())
     {
         const uint64_t current_timestamp = current_signal->GetTimestamp();
+
         if (current_timestamp != previous_timestamp)
         {
-            frame.Dump();
+            frame.DumpAndClear();
+
             previous_timestamp = current_timestamp;
             frame.SetTime(current_timestamp);
         }
+
         frame.Add(current_signal);
     }
-    frame.Dump();
+
+    frame.DumpAndClear();
 }
 

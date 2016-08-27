@@ -44,41 +44,49 @@ namespace TRACER
             ///
             /// @param timestamp The initial timestamp.
             /// @param file The output stream.
-            TimeFrame(const uint64_t timestamp, std::ofstream &file);
-
-            /// The destructor.
-            ~TimeFrame()
-            {}
+            TimeFrame(const uint64_t timestamp, std::ofstream &file) :
+                m_Timestamp(timestamp),
+                m_rFile(file),
+                m_FrameSignals()
+            {
+            }
 
             /// Sets the beginning of the frame.
             ///
             /// @param frameStart New timestamp characterizing a frame.
-            void SetTime(uint64_t frameStart);
+            void SetTime(uint64_t frameStart)
+            {
+                m_Timestamp = frameStart;
+            }
 
             /// Adds the signal information to the time frame.
             ///
             /// @param signal The signal.
-            /// @return void
-            void Add(const SIGNAL::Signal *signal);
+            void Add(const SIGNAL::Signal *signal)
+            {
+                m_FrameSignals[signal->GetName()] = signal;
+            }
 
             /// Dumps the time frame information.
-            /// @return void
-            void Dump();
+            ///
+            /// Time frame is dumped to the file and then the frame is cleared.
+            void DumpAndClear();
 
         private:
+
+            /// Write on line to output file.
+            void DumpLine(const std::string &line)
+            {
+                m_rFile << line << '\n';
+            }
+
             /// The timestamp of the time frame.
             uint64_t m_Timestamp;
 
-            /// The content of the time frame.
-            using TimeFrameT = std::map<std::string, const SIGNAL::Signal *>;
-
-            /// Time frame signals.
-            TimeFrameT m_FrameSignals;
-
-            /// All signals.
-            TimeFrameT m_Signals;
-
             /// The output stream.
             std::ofstream &m_rFile;
+
+            /// Time frame signals.
+            SIGNAL::UniqueSignalsCollectionT m_FrameSignals;
     };
 }

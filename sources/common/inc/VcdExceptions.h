@@ -62,8 +62,8 @@ namespace EXCEPTION
             /// @param sourceA The first source of the signal.
             /// @param sourceB The second source of the signal.
             ConflictingNames(const std::string &signalName,
-                             SIGNAL::SourceRegistry::SignalSourceT sourceA,
-                             SIGNAL::SourceRegistry::SignalSourceT sourceB) :
+                             SIGNAL::SourceRegistry::HandleT sourceA,
+                             SIGNAL::SourceRegistry::HandleT sourceB) :
                 std::runtime_error("Conflicting signal names!"),
                 m_SignalName(signalName),
                 m_SourceA(sourceA),
@@ -84,7 +84,7 @@ namespace EXCEPTION
             ///
             /// The method is used while providing the detailed information
             /// about the sources of the conflicting signal.
-            const SIGNAL::SourceRegistry::SignalSourceT &GetSourceA() const
+            SIGNAL::SourceRegistry::HandleT GetSourceA() const
             {
                 return m_SourceA;
             }
@@ -94,7 +94,7 @@ namespace EXCEPTION
             ///
             /// The method is used while providing the detailed information
             /// about the sources of the conflicting signal.
-            const SIGNAL::SourceRegistry::SignalSourceT &GetSourceB() const
+            SIGNAL::SourceRegistry::HandleT GetSourceB() const
             {
                 return m_SourceB;
             }
@@ -104,9 +104,9 @@ namespace EXCEPTION
             const std::string m_SignalName;
 
             /// The first source of the signal.
-            const SIGNAL::SourceRegistry::SignalSourceT m_SourceA;
+            const SIGNAL::SourceRegistry::HandleT m_SourceA;
 
             /// The second source of the signal.
-            const SIGNAL::SourceRegistry::SignalSourceT m_SourceB;
+            const SIGNAL::SourceRegistry::HandleT m_SourceB;
     };
 }

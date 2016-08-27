@@ -30,56 +30,60 @@
 
 #include "SourceRegistry.h"
 
-SIGNAL::SourceRegistry::SignalSourceT SIGNAL::SourceRegistry::Register(const std::string sourceName)
+SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::Register(const std::string &sourceName)
 {
-    // Check if the source has been already registered.
-    SignalSourceT handle = GetHandle(sourceName);
-    if (handle > 0)
+    const HandleT existing_handle = GetHandleForSource(sourceName);
+
+    if (existing_handle == BAD_HANDLE)
     {
-        return handle;
+        const HandleT new_handle = GetNewHandle();
+        m_Registry[sourceName] = new_handle;
+
+        return new_handle;
+    }
+    else
+    {
+        return existing_handle;
+    }
+}
+
+std::string SIGNAL::SourceRegistry::GetSourceName(const HandleT sourceHandle)
+{
+    for (const auto &registryItem : m_Registry)
+    {
+        if (sourceHandle == registryItem.second)
+        {
+            return registryItem.first;
+        }
     }
 
-    // Assign a new handle.
-    if (m_SourceHandle > 0)
+    throw std::runtime_error("Couldn't find source signal name!");
+}
+
+SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::GetHandleForSource(const std::string &sourceName)
+{
+    const RegistryT::const_iterator it = m_Registry.find(sourceName);
+
+    if (it != m_Registry.end())
     {
-        handle = m_SourceHandle;
-        m_Registry[sourceName] = m_SourceHandle;
-        --m_SourceHandle;
+        return it->second;
+    }
+    else
+    {
+        return BAD_HANDLE;
+    }
+}
+
+SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::GetNewHandle()
+{
+    if (m_NextSourceHandle > BAD_HANDLE)
+    {
+        HandleT nextHandle = m_NextSourceHandle;
+        --m_NextSourceHandle;
+        return nextHandle;
     }
     else
     {
         throw std::runtime_error("Too many signal sources!");
-    }
-
-    return handle;
-}
-
-const std::string *SIGNAL::SourceRegistry::GetName(const SignalSourceT sourceHandle)
-{
-    for (RegistryT::iterator it = m_Registry.begin(); it != m_Registry.end(); ++it)
-    {
-        if (sourceHandle == it->second)
-        {
-            // If the source has been registered return its handle.
-            return &it->first;
-        }
-    }
-
-    return nullptr;
-}
-
-SIGNAL::SourceRegistry::SignalSourceT SIGNAL::SourceRegistry::GetHandle(const std::string &sourceName)
-{
-    RegistryT::iterator it;
-
-    // Check if the source has been already registered.
-    it = m_Registry.find(sourceName);
-    if (it != m_Registry.end())
-    {
-        return m_Registry[sourceName];
-    }
-    else
-    {
-        return 0;
     }
 }

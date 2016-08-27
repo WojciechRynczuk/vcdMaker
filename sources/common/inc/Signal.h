@@ -136,13 +136,13 @@ namespace SIGNAL
             /// Sets the source of the signal.
             ///
             /// The method is used to set the signal's origin.
-            void SetSource(SourceRegistry::SignalSourceT sourceHandle)
+            void SetSource(SourceRegistry::HandleT sourceHandle)
             {
                 m_SourceHandle = sourceHandle;
             }
 
             /// Returns the source handle of the signal.
-            SourceRegistry::SignalSourceT GetSource() const
+            SourceRegistry::HandleT GetSource() const
             {
                 return m_SourceHandle;
             }
@@ -180,7 +180,8 @@ namespace SIGNAL
             const uint64_t m_Timestamp = 0;
 
             /// The signal's source.
-            SourceRegistry::SignalSourceT m_SourceHandle = 0;
+            SourceRegistry::HandleT m_SourceHandle =
+                SIGNAL::SourceRegistry::BAD_HANDLE;
 
         private:
 

@@ -57,7 +57,7 @@ PARSER::TxtParser::TxtParser(const std::string &filename,
     else
     {
         m_LineCounterEnabled = false;
-        m_LineCounterSourceHandle = 0;
+        m_LineCounterSourceHandle = SIGNAL::SourceRegistry::BAD_HANDLE;
     }
 
     // Process the log

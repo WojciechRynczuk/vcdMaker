@@ -73,7 +73,7 @@ namespace PARSER
             uint64_t m_InvalidLines;
 
             /// The signal source handle.
-            SIGNAL::SourceRegistry::SignalSourceT m_SourceHandle;
+            SIGNAL::SourceRegistry::HandleT m_SourceHandle;
 
             /// The line counter.
             LineCounter m_LineCounter;
@@ -82,7 +82,7 @@ namespace PARSER
             bool m_LineCounterEnabled;
 
             /// The line counter signal source handle.
-            SIGNAL::SourceRegistry::SignalSourceT m_LineCounterSourceHandle;
+            SIGNAL::SourceRegistry::HandleT m_LineCounterSourceHandle;
     };
 
 }

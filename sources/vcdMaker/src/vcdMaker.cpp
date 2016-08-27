@@ -43,7 +43,7 @@ int main(int argc, const char *argv[])
     cli.Parse(argc, argv);
 
     // Source registry.
-    SIGNAL::SourceRegistry Registry;
+    SIGNAL::SourceRegistry registry;
 
     try
     {
@@ -52,7 +52,7 @@ int main(int argc, const char *argv[])
                                  cli.GetTimebase(),
                                  cli.IsVerboseMode(),
                                  cli.GetLineCounterName(),
-                                 Registry);
+                                 registry);
 
         // Create the VCD tracer and dump the output file.
         TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),
@@ -66,9 +66,9 @@ int main(int argc, const char *argv[])
                   << " Signal "
                   << exception.GetName()
                   << " in the sources: "
-                  << *Registry.GetName(exception.GetSourceA())
+                  << registry.GetSourceName(exception.GetSourceA())
                   << " and "
-                  << *Registry.GetName(exception.GetSourceB())
+                  << registry.GetSourceName(exception.GetSourceB())
                   << '\n';
     }
     catch (const std::runtime_error &exception)

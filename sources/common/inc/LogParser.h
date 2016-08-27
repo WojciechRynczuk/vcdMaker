@@ -82,7 +82,7 @@ namespace PARSER
             bool m_VerboseMode;
 
             /// Source handle.
-            SIGNAL::SourceRegistry::SignalSourceT m_SourceHandle;
+            SIGNAL::SourceRegistry::HandleT m_SourceHandle;
     };
 
 }

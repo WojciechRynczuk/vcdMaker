@@ -31,7 +31,7 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 
-PARSER::SignalFactory::SignalFactory(SIGNAL::SourceRegistry::SignalSourceT sourceHandle) :
+PARSER::SignalFactory::SignalFactory(SIGNAL::SourceRegistry::HandleT sourceHandle) :
     m_vpSignalCreators(),
     m_SourceHandle(sourceHandle)
 {

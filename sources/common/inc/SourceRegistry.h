@@ -39,45 +39,49 @@ namespace SIGNAL
     class SourceRegistry
     {
         public:
-            /// A signal source handle.
-            using SignalSourceT = unsigned int;
+            /// A signal source handle (integral type).
+            using HandleT = unsigned int;
 
-            /// The source registry constructor.
-            SourceRegistry() : m_SourceHandle(std::numeric_limits<SignalSourceT>::max())
-            {}
-
-            /// The destructor.
-            ~SourceRegistry()
-            {}
+            /// Bad handle constant.
+            static constexpr HandleT BAD_HANDLE =
+                std::numeric_limits<HandleT>::min();
 
             /// Registers a signal source.
             ///
             /// @param sourceName The name of the signal source.
             /// @return The handle of the registered signal source.
-            ///         Positive integer value for the successful operation.
-            ///         0 when operation failed.
-            SignalSourceT Register(const std::string sourceName);
+            ///         BAD_HANDLE if operation failed.
+            ///
+            /// @note C++17 std::optional should be used here.
+            HandleT Register(const std::string &sourceName);
 
             /// Returns the name of the signal source.
-            const std::string *GetName(const SignalSourceT sourceHandle);
+            std::string GetSourceName(HandleT sourceHandle);
 
         private:
-            /// A registry.
-            using RegistryT = std::map<std::string, SignalSourceT>;
+            /// A registry type.
+            using RegistryT = std::map<std::string, HandleT>;
 
             /// The sources registry.
             RegistryT m_Registry;
 
-            /// The current registry index.
-            SignalSourceT m_SourceHandle;
+            /// The next available registry handle.
+            HandleT m_NextSourceHandle =
+                std::numeric_limits<HandleT>::max();
 
             /// Returns a handle of the given signal source.
             ///
             /// @param sourceName The name of the signal source.
             /// @return The handle of the registered signal source.
-            ///         Positive integer value for the successful operation.
-            ///         0 when operation failed.
-            SignalSourceT GetHandle(const std::string &sourceName);
+            ///         BAD_HANDLE if operation failed.
+            ///
+            /// @note C++17 std::optional should be used here.
+            HandleT GetHandleForSource(const std::string &sourceName);
+
+            /// Returns new handle.
+            ///
+            /// @throw std::runtime_error if no handles available.
+            HandleT GetNewHandle();
     };
 
 }

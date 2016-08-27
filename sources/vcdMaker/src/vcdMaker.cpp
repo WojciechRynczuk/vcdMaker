@@ -29,7 +29,7 @@
 #include "CliMaker.h"
 #include "TxtParser.h"
 #include "SourceRegistry.h"
-#include "vcdExceptions.h"
+#include "VcdExceptions.h"
 
 ///  The vcdMaker main function.
 ///
@@ -42,29 +42,35 @@ int main(int argc, const char *argv[])
     CLI::CliMaker cli;
     cli.Parse(argc, argv);
 
-	// Source registry.
-	SIGNAL::SourceRegistry Registry;
+    // Source registry.
+    SIGNAL::SourceRegistry Registry;
 
     try
     {
         // Parse the log file.
-        PARSER::TxtParser txtLog(cli.GetInputFileName(), 
-								 cli.GetTimebase(), 
-			                     cli.IsVerboseMode(), 
-			                     cli.GetLineCounterName(),
-				                 Registry);
+        PARSER::TxtParser txtLog(cli.GetInputFileName(),
+                                 cli.GetTimebase(),
+                                 cli.IsVerboseMode(),
+                                 cli.GetLineCounterName(),
+                                 Registry);
 
         // Create the VCD tracer and dump the output file.
         TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),
                                     txtLog.GetSignalDb());
         vcd_trace.Dump();
     }
-	catch (const EXCEPTION::ConflictingNames &exception)
-	{
-		// Conflicting signal names in different sources.
-		std::cerr << exception.what() << " Signal " << exception.GetName() << " in the sources: " 
-			<< *Registry.GetName(exception.GetSourceA()) << " and " << *Registry.GetName(exception.GetSourceB()) << '\n';
-	}
+    catch (const EXCEPTION::ConflictingNames &exception)
+    {
+        // Conflicting signal names in different sources.
+        std::cerr << exception.what()
+                  << " Signal "
+                  << exception.GetName()
+                  << " in the sources: "
+                  << *Registry.GetName(exception.GetSourceA())
+                  << " and "
+                  << *Registry.GetName(exception.GetSourceB())
+                  << '\n';
+    }
     catch (const std::runtime_error &exception)
     {
         std::cerr << exception.what() << '\n';

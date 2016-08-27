@@ -29,7 +29,7 @@
 /// IN THE SOFTWARE.
 
 #include "SignalDb.h"
-#include "vcdExceptions.h"
+#include "VcdExceptions.h"
 
 SIGNAL::SignalDb::SignalDb(const std::string &timeUnit) :
     m_TimeUnit(timeUnit)

@@ -1,4 +1,4 @@
-/// @file vcdExceptions.h
+/// @file VcdExceptions.h
 ///
 /// The exceptions that could occur in the system.
 ///

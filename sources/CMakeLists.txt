@@ -64,7 +64,7 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/Signal.h
     ${COMMON_HEADERS_DIR}/SourceRegistry.h
     ${COMMON_HEADERS_DIR}/SignalDb.h
-    ${COMMON_HEADERS_DIR}/vcdExceptions.h
+    ${COMMON_HEADERS_DIR}/VcdExceptions.h
     ${COMMON_HEADERS_DIR}/TimeFrame.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h)
 

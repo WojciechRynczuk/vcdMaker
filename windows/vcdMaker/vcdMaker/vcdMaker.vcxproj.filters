@@ -63,7 +63,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\sources\common\inc\vcdExceptions.h">
+    <ClInclude Include="..\..\..\sources\common\inc\VcdExceptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h">

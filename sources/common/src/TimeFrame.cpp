@@ -30,6 +30,18 @@
 
 #include "TimeFrame.h"
 
+void TRACER::TimeFrame::Add(const SIGNAL::Signal *signal)
+{
+    auto it = m_Signals.find(signal->GetName());
+    if ( (it == m_Signals.end()) ||
+         (*it->second != *signal) )
+    {
+        // The signal wasn't logged yet or it had an old value.
+        m_Signals[signal->GetName()] = signal;
+        m_FrameSignals[signal->GetName()] = signal;
+    }
+}
+
 void TRACER::TimeFrame::DumpAndClear()
 {
     if (!m_FrameSignals.empty())

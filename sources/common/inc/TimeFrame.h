@@ -62,10 +62,7 @@ namespace TRACER
             /// Adds the signal information to the time frame.
             ///
             /// @param signal The signal.
-            void Add(const SIGNAL::Signal *signal)
-            {
-                m_FrameSignals[signal->GetName()] = signal;
-            }
+            void Add(const SIGNAL::Signal *signal);
 
             /// Dumps the time frame information.
             ///
@@ -88,5 +85,8 @@ namespace TRACER
 
             /// Time frame signals.
             SIGNAL::UniqueSignalsCollectionT m_FrameSignals;
+
+            /// All signals.
+            SIGNAL::UniqueSignalsCollectionT m_Signals;
     };
 }

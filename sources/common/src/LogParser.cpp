@@ -30,13 +30,13 @@
 #include "LogParser.h"
 
 PARSER::LogParser::LogParser(const std::string &filename,
-                             bool verboseMode,
-                             SIGNAL::SourceRegistry &sourceRegistry) :
+                             SIGNAL::SourceRegistry &sourceRegistry,
+                             bool verboseMode) :
     m_pSignalDb(),
     m_FileName(filename),
     m_LogFile(m_FileName),
-    m_VerboseMode(verboseMode),
-    m_SourceHandle(sourceRegistry.Register(filename))
+    m_SourceHandle(sourceRegistry.Register(filename)),
+    m_VerboseMode(verboseMode)
 {
     if (!m_LogFile.is_open())
     {

@@ -31,33 +31,28 @@
 
 #include "TxtParser.h"
 #include "SignalFactory.h"
-#include "ISignal.h"
+
+const std::string PARSER::TxtParser::LINE_COUNTER_SUFFIX = "-LineCounter";
 
 PARSER::TxtParser::TxtParser(const std::string &filename,
                              const std::string &timeBase,
-                             bool verboseMode,
+                             SIGNAL::SourceRegistry &sourceRegistry,
                              const std::string &lineCounter,
-                             SIGNAL::SourceRegistry &sourceRegistry) :
-    LogParser(filename, verboseMode, sourceRegistry),
+                             bool verboseMode) :
+    LogParser(filename, sourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
-    m_LineCounter(lineCounter)
+    m_SourceHandle(sourceRegistry.Register(filename)),
+    m_LineCounter(lineCounter),
+    m_LineCounterEnabled(!lineCounter.empty()),
+    m_LineCounterSourceHandle(SIGNAL::SourceRegistry::BAD_HANDLE)
 {
     m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(timeBase);
-    m_ValidLines = 0;
-    m_InvalidLines = 0;
-    m_SourceHandle = sourceRegistry.Register(filename);
 
     // Check if the line counter has been enabled
-    if (lineCounter != "")
+    if (m_LineCounterEnabled)
     {
-        m_LineCounterEnabled = true;
-        m_LineCounterSourceHandle = sourceRegistry.Register(filename + "-LineCounter");
-    }
-    else
-    {
-        m_LineCounterEnabled = false;
-        m_LineCounterSourceHandle = SIGNAL::SourceRegistry::BAD_HANDLE;
+        m_LineCounterSourceHandle = sourceRegistry.Register(m_FileName + LINE_COUNTER_SUFFIX);
     }
 
     // Process the log
@@ -66,7 +61,8 @@ PARSER::TxtParser::TxtParser(const std::string &filename,
     // Dump the line counting information.
     if (m_LineCounterEnabled)
     {
-        DumpLineCounter();
+        m_LineCounter.RecordToSignalDb(*(m_pSignalDb.get()),
+                                       m_LineCounterSourceHandle);
     }
 }
 
@@ -81,48 +77,40 @@ PARSER::TxtParser::~TxtParser()
 void PARSER::TxtParser::Parse()
 {
     // Create the signal factory.
-    const SignalFactory signalFactory;
+    const SignalFactory signal_factory;
 
     // Line counter.
-    LineCounter::LineNumberT lineNumber = 1;
+    LineCounter::LineNumberT line_number = 1;
 
     // Process the log file.
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
         const SIGNAL::Signal *signal =
-            signalFactory.Create(input_line, m_SourceHandle);
+            signal_factory.Create(input_line, m_SourceHandle);
+
         if (signal)
         {
             m_pSignalDb->Add(signal);
             if (m_LineCounterEnabled)
             {
-                m_LineCounter.Update(signal->GetTimestamp(), lineNumber);
+                m_LineCounter.Update(signal->GetTimestamp(), line_number);
             }
-            m_ValidLines++;
+            ++m_ValidLines;
         }
         else
         {
             if (m_VerboseMode)
             {
-                std::cout << "Invalid log line " << m_ValidLines + m_InvalidLines << ": " << input_line << '\n';
+                std::cout << "Invalid log line "
+                          << m_ValidLines + m_InvalidLines
+                          << ": "
+                          << input_line
+                          << '\n';
             }
             ++m_InvalidLines;
         }
-        lineNumber++;
-    }
-}
 
-void PARSER::TxtParser::DumpLineCounter()
-{
-    LineCounter::LineCounterT record;
-    while (m_LineCounter.Get(record))
-    {
-        SIGNAL::ISignal *lowCounter =
-            new SIGNAL::ISignal(record.counterNameLow, 32, record.time, record.low, m_LineCounterSourceHandle);
-        SIGNAL::ISignal *highCounter =
-            new SIGNAL::ISignal(record.counterNameHigh, 32, record.time, record.high, m_LineCounterSourceHandle);
-        m_pSignalDb->Add(lowCounter);
-        m_pSignalDb->Add(highCounter);
+        ++line_number;
     }
 }

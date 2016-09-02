@@ -31,7 +31,11 @@
 #pragma once
 
 #include <map>
-#include <array>
+#include <string>
+#include <climits>
+
+#include "SourceRegistry.h"
+#include "SignalDb.h"
 
 namespace PARSER
 {
@@ -39,63 +43,70 @@ namespace PARSER
     class LineCounter
     {
         public:
-            /// A line number type.
-            using LineNumberT = unsigned int;
-
-            /// A line counter record.
-            using LineCounterT = struct
-            {
-                /// The name of the counter signal low boundary.
-                std::string counterNameLow;
-
-                /// The name of the counter signal high boundary.
-                std::string counterNameHigh;
-
-                /// The timestamp of the line counting record.
-                uint64_t time;
-
-                /// The low boundary of the line counter.
-                LineNumberT low;
-
-                /// The high boundary of the line counter.
-                LineNumberT high;
-            };
+            /// A line number type (integral type).
+            using LineNumberT = size_t;
 
             /// The line counter constructor.
             ///
             /// If the counter name does not provide the top module name
             /// it will be automatically set to "Top".
             ///
-            /// @param counterName The counter name.
+            /// @param counterName The counter signal name.
             LineCounter(const std::string &counterName);
 
             /// Updates the line counting information.
             ///
-            /// @param time The time the signal has been registered.
+            /// @param timestamp The time the signal has been registered.
             /// @param lineNumber The line number referencing to the signal's occurrence.
-            /// @return void
-            void Update(uint64_t time, LineNumberT lineNumber);
+            void Update(uint64_t timestamp, LineNumberT lineNumber);
 
-            /// Returns the consecutive line counter records.
+            /// Adds line counter signal to given database.
             ///
-            /// @param record The placeholder for the record to be returned.
-            /// @return true if a valid record has been returned, false otherwise.
-            bool Get(LineCounterT &record);
+            /// @param signalDb Signal database.
+            /// @param sourceHandle Signal source handle.
+            void RecordToSignalDb(SIGNAL::SignalDb &signalDb,
+                                  SIGNAL::SourceRegistry::HandleT sourceHandle);
 
         private:
             /// The counter value.
-            using CounterValueT = std::array<LineNumberT, 2>;
+            class CounterValue {
+                public:
+                    /// The low boundary of the line counter.
+                    LineNumberT m_LineLow = 0;
 
-            /// The counter map.
-            using CounterT = std::map<uint64_t, CounterValueT>;
+                    /// The high boundary of the line counter.
+                    LineNumberT m_LineHigh = 0;
+            };
+
+            /// The counter signal map.
+            using CounterSignalT = std::map<uint64_t, CounterValue>;
+
+            /// Creates counter name based on desired name.
+            std::string CreateCounterName(const std::string &desiredName);
+
+            /// Size of the counter signal.
+            static constexpr size_t COUNTER_SIGNAL_SIZE =
+                sizeof(LineNumberT) * CHAR_BIT;
+
+            /// Default name for "Top" module.
+            static const std::string DEFAULT_TOP_MODULE_NAME;
+
+            /// Low line counter signal name postfix.
+            static const std::string LOW_COUNTER_NAME;
+
+            /// High line counter signal name postfix.
+            static const std::string HIGH_COUNTER_NAME;
 
             /// The counter name.
-            std::string m_CounterName;
+            const std::string m_CounterName{};
+
+            /// The name of the counter signal low boundary.
+            const std::string m_CounterNameLow{};
+
+            /// The name of the counter signal high boundary.
+            const std::string m_CounterNameHigh{};
 
             /// The counter storage.
-            CounterT m_Counter;
-
-            /// The counter iterator.
-            CounterT::const_iterator m_CounterIt = m_Counter.begin();
+            CounterSignalT m_Counter{};
     };
 }

@@ -64,10 +64,10 @@ namespace PARSER
             ///
             /// @param filename The name of the log file to be open.
             /// @param verboseMode Value 'true' enables the verbose mode.
-            /// @param sourceRegistry Source registry.
+            /// @param sourceRegistry Signal sources registry.
             LogParser(const std::string &filename,
-                      bool verboseMode,
-                      SIGNAL::SourceRegistry &sourceRegistry);
+                      SIGNAL::SourceRegistry &sourceRegistry,
+                      bool verboseMode);
 
             /// The signal database.
             std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
@@ -78,11 +78,11 @@ namespace PARSER
             /// The input log file.
             std::ifstream m_LogFile;
 
-            /// Verbose mode.
-            bool m_VerboseMode;
-
             /// Source handle.
             SIGNAL::SourceRegistry::HandleT m_SourceHandle;
+
+            /// Verbose mode.
+            bool m_VerboseMode;
     };
 
 }

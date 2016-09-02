@@ -31,66 +31,85 @@
 
 #include "LineCounter.h"
 
-PARSER::LineCounter::LineCounter(const std::string &counterName)
+#include "ISignal.h"
+
+const std::string PARSER::LineCounter::DEFAULT_TOP_MODULE_NAME = "Top";
+const std::string PARSER::LineCounter::HIGH_COUNTER_NAME = "High";
+const std::string PARSER::LineCounter::LOW_COUNTER_NAME = "Low";
+
+PARSER::LineCounter::LineCounter(const std::string &counterName) :
+    m_CounterName(CreateCounterName(counterName)),
+    m_CounterNameLow(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + LOW_COUNTER_NAME),
+    m_CounterNameHigh(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + HIGH_COUNTER_NAME)
 {
-    std::size_t pos = counterName.find(".");
-    if (std::string::npos != pos)
-    {
-        if ("" == counterName.substr(0, pos))
-        {
-            m_CounterName = std::string("Top") + counterName;
-        }
-        else
-        {
-            m_CounterName = counterName;
-        }
-    }
-    else
-    {
-        m_CounterName = std::string("Top.") + counterName;
-    }
 }
 
-void PARSER::LineCounter::Update(uint64_t time, LineNumberT lineNumber)
+void PARSER::LineCounter::Update(uint64_t timestamp, LineNumberT lineNumber)
 {
-    CounterT::iterator it;
-
     // Check if the source has been already registered.
-    it = m_Counter.find(time);
+    const CounterSignalT::iterator it = m_Counter.find(timestamp);
+
     if (it != m_Counter.end())
     {
         // Update the high boundary.
-        if (lineNumber > it->second[1])
+        if (lineNumber > it->second.m_LineHigh)
         {
-            it->second[1] = lineNumber;
+            it->second.m_LineHigh = lineNumber;
         }
 
         // Update the low boundary.
-        if (lineNumber < it->second[0])
+        if (lineNumber < it->second.m_LineLow)
         {
-            it->second[0] = lineNumber;
+            it->second.m_LineLow = lineNumber;
         }
     }
     else
     {
-        CounterValueT counter = { lineNumber, lineNumber };
-        m_Counter[time] = counter;
-        m_CounterIt = m_Counter.begin();
+        m_Counter[timestamp] = { lineNumber, lineNumber };
     }
 }
 
-bool PARSER::LineCounter::Get(LineCounterT &record)
+void PARSER::LineCounter::RecordToSignalDb(SIGNAL::SignalDb &signalDb,
+                                           SIGNAL::SourceRegistry::HandleT sourceHandle)
 {
-    if (m_CounterIt != m_Counter.end())
+    for (const auto &counterRecord : m_Counter)
     {
-        record.counterNameLow = m_CounterName + ".Low";
-        record.counterNameHigh = m_CounterName + ".High";
-        record.time = m_CounterIt->first;
-        record.low = m_CounterIt->second[0];
-        record.high = m_CounterIt->second[1];
+        SIGNAL::ISignal *low_counter =
+            new SIGNAL::ISignal(m_CounterNameLow,
+                                COUNTER_SIGNAL_SIZE,
+                                counterRecord.first,
+                                counterRecord.second.m_LineLow,
+                                sourceHandle);
+        signalDb.Add(low_counter);
 
-        ++m_CounterIt;
-        return true;
+        SIGNAL::ISignal *high_counter =
+            new SIGNAL::ISignal(m_CounterNameHigh,
+                                COUNTER_SIGNAL_SIZE,
+                                counterRecord.first,
+                                counterRecord.second.m_LineHigh,
+                                sourceHandle);
+        signalDb.Add(high_counter);
     }
-    return false;
+}
+
+std::string PARSER::LineCounter::CreateCounterName(const std::string &desiredName)
+{
+    const std::string::size_type delim_position =
+        desiredName.find(SIGNAL::Signal::SIGNAL_NAME_DELIM);
+
+    if (delim_position != std::string::npos)
+    {
+        if (delim_position == 0)
+        {
+            return (DEFAULT_TOP_MODULE_NAME + desiredName);
+        }
+        else
+        {
+            return desiredName;
+        }
+    }
+    else
+    {
+        return (DEFAULT_TOP_MODULE_NAME + SIGNAL::Signal::SIGNAL_NAME_DELIM + desiredName);
+    }
 }

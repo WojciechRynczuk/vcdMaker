@@ -50,9 +50,9 @@ int main(int argc, const char *argv[])
         // Parse the log file.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
                                  cli.GetTimebase(),
-                                 cli.IsVerboseMode(),
+                                 registry,
                                  cli.GetLineCounterName(),
-                                 registry);
+                                 cli.IsVerboseMode());
 
         // Create the VCD tracer and dump the output file.
         TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),

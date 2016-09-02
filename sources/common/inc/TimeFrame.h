@@ -47,7 +47,8 @@ namespace TRACER
             TimeFrame(const uint64_t timestamp, std::ofstream &file) :
                 m_Timestamp(timestamp),
                 m_rFile(file),
-                m_FrameSignals()
+                m_FrameSignals(),
+                m_Signals()
             {
             }
 
@@ -76,6 +77,13 @@ namespace TRACER
             {
                 m_rFile << line << '\n';
             }
+
+            /// Check weather given signal value has been already added.
+            ///
+            /// @param signal The signal.
+            /// @retval true Signal with this value has been already added.
+            /// @retval false Signal with this value has not been added.
+            bool WasSignalValueAdded(const SIGNAL::Signal *signal);
 
             /// The timestamp of the time frame.
             uint64_t m_Timestamp;

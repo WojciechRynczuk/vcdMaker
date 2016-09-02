@@ -32,11 +32,8 @@
 
 void TRACER::TimeFrame::Add(const SIGNAL::Signal *signal)
 {
-    auto it = m_Signals.find(signal->GetName());
-    if ( (it == m_Signals.end()) ||
-         (*it->second != *signal) )
+    if (WasSignalValueAdded(signal))
     {
-        // The signal wasn't logged yet or it had an old value.
         m_Signals[signal->GetName()] = signal;
         m_FrameSignals[signal->GetName()] = signal;
     }
@@ -54,5 +51,19 @@ void TRACER::TimeFrame::DumpAndClear()
         }
 
         m_FrameSignals.clear();
+    }
+}
+
+bool TRACER::TimeFrame::WasSignalValueAdded(const SIGNAL::Signal *signal)
+{
+    const auto it = m_Signals.find(signal->GetName());
+
+    if (it != m_Signals.end())
+    {
+        return (*it->second != *signal);
+    }
+    else
+    {
+        return true;
     }
 }

@@ -52,7 +52,7 @@ namespace SIGNAL
             /// E.g. Module1.Level3.Variable6
             FSignal(const std::string &name,
                     uint64_t timestamp,
-                    double value,
+                    const std::string &value,
                     SourceRegistry::HandleT sourceHandle) :
                 Signal(name, 64, timestamp, "real", sourceHandle),
                 m_Value(value)
@@ -60,7 +60,7 @@ namespace SIGNAL
             }
 
             /// Returns the signal's value.
-            double GetValue() const
+            std::string GetValue() const
             {
                 return m_Value;
             }
@@ -80,7 +80,7 @@ namespace SIGNAL
             virtual bool EqualTo(Signal const &other) const;
 
             /// The signal's value.
-            double m_Value;
+            const std::string m_Value;
     };
 
 }

@@ -78,7 +78,7 @@ namespace SIGNAL
             virtual bool EqualTo(Signal const &other) const;
 
             /// The signal's value.
-            uint64_t m_Value;
+            const uint64_t m_Value;
     };
 
 }

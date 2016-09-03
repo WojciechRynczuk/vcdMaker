@@ -36,7 +36,7 @@ SIGNAL::Signal *PARSER::FSignalCreator::Create(const std::string &logLine,
     {
         return new SIGNAL::FSignal(result[2].str(),
                                    std::stoll(result[1].str()),
-                                   std::stod(result[3].str()),
+                                   result[3].str(),
                                    sourceHandle);
     }
     else

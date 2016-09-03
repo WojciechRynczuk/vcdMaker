@@ -38,7 +38,7 @@ std::string SIGNAL::ISignal::Print() const
     const std::string valueBitStr =
         valueBits.to_string().substr(valueBits.size() - m_Size);
 
-    return 'b' + valueBitStr + ' ' + m_Name;
+    return ('b' + valueBitStr + ' ' + m_Name);
 }
 
 std::string SIGNAL::ISignal::Footprint() const

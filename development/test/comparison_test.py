@@ -214,7 +214,7 @@ def checkArguments(args):
     raise RuntimeError('ERROR: ' + args.exec + ' is not an executable')
 
   if not os.path.exists(args.testdir):
-    raise RuntimeError('ERROR: ' + args.testdir + 'doesn\'t exist')
+    raise RuntimeError('ERROR: ' + args.testdir + ' doesn\'t exist')
 
 def main():
   """comparison_test script entry point"""

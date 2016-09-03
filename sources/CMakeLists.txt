@@ -132,3 +132,19 @@ if (UNIX)
             COMPONENT documentation
             PATTERN "*.odt" EXCLUDE)
 endif()
+
+# Add test targets
+
+find_package(PythonInterp 3)
+
+if (PYTHONINTERP_FOUND)
+  get_filename_component(TEST_SCRIPT_DIR ${PROJECT_SOURCE_DIR}/../development/test ABSOLUTE)
+
+  set(COMPARISON_TEST_SCRIPT ${TEST_SCRIPT_DIR}/comparison_test.py)
+  set(COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
+
+  add_custom_target(comparisonTest
+                    COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${COMPARISON_TEST_DIR}
+                    COMMENT "vcdMaker commparison test"
+                    VERBATIM)
+endif()

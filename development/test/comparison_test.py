@@ -13,8 +13,8 @@
 # enabled. Expected timebase is "us" and line counter signal name
 # is "counter".
 #
-# Files that passed comparison test are removed. Incorrect files are left
-# for review.
+# Test files are created in current directory. Files that passed comparison
+# test are removed. Incorrect files are left for review.
 #
 # Todo:
 # - Date and version could change and shoudn't be compared.
@@ -49,7 +49,7 @@ import filecmp
 import argparse
 
 # Single test case entry.
-TestsCase = collections.namedtuple('TestsCase', ['sourceFile', 'vcdFile', 'vcdCounterFile']);
+TestsCase = collections.namedtuple('TestsCase', ['sourceDir', 'sourceFile', 'vcdFile', 'vcdCounterFile']);
 
 # Source file name pattern.
 SOURCE_PATTERN = 'test_*.txt'
@@ -63,7 +63,7 @@ TEST_POSTFIX = '_test'
 DEFAULT_TIMEBASE = 'us'
 DEFAULT_COUNTER_NAME = 'counter'
 
-def findTests():
+def findTests(sourceDir):
   """Builds a list of tests in current directory.
 
   Test cases that don't have a gold files are not added.
@@ -72,7 +72,10 @@ def findTests():
   List of TestsCase named tuples.
   """
 
-  testCases = []
+  saved_current_dir = os.getcwd()
+  os.chdir(sourceDir)
+
+  test_cases = []
 
   for source_file in glob.glob(SOURCE_PATTERN):
     source_name = os.path.splitext(source_file)[0]
@@ -89,15 +92,17 @@ def findTests():
       print('WARNING: Source file', source_file, 'doesn\'t have any VCD file.')
     else:
       printv('INFO: Adding source file', source_file, 'with golds:', vcd_name, vcd_counter_name)
-      testCases.append(TestsCase(source_file, vcd_name, vcd_counter_name))
+      test_cases.append(TestsCase(sourceDir, source_file, vcd_name, vcd_counter_name))
 
-  return testCases
+  os.chdir(saved_current_dir)
+  return test_cases
 
-def runVcdMaker(vcdMaker, inputFile, outputFile, extraArguments=[]):
+def runVcdMaker(vcdMaker, sourceDir, inputFile, outputFile, extraArguments=[]):
   """Executes vcdMaker application for given files.
 
   Arguments:
   vcdMaker       -- vcdMaker executable path
+  sourceDir      -- input file directory
   inputFile      -- name of a input file (*.txt)
   outputFile     -- name of a output file (*.vcd)
   extraArguments -- array of optional extra arguments for vcdMaker
@@ -107,25 +112,26 @@ def runVcdMaker(vcdMaker, inputFile, outputFile, extraArguments=[]):
   """
 
   common_arguments = [vcdMaker, '-o', outputFile, '-t', DEFAULT_TIMEBASE]
-  command = [*common_arguments, *extraArguments, inputFile]
+  command = [*common_arguments, *extraArguments, os.path.join(sourceDir, inputFile)]
 
   fds = {}
   if not VERBOSE:
     fds = {'stdout': subprocess.DEVNULL, 'stderr': subprocess.DEVNULL}
 
+  printv('RUNNING:', *command)
   result = subprocess.call(command, **fds)
 
   if result == 0:
     return True
   else:
     print('ERROR: Source file', inputFile, 'resulted in error: {}'.format(result))
-    print('  Command was:', *command)
     return False
 
-def compareGoldAndOutput(goldFile, outputFile):
+def compareGoldAndOutput(goldDir, goldFile, outputFile):
   """Compares given files.
 
   Arguments:
+  goldDir    -- gold file directory
   goldFile   -- name of a gold file
   outputFile -- name of a vcdMaker generated file
 
@@ -133,7 +139,7 @@ def compareGoldAndOutput(goldFile, outputFile):
   True if gold and output are equal, false otherwise.
   """
 
-  if filecmp.cmp(goldFile, outputFile):
+  if filecmp.cmp(os.path.join(goldDir, goldFile), outputFile):
     print('PASS:', outputFile, 'EQUALS', goldFile)
     return True
   else:
@@ -152,23 +158,23 @@ def executeTest(testCase, vcdMaker):
   """
 
   source_name = os.path.splitext(testCase.sourceFile)[0]
-  printv('TEST', source_name)
+  printv('TEST:', source_name)
 
   result = True
 
   if testCase.vcdFile:
     test_name = source_name + TEST_POSTFIX + VCD_EXTENSION
-    if (runVcdMaker(vcdMaker, testCase.sourceFile, test_name) and
-        compareGoldAndOutput(testCase.vcdFile, test_name)):
+    if (runVcdMaker(vcdMaker, testCase.sourceDir, testCase.sourceFile, test_name) and
+        compareGoldAndOutput(testCase.sourceDir, testCase.vcdFile, test_name)):
       os.remove(test_name)
     else:
       result = False
 
   if testCase.vcdCounterFile:
     test_counter_name = source_name + COUNTER_POSTFIX + TEST_POSTFIX + VCD_EXTENSION
-    if (runVcdMaker(vcdMaker, testCase.sourceFile, test_counter_name, ['-c', DEFAULT_COUNTER_NAME]) and
-        compareGoldAndOutput(testCase.vcdCounterFile, test_counter_name)):
-      os.remove(test_name)
+    if (runVcdMaker(vcdMaker, testCase.sourceDir, testCase.sourceFile, test_counter_name, ['-c', DEFAULT_COUNTER_NAME]) and
+        compareGoldAndOutput(testCase.sourceDir, testCase.vcdCounterFile, test_counter_name)):
+      os.remove(test_counter_name)
     else:
       result = False
 
@@ -223,9 +229,7 @@ def main():
 
   setupVerbose(args.verbose)
 
-  os.chdir(args.testdir)
-
-  if executeTests(findTests(), args.exec):
+  if executeTests(findTests(args.testdir), args.exec):
     print('TEST PASSED')
     result = 0
   else:

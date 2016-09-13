@@ -131,6 +131,32 @@ if (UNIX)
             DESTINATION share/doc/${CMAKE_PROJECT_NAME}
             COMPONENT documentation
             PATTERN "*.odt" EXCLUDE)
+
+    set(AUTHOR "vcdMaker team")
+    set(WEBSITE "http://vcdmaker.org")
+    set(DESCRIPTION "Commandline tools that can generate VCD files from text logs")
+
+    set(CPACK_PACKAGE_VENDOR ${AUTHOR})
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Generates VCD files from text logs")
+    set(CPACK_GENERATOR "RPM" "DEB")
+
+    set(CPACK_SYSTEM_NAME ${CMAKE_SYSTEM_PROCESSOR})
+    if (CPACK_SYSTEM_NAME STREQUAL "x86_64")
+        set(CPACK_SYSTEM_NAME "amd64")
+    endif()
+
+    set(CPACK_RPM_PACKAGE_RELEASE 1)
+    set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+    set(CPACK_RPM_PACKAGE_URL ${WEBSITE})
+    set(CPACK_RPM_PACKAGE_DESCRIPTION ${DESCRIPTION})
+
+    set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER ${AUTHOR})
+    set(CPACK_DEBIAN_PACKAGE_DESCRIPTION ${DESCRIPTION})
+    set(CPACK_DEBIAN_PACKAGE_SECTION "electronics")
+    set(CPACK_DEBIAN_PACKAGE_HOMEPAGE ${WEBSITE})
+
+    include(CPack)
 endif()
 
 # Add test targets
@@ -138,13 +164,13 @@ endif()
 find_package(PythonInterp 3)
 
 if (PYTHONINTERP_FOUND)
-  get_filename_component(TEST_SCRIPT_DIR ${PROJECT_SOURCE_DIR}/../development/test ABSOLUTE)
+    get_filename_component(TEST_SCRIPT_DIR ${PROJECT_SOURCE_DIR}/../development/test ABSOLUTE)
 
-  set(COMPARISON_TEST_SCRIPT ${TEST_SCRIPT_DIR}/comparison_test.py)
-  set(COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
+    set(COMPARISON_TEST_SCRIPT ${TEST_SCRIPT_DIR}/comparison_test.py)
+    set(COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
 
-  add_custom_target(comparisonTest
-                    COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${COMPARISON_TEST_DIR}
-                    COMMENT "vcdMaker commparison test"
-                    VERBATIM)
+    add_custom_target(comparisonTest
+                      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${COMPARISON_TEST_DIR}
+                      COMMENT "vcdMaker commparison test"
+                      VERBATIM)
 endif()

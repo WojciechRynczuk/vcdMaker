@@ -40,13 +40,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import sys
-import os
-import glob
-import collections
-import subprocess
-import filecmp
 import argparse
+import collections
+import filecmp
+import glob
+import itertools
+import os
+import re
+import subprocess
+import sys
 
 # Single test case entry.
 TestsCase = collections.namedtuple('TestsCase', ['sourceDir', 'sourceFile', 'vcdFile', 'vcdCounterFile']);
@@ -68,7 +70,7 @@ def findTests(sourceDir):
 
   Test cases that don't have a gold files are not added.
 
-  Return:
+  Returns:
   List of TestsCase named tuples.
   """
 
@@ -89,9 +91,9 @@ def findTests(sourceDir):
       vcd_counter_name = ''
 
     if (not vcd_name) and (not vcd_counter_name):
-      print('WARNING: Source file', source_file, 'doesn\'t have any VCD file.')
+      print('WARNING: Source file {} doesn\'t have any VCD file'.format(source_file))
     else:
-      printv('INFO: Adding source file', source_file, 'with golds:', vcd_name, vcd_counter_name)
+      printv('INFO: Adding source file {} with golds: {} {}'.format(source_file, vcd_name, vcd_counter_name))
       test_cases.append(TestsCase(sourceDir, source_file, vcd_name, vcd_counter_name))
 
   os.chdir(saved_current_dir)
@@ -107,7 +109,7 @@ def runVcdMaker(vcdMaker, sourceDir, inputFile, outputFile, extraArguments=[]):
   outputFile     -- name of a output file (*.vcd)
   extraArguments -- array of optional extra arguments for vcdMaker
 
-  Return:
+  Returns:
   True if conversion was successful, false otherwise.
   """
 
@@ -124,27 +126,56 @@ def runVcdMaker(vcdMaker, sourceDir, inputFile, outputFile, extraArguments=[]):
   if result == 0:
     return True
   else:
-    print('ERROR: Source file', inputFile, 'resulted in error: {}'.format(result))
+    print('ERROR: Source file {} resulted in error: {}'.format(inputFile, result))
     return False
 
-def compareGoldAndOutput(goldDir, goldFile, outputFile):
+def compareGoldAndOutput(goldDir, goldFileName, outputFileName):
   """Compares given files.
 
-  Arguments:
-  goldDir    -- gold file directory
-  goldFile   -- name of a gold file
-  outputFile -- name of a vcdMaker generated file
+  First three lines can actually change because they contain date and version info.
+  Those lines from ouput file are matched against patterns.
 
-  Return:
+  Arguments:
+  goldDir        -- gold file directory
+  goldFileName   -- name of a gold file
+  outputFileName -- name of a vcdMaker generated file
+
+  Returns:
   True if gold and output are equal, false otherwise.
   """
 
-  if filecmp.cmp(os.path.join(goldDir, goldFile), outputFile):
-    print('PASS:', outputFile, 'EQUALS', goldFile)
+  with open(os.path.join(goldDir, goldFileName)) as gold_file, open(outputFileName) as output_file:
+    gold_file.readline()
+    output_date_line = output_file.readline()
+
+    if not re.match(r'\$date .+\d\d?, \d\d\d\d \d\d:\d\d:\d\d', output_date_line):
+      print('FAIL: DATE WRONG IN {}'.format(outputFileName))
+      return False
+
+    gold_date_end_line = gold_file.readline()
+    output_date_end_line = output_file.readline()
+
+    if output_date_end_line != gold_date_end_line:
+      print('FAIL: DATE END WRONG IN {}'.format(outputFileName))
+      return False
+
+    gold_file.readline()
+    output_version_line = output_file.readline()
+
+    if not re.match(r'\$version ', output_version_line):
+      print('FAIL: VERSION WRONG IN {}'.format(outputFileName))
+      return False
+
+    line_nubmer = 4
+    for gold_line, output_line in itertools.zip_longest(gold_file, output_file):
+      if output_line != gold_line:
+         print('FAIL: {} DOESN\'T EQUAL {} AT LINE {}'.format(outputFileName, goldFileName, line_nubmer))
+         return False
+
+      line_nubmer += 1
+
+    print('PASS: {} EQUALS {}'.format(outputFileName, goldFileName))
     return True
-  else:
-    print('FAIL:', outputFile, 'DOESNT EQUAL', goldFile)
-    return False
 
 def executeTest(testCase, vcdMaker):
   """Runs a single test case.
@@ -153,12 +184,12 @@ def executeTest(testCase, vcdMaker):
   testCase -- test case to execute (TestCase named tuple)
   vcdMaker -- vcdMaker executable path
 
-  Return:
+  Returns:
   True if test case passed, false otherwise.
   """
 
   source_name = os.path.splitext(testCase.sourceFile)[0]
-  printv('TEST:', source_name)
+  printv('TEST: {}'.format(source_name))
 
   result = True
 
@@ -187,15 +218,20 @@ def executeTests(testCases, vcdMaker):
   testCases -- list of test cases to execute
   vcdMaker  -- vcdMaker executable path
 
-  Return:
-  True if all test cases passed, false otherwise.
+  Returns tuple of:
+  Result of the test: true if all test cases passed, false otherwise.
+  Number of failed test cases.
+  Number of all test cases.
   """
+
+  number_total = len(testCases)
+  number_failed = 0
 
   for testCase in testCases:
     if not executeTest(testCase, vcdMaker):
-      return False
+      number_failed += 1
 
-  return True
+  return ((number_failed > 0), number_failed, number_total)
 
 def setupVerbose(enable):
   """Setups global VERBOSE flag and printv function"""
@@ -211,10 +247,10 @@ def checkArguments(args):
   """Checks if given args are correct (executable and path)"""
 
   if not (os.path.isfile(args.exec) and os.access(args.exec, os.X_OK)):
-    raise RuntimeError('ERROR: ' + args.exec + ' is not an executable')
+    raise RuntimeError('ERROR: {} is not an executable'.format(args.exec))
 
   if not os.path.exists(args.testdir):
-    raise RuntimeError('ERROR: ' + args.testdir + ' doesn\'t exist')
+    raise RuntimeError('ERROR: {} doesn\'t exist'.format(args.testdir))
 
 def main():
   """comparison_test script entry point"""
@@ -229,14 +265,16 @@ def main():
 
   setupVerbose(args.verbose)
 
-  if executeTests(findTests(args.testdir), args.exec):
-    print('TEST PASSED')
-    result = 0
-  else:
-    print('TEST FAILED')
-    result = 1
+  result, number_failed, number_total = executeTests(findTests(args.testdir), args.exec)
 
-  sys.exit(result)
+  if not result:
+    print('TEST PASSED ({})'.format(number_total))
+    exit_result = 0
+  else:
+    print('TEST FAILED ({}/{})'.format(number_failed, number_total))
+    exit_result = 1
+
+  sys.exit(exit_result)
 
 if __name__ == "__main__":
   main()

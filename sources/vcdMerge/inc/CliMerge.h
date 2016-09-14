@@ -30,6 +30,7 @@
 #pragma once
 
 #include "CliParser.h"
+#include "Version.h"
 
 namespace CLI
 {
@@ -41,7 +42,7 @@ namespace CLI
 
             /// The CLI default constructor.
             CliMerge() :
-                CliParser("VCD merging tool.", "2.0.1")
+                CliParser("VCD merging tool.", VERSION::STRING)
             {
                 m_Cli.add(m_FilesIn);
             }

@@ -30,6 +30,7 @@
 #pragma once
 
 #include "CliParser.h"
+#include "Version.h"
 
 namespace CLI
 {
@@ -41,7 +42,7 @@ namespace CLI
 
             /// The CLI default constructor.
             CliMaker() :
-                CliParser("Log file to VCD converter.", "2.0.1")
+                CliParser("Log file to VCD converter.", VERSION::STRING)
             {
                 m_Cli.add(m_Timebase);
                 m_Cli.add(m_FileIn);

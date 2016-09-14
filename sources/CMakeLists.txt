@@ -24,7 +24,18 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-project(vcdMakerTools)
+# Extract version information
+set(VERSION_HEADER common/inc/Version.h)
+
+file(STRINGS ${VERSION_HEADER} VERSION_LINE REGEX "#define D_VERSION_")
+string(REGEX MATCHALL "[0-9]+" VERSION_COMPONENTS ${VERSION_LINE})
+
+list(GET VERSION_COMPONENTS 0 VERSION_MAJOR)
+list(GET VERSION_COMPONENTS 1 VERSION_MINOR)
+list(GET VERSION_COMPONENTS 2 VERSION_PATCH)
+
+# Setup project.
+project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 # Set common source files.
 set(COMMON_SOURCES_DIR common/src)
@@ -66,7 +77,8 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/SignalDb.h
     ${COMMON_HEADERS_DIR}/VcdExceptions.h
     ${COMMON_HEADERS_DIR}/TimeFrame.h
-    ${COMMON_HEADERS_DIR}/VCDTracer.h)
+    ${COMMON_HEADERS_DIR}/VCDTracer.h
+    ${VERSION_HEADER})
 
 # 3rd party directories.
 set(TCLAP_HEADERS_DIR 3rdParty/tclap/include)
@@ -138,6 +150,9 @@ if (UNIX)
 
     set(CPACK_PACKAGE_VENDOR ${AUTHOR})
     set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Generates VCD files from text logs")
+    set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+    set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+    set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
     set(CPACK_GENERATOR "RPM" "DEB")
 
     set(CPACK_SYSTEM_NAME ${CMAKE_SYSTEM_PROCESSOR})

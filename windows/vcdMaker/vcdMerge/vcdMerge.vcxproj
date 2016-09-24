@@ -78,9 +78,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\sources\common\inc\CliParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\LogParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalFactory.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SourceRegistry.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VcdExceptions.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Version.h" />
     <ClInclude Include="..\..\..\sources\vcdMerge\inc\CliMerge.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\LineCounter.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\LogParser.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SourceRegistry.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\TimeFrame.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\TxtParser.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />
     <ClCompile Include="..\..\..\sources\vcdMerge\src\vcdMerge.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

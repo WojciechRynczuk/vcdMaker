@@ -23,6 +23,10 @@
 /// IN THE SOFTWARE.
 
 #include "CliMerge.h"
+#include "VCDTracer.h"
+#include "TxtParser.h"
+#include "SourceRegistry.h"
+#include "VcdExceptions.h"
 
 ///  The vcdMerge main function.
 ///
@@ -35,17 +39,39 @@ int main(int argc, const char *argv[])
     CLI::CliMerge cli;
     cli.Parse(argc, argv);
 
-    // Get input filenames
-    std::vector<std::string> infiles;
-    cli.GetInputFileNames(infiles);
+    // Source registry.
+    SIGNAL::SourceRegistry registry;
 
-    // Print all file to be merged
-    std::cout << "Merging: " << std::endl;
-    for (const std::string &filename : infiles)
+    try
     {
-        std::cout << '\t' << filename << '\n';
+        // Get input filenames
+        std::vector<std::string> inSources;
+        cli.GetInputSources(inSources);
+
+        // Print all file to be merged
+        std::cout << "Merging: " << std::endl;
+        for (const std::string &source : inSources)
+        {
+            std::cout << '\t' << source << '\n';
+        }
+        std::cout << '\n';
     }
-    std::cout << '\n';
+    catch (const EXCEPTION::ConflictingNames &exception)
+    {
+        // Conflicting signal names in different sources.
+        std::cerr << exception.what()
+                  << " Signal "
+                  << exception.GetName()
+                  << " in the sources: "
+                  << registry.GetSourceName(exception.GetSourceA())
+                  << " and "
+                  << registry.GetSourceName(exception.GetSourceB())
+                  << '\n';
+    }
+    catch (const std::runtime_error &exception)
+    {
+        std::cerr << exception.what() << '\n';
+    }
 }
 
 

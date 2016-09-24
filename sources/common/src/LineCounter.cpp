@@ -65,7 +65,10 @@ void PARSER::LineCounter::Update(uint64_t timestamp, LineNumberT lineNumber)
     }
     else
     {
-        m_Counter[timestamp] = { lineNumber, lineNumber };
+        // The initializer list is not supported by VS.
+        // m_Counter[timestamp] = { lineNumber, lineNumber };
+        m_Counter[timestamp].m_LineLow = lineNumber;
+        m_Counter[timestamp].m_LineHigh = lineNumber;
     }
 }
 

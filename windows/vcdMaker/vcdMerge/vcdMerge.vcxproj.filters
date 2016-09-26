@@ -9,9 +9,14 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Common">
+      <UniqueIdentifier>{c81ea19e-e4c4-4d05-9663-86e608e1eb16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Header Files">
+      <UniqueIdentifier>{e6d20c29-c4f0-43ac-9d6f-606d8800a842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Source Files">
+      <UniqueIdentifier>{387c99f0-5586-4b18-b7b9-307e0022991f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -19,57 +24,60 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\CliParser.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\FSignal.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\ISignal.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\LogParser.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\Signal.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\SignalFactory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\SourceRegistry.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\VcdExceptions.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Common\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\Version.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\vcdMerge\inc\Source.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -78,45 +86,48 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\LineCounter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\LogParser.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\Signal.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\SourceRegistry.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\TimeFrame.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\TxtParser.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp">
+      <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\vcdMerge\src\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

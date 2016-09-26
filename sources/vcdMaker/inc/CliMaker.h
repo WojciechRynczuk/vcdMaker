@@ -75,7 +75,7 @@ namespace CLI
             /// Valid timebases constraint.
             TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{m_AllowedTimebaseValues};
 
-            /// Timbese parameter.
+            /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase
                 {"t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases};
 

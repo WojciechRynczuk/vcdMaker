@@ -121,11 +121,13 @@ add_vcdtools_target(vcdMaker
 
 set(VMERGE_SOURCES_DIR vcdMerge/src)
 set(VMERGE_SOURCES
-    ${VMERGE_SOURCES_DIR}/vcdMerge.cpp)
+    ${VMERGE_SOURCES_DIR}/vcdMerge.cpp
+    ${VMERGE_SOURCES_DIR}/Source.cpp)
 
 set(VMERGE_HEADERS_DIR vcdMerge/inc)
 set(VMERGE_HEADERS
-    ${VMERGE_HEADERS_DIR}/CliMerge.h)
+    ${VMERGE_HEADERS_DIR}/CliMerge.h
+    ${VMERGE_HEADERS_DIR}/Source.h)
 
 add_vcdtools_target(vcdMerge
                     ${VMERGE_SOURCES}

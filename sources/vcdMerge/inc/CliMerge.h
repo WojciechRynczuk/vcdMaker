@@ -47,28 +47,20 @@ namespace CLI
                 m_Cli.add(m_Timebase);
                 m_Cli.add(m_SyncPoint);
                 m_Cli.add(m_SourcesIn);
-                /// @todo invalid_argument and out_of_range exceptions can be thrown and should be handled.
-                m_SyncPointValue = std::stoll(m_SyncPoint.getValue(), 0, 10);
             }
 
             /// Return by reference a list of files to be processed.
             ///
             /// @param filenames The list of filenames.
-            void GetInputSources(std::vector<std::string> &filenames)
+            const void GetInputSources(std::vector<std::string> &filenames)
             {
                 filenames = m_SourcesIn.getValue();
             }
 
             /// Return the output time unit.
-            std::string GetTimeBase()
+            const std::string GetTimeBase()
             {
                 return m_Timebase.getValue();
-            }
-
-            /// Return the synchronization point value.
-            uint64_t GetSyncPoint()
-            {
-                return m_SyncPointValue;
             }
 
         private:
@@ -79,16 +71,13 @@ namespace CLI
             /// Valid timebases constraint.
             TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{ m_AllowedTimebaseValues };
 
-            /// Timbese parameter.
+            /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase
                 { "t", "timebase", "Log timebase specification", false, "", &m_AllowedTimebases };
 
             /// Sync point.
             TCLAP::ValueArg<std::string> m_SyncPoint
                 { "s", "syncPoint", "Synchronization point", false, "", "Synchronization point" };
-
-            /// Sync point value.
-            uint64_t m_SyncPointValue;
 
             /// Input sources.
             TCLAP::UnlabeledMultiArg<std::string> m_SourcesIn

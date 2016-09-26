@@ -24,7 +24,7 @@
 
 #include "CliMerge.h"
 #include "VCDTracer.h"
-#include "TxtParser.h"
+#include "Source.h"
 #include "SourceRegistry.h"
 #include "VcdExceptions.h"
 
@@ -52,7 +52,9 @@ int main(int argc, const char *argv[])
         std::cout << "Merging: " << std::endl;
         for (const std::string &source : inSources)
         {
-            std::cout << '\t' << source << '\n';
+            std::cout << '\n' << '\t' << source << '\n';
+            MERGE::Source *pSource = new MERGE::Source(source, registry, cli.IsVerboseMode());
+            delete pSource;
         }
         std::cout << '\n';
     }

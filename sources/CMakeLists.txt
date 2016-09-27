@@ -113,8 +113,8 @@ set(VMAKER_HEADERS
     ${VMAKER_HEADERS_DIR}/CliMaker.h)
 
 add_vcdtools_target(vcdMaker
-                    ${VMAKER_SOURCES}
-                    ${VMAKER_HEADERS}
+                    "${VMAKER_SOURCES}"
+                    "${VMAKER_HEADERS}"
                     ${VMAKER_HEADERS_DIR})
 
 # Set vcdMerge build.
@@ -130,8 +130,8 @@ set(VMERGE_HEADERS
     ${VMERGE_HEADERS_DIR}/Source.h)
 
 add_vcdtools_target(vcdMerge
-                    ${VMERGE_SOURCES}
-                    ${VMERGE_HEADERS}
+                    "${VMERGE_SOURCES}"
+                    "${VMERGE_HEADERS}"
                     ${VMERGE_HEADERS_DIR})
 
 # Set installation (UNIX-like only)

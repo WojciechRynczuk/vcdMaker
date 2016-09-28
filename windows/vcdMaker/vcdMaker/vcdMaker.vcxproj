@@ -95,6 +95,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VcdExceptions.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Version.h" />
     <ClInclude Include="..\..\..\sources\vcdMaker\inc\CliMaker.h" />
   </ItemGroup>
   <ItemGroup>

@@ -80,6 +80,9 @@
     <ClInclude Include="..\..\..\sources\vcdMerge\inc\Source.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\sources\vcdMerge\inc\Merge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\vcdMerge\src\vcdMerge.cpp">
@@ -128,6 +131,9 @@
       <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\vcdMerge\src\Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\vcdMerge\src\Merge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

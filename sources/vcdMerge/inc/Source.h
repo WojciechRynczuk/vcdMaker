@@ -42,8 +42,8 @@
 
 namespace MERGE
 {
-    /// The base VCD signal class. The integer and real signal classes
-    /// inherit from it.
+    /// The base source class. The objects of this class
+    /// can be merged.
 
     /// A base source class.
     class Source
@@ -61,6 +61,8 @@ namespace MERGE
                    SIGNAL::SourceRegistry &signalRegistry,
                    bool verboseMode);
 
+			const SIGNAL::SignalDb* Get();
+
         private:
             /// A type for splited source parameters.
             using SourceParametersT = std::vector<std::string>;
@@ -68,11 +70,14 @@ namespace MERGE
             /// Source description.
             std::string m_SourceDescription;
 
+			/// Parser.
+			PARSER::TxtParser *m_Parser;
+
             /// Signal registry.
             SIGNAL::SourceRegistry &m_rSignalRegistry;
 
             /// The signals database.
-            const SIGNAL::SignalDb *m_pSignalDb;
+            const SIGNAL::SignalDb *m_rSignalDb;
 
             /// The source synchronization point.
             uint64_t m_SyncPoint;

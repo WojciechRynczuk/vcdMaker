@@ -98,6 +98,6 @@ namespace TRACER
             std::ofstream m_File;
 
             /// The signals database.
-            const SIGNAL::SignalDb &m_pSignalDb;
+            const SIGNAL::SignalDb &m_rSignalDb;
     };
 }

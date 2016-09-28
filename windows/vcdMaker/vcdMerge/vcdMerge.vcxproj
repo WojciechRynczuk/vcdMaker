@@ -97,6 +97,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Version.h" />
     <ClInclude Include="..\..\..\sources\vcdMerge\inc\CliMerge.h" />
+    <ClInclude Include="..\..\..\sources\vcdMerge\inc\Merge.h" />
     <ClInclude Include="..\..\..\sources\vcdMerge\inc\Source.h" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +115,7 @@
     <ClCompile Include="..\..\..\sources\common\src\TimeFrame.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\TxtParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />
+    <ClCompile Include="..\..\..\sources\vcdMerge\src\Merge.cpp" />
     <ClCompile Include="..\..\..\sources\vcdMerge\src\Source.cpp" />
     <ClCompile Include="..\..\..\sources\vcdMerge\src\vcdMerge.cpp" />
   </ItemGroup>

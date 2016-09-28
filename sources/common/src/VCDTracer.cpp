@@ -39,7 +39,7 @@
 TRACER::VCDTracer::VCDTracer(const std::string &outputFile,
                              const SIGNAL::SignalDb &signalDb) :
     m_File(outputFile, std::ifstream::out | std::ifstream::binary),
-    m_pSignalDb(signalDb)
+    m_rSignalDb(signalDb)
 {
 
 }
@@ -65,20 +65,20 @@ void TRACER::VCDTracer::GenerateBasicInformation()
     DumpLine("$end");
     DumpLine("$version VCD Tracer \"Matylda\" Release v." + std::string(VERSION::STRING));
     DumpLine("$end");
-    DumpLine("$timescale 1 " + m_pSignalDb.GetTimeUnit());
+    DumpLine("$timescale 1 " + m_rSignalDb.GetTimeUnit());
     DumpLine("$end");
 }
 
 void TRACER::VCDTracer::GenerateSignalStructure()
 {
-    SignalStructureBuilder structure_builder(m_pSignalDb.GetSignalFootprint(), m_File);
+    SignalStructureBuilder structure_builder(m_rSignalDb.GetSignalFootprint(), m_File);
     structure_builder.Dump();
 }
 
 void TRACER::VCDTracer::GenerateSignalDefaults()
 {
     DumpLine("$dumpvars");
-    for (const auto &signal : m_pSignalDb.GetSignalFootprint())
+    for (const auto &signal : m_rSignalDb.GetSignalFootprint())
     {
         DumpLine(signal.second->Footprint());
     }
@@ -90,7 +90,7 @@ void TRACER::VCDTracer::GenerateBody()
     TimeFrame frame(0, m_File);
     uint64_t previous_timestamp = 0;
 
-    for (const SIGNAL::Signal *current_signal : m_pSignalDb.GetSignals())
+    for (const SIGNAL::Signal *current_signal : m_rSignalDb.GetSignals())
     {
         const uint64_t current_timestamp = current_signal->GetTimestamp();
 

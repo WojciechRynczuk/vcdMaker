@@ -24,9 +24,10 @@
 
 #include "CliMerge.h"
 #include "VCDTracer.h"
-#include "Source.h"
 #include "SourceRegistry.h"
 #include "VcdExceptions.h"
+#include "Source.h"
+#include "Merge.h"
 
 ///  The vcdMerge main function.
 ///
@@ -42,6 +43,9 @@ int main(int argc, const char *argv[])
     // Source registry.
     SIGNAL::SourceRegistry registry;
 
+	// Mering unit.
+	MERGE::Merge merge(false);
+
     try
     {
         // Get input filenames
@@ -54,9 +58,14 @@ int main(int argc, const char *argv[])
         {
             std::cout << '\n' << '\t' << source << '\n';
             MERGE::Source *pSource = new MERGE::Source(source, registry, cli.IsVerboseMode());
-            delete pSource;
+			merge.Add(*pSource);
         }
         std::cout << '\n';
+		merge.Join();
+
+		// Create the VCD tracer and dump the output file.
+		TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), *merge.Get());
+		vcd_trace.Dump();
     }
     catch (const EXCEPTION::ConflictingNames &exception)
     {

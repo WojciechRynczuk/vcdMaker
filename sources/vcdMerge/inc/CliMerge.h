@@ -49,16 +49,14 @@ namespace CLI
                 m_Cli.add(m_SourcesIn);
             }
 
-            /// Return by reference a list of files to be processed.
-            ///
-            /// @param filenames The list of filenames.
-            const void GetInputSources(std::vector<std::string> &filenames)
+            /// Return by a list of files to be processed.
+            const std::vector<std::string> &GetInputSources()
             {
-                filenames = m_SourcesIn.getValue();
+                return m_SourcesIn.getValue();
             }
 
             /// Return the output time unit.
-            const std::string GetTimeBase()
+            std::string GetTimeBase()
             {
                 return m_Timebase.getValue();
             }

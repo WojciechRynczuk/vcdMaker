@@ -35,30 +35,29 @@ MERGE::Source::Source(const std::string &description,
                       bool verboseMode) :
     m_SourceDescription(description),
     m_rSignalRegistry(signalRegistry),
+    m_pSignalDb(),
+    m_SyncPoint(),
+    m_TimeUnit(),
+    m_Prefix(),
+    m_LineCounter(),
+    m_Filename(),
     m_VerboseMode(verboseMode)
 {
     ParseParameters();
 
     // Parse the log file.
-    m_Parser = new PARSER::TxtParser(m_Filename,
-                                     m_TimeUnit,
-                                     m_rSignalRegistry,
-                                     m_LineCounter,
-                                     m_VerboseMode);
+    PARSER::TxtParser parser(m_Filename,
+                             m_TimeUnit,
+                             m_rSignalRegistry,
+                             m_LineCounter,
+                             m_VerboseMode);
 
-    m_rSignalDb = &m_Parser->GetSignalDb();
-    m_SyncPoint = 0;
+    m_pSignalDb = parser.MoveSignalDb();
 }
 
-const SIGNAL::SignalDb* MERGE::Source::Get()
-{
-	return m_rSignalDb;
-}
-
-void MERGE::Source::SetFormat(std::string &format)
+void MERGE::Source::SetFormat(std::string &)
 {
     /// @todo Implement it. Skip for now. Just check for 'T'.
-    format = format;
 }
 
 void MERGE::Source::SetSyncPoint(std::string &syncPoint)
@@ -75,11 +74,13 @@ void MERGE::Source::SetTimeUnit(std::string &timeUnit)
 
 void MERGE::Source::SetPrefix(std::string &prefix)
 {
+    /// @todo Check if correct.
     m_Prefix = prefix;
 }
 
 void MERGE::Source::SetCounterName(std::string &lineCounter)
 {
+    /// @todo Check if correct.
     m_LineCounter = lineCounter;
 }
 

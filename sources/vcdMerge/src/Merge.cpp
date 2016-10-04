@@ -29,25 +29,16 @@
 
 #include "Merge.h"
 
-void MERGE::Merge::Add(Source& source)
-{
-	m_Sources.push_back(&source);
-}
-
 void MERGE::Merge::Join()
 {
-	m_pMerged = new SIGNAL::SignalDb("us");
+    // @todo Why us?
+    m_pMerged = std::make_unique<SIGNAL::SignalDb>("us");
 
-	for (Source* source: m_Sources)
-	{
-		for (auto current_signal : source->Get()->GetSignals())
-		{
-			m_pMerged->Add(current_signal);
-		}
-	}
-}
-
-SIGNAL::SignalDb* MERGE::Merge::Get()
-{
-	return m_pMerged;
+    for (const Source *source : m_Sources)
+    {
+        for (auto current_signal : source->Get()->GetSignals())
+        {
+            m_pMerged->Add(current_signal);
+        }
+    }
 }

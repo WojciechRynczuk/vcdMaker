@@ -43,29 +43,36 @@ int main(int argc, const char *argv[])
     // Source registry.
     SIGNAL::SourceRegistry registry;
 
-	// Mering unit.
-	MERGE::Merge merge(false);
-
     try
     {
         // Get input filenames
-        std::vector<std::string> inSources;
-        cli.GetInputSources(inSources);
+        const std::vector<std::string> &inSources = cli.GetInputSources();
 
-        // Print all file to be merged
-        std::cout << "Merging: " << std::endl;
+        // Merging unit.
+        MERGE::Merge merge(cli.IsVerboseMode());
+
+        // All added sources.
+        std::vector<std::unique_ptr<MERGE::Source>> sources;
+
+        std::cout << "Merging: " << '\n';
         for (const std::string &source : inSources)
         {
             std::cout << '\n' << '\t' << source << '\n';
-            MERGE::Source *pSource = new MERGE::Source(source, registry, cli.IsVerboseMode());
-			merge.Add(*pSource);
+
+            sources.push_back(std::make_unique<MERGE::Source>(source,
+                                                              registry,
+                                                              cli.IsVerboseMode()));
+
+            merge.Add(sources.back().get());
         }
         std::cout << '\n';
-		merge.Join();
 
-		// Create the VCD tracer and dump the output file.
-		TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), *merge.Get());
-		vcd_trace.Dump();
+        // Merge databases.
+        merge.Join();
+
+        // Create the VCD tracer and dump the output file.
+        TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), merge.Get());
+        vcd_trace.Dump();
     }
     catch (const EXCEPTION::ConflictingNames &exception)
     {

@@ -30,13 +30,6 @@
 
 #pragma once
 
-/// @defgroup Merge Merge
-///
-/// @brief Merge related classes.
-///
-/// @par Full Description
-/// The group gathers classes needed by the merge application.
-
 #include "SignalDb.h"
 #include "TxtParser.h"
 
@@ -61,7 +54,11 @@ namespace MERGE
                    SIGNAL::SourceRegistry &signalRegistry,
                    bool verboseMode);
 
-			const SIGNAL::SignalDb* Get();
+            /// @todo Document, name is meaningless.
+            const SIGNAL::SignalDb *Get() const
+            {
+                return m_pSignalDb.get();
+            }
 
         private:
             /// A type for splited source parameters.
@@ -70,14 +67,11 @@ namespace MERGE
             /// Source description.
             std::string m_SourceDescription;
 
-			/// Parser.
-			PARSER::TxtParser *m_Parser;
-
             /// Signal registry.
             SIGNAL::SourceRegistry &m_rSignalRegistry;
 
             /// The signals database.
-            const SIGNAL::SignalDb *m_rSignalDb;
+            std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
 
             /// The source synchronization point.
             uint64_t m_SyncPoint;
@@ -97,6 +91,7 @@ namespace MERGE
             /// Verbose mode.
             const bool m_VerboseMode;
 
+            /// @todo Document. Move oneliners here.
             void SetFormat(std::string &format);
             void SetSyncPoint(std::string &syncPoint);
             void SetTimeUnit(std::string &timeUnit);

@@ -41,7 +41,7 @@
 namespace MERGE
 {
     /// The merging unit class. Allows for merging different
-	/// signal sources.
+    /// signal sources.
 
     /// The merging unit class.
     class Merge
@@ -50,32 +50,39 @@ namespace MERGE
             /// The merge constructor.
             ///
             /// @param verboseMode 'true' enables the verbose mode.
-			Merge(bool verboseMode) : 
-				m_Sources(),
-				m_VerboseMode(verboseMode),
-				m_pMerged(NULL)
-			{
-			};
+            Merge(bool verboseMode) :
+              m_Sources(),
+              m_pMerged(),
+              m_VerboseMode(verboseMode)
+            {
+            }
 
-			~Merge()
-			{
-			}
+            /// @todo Doc, name is meaningless.
+            void Add(const Source *source)
+            {
+                m_Sources.push_back(source);
+            }
 
-			void Add(Source& source);
-			void Join();
-			SIGNAL::SignalDb* Get();
+            /// @todo Doc, name is meaningless.
+            void Join();
+
+            /// @todo Doc, name is meaningless.
+            const SIGNAL::SignalDb &Get() const
+            {
+                return *(m_pMerged.get());
+            }
 
         private:
             /// A type defining a container for signal sources.
-            using SignalSourcesT = std::vector<Source*>;
+            using SignalSourcesT = std::vector<const Source *>;
 
             /// The set of sources.
-			SignalSourcesT m_Sources;
+            SignalSourcesT m_Sources;
 
-			/// The output database.
-			SIGNAL::SignalDb* m_pMerged;
+            /// The output database.
+            std::unique_ptr<SIGNAL::SignalDb> m_pMerged;
 
-			/// Verbose mode.
-			bool m_VerboseMode;
+            /// Verbose mode.
+            bool m_VerboseMode;
     };
 }

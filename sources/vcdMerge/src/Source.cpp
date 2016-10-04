@@ -55,36 +55,43 @@ MERGE::Source::Source(const std::string &description,
     m_pSignalDb = parser.MoveSignalDb();
 }
 
-void MERGE::Source::SetFormat(std::string &)
+void MERGE::Source::SetFormat(const std::string &format)
 {
-    /// @todo Implement it. Skip for now. Just check for 'T'.
+    if (format != "T")
+    {
+        throw std::runtime_error("Invalid log file format: " + format);
+    }
 }
 
-void MERGE::Source::SetSyncPoint(std::string &syncPoint)
+void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
 {
-    /// @todo Handle the exception.
-    m_SyncPoint = std::stoll(syncPoint, 0, 10);
+    try
+    {
+        m_SyncPoint = std::stoll(syncPoint, 0, 10);
+    }
+    catch (...)
+    {
+        throw std::runtime_error("Invalid synchronization point value: " + syncPoint);
+    }
 }
 
-void MERGE::Source::SetTimeUnit(std::string &timeUnit)
+void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
 {
     /// @todo Check if correct.
     m_TimeUnit = timeUnit;
 }
 
-void MERGE::Source::SetPrefix(std::string &prefix)
+void MERGE::Source::SetPrefix(const std::string &prefix)
 {
-    /// @todo Check if correct.
     m_Prefix = prefix;
 }
 
-void MERGE::Source::SetCounterName(std::string &lineCounter)
+void MERGE::Source::SetCounterName(const std::string &lineCounter)
 {
-    /// @todo Check if correct.
     m_LineCounter = lineCounter;
 }
 
-void MERGE::Source::SetFilename(std::string &filename)
+void MERGE::Source::SetFilename(const std::string &filename)
 {
     m_Filename = filename;
 }
@@ -92,19 +99,19 @@ void MERGE::Source::SetFilename(std::string &filename)
 void MERGE::Source::ParseParameters()
 {
     SourceParametersT params = GetSourceParameters();
-    /// @todo Replace the magic number.
-    if (params.size() != 6)
+
+    if (params.size() != Parameters::SOURCE_PARAM_N)
     {
-        /// @todo Throw the exception.
+        throw std::runtime_error("Invalid number of source parameters: " + m_SourceDescription);
     }
     else
     {
-        SetFormat(params[0]);
-        SetSyncPoint(params[1]);
-        SetTimeUnit(params[2]);
-        SetPrefix(params[3]);
-        SetCounterName(params[4]);
-        SetFilename(params[5]);
+        SetFormat(params[Parameters::LOG_FORMAT]);
+        SetSyncPoint(params[Parameters::SYNC_POINT]);
+        SetTimeUnit(params[Parameters::TIME_UNIT]);
+        SetPrefix(params[Parameters::PREFIX]);
+        SetCounterName(params[Parameters::LINE_COUNTER]);
+        SetFilename(params[Parameters::FILENAME]);
     }
 }
 

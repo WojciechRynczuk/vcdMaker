@@ -3,7 +3,7 @@
 /// The merging unit.
 ///
 /// @par Full Description
-/// The class defines the merging entity.
+/// The merging unit.
 ///
 /// @ingroup Merge
 ///
@@ -34,7 +34,7 @@
 /// @brief Merge related classes.
 ///
 /// @par Full Description
-/// The group gathers classes needed by the merge application.
+/// The group gathers classes needed by the VCD merging application.
 
 #include "Source.h"
 
@@ -51,9 +51,9 @@ namespace MERGE
             ///
             /// @param verboseMode 'true' enables the verbose mode.
             Merge(bool verboseMode) :
-              m_Sources(),
-              m_pMerged(),
-              m_VerboseMode(verboseMode)
+                m_Sources(),
+                m_pMerged(),
+                m_VerboseMode(verboseMode)
             {
             }
 
@@ -63,8 +63,8 @@ namespace MERGE
                 m_Sources.push_back(source);
             }
 
-            /// @todo Doc, name is meaningless.
-            void Join();
+            /// Triggers the merge.
+            void Run();
 
             /// @todo Doc, name is meaningless.
             const SIGNAL::SignalDb &Get() const

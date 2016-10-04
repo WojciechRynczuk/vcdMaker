@@ -29,9 +29,9 @@
 
 #include "Merge.h"
 
-void MERGE::Merge::Join()
+void MERGE::Merge::Run()
 {
-    // @todo Why us?
+    // @todo This is the simplest merge implementation. It will be reworked.
     m_pMerged = std::make_unique<SIGNAL::SignalDb>("us");
 
     for (const Source *source : m_Sources)

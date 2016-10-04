@@ -30,11 +30,8 @@
 
 #pragma once
 
-#include <map>
-#include <string>
 #include <climits>
 
-#include "SourceRegistry.h"
 #include "SignalDb.h"
 
 namespace PARSER

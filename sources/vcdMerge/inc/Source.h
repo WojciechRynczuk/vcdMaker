@@ -36,16 +36,35 @@
 namespace MERGE
 {
     /// The base source class. The objects of this class
-    /// can be merged.
+    /// describes the source and holds source data.
 
     /// A base source class.
     class Source
     {
         public:
-            /// Source fields delimeter.
-            static const char SOURCE_PARAM_DELIM = ':';
+            /// Source fields delimiter.
+            static const char SOURCE_PARAM_DELIM = ';';
+
+            /// Source parameters.
+            class Parameters
+            {
+                public:
+
+                    static constexpr size_t LOG_FORMAT = 0;
+                    static constexpr size_t SYNC_POINT = 1;
+                    static constexpr size_t TIME_UNIT= 2;
+                    static constexpr size_t PREFIX = 3;
+                    static constexpr size_t LINE_COUNTER = 4;
+                    static constexpr size_t FILENAME = 5;
+
+                    static constexpr size_t SOURCE_PARAM_N = 6;
+            };
 
             /// The source constructor.
+            ///
+            /// It is ONLY configuring the source. Before all source data
+            /// is created (all log files read in and processed) the configurations
+            /// shall be validated to return any syntax errors as quickly as possible.
             ///
             /// @param description The description of the source.
             /// @param signalRegistry The reference to the signal registry common for all sources.
@@ -54,20 +73,20 @@ namespace MERGE
                    SIGNAL::SourceRegistry &signalRegistry,
                    bool verboseMode);
 
-            /// @todo Document, name is meaningless.
+            /// Returns a pointer to the source signals.
             const SIGNAL::SignalDb *Get() const
             {
                 return m_pSignalDb.get();
             }
 
         private:
-            /// A type for splited source parameters.
+            /// A type for split source parameters.
             using SourceParametersT = std::vector<std::string>;
 
-            /// Source description.
-            std::string m_SourceDescription;
+            /// The source description.
+            const std::string m_SourceDescription;
 
-            /// Signal registry.
+            /// The signal registry.
             SIGNAL::SourceRegistry &m_rSignalRegistry;
 
             /// The signals database.
@@ -91,14 +110,28 @@ namespace MERGE
             /// Verbose mode.
             const bool m_VerboseMode;
 
-            /// @todo Document. Move oneliners here.
-            void SetFormat(std::string &format);
-            void SetSyncPoint(std::string &syncPoint);
-            void SetTimeUnit(std::string &timeUnit);
-            void SetPrefix(std::string &prefix);
-            void SetCounterName(std::string &lineCounter);
-            void SetFilename(std::string &filename);
+            /// Sets the format of the source log file.
+            void SetFormat(const std::string &format);
+
+            /// Sets the synchronization point of the source.
+            void SetSyncPoint(const std::string &syncPoint);
+
+            /// Sets the time unit of the source.
+            void SetTimeUnit(const std::string &timeUnit);
+
+            /// Sets the prefix added to the source signals.
+            void SetPrefix(const std::string &prefix);
+
+            /// Sets the source line counter name.
+            void SetCounterName(const std::string &lineCounter);
+
+            /// Sets the source log filename.
+            void SetFilename(const std::string &filename);
+
+            /// Parses user provided parameters.
             void ParseParameters();
+
+            /// Divides the aggregated user parameter into fields.
             SourceParametersT GetSourceParameters() const;
     };
 }

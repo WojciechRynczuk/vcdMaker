@@ -55,6 +55,12 @@ namespace PARSER
                 return *(m_pSignalDb.get());
             }
 
+            /// Moves ownership of signal database somewhere else.
+            std::unique_ptr<SIGNAL::SignalDb> MoveSignalDb()
+            {
+                return std::move(m_pSignalDb);
+            }
+
         protected:
 
             /// The log parser constructor.

@@ -17,8 +17,8 @@
 # test are removed. Incorrect files are left for review.
 #
 # Todo:
-# - Date and version could change and shoudn't be compared.
 # - Timebase and counter name could be encoded in file name.
+# - Improve Python coding.
 #
 # Copyright (c) 2016 vcdMaker team
 #

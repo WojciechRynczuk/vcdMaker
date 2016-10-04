@@ -29,6 +29,7 @@
 /// IN THE SOFTWARE.
 
 #include "Source.h"
+#include "Utils.h"
 
 MERGE::Source::Source(const std::string &description,
                       SIGNAL::SourceRegistry &signalRegistry,
@@ -115,18 +116,7 @@ void MERGE::Source::ParseParameters()
     }
 }
 
-/// @todo Move the method to utils (and create the utils).
-///       There's a similar function in the Signal.cpp
 MERGE::Source::SourceParametersT MERGE::Source::GetSourceParameters() const
 {
-    SourceParametersT source_fields;
-    std::stringstream name_stream(m_SourceDescription);
-    std::string name_field;
-
-    while (std::getline(name_stream, name_field, SOURCE_PARAM_DELIM))
-    {
-        source_fields.push_back(name_field);
-    }
-
-    return source_fields;
+    return UTILS::Split(m_SourceDescription, SOURCE_PARAM_DELIM);
 }

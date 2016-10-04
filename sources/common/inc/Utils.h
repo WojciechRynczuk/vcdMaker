@@ -1,12 +1,9 @@
-/// @file Signal.cpp
+/// @file Utils.cpp
 ///
-/// The base VCD signal class.
+/// The utilities.
 ///
 /// @par Full Description
-/// The base signal class contains the common signal properties and
-/// methods.
-///
-/// @ingroup Signal
+/// The utilities used among vcdMaker applications.
 ///
 /// @par Copyright (c) 2016 vcdMaker team
 ///
@@ -28,10 +25,18 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "Signal.h"
-#include "Utils.h"
+#pragma once
 
-SIGNAL::Signal::SignalNameFieldsT SIGNAL::Signal::GetNameFields() const
-{
-    return UTILS::Split(m_Name, SIGNAL_NAME_DELIM);
+#include <vector>
+#include <string>
+
+/// Utilities namespace.
+namespace UTILS {
+
+    /// Returns a vector of separated strings.
+    ///
+    /// @param inString The string to be split.
+    /// @param delimiter The delimiter.
+    std::vector<std::string> Split(const std::string &inString, const char delimiter);
+
 }

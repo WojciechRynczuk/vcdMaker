@@ -77,6 +77,9 @@
     <ClInclude Include="..\..\..\sources\common\inc\Version.h">
       <Filter>Common\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\Utils.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\vcdMaker\src\vcdMaker.cpp">
@@ -122,6 +125,9 @@
       <Filter>Common\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp">
+      <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\common\src\Utils.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

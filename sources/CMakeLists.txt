@@ -54,6 +54,7 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/LogParser.cpp
     ${COMMON_SOURCES_DIR}/LineCounter.cpp
     ${COMMON_SOURCES_DIR}/TimeFrame.cpp
+    ${COMMON_SOURCES_DIR}/Utils.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
 # Set common header files.
@@ -77,6 +78,7 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/SignalDb.h
     ${COMMON_HEADERS_DIR}/VcdExceptions.h
     ${COMMON_HEADERS_DIR}/TimeFrame.h
+    ${COMMON_HEADERS_DIR}/Utils.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h
     ${VERSION_HEADER})
 
@@ -122,12 +124,14 @@ add_vcdtools_target(vcdMaker
 set(VMERGE_SOURCES_DIR vcdMerge/src)
 set(VMERGE_SOURCES
     ${VMERGE_SOURCES_DIR}/vcdMerge.cpp
-    ${VMERGE_SOURCES_DIR}/Source.cpp)
+    ${VMERGE_SOURCES_DIR}/Source.cpp
+    ${VMERGE_SOURCES_DIR}/Merge.cpp)
 
 set(VMERGE_HEADERS_DIR vcdMerge/inc)
 set(VMERGE_HEADERS
     ${VMERGE_HEADERS_DIR}/CliMerge.h
-    ${VMERGE_HEADERS_DIR}/Source.h)
+    ${VMERGE_HEADERS_DIR}/Source.h
+    ${VMERGE_HEADERS_DIR}/Merge.h)
 
 add_vcdtools_target(vcdMerge
                     "${VMERGE_SOURCES}"

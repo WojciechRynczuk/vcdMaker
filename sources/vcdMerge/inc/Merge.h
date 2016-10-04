@@ -3,7 +3,7 @@
 /// The merging unit.
 ///
 /// @par Full Description
-/// The class defines the merging entity.
+/// The merging unit.
 ///
 /// @ingroup Merge
 ///
@@ -34,14 +34,14 @@
 /// @brief Merge related classes.
 ///
 /// @par Full Description
-/// The group gathers classes needed by the merge application.
+/// The group gathers classes needed by the VCD merging application.
 
 #include "Source.h"
 
 namespace MERGE
 {
     /// The merging unit class. Allows for merging different
-	/// signal sources.
+    /// signal sources.
 
     /// The merging unit class.
     class Merge
@@ -50,32 +50,40 @@ namespace MERGE
             /// The merge constructor.
             ///
             /// @param verboseMode 'true' enables the verbose mode.
-			Merge(bool verboseMode) : 
-				m_Sources(),
-				m_VerboseMode(verboseMode),
-				m_pMerged(NULL)
-			{
-			};
+            Merge(bool verboseMode) :
+                m_Sources(),
+                m_VerboseMode(verboseMode),
+                m_pMerged(NULL)
+            {
+            };
 
-			~Merge()
-			{
-			}
+            /// The merge destructor.
+            ~Merge()
+            {
+            }
 
-			void Add(Source& source);
-			void Join();
-			SIGNAL::SignalDb* Get();
+            /// Adds a source to be merged.
+            ///
+            /// @param source A reference to the signal source.
+            void Add(Source &source);
+
+            /// Triggers the merge.
+            void Run();
+
+            /// Returns a pointer to the set of the merged signals.
+            SIGNAL::SignalDb *Get();
 
         private:
             /// A type defining a container for signal sources.
-            using SignalSourcesT = std::vector<Source*>;
+            using SignalSourcesT = std::vector<Source *>;
 
             /// The set of sources.
-			SignalSourcesT m_Sources;
+            SignalSourcesT m_Sources;
 
-			/// The output database.
-			SIGNAL::SignalDb* m_pMerged;
+            /// The output database.
+            SIGNAL::SignalDb *m_pMerged;
 
-			/// Verbose mode.
-			bool m_VerboseMode;
+            /// Verbose mode.
+            bool m_VerboseMode;
     };
 }

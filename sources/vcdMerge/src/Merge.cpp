@@ -3,7 +3,7 @@
 /// The merging unit.
 ///
 /// @par Full Description
-/// The class defines the merging entity.
+/// The merging unit.
 ///
 /// @ingroup Merge
 ///
@@ -29,25 +29,26 @@
 
 #include "Merge.h"
 
-void MERGE::Merge::Add(Source& source)
+void MERGE::Merge::Add(Source &source)
 {
-	m_Sources.push_back(&source);
+    m_Sources.push_back(&source);
 }
 
-void MERGE::Merge::Join()
+void MERGE::Merge::Run()
 {
-	m_pMerged = new SIGNAL::SignalDb("us");
+    // @todo This is the simplest merge implementation. It will be reworked.
+    m_pMerged = new SIGNAL::SignalDb("us");
 
-	for (Source* source: m_Sources)
-	{
-		for (auto current_signal : source->Get()->GetSignals())
-		{
-			m_pMerged->Add(current_signal);
-		}
-	}
+    for (Source *source : m_Sources)
+    {
+        for (auto current_signal : source->Get()->GetSignals())
+        {
+            m_pMerged->Add(current_signal);
+        }
+    }
 }
 
-SIGNAL::SignalDb* MERGE::Merge::Get()
+SIGNAL::SignalDb *MERGE::Merge::Get()
 {
-	return m_pMerged;
+    return m_pMerged;
 }

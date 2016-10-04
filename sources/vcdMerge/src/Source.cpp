@@ -37,34 +37,55 @@ MERGE::Source::Source(const std::string &description,
     m_rSignalRegistry(signalRegistry),
     m_VerboseMode(verboseMode)
 {
+    // Only configure the source.
     ParseParameters();
+    m_Parser = NULL;
+    m_pSignalDb = NULL;
+    m_SyncPoint = 0;
+}
 
-    // Parse the log file.
+void MERGE::Source::Create()
+{
+    // Currently only the txt parser is available.
     m_Parser = new PARSER::TxtParser(m_Filename,
                                      m_TimeUnit,
                                      m_rSignalRegistry,
                                      m_LineCounter,
                                      m_VerboseMode);
 
-    m_rSignalDb = &m_Parser->GetSignalDb();
-    m_SyncPoint = 0;
+    m_pSignalDb = &m_Parser->GetSignalDb();
 }
 
-const SIGNAL::SignalDb* MERGE::Source::Get()
+const SIGNAL::SignalDb *MERGE::Source::Get() const
 {
-	return m_rSignalDb;
+    return m_pSignalDb;
+}
+
+const std::string& MERGE::Source::GetSourceDescription() const
+{
+	return m_SourceDescription;
 }
 
 void MERGE::Source::SetFormat(std::string &format)
 {
-    /// @todo Implement it. Skip for now. Just check for 'T'.
+    if (format != "T")
+    {
+        throw std::runtime_error("Invalid log file format: " + format);
+    }
     format = format;
 }
 
 void MERGE::Source::SetSyncPoint(std::string &syncPoint)
 {
-    /// @todo Handle the exception.
-    m_SyncPoint = std::stoll(syncPoint, 0, 10);
+    try
+    {
+        m_SyncPoint = std::stoll(syncPoint, 0, 10);
+    }
+    catch (...)
+    {
+        throw std::runtime_error("Invalid synchronization point value: " + syncPoint);
+    }
+
 }
 
 void MERGE::Source::SetTimeUnit(std::string &timeUnit)
@@ -91,19 +112,19 @@ void MERGE::Source::SetFilename(std::string &filename)
 void MERGE::Source::ParseParameters()
 {
     SourceParametersT params = GetSourceParameters();
-    /// @todo Replace the magic number.
-    if (params.size() != 6)
+
+    if (params.size() != SOURCE_PARAM_N)
     {
-        /// @todo Throw the exception.
+        throw std::runtime_error("Invalid number of source parameters: " + m_SourceDescription);
     }
     else
     {
-        SetFormat(params[0]);
-        SetSyncPoint(params[1]);
-        SetTimeUnit(params[2]);
-        SetPrefix(params[3]);
-        SetCounterName(params[4]);
-        SetFilename(params[5]);
+        SetFormat(params[LOG_FORMAT]);
+        SetSyncPoint(params[SYNC_POINT]);
+        SetTimeUnit(params[TIME_UNIT]);
+        SetPrefix(params[PREFIX]);
+        SetCounterName(params[LINE_COUNTER]);
+        SetFilename(params[FILENAME]);
     }
 }
 

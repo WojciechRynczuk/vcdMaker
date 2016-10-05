@@ -49,20 +49,14 @@ MERGE::Source::Source(const std::string &description,
 
 void MERGE::Source::Create()
 {
-	// Parse the log file.
-	PARSER::TxtParser parser(m_Filename,
-		m_TimeUnit,
-		m_rSignalRegistry,
-		m_LineCounter,
-		m_VerboseMode);
+    // Parse the log file.
+    PARSER::TxtParser parser(m_Filename,
+                             m_TimeUnit,
+                             m_rSignalRegistry,
+                             m_LineCounter,
+                             m_VerboseMode);
 
-	m_pSignalDb = parser.MoveSignalDb();
-}
-
-
-const std::string& MERGE::Source::GetSourceDescription() const
-{
-	return m_SourceDescription;
+    m_pSignalDb = parser.MoveSignalDb();
 }
 
 void MERGE::Source::SetFormat(const std::string &format)

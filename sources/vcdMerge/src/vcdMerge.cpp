@@ -54,14 +54,14 @@ int main(int argc, const char *argv[])
         // All added sources.
         std::vector<std::unique_ptr<MERGE::Source>> inSources;
 
-		// There must be at least 2 files to be merged.
-		if (inParameters.size() < 2)
-		{
-			throw std::runtime_error("There are at least two signal sources required.");
-		}
+        // There must be at least 2 files to be merged.
+        if (inParameters.size() < 2)
+        {
+            throw std::runtime_error("There are at least two signal sources required.");
+        }
 
         for (const std::string &source : inParameters)
-		{
+        {
             inSources.push_back(std::make_unique<MERGE::Source>(source,
                                                                 registry,
                                                                 cli.IsVerboseMode()));
@@ -69,12 +69,12 @@ int main(int argc, const char *argv[])
             merge.Add(inSources.back().get());
         }
 
-		std::cout << "Reading: " << '\n';
-		for (std::unique_ptr<MERGE::Source> &source :  inSources)
-		{
-			std::cout << '\n' << source->GetSourceDescription() << '\n';
-			source->Create();
-		}
+        std::cout << "Reading: " << '\n';
+        for (std::unique_ptr<MERGE::Source> &source : inSources)
+        {
+            std::cout << '\n' << source->GetSourceDescription() << '\n';
+            source->Create();
+        }
 
         std::cout << '\n' << "Merging" << '\n';
         merge.Run();

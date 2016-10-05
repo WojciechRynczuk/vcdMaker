@@ -73,11 +73,17 @@ namespace MERGE
                    SIGNAL::SourceRegistry &signalRegistry,
                    bool verboseMode);
 
+            /// Creates the source data.
+            void  Create();
+
             /// Returns a pointer to the source signals.
             const SIGNAL::SignalDb *Get() const
             {
                 return m_pSignalDb.get();
             }
+
+			/// Returns the source description.
+			const std::string& GetSourceDescription() const;
 
         private:
             /// A type for split source parameters.

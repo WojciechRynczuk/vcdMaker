@@ -69,9 +69,9 @@ PARSER::TxtParser::TxtParser(const std::string &filename,
 PARSER::TxtParser::~TxtParser()
 {
     // Print the summary.
-    std::cout << '\n' << "\tParsed " << m_FileName << ": \n";
-    std::cout << "\tValid lines:   " << m_ValidLines << '\n';
-    std::cout << "\tInvalid lines: " << m_InvalidLines << '\n';
+    std::cout << '\n' << "Parsed " << m_FileName << ": \n";
+    std::cout << "Valid lines:   " << m_ValidLines << '\n';
+    std::cout << "Invalid lines: " << m_InvalidLines << '\n';
 }
 
 void PARSER::TxtParser::Parse()

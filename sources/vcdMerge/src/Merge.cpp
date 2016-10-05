@@ -31,7 +31,7 @@
 
 void MERGE::Merge::Run()
 {
-    // @todo This is the simplest merge implementation. It will be reworked.
+    /// @todo This is the simplest merge implementation. It will be reworked.
     m_pMerged = std::make_unique<SIGNAL::SignalDb>("us");
 
     for (const Source *source : m_Sources)

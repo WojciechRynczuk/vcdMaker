@@ -59,6 +59,12 @@ namespace SIGNAL
             {
             }
 
+            /// The floating signal cloning method.
+            virtual Signal *Clone() const
+            {
+                return new FSignal(*this);
+            }
+
             /// Returns the signal's value.
             std::string GetValue() const
             {

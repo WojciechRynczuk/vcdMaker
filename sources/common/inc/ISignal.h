@@ -60,6 +60,12 @@ namespace SIGNAL
             {
             }
 
+            /// The integer signal cloning method.
+            virtual Signal *Clone() const
+            {
+                return new ISignal(*this);
+            }
+
             /// Returns the signal's value.
             uint64_t GetValue() const
             {

@@ -38,7 +38,8 @@ void MERGE::Merge::Run()
     {
         for (auto current_signal : source->Get()->GetSignals())
         {
-            m_pMerged->Add(current_signal);
+            SIGNAL::Signal *signal = current_signal->Clone();
+            m_pMerged->Add(signal);
         }
     }
 }

@@ -93,6 +93,9 @@ namespace SIGNAL
             /// It is needed by the multiset container within the VCD tracer module.
             Signal() = default;
 
+            /// The signal cloning method.
+            virtual Signal *Clone() const = 0;
+
             /// The destructor.
             virtual ~Signal() = 0;
 

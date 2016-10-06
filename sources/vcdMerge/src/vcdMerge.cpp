@@ -45,7 +45,7 @@ int main(int argc, const char *argv[])
 
     try
     {
-        // Get input filenames
+        // Get input sources.
         const std::vector<std::string> &inParameters = cli.GetInputSources();
 
         // Merging unit.
@@ -69,7 +69,7 @@ int main(int argc, const char *argv[])
             merge.Add(inSources.back().get());
         }
 
-        std::cout << "Reading: " << '\n';
+        std::cout << "Reading" << '\n';
         for (std::unique_ptr<MERGE::Source> &source : inSources)
         {
             std::cout << '\n' << source->GetSourceDescription() << '\n';

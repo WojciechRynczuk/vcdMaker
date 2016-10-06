@@ -26,7 +26,9 @@
 /// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-/// IN THE SOFTWARE.
+/// IN THE SOFTWARE
+
+#include<algorithm>
 
 #include "Source.h"
 #include "Utils.h"
@@ -71,7 +73,7 @@ void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
 {
     try
     {
-        m_SyncPoint = std::stoll(syncPoint, 0, 10);
+        m_SyncPoint = std::stoll(syncPoint);
     }
     catch (...)
     {
@@ -81,8 +83,16 @@ void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
 
 void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
 {
-    /// @todo Check if correct.
-    m_TimeUnit = timeUnit;
+    std::vector<std::string> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
+    if (std::any_of(tunits.begin(), tunits.end(), [&](std::string& element) {return (element == timeUnit);} ))
+    {
+        m_TimeUnit = timeUnit;
+    }
+    else
+    {
+        throw std::runtime_error("Invalid time unit: " + timeUnit);
+    }
+
 }
 
 void MERGE::Source::SetPrefix(const std::string &prefix)
@@ -97,7 +107,16 @@ void MERGE::Source::SetCounterName(const std::string &lineCounter)
 
 void MERGE::Source::SetFilename(const std::string &filename)
 {
-    m_Filename = filename;
+    std::ifstream infile(filename);
+
+    if (infile.good())
+    {
+        m_Filename = filename;
+    }
+    else
+    {
+        throw std::runtime_error("No such file: " + filename);
+    }
 }
 
 void MERGE::Source::ParseParameters()

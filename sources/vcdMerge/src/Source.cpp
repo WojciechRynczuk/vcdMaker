@@ -28,7 +28,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE
 
-#include<algorithm>
+#include <algorithm>
 
 #include "Source.h"
 #include "Utils.h"
@@ -47,6 +47,27 @@ MERGE::Source::Source(const std::string &description,
     m_VerboseMode(verboseMode)
 {
     ParseParameters();
+}
+
+const uint64_t MERGE::Source::GetSync() const
+{
+    return m_SyncPoint;
+}
+
+const uint64_t MERGE::Source::GetSpan(const std::string tunit) const
+{
+    /// @todo Ignored tunit.
+
+    // Get the timestamp of the first signal in the set.
+    uint64_t t0 = (*(m_pSignalDb->GetSignals().begin()))->GetTimestamp();
+
+    // The sync point value is out of bounds.
+    if (t0 > m_SyncPoint)
+    {
+        throw std::runtime_error("Synchronization point value out of bounds: " + m_SyncPoint);
+    }
+
+    return (m_SyncPoint - t0);
 }
 
 void MERGE::Source::Create()

@@ -130,6 +130,14 @@ namespace SIGNAL
                 return m_Timestamp;
             }
 
+            /// Sets the timestamp.
+            ///
+            /// @param The new timestamp value.
+            void SetTimestamp(uint64_t timestamp)
+            {
+                m_Timestamp = timestamp;
+            }
+
             /// Returns the signal's type.
             ///
             /// The method is used while generating the VCD header.
@@ -174,7 +182,7 @@ namespace SIGNAL
             const size_t m_Size = 0;
 
             /// The signal's timestamp.
-            const uint64_t m_Timestamp = 0;
+            uint64_t m_Timestamp = 0;
 
             /// The signal's source.
             const SourceRegistry::HandleT m_SourceHandle =

@@ -52,7 +52,7 @@ namespace MERGE
 
                     static constexpr size_t LOG_FORMAT = 0;
                     static constexpr size_t SYNC_POINT = 1;
-                    static constexpr size_t TIME_UNIT= 2;
+                    static constexpr size_t TIME_UNIT = 2;
                     static constexpr size_t PREFIX = 3;
                     static constexpr size_t LINE_COUNTER = 4;
                     static constexpr size_t FILENAME = 5;
@@ -87,6 +87,15 @@ namespace MERGE
             {
                 return m_SourceDescription;
             }
+
+            /// Returns the source synchronization point.
+            const uint64_t GetSync() const;
+
+            /// Returns the distance between the first logged signal and
+            /// the synchronization point.
+            ///
+            /// @param tunit The time unit of the returned value.
+            const uint64_t GetSpan(const std::string tunit) const;
 
         private:
             /// A type for split source parameters.

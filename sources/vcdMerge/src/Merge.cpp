@@ -27,19 +27,61 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include <functional>
+
 #include "Merge.h"
 
 void MERGE::Merge::Run()
 {
-    /// @todo This is the simplest merge implementation. It will be reworked.
+    /// @todo Fixed unit still being used.
     m_pMerged = std::make_unique<SIGNAL::SignalDb>("us");
+
+    // Find the longest span.
+    uint64_t max_span = FindMaxSpan();
 
     for (const Source *source : m_Sources)
     {
+        std::function<uint64_t(uint64_t)> pFcn;
+        uint64_t sourceSync = source->GetSync();
+
+        if (max_span != sourceSync)
+        {
+            /// @todo Detect uint64_t overflow.
+            pFcn = [&](uint64_t tstamp)
+            {
+                return (tstamp + max_span - sourceSync);
+            };
+        }
+        else
+        {
+            // Assign 1 just to get rid of the warning.
+            pFcn = [&](uint64_t tstamp)
+            {
+                tstamp = 1;
+                return max_span;
+            };
+        }
+
+        // Merge signals here.
         for (auto current_signal : source->Get()->GetSignals())
         {
             SIGNAL::Signal *signal = current_signal->Clone();
+            signal->SetTimestamp(pFcn(signal->GetTimestamp()));
             m_pMerged->Add(signal);
         }
     }
+}
+
+const uint64_t MERGE::Merge::FindMaxSpan()
+{
+    uint64_t max_span = 0;
+    for (const Source *source : m_Sources)
+    {
+        uint64_t span = source->GetSpan("us");
+        if (span > max_span)
+        {
+            max_span = span;
+        }
+    }
+    return max_span;
 }

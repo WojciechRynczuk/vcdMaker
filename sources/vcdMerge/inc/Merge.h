@@ -73,6 +73,10 @@ namespace MERGE
             }
 
         private:
+
+            /// Returns the max span.
+            const uint64_t FindMaxSpan();
+
             /// A type defining a container for signal sources.
             using SignalSourcesT = std::vector<const Source *>;
 

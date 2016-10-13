@@ -64,7 +64,10 @@ const uint64_t MERGE::Source::GetSpan(const std::string tunit) const
     // The sync point value is out of bounds.
     if (t0 > m_SyncPoint)
     {
-        throw std::runtime_error("Synchronization point value out of bounds: " + m_SyncPoint);
+        if (m_SyncPoint > 0)
+        {
+            throw std::runtime_error("Synchronization point value out of bounds: " + m_SyncPoint);
+        }
     }
 
     return (m_SyncPoint - t0);
@@ -118,7 +121,16 @@ void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
 
 void MERGE::Source::SetPrefix(const std::string &prefix)
 {
-    m_Prefix = prefix;
+    if (prefix != "")
+    {
+        // The prefix shall contain the terminating '.' but the user
+        // does not have to provide it.
+        m_Prefix = prefix + ".";
+    }
+    else
+    {
+        m_Prefix = prefix;
+    }
 }
 
 void MERGE::Source::SetCounterName(const std::string &lineCounter)

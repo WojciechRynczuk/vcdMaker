@@ -47,6 +47,7 @@ namespace PARSER
             ///
             /// The constructor initializes the regular expression member variable
             /// which will be matched against the log line.
+            /// @param signalRegEx The regular expression to be matech against the log line.
             SignalCreator(const std::string &signalRegEx) :
                 m_SignalRegEx(signalRegEx)
             {
@@ -70,8 +71,19 @@ namespace PARSER
 
         protected:
 
+            /// Returns the prefixed signal name.
+            ///
+            /// @param name The original signal name.
+            const std::string GetPrefixedName(const std::string &name) const
+            {
+                return (m_Prefix + name);
+            }
+
             /// The RegEx matching the signal description.
             const std::regex m_SignalRegEx;
+
+            /// Signal prefix.
+            const std::string m_Prefix;
     };
 
     inline SignalCreator::~SignalCreator() = default;

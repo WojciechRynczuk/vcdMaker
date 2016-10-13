@@ -62,11 +62,15 @@ void MERGE::Merge::Run()
             };
         }
 
+        // Get the source prefix.
+        const std::string prefix = source->GetPrefix();
+
         // Merge signals here.
         for (auto current_signal : source->Get()->GetSignals())
         {
             SIGNAL::Signal *signal = current_signal->Clone();
             signal->SetTimestamp(pFcn(signal->GetTimestamp()));
+            signal->SetName(prefix + signal->GetName());
             m_pMerged->Add(signal);
         }
     }

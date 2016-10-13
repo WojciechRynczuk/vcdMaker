@@ -108,6 +108,14 @@ namespace SIGNAL
                 return m_Name;
             }
 
+            /// Sets the new signal's name.
+            ///
+            /// @param name The new signal's name.
+            void SetName(const std::string &name)
+            {
+                m_Name = name;
+            }
+
             /// Returns signal name splited into fields.
             ///
             /// The module, the sub-module and the signal name must
@@ -132,7 +140,7 @@ namespace SIGNAL
 
             /// Sets the timestamp.
             ///
-            /// @param The new timestamp value.
+            /// @param timestamp The new timestamp value.
             void SetTimestamp(uint64_t timestamp)
             {
                 m_Timestamp = timestamp;
@@ -173,7 +181,7 @@ namespace SIGNAL
             virtual bool EqualTo(Signal const &other) const = 0;
 
             /// The signal's name.
-            const std::string m_Name {};
+            std::string m_Name {};
 
             /// The signal's type.
             const std::string m_Type {};

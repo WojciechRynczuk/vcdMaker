@@ -30,7 +30,6 @@
 
 #pragma once
 
-#include "SignalDb.h"
 #include "TxtParser.h"
 
 namespace MERGE
@@ -50,13 +49,25 @@ namespace MERGE
             {
                 public:
 
+                    /// Log format position in the source description.
                     static constexpr size_t LOG_FORMAT = 0;
+
+                    /// Synchronization point position in the source description.
                     static constexpr size_t SYNC_POINT = 1;
+
+                    /// Time unit position in the source description.
                     static constexpr size_t TIME_UNIT = 2;
+
+                    /// Prefix position in the source description.
                     static constexpr size_t PREFIX = 3;
+
+                    /// Line counter position in the source description.
                     static constexpr size_t LINE_COUNTER = 4;
+
+                    /// Filename position in the source description.
                     static constexpr size_t FILENAME = 5;
 
+                    /// Number of a source description's elements.
                     static constexpr size_t SOURCE_PARAM_N = 6;
             };
 
@@ -83,9 +94,15 @@ namespace MERGE
             }
 
             /// Returns the source description.
-            const std::string &GetSourceDescription() const
+            const std::string &GetDescription() const
             {
                 return m_SourceDescription;
+            }
+
+            /// Returns the source prefix.
+            const std::string &GetPrefix() const
+            {
+                return m_Prefix;
             }
 
             /// Returns the source synchronization point.

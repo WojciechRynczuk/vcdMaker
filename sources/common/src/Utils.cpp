@@ -31,7 +31,7 @@
 
 #include <sstream>
 
-std::vector<std::string> UTILS::Split(const std::string& inString,
+std::vector<std::string> UTILS::Split(const std::string &inString,
                                       const char delimiter)
 {
     std::vector<std::string> outStrings;

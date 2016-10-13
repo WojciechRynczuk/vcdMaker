@@ -72,7 +72,7 @@ int main(int argc, const char *argv[])
         std::cout << "Reading" << '\n';
         for (std::unique_ptr<MERGE::Source> &source : inSources)
         {
-            std::cout << '\n' << source->GetSourceDescription() << '\n';
+            std::cout << '\n' << source->GetDescription() << '\n';
             source->Create();
         }
 

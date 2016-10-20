@@ -50,15 +50,17 @@ namespace MERGE
             /// The merge constructor.
             ///
             /// @param verboseMode 'true' enables the verbose mode.
-            Merge(bool verboseMode) :
+            /// @param timeUnit The time unit of the output file.
+            Merge(bool verboseMode, std::string timeUnit) :
                 m_Sources(),
+                m_TimeUnit(timeUnit),
                 m_pMerged(),
                 m_VerboseMode(verboseMode)
             {
             }
 
-            /// @todo Doc, name is meaningless.
-            void Add(const Source *source)
+            /// Adds a signal source to be merged.
+            void AddSource(const Source *source)
             {
                 m_Sources.push_back(source);
             }
@@ -66,22 +68,52 @@ namespace MERGE
             /// Triggers the merge.
             void Run();
 
-            /// @todo Doc, name is meaningless.
-            const SIGNAL::SignalDb &Get() const
+            /// Returns the merged signals database.
+            const SIGNAL::SignalDb &GetSignals() const
             {
                 return *(m_pMerged.get());
             }
 
         private:
 
+            /// Returns the minimal unit.
+            ///
+            /// @param The result time unit.
+            const std::string FindMinUnit();
+
             /// Returns the max span.
             const uint64_t FindMaxSpan();
+
+            /// Returns the time value represented in the normalized unit.
+            ///
+            /// @param time A time value to be normalized.
+            /// @param sourceTimeUnit The source time unit.
+            const uint64_t Normalize(uint64_t time,
+                                     const std::string &sourceTimeUnit);
+
+            /// Returns the unit power.
+            const uint32_t GetUnitPower(const std::string &timeUnit);
+
+            /// Returns the new signal's time.
+            ///
+            /// @param time The original signal's timestamp.
+            /// @param sourceUnit The original source's time unit.
+            /// @param sync The source's sync point. Normalized.
+            const uint64_t CalculateNewTime(uint64_t time,
+                                            const std::string &sourceUnit,
+                                            uint64_t normSync);
 
             /// A type defining a container for signal sources.
             using SignalSourcesT = std::vector<const Source *>;
 
             /// The set of sources.
             SignalSourcesT m_Sources;
+
+            /// Merging time unit.
+            std::string m_TimeUnit;
+
+            /// The greatest span among sources. Normalized.
+            uint64_t m_NormMaxSpan;
 
             /// The output database.
             std::unique_ptr<SIGNAL::SignalDb> m_pMerged;

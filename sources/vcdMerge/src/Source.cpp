@@ -28,8 +28,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE
 
-#include <algorithm>
-
 #include "Source.h"
 #include "Utils.h"
 
@@ -54,10 +52,8 @@ const uint64_t MERGE::Source::GetSync() const
     return m_SyncPoint;
 }
 
-const uint64_t MERGE::Source::GetSpan(const std::string tunit) const
+const uint64_t MERGE::Source::GetSpan() const
 {
-    /// @todo Ignored tunit.
-
     // Get the timestamp of the first signal in the set.
     uint64_t t0 = (*(m_pSignalDb->GetSignals().begin()))->GetTimestamp();
 
@@ -108,7 +104,8 @@ void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
 void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
 {
     std::vector<std::string> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
-    if (std::any_of(tunits.begin(), tunits.end(), [&](std::string& element) {return (element == timeUnit);} ))
+
+    if (tunits.end() != std::find(tunits.begin(), tunits.end(), timeUnit))
     {
         m_TimeUnit = timeUnit;
     }
@@ -116,7 +113,6 @@ void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
     {
         throw std::runtime_error("Invalid time unit: " + timeUnit);
     }
-
 }
 
 void MERGE::Source::SetPrefix(const std::string &prefix)

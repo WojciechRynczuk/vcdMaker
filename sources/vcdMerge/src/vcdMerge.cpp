@@ -49,7 +49,8 @@ int main(int argc, const char *argv[])
         const std::vector<std::string> &inParameters = cli.GetInputSources();
 
         // Merging unit.
-        MERGE::Merge merge(cli.IsVerboseMode());
+        MERGE::Merge merge(cli.IsVerboseMode(),
+                           cli.GetTimeBase());
 
         // All added sources.
         std::vector<std::unique_ptr<MERGE::Source>> inSources;
@@ -66,22 +67,22 @@ int main(int argc, const char *argv[])
                                                                 registry,
                                                                 cli.IsVerboseMode()));
 
-            merge.Add(inSources.back().get());
+            merge.AddSource(inSources.back().get());
         }
 
-        std::cout << "Reading" << '\n';
+        std::cout << "Reading sources" << '\n';
         for (std::unique_ptr<MERGE::Source> &source : inSources)
         {
             std::cout << '\n' << source->GetDescription() << '\n';
             source->Create();
         }
 
-        std::cout << '\n' << "Merging" << '\n';
+        std::cout << '\n' << "Merging sources" << '\n';
         merge.Run();
 
         // Create the VCD tracer and dump the output file.
-        TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), merge.Get());
-        std::cout << '\n' << "Dumping" << '\n';
+        TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), merge.GetSignals());
+        std::cout << '\n' << "Dumping " << cli.GetOutputFileName() << '\n';
         vcd_trace.Dump();
     }
     catch (const EXCEPTION::ConflictingNames &exception)

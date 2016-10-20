@@ -45,7 +45,6 @@ namespace CLI
                 CliParser("VCD merging tool.", VERSION::STRING)
             {
                 m_Cli.add(m_Timebase);
-                m_Cli.add(m_SyncPoint);
                 m_Cli.add(m_SourcesIn);
             }
 
@@ -72,10 +71,6 @@ namespace CLI
             /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase
                 { "t", "timebase", "Log timebase specification", false, "", &m_AllowedTimebases };
-
-            /// Sync point.
-            TCLAP::ValueArg<std::string> m_SyncPoint
-                { "s", "syncPoint", "Synchronization point", false, "", "Synchronization point" };
 
             /// Input sources.
             TCLAP::UnlabeledMultiArg<std::string> m_SourcesIn

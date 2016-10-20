@@ -105,14 +105,18 @@ namespace MERGE
                 return m_Prefix;
             }
 
+            /// Returns the time unit.
+            const std::string &GetTimeUnit() const
+            {
+                return m_TimeUnit;
+            }
+
             /// Returns the source synchronization point.
             const uint64_t GetSync() const;
 
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
-            ///
-            /// @param tunit The time unit of the returned value.
-            const uint64_t GetSpan(const std::string tunit) const;
+            const uint64_t GetSpan() const;
 
         private:
             /// A type for split source parameters.

@@ -34,10 +34,10 @@
 
 namespace MERGE
 {
-    /// The base source class. The objects of this class
-    /// describes the source and holds source data.
-
-    /// A base source class.
+    /// The base source class.
+    ///
+    /// The objects of this class describes the source and holds source data.
+    /// @todo Name is wrong and misleading.
     class Source
     {
         public:
@@ -73,7 +73,7 @@ namespace MERGE
 
             /// The source constructor.
             ///
-            /// It is ONLY configuring the source. Before all source data
+            /// It is only configuring the source. Before all source data
             /// is created (all log files read in and processed) the configurations
             /// shall be validated to return any syntax errors as quickly as possible.
             ///
@@ -112,10 +112,15 @@ namespace MERGE
             }
 
             /// Returns the source synchronization point.
-            uint64_t GetSync() const;
+            /// @todo Name is wrong and misleading.
+            uint64_t GetSync() const
+            {
+                return m_SyncPoint;
+            }
 
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
+            /// @todo Name is wrong and misleading.
             uint64_t GetSpan() const;
 
         private:

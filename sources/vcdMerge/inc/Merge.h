@@ -51,9 +51,10 @@ namespace MERGE
             ///
             /// @param verboseMode 'true' enables the verbose mode.
             /// @param timeUnit The time unit of the output file.
-            Merge(bool verboseMode, std::string timeUnit) :
+            Merge(bool verboseMode, const std::string &timeUnit) :
                 m_Sources(),
                 m_TimeUnit(timeUnit),
+                m_NormMaxSpan(),
                 m_pMerged(),
                 m_VerboseMode(verboseMode)
             {
@@ -82,6 +83,7 @@ namespace MERGE
             std::string FindMinUnit();
 
             /// Returns the max span.
+            /// @todo Name is meaningless and doc is useless.
             uint64_t FindMaxSpan();
 
             /// Returns the time value represented in the normalized unit.
@@ -89,7 +91,7 @@ namespace MERGE
             /// @param time A time value to be normalized.
             /// @param sourceTimeUnit The source time unit.
             uint64_t Normalize(uint64_t time,
-                                     const std::string &sourceTimeUnit);
+                               const std::string &sourceTimeUnit);
 
             /// Returns the unit power.
             uint32_t GetUnitPower(const std::string &timeUnit);

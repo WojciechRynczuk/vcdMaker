@@ -50,23 +50,15 @@ MERGE::Source::Source(const std::string &description,
     ParseParameters();
 }
 
-uint64_t MERGE::Source::GetSync() const
-{
-    return m_SyncPoint;
-}
-
 uint64_t MERGE::Source::GetSpan() const
 {
     // Get the timestamp of the first signal in the set.
-    uint64_t t0 = (*(m_pSignalDb->GetSignals().begin()))->GetTimestamp();
+    const uint64_t t0 = (*(m_pSignalDb->GetSignals().cbegin()))->GetTimestamp();
 
     // The sync point value is out of bounds.
-    if (t0 > m_SyncPoint)
+    if ((t0 > m_SyncPoint) && (m_SyncPoint > 0))
     {
-        if (m_SyncPoint > 0)
-        {
-            throw std::runtime_error("Synchronization point value out of bounds: " + m_SyncPoint);
-        }
+        throw std::runtime_error("Synchronization point value out of bounds: " + m_SyncPoint);
     }
 
     return (m_SyncPoint - t0);
@@ -96,9 +88,9 @@ void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
 {
     try
     {
-        m_SyncPoint = std::stoll(syncPoint);
+        m_SyncPoint = std::stoull(syncPoint);
     }
-    catch (...)
+    catch (std::logic_error &)
     {
         throw std::runtime_error("Invalid synchronization point value: " + syncPoint);
     }
@@ -106,9 +98,7 @@ void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
 
 void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
 {
-    const std::array<std::string, 6> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
-
-    if (tunits.cend() != std::find(tunits.cbegin(), tunits.cend(), timeUnit))
+    if (UTILS::IsTimeUnitValid(timeUnit))
     {
         m_TimeUnit = timeUnit;
     }

@@ -27,26 +27,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include <cmath>
 #include <array>
 #include <algorithm>
-#include <cmath>
 
 #include "Merge.h"
+#include "Utils.h"
 
 void MERGE::Merge::Run()
 {
-    // The minimum time unit used in sources.
-    std::string minUnit = FindMinUnit();
-
     // If the output time unit is not forced use the minimum value.
-    if (m_TimeUnit == "")
+    if (m_TimeUnit.empty())
     {
-        m_TimeUnit = minUnit;
+        // The minimum time unit used in sources.
+        m_TimeUnit = FindMinUnit();
     }
 
+    /// @todo: The following comment is wrong.
     // Set the time unit of the merged signals.
     m_pMerged = std::make_unique<SIGNAL::SignalDb>(m_TimeUnit);
 
+    /// @todo Here is the explanation for "span". Use it in docs, not here.
+    ///       Term "normalized" is not explained anywhere.
     // Find the longest span (distance between the first signal and the sync).
     // The value is normalized.
     m_NormMaxSpan = FindMaxSpan();
@@ -58,10 +60,9 @@ void MERGE::Merge::Run()
         const std::string sourceTimeUnit = source->GetTimeUnit();
 
         // Normalized source sync time.
-        uint64_t normSourceSync = Normalize(source->GetSync(), sourceTimeUnit);
-
-        // Get the source prefix.
-        const std::string prefix = source->GetPrefix();
+        /// @todo Name is wrong.
+        const uint64_t normSourceSync =
+            Normalize(source->GetSync(), sourceTimeUnit);
 
         // Merge signals here.
         for (auto current_signal : source->Get()->GetSignals())
@@ -74,7 +75,7 @@ void MERGE::Merge::Run()
                                                   normSourceSync));
 
             // Update its name.
-            signal->SetName(prefix + signal->GetName());
+            signal->SetName(source->GetPrefix() + signal->GetName());
 
             // Add to the output signals database.
             m_pMerged->Add(signal);
@@ -84,36 +85,29 @@ void MERGE::Merge::Run()
 
 std::string MERGE::Merge::FindMinUnit()
 {
-    const std::array<std::string, 6> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
     size_t maxIndex = 0;
 
     for (const Source *const source : m_Sources)
     {
-        const size_t position =
-            (std::find(tunits.cbegin(),
-                       tunits.cend(),
-                       source->GetTimeUnit()) - tunits.cbegin());
-
-        maxIndex = std::max(position, maxIndex);
+        const size_t index = UTILS::GetTimeUnitIndex(source->GetTimeUnit());
+        maxIndex = std::max(index, maxIndex);
     }
 
-    return tunits[maxIndex];
+    return SIGNAL::Signal::TIME_UNITS[maxIndex];
 }
 
 uint64_t MERGE::Merge::FindMaxSpan()
 {
-    uint64_t max_span = 0;
+    uint64_t maxSpan = 0;
 
-    for (const Source *source : m_Sources)
+    for (const Source *const source : m_Sources)
     {
         uint64_t span = Normalize(source->GetSpan(),
                                   source->GetTimeUnit());
-        if (span > max_span)
-        {
-            max_span = span;
-        }
+        maxSpan = std::max(span, maxSpan);
     }
-    return max_span;
+
+    return maxSpan;
 }
 
 uint64_t MERGE::Merge::Normalize(uint64_t time,
@@ -123,8 +117,8 @@ uint64_t MERGE::Merge::Normalize(uint64_t time,
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    uint32_t targetPower = GetUnitPower(m_TimeUnit);
-    uint32_t sourcePower = GetUnitPower(sourceTimeUnit);
+    const uint32_t targetPower = GetUnitPower(m_TimeUnit);
+    const uint32_t sourcePower = GetUnitPower(sourceTimeUnit);
 
     if (targetPower > sourcePower)
     {
@@ -143,15 +137,10 @@ uint64_t MERGE::Merge::Normalize(uint64_t time,
 
 uint32_t MERGE::Merge::GetUnitPower(const std::string &timeUnit)
 {
-    const std::array<std::string, 6> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
-
-    const size_t position =
-        (std::find(tunits.cbegin(),
-                   tunits.cend(),
-                   timeUnit) - tunits.cbegin());
+    const size_t index = UTILS::GetTimeUnitIndex(timeUnit);
 
     // 1 [s] = 1000 [ms], 1 [ms] = 1000 [us], etc.
-    return 3 * position;
+    return (3 * index);
 }
 
 uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,

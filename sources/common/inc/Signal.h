@@ -229,7 +229,7 @@ namespace SIGNAL
 
     /// A type defining a container for pointers to Signal objects.
     using SignalCollectionT = std::multiset<const Signal *,
-          PtrTimestampLtComparator>;
+                                            PtrTimestampLtComparator>;
 
     /// Type used for unique signals map: name => signal pointer.
     using UniqueSignalsCollectionT = std::map<std::string, const Signal *>;

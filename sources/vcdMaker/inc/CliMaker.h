@@ -30,6 +30,7 @@
 #pragma once
 
 #include "CliParser.h"
+#include "Signal.h"
 #include "Version.h"
 
 namespace CLI
@@ -69,11 +70,8 @@ namespace CLI
 
         private:
 
-            /// A list of valid timebase units.
-            std::vector<std::string> m_AllowedTimebaseValues{"s", "ms", "us", "ns", "ps", "fs"};
-
             /// Valid timebases constraint.
-            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{m_AllowedTimebaseValues};
+            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{SIGNAL::Signal::TIME_UNITS};
 
             /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase

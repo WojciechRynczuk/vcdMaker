@@ -60,6 +60,12 @@ namespace SIGNAL
             /// Signal name components delimeter.
             static const char SIGNAL_NAME_DELIM = '.';
 
+            /// List of allowed time units.
+            /// @note This can't be const because of TCLAP's stupidity -
+            ///       TCLAP::ValuesConstraint constructor doesn't take its
+            ///       argument using constant reference like it should.
+            static std::vector<std::string> TIME_UNITS;
+
             /// The signal constructor.
             ///
             /// This constructor shall be used by the iheriting classes.

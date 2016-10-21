@@ -31,6 +31,9 @@
 #include "Signal.h"
 #include "Utils.h"
 
+std::vector<std::string> SIGNAL::Signal::TIME_UNITS =
+    { "s", "ms", "us", "ns", "ps", "fs" };
+
 SIGNAL::Signal::SignalNameFieldsT SIGNAL::Signal::GetNameFields() const
 {
     return UTILS::Split(m_Name, SIGNAL_NAME_DELIM);

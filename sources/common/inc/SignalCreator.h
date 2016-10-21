@@ -71,19 +71,8 @@ namespace PARSER
 
         protected:
 
-            /// Returns the prefixed signal name.
-            ///
-            /// @param name The original signal name.
-            const std::string GetPrefixedName(const std::string &name) const
-            {
-                return (m_Prefix + name);
-            }
-
             /// The RegEx matching the signal description.
             const std::regex m_SignalRegEx;
-
-            /// Signal prefix.
-            const std::string m_Prefix;
     };
 
     inline SignalCreator::~SignalCreator() = default;

@@ -79,29 +79,29 @@ namespace MERGE
             /// Returns the minimal unit.
             ///
             /// @param The result time unit.
-            const std::string FindMinUnit();
+            std::string FindMinUnit();
 
             /// Returns the max span.
-            const uint64_t FindMaxSpan();
+            uint64_t FindMaxSpan();
 
             /// Returns the time value represented in the normalized unit.
             ///
             /// @param time A time value to be normalized.
             /// @param sourceTimeUnit The source time unit.
-            const uint64_t Normalize(uint64_t time,
+            uint64_t Normalize(uint64_t time,
                                      const std::string &sourceTimeUnit);
 
             /// Returns the unit power.
-            const uint32_t GetUnitPower(const std::string &timeUnit);
+            uint32_t GetUnitPower(const std::string &timeUnit);
 
             /// Returns the new signal's time.
             ///
             /// @param time The original signal's timestamp.
             /// @param sourceUnit The original source's time unit.
             /// @param sync The source's sync point. Normalized.
-            const uint64_t CalculateNewTime(uint64_t time,
-                                            const std::string &sourceUnit,
-                                            uint64_t normSync);
+            uint64_t CalculateNewTime(uint64_t time,
+                                      const std::string &sourceUnit,
+                                      uint64_t normSync);
 
             /// A type defining a container for signal sources.
             using SignalSourcesT = std::vector<const Source *>;

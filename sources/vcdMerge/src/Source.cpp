@@ -28,6 +28,9 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE
 
+#include <array>
+#include <algorithm>
+
 #include "Source.h"
 #include "Utils.h"
 
@@ -47,12 +50,12 @@ MERGE::Source::Source(const std::string &description,
     ParseParameters();
 }
 
-const uint64_t MERGE::Source::GetSync() const
+uint64_t MERGE::Source::GetSync() const
 {
     return m_SyncPoint;
 }
 
-const uint64_t MERGE::Source::GetSpan() const
+uint64_t MERGE::Source::GetSpan() const
 {
     // Get the timestamp of the first signal in the set.
     uint64_t t0 = (*(m_pSignalDb->GetSignals().begin()))->GetTimestamp();
@@ -103,9 +106,9 @@ void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
 
 void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
 {
-    std::vector<std::string> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
+    const std::array<std::string, 6> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
 
-    if (tunits.end() != std::find(tunits.begin(), tunits.end(), timeUnit))
+    if (tunits.cend() != std::find(tunits.cbegin(), tunits.cend(), timeUnit))
     {
         m_TimeUnit = timeUnit;
     }

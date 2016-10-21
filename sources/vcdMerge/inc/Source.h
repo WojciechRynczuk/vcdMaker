@@ -112,11 +112,11 @@ namespace MERGE
             }
 
             /// Returns the source synchronization point.
-            const uint64_t GetSync() const;
+            uint64_t GetSync() const;
 
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
-            const uint64_t GetSpan() const;
+            uint64_t GetSpan() const;
 
         private:
             /// A type for split source parameters.

@@ -27,6 +27,10 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include <array>
+#include <algorithm>
+#include <cmath>
+
 #include "Merge.h"
 
 void MERGE::Merge::Run()
@@ -78,28 +82,25 @@ void MERGE::Merge::Run()
     }
 }
 
-const std::string MERGE::Merge::FindMinUnit()
+std::string MERGE::Merge::FindMinUnit()
 {
-    std::vector<std::string> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
-    uint32_t maxIndex = 0;
-    uint32_t position = 0;
+    const std::array<std::string, 6> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
+    size_t maxIndex = 0;
 
-    for (const Source *source : m_Sources)
+    for (const Source *const source : m_Sources)
     {
-        position = std::find(tunits.begin(),
-                             tunits.end(),
-                             source->GetTimeUnit()) - tunits.begin();
+        const size_t position =
+            (std::find(tunits.cbegin(),
+                       tunits.cend(),
+                       source->GetTimeUnit()) - tunits.cbegin());
 
-        if (position > maxIndex)
-        {
-            maxIndex = position;
-        }
+        maxIndex = std::max(position, maxIndex);
     }
 
     return tunits[maxIndex];
 }
 
-const uint64_t MERGE::Merge::FindMaxSpan()
+uint64_t MERGE::Merge::FindMaxSpan()
 {
     uint64_t max_span = 0;
 
@@ -115,8 +116,8 @@ const uint64_t MERGE::Merge::FindMaxSpan()
     return max_span;
 }
 
-const uint64_t MERGE::Merge::Normalize(uint64_t time,
-                                       const std::string &sourceTimeUnit)
+uint64_t MERGE::Merge::Normalize(uint64_t time,
+                                 const std::string &sourceTimeUnit)
 {
     uint64_t newTime = time;
     uint32_t nominator = 0;
@@ -133,29 +134,29 @@ const uint64_t MERGE::Merge::Normalize(uint64_t time,
     {
         denominator = sourcePower - targetPower;
         /// @todo Range checking must be done.
-        newTime = time + static_cast<uint64_t>(((pow(10, denominator)) / 2));
+        newTime = time + static_cast<uint64_t>(((std::pow(10, denominator)) / 2));
     }
 
     /// @todo Range checking must be done.
-    return static_cast<uint64_t>(newTime * ((pow(10, nominator)) / (pow(10, denominator))));
+    return static_cast<uint64_t>(newTime * ((std::pow(10, nominator)) / (std::pow(10, denominator))));
 }
 
-const uint32_t MERGE::Merge::GetUnitPower(const std::string &timeUnit)
+uint32_t MERGE::Merge::GetUnitPower(const std::string &timeUnit)
 {
-    std::vector<std::string> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
-    uint32_t position;
+    const std::array<std::string, 6> tunits = { "s", "ms", "us", "ns", "ps", "fs" };
 
-    position = std::find(tunits.begin(),
-                         tunits.end(),
-                         timeUnit) - tunits.begin();
+    const size_t position =
+        (std::find(tunits.cbegin(),
+                   tunits.cend(),
+                   timeUnit) - tunits.cbegin());
 
     // 1 [s] = 1000 [ms], 1 [ms] = 1000 [us], etc.
     return 3 * position;
 }
 
-const uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,
-        const std::string &sourceUnit,
-        uint64_t normSync)
+uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,
+                                        const std::string &sourceUnit,
+                                        uint64_t normSync)
 {
     /// @todo Detect uint64_t overflow.
     return (Normalize(time, sourceUnit) + m_NormMaxSpan - normSync);

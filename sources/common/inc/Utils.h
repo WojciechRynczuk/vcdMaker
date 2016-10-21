@@ -49,4 +49,10 @@ namespace UTILS {
     std::vector<std::string> Split(const std::string &inString,
                                    const char delimiter);
 
+    /// Checks if given time unit is supported.
+    bool IsTimeUnitValid(const std::string &unit);
+
+    /// Returns given time unit index in supported units list.
+    size_t GetTimeUnitIndex(const std::string &unit);
+
 }

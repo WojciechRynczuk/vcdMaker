@@ -27,9 +27,12 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "Utils.h"
-
+#include <algorithm>
 #include <sstream>
+#include <stdexcept>
+
+#include "Utils.h"
+#include "Signal.h"
 
 std::vector<std::string> UTILS::Split(const std::string &inString,
                                       const char delimiter)
@@ -46,3 +49,25 @@ std::vector<std::string> UTILS::Split(const std::string &inString,
     return outStrings;
 }
 
+bool UTILS::IsTimeUnitValid(const std::string &unit)
+{
+    return (std::find(SIGNAL::Signal::TIME_UNITS.cbegin(),
+                      SIGNAL::Signal::TIME_UNITS.cend(),
+                      unit) != SIGNAL::Signal::TIME_UNITS.cend());
+}
+
+size_t UTILS::GetTimeUnitIndex(const std::string &unit)
+{
+    const size_t index = (std::find(SIGNAL::Signal::TIME_UNITS.cbegin(),
+                                    SIGNAL::Signal::TIME_UNITS.cend(),
+                                    unit) - SIGNAL::Signal::TIME_UNITS.cbegin());
+
+    if (index == SIGNAL::Signal::TIME_UNITS.size())
+    {
+        throw std::runtime_error("Invalid time unit " + unit);
+    }
+    else
+    {
+        return index;
+    }
+}

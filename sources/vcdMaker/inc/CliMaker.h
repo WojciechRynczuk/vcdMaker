@@ -79,11 +79,11 @@ namespace CLI
 
             /// Input filename parameter.
             TCLAP::UnlabeledValueArg<std::string> m_FileIn
-                { "file_in", "Input log filename", true, "log.txt", "Filename" };
+                { "file_in", "Input log filename", true, "log.txt", "input-file" };
 
             /// Line counter parameter.
             TCLAP::ValueArg<std::string> m_LineCounter
-                { "c", "lineCounter", "Line counter signal name", false, "", "Line counter signal name"};
+                { "c", "line_counter", "Line counter signal name", false, "", "line-counter-signal-name"};
     };
 
 }

@@ -99,7 +99,7 @@ namespace CLI
 
             /// Output file parameter.
             TCLAP::ValueArg<std::string> m_FileOut
-                {"o", "file_out", "Ouput VCD filename", true, "log.vcd", "string"};
+                {"o", "file_out", "Ouput VCD filename", true, "log.vcd", "output-file"};
 
             // Verbose mode switch state.
             TCLAP::SwitchArg m_VerboseMode

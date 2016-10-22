@@ -74,7 +74,7 @@ namespace CLI
 
             /// Input sources.
             TCLAP::UnlabeledMultiArg<std::string> m_SourcesIn
-                { "source_in", "Input sources", true, "Source" };
+                { "source_in", "Input sources", true, "sources" };
     };
 
 }

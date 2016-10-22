@@ -110,7 +110,7 @@ void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
 
 void MERGE::Source::SetPrefix(const std::string &prefix)
 {
-    if (prefix != "")
+    if (!prefix.empty())
     {
         // The prefix shall contain the terminating '.' but the user
         // does not have to provide it.

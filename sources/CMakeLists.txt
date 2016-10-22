@@ -203,3 +203,17 @@ if (PYTHONINTERP_FOUND)
                       COMMENT "vcdMaker commparison test"
                       VERBATIM)
 endif()
+
+# Add Doxygen target
+
+find_package(Doxygen)
+
+if (DOXYGEN_FOUND)
+  set(DOXYFILE ${DEVEL_SUPPORT_DIR}/config/Doxyfile)
+
+  add_custom_target(doxygen
+                    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+                    WORKING_DIRECTORY ${OUTPUT_DIR}
+                    COMMENT "Generate doxygen documentation"
+                    VERBATIM)
+endif()

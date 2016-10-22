@@ -153,7 +153,8 @@ if (UNIX)
     install(DIRECTORY common/doc/
             DESTINATION share/doc/${CMAKE_PROJECT_NAME}
             COMPONENT documentation
-            PATTERN "*.odt" EXCLUDE)
+            PATTERN "*.odt" EXCLUDE
+            PATTERN "man" EXCLUDE)
 
     set(AUTHOR "vcdMaker team")
     set(WEBSITE "http://vcdmaker.org")

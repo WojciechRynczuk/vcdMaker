@@ -85,6 +85,9 @@ set(COMMON_HEADERS
 # 3rd party directories.
 set(TCLAP_HEADERS_DIR 3rdParty/tclap/include)
 
+# Output directory
+set(OUTPUT_DIR output)
+
 # Function for target creation.
 function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HEADERS_DIR)
     add_executable(${TARGET_NAME} ${COMMON_SOURCES} ${TARGET_SOURCES} ${COMMON_HEADERS} ${TARGET_HEADERS})
@@ -102,6 +105,8 @@ function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HE
     elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
         target_compile_options(${TARGET_NAME} PUBLIC /W4)
     endif()
+
+    set_target_properties(${TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 endfunction(add_vcdtools_target)
 
 # Set vcdMaker build.
@@ -159,7 +164,8 @@ if (UNIX)
     set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
     set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
     set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-    set(CPACK_GENERATOR "RPM" "DEB")
+    set(CPACK_PACKAGE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${OUTPUT_DIR})
+    set(CPACK_GENERATOR "RPM" "DEB" "ZIP")
 
     set(CPACK_SYSTEM_NAME ${CMAKE_SYSTEM_PROCESSOR})
     if (CPACK_SYSTEM_NAME STREQUAL "x86_64")
@@ -192,6 +198,7 @@ if (PYTHONINTERP_FOUND)
 
     add_custom_target(comparisonTest
                       COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${COMPARISON_TEST_DIR}
+                      WORKING_DIRECTORY ${OUTPUT_DIR}
                       COMMENT "vcdMaker commparison test"
                       VERBATIM)
 endif()

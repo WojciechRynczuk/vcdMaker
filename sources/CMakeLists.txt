@@ -144,18 +144,63 @@ add_vcdtools_target(vcdMerge
                     "${VMERGE_HEADERS}"
                     ${VMERGE_HEADERS_DIR})
 
-# Set installation (UNIX-like only)
-
 if (UNIX)
+    # Set man pages generation.
+
+    find_program(TXT2MAN_EXECUTABLE
+                 NAME txt2man
+                 PATHS ENV PATH
+                 DOC "txt2man man pages generation tool")
+
+    if (NOT TXT2MAN_EXECUTABLE)
+        message(FATAL_ERROR "txt2man executable not found")
+    endif()
+
+    find_program(GZIP_EXECUTABLE
+                 NAME gzip
+                 PATHS ENV PATH
+                 DOC "gzip tool")
+
+    if (NOT GZIP_EXECUTABLE)
+        message(FATAL_ERROR "gzip executable not found")
+    endif()
+
+    set(MAN_SOURCE_DIR ${PROJECT_SOURCE_DIR}/common/doc/man)
+    set(MAN_COMMON_OPTIONS -r ${PROJECT_VERSION} -s 1 -v "vcdMaker manual")
+    set(MAN_PAGES
+        vcdMaker)
+
+    foreach(MAN_PAGE IN LISTS MAN_PAGES)
+        add_custom_command(OUTPUT ${OUTPUT_DIR_ABSOLUE}/${MAN_PAGE}.1.gz
+                           COMMAND ${TXT2MAN_EXECUTABLE} -t ${MAN_PAGE} ${MAN_COMMON_OPTIONS} ${MAN_SOURCE_DIR}/${MAN_PAGE}.txt > ${MAN_PAGE}.1
+                           COMMAND ${GZIP_EXECUTABLE} ${MAN_PAGE}.1
+                           WORKING_DIRECTORY ${OUTPUT_DIR_ABSOLUE}
+                           VERBATIM)
+
+        list(APPEND MAN_PAGES_GENERATED ${OUTPUT_DIR_ABSOLUE}/${MAN_PAGE}.1.gz)
+    endforeach(MAN_PAGE)
+
+    add_custom_target(manPages
+                      ALL
+                      DEPENDS ${MAN_PAGES_GENERATED})
+
+    # Set installation.
+
     install(TARGETS vcdMaker vcdMerge
             RUNTIME DESTINATION bin
             COMPONENT runtime)
+
+    install(FILES ${MAN_PAGES_GENERATED}
+            DESTINATION share/man/man1
+            COMPONENT documentation)
 
     install(DIRECTORY common/doc/
             DESTINATION share/doc/${CMAKE_PROJECT_NAME}
             COMPONENT documentation
             PATTERN "*.odt" EXCLUDE
             PATTERN "man" EXCLUDE)
+
+    # Set Cpack.
 
     set(AUTHOR "vcdMaker team")
     set(WEBSITE "http://vcdmaker.org")

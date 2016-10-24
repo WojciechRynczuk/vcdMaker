@@ -26,7 +26,7 @@
 #include "VCDTracer.h"
 #include "SourceRegistry.h"
 #include "VcdExceptions.h"
-#include "Source.h"
+#include "SignalSource.h"
 #include "Merge.h"
 
 ///  The vcdMerge main function.
@@ -53,7 +53,7 @@ int main(int argc, const char *argv[])
                            cli.GetTimeBase());
 
         // All added sources.
-        std::vector<std::unique_ptr<MERGE::Source>> inSources;
+        std::vector<std::unique_ptr<MERGE::SignalSource>> inSources;
 
         // There must be at least 2 files to be merged.
         if (inParameters.size() < 2)
@@ -63,15 +63,15 @@ int main(int argc, const char *argv[])
 
         for (const std::string &source : inParameters)
         {
-            inSources.push_back(std::make_unique<MERGE::Source>(source,
-                                                                registry,
-                                                                cli.IsVerboseMode()));
+            inSources.push_back(std::make_unique<MERGE::SignalSource>(source,
+                                                                      registry,
+                                                                      cli.IsVerboseMode()));
 
             merge.AddSource(inSources.back().get());
         }
 
         std::cout << "Reading sources" << '\n';
-        for (std::unique_ptr<MERGE::Source> &source : inSources)
+        for (std::unique_ptr<MERGE::SignalSource> &source : inSources)
         {
             std::cout << '\n' << source->GetDescription() << '\n';
             source->Create();

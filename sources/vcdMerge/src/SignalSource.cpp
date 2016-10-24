@@ -1,4 +1,4 @@
-/// @file Source.cpp
+/// @file SignalSource.cpp
 ///
 /// The signal source class.
 ///
@@ -31,12 +31,12 @@
 #include <array>
 #include <algorithm>
 
-#include "Source.h"
+#include "SignalSource.h"
 #include "Utils.h"
 
-MERGE::Source::Source(const std::string &description,
-                      SIGNAL::SourceRegistry &signalRegistry,
-                      bool verboseMode) :
+MERGE::SignalSource::SignalSource(const std::string &description,
+                                  SIGNAL::SourceRegistry &signalRegistry,
+                                  bool verboseMode) :
     m_SourceDescription(description),
     m_rSignalRegistry(signalRegistry),
     m_pSignalDb(),
@@ -50,7 +50,7 @@ MERGE::Source::Source(const std::string &description,
     ParseParameters();
 }
 
-uint64_t MERGE::Source::GetSpan() const
+uint64_t MERGE::SignalSource::GetTrailingTime() const
 {
     // Get the timestamp of the first signal in the set.
     const uint64_t t0 = (*(m_pSignalDb->GetSignals().cbegin()))->GetTimestamp();
@@ -64,7 +64,7 @@ uint64_t MERGE::Source::GetSpan() const
     return (m_SyncPoint - t0);
 }
 
-void MERGE::Source::Create()
+void MERGE::SignalSource::Create()
 {
     // Parse the log file.
     PARSER::TxtParser parser(m_Filename,
@@ -76,7 +76,7 @@ void MERGE::Source::Create()
     m_pSignalDb = parser.MoveSignalDb();
 }
 
-void MERGE::Source::SetFormat(const std::string &format)
+void MERGE::SignalSource::SetFormat(const std::string &format)
 {
     if (format != "T")
     {
@@ -84,7 +84,7 @@ void MERGE::Source::SetFormat(const std::string &format)
     }
 }
 
-void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
+void MERGE::SignalSource::SetSyncPoint(const std::string &syncPoint)
 {
     try
     {
@@ -96,7 +96,7 @@ void MERGE::Source::SetSyncPoint(const std::string &syncPoint)
     }
 }
 
-void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
+void MERGE::SignalSource::SetTimeUnit(const std::string &timeUnit)
 {
     if (UTILS::IsTimeUnitValid(timeUnit))
     {
@@ -108,7 +108,7 @@ void MERGE::Source::SetTimeUnit(const std::string &timeUnit)
     }
 }
 
-void MERGE::Source::SetPrefix(const std::string &prefix)
+void MERGE::SignalSource::SetPrefix(const std::string &prefix)
 {
     if (!prefix.empty())
     {
@@ -122,12 +122,12 @@ void MERGE::Source::SetPrefix(const std::string &prefix)
     }
 }
 
-void MERGE::Source::SetCounterName(const std::string &lineCounter)
+void MERGE::SignalSource::SetCounterName(const std::string &lineCounter)
 {
     m_LineCounter = lineCounter;
 }
 
-void MERGE::Source::SetFilename(const std::string &filename)
+void MERGE::SignalSource::SetFilename(const std::string &filename)
 {
     std::ifstream infile(filename);
 
@@ -141,7 +141,7 @@ void MERGE::Source::SetFilename(const std::string &filename)
     }
 }
 
-void MERGE::Source::ParseParameters()
+void MERGE::SignalSource::ParseParameters()
 {
     SourceParametersT params = GetSourceParameters();
 
@@ -160,7 +160,7 @@ void MERGE::Source::ParseParameters()
     }
 }
 
-MERGE::Source::SourceParametersT MERGE::Source::GetSourceParameters() const
+MERGE::SignalSource::SourceParametersT MERGE::SignalSource::GetSourceParameters() const
 {
     return UTILS::Split(m_SourceDescription, SOURCE_PARAM_DELIM);
 }

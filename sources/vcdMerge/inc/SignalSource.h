@@ -1,4 +1,4 @@
-/// @file Source.h
+/// @file SignalSource.h
 ///
 /// The signal source class.
 ///
@@ -37,8 +37,7 @@ namespace MERGE
     /// The base source class.
     ///
     /// The objects of this class describes the source and holds source data.
-    /// @todo Name is wrong and misleading.
-    class Source
+    class SignalSource
     {
         public:
             /// Source fields delimiter.
@@ -80,9 +79,9 @@ namespace MERGE
             /// @param description The description of the source.
             /// @param signalRegistry The reference to the signal registry common for all sources.
             /// @param verboseMode 'true' enables the verbose mode.
-            Source(const std::string &description,
-                   SIGNAL::SourceRegistry &signalRegistry,
-                   bool verboseMode);
+            SignalSource(const std::string &description,
+                         SIGNAL::SourceRegistry &signalRegistry,
+                         bool verboseMode);
 
             /// Creates the source data.
             void Create();
@@ -112,16 +111,14 @@ namespace MERGE
             }
 
             /// Returns the source synchronization point.
-            /// @todo Name is wrong and misleading.
-            uint64_t GetSync() const
+            uint64_t GetSyncPoint() const
             {
                 return m_SyncPoint;
             }
 
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
-            /// @todo Name is wrong and misleading.
-            uint64_t GetSpan() const;
+            uint64_t GetTrailingTime() const;
 
         private:
             /// A type for split source parameters.

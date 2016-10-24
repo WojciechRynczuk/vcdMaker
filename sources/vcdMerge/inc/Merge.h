@@ -36,7 +36,7 @@
 /// @par Full Description
 /// The group gathers classes needed by the VCD merging application.
 
-#include "Source.h"
+#include "SignalSource.h"
 
 namespace MERGE
 {
@@ -54,14 +54,14 @@ namespace MERGE
             Merge(bool verboseMode, const std::string &timeUnit) :
                 m_Sources(),
                 m_TimeUnit(timeUnit),
-                m_NormMaxSpan(),
+                m_MaxTrailingTime(),
                 m_pMerged(),
                 m_VerboseMode(verboseMode)
             {
             }
 
             /// Adds a signal source to be merged.
-            void AddSource(const Source *source)
+            void AddSource(const SignalSource *source)
             {
                 m_Sources.push_back(source);
             }
@@ -82,19 +82,16 @@ namespace MERGE
             /// @param The result time unit.
             std::string FindMinUnit();
 
-            /// Returns the max span.
-            /// @todo Name is meaningless and doc is useless.
-            uint64_t FindMaxSpan();
+            /// Returns the max trailing time - the time between the first
+            /// event and the synchronization point.
+            uint64_t FindMaxTrailingTime();
 
-            /// Returns the time value represented in the normalized unit.
+            /// Returns the time value represented in the target time unit.
             ///
-            /// @param time A time value to be normalized.
+            /// @param time A time value to be transformed.
             /// @param sourceTimeUnit The source time unit.
-            uint64_t Normalize(uint64_t time,
-                               const std::string &sourceTimeUnit);
-
-            /// Returns the unit power.
-            uint32_t GetUnitPower(const std::string &timeUnit);
+            uint64_t TransformUnit(uint64_t time,
+                                   const std::string &sourceTimeUnit);
 
             /// Returns the new signal's time.
             ///
@@ -106,7 +103,10 @@ namespace MERGE
                                       uint64_t normSync);
 
             /// A type defining a container for signal sources.
-            using SignalSourcesT = std::vector<const Source *>;
+            using SignalSourcesT = std::vector<const SignalSource *>;
+
+            /// A table containing integer values of 10^(3*n) where n equals position in the table.
+            static std::vector<uint64_t> TEN_POWER;
 
             /// The set of sources.
             SignalSourcesT m_Sources;
@@ -114,8 +114,9 @@ namespace MERGE
             /// Merging time unit.
             std::string m_TimeUnit;
 
-            /// The greatest span among sources. Normalized.
-            uint64_t m_NormMaxSpan;
+            /// The greatest trailing time among sources.
+            /// Expressed in the time output unit.
+            uint64_t m_MaxTrailingTime;
 
             /// The output database.
             std::unique_ptr<SIGNAL::SignalDb> m_pMerged;

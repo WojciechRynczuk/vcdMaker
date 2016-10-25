@@ -89,30 +89,36 @@ namespace MERGE
             /// Returns the time value represented in the target time unit.
             ///
             /// @param time A time value to be transformed.
+            /// @param targetTimeUnit The target time unit.
             /// @param sourceTimeUnit The source time unit.
             uint64_t TransformUnit(uint64_t time,
+                                   const std::string &targetTimeUnit,
                                    const std::string &sourceTimeUnit);
 
             /// Returns the new signal's time.
             ///
             /// @param time The original signal's timestamp.
-            /// @param sourceUnit The original source's time unit.
-            /// @param sync The source's sync point. Normalized.
+            /// @param sync The source's sync point.
             uint64_t CalculateNewTime(uint64_t time,
-                                      const std::string &sourceUnit,
-                                      uint64_t normSync);
+                                      uint64_t syncPoint);
 
             /// A type defining a container for signal sources.
             using SignalSourcesT = std::vector<const SignalSource *>;
 
+            /// Number of units.
+            static const uint32_t UNITS_N = 6;
+
             /// A table containing integer values of 10^(3*n) where n equals position in the table.
-            static std::vector<uint64_t> TEN_POWER;
+            static const uint64_t TEN_POWER[UNITS_N];
 
             /// The set of sources.
             SignalSourcesT m_Sources;
 
             /// Merging time unit.
             std::string m_TimeUnit;
+
+            /// The minimum merging unit.
+            std::string m_MinTimeUnit;
 
             /// The greatest leading time among sources.
             /// Expressed in the time output unit.

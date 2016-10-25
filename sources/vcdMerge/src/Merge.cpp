@@ -33,9 +33,10 @@
 #include "Merge.h"
 #include "Utils.h"
 
-std::vector<uint64_t> MERGE::Merge::TEN_POWER =
+const uint64_t MERGE::Merge::TEN_POWER[] =
 {
     1ull,
+    static_cast<uint64_t>(std::kilo::num),
     static_cast<uint64_t>(std::mega::num),
     static_cast<uint64_t>(std::giga::num),
     static_cast<uint64_t>(std::tera::num),
@@ -44,11 +45,14 @@ std::vector<uint64_t> MERGE::Merge::TEN_POWER =
 
 void MERGE::Merge::Run()
 {
+    // Find the minimum merging unit.
+    m_MinTimeUnit = FindMinUnit();
+
     // If the output time unit is not forced use the minimum value.
     if (m_TimeUnit.empty())
     {
         // The minimum time unit used in sources.
-        m_TimeUnit = FindMinUnit();
+        m_TimeUnit = m_MinTimeUnit;
     }
 
     // Create the output signal database and set its base time unit.
@@ -65,7 +69,7 @@ void MERGE::Merge::Run()
 
         // Source sync time in the target unit.
         const uint64_t transformedSourceSync =
-            TransformUnit(source->GetSyncPoint(), sourceTimeUnit);
+            TransformUnit(source->GetSyncPoint(), m_MinTimeUnit, sourceTimeUnit);
 
         // Merge signals here.
         for (auto current_signal : source->Get()->GetSignals())
@@ -73,8 +77,9 @@ void MERGE::Merge::Run()
             SIGNAL::Signal *signal = current_signal->Clone();
 
             // Set the signal's new timestamp.
-            signal->SetTimestamp(CalculateNewTime(signal->GetTimestamp(),
-                                                  sourceTimeUnit,
+            signal->SetTimestamp(CalculateNewTime(TransformUnit(signal->GetTimestamp(), 
+                                                                m_MinTimeUnit, 
+                                                                sourceTimeUnit),
                                                   transformedSourceSync));
 
             // Update its name.
@@ -105,22 +110,24 @@ uint64_t MERGE::Merge::FindMaxLeadingTime()
 
     for (const SignalSource *const source : m_Sources)
     {
-        uint64_t span = TransformUnit(source->GetLeadingTime(),
-                                      source->GetTimeUnit());
-        maxLeadingTime = std::max(span, maxLeadingTime);
+        uint64_t leadingTime = TransformUnit(source->GetLeadingTime(),
+                                             m_MinTimeUnit,
+                                             source->GetTimeUnit());
+        maxLeadingTime = std::max(leadingTime, maxLeadingTime);
     }
 
     return maxLeadingTime;
 }
 
 uint64_t MERGE::Merge::TransformUnit(uint64_t time,
+                                     const std::string &targetTimeUnit,
                                      const std::string &sourceTimeUnit)
 {
     uint64_t newTime = time;
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    const uint32_t targetPower = UTILS::GetTimeUnitIndex(m_TimeUnit);
+    const uint32_t targetPower = UTILS::GetTimeUnitIndex(targetTimeUnit);
     const uint32_t sourcePower = UTILS::GetTimeUnitIndex(sourceTimeUnit);
 
     if (targetPower > sourcePower)
@@ -139,9 +146,8 @@ uint64_t MERGE::Merge::TransformUnit(uint64_t time,
 }
 
 uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,
-                                        const std::string &sourceUnit,
-                                        uint64_t normSync)
+                                        uint64_t syncPoint)
 {
     /// @todo Detect uint64_t overflow.
-    return (TransformUnit(time, sourceUnit) + m_MaxLeadingTime - normSync);
+    return (TransformUnit(time + m_MaxLeadingTime - syncPoint, m_TimeUnit, m_MinTimeUnit));
 }

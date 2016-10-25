@@ -50,7 +50,7 @@ MERGE::SignalSource::SignalSource(const std::string &description,
     ParseParameters();
 }
 
-uint64_t MERGE::SignalSource::GetTrailingTime() const
+uint64_t MERGE::SignalSource::GetLeadingTime() const
 {
     // Get the timestamp of the first signal in the set.
     const uint64_t t0 = (*(m_pSignalDb->GetSignals().cbegin()))->GetTimestamp();

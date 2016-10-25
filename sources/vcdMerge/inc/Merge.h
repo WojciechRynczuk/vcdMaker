@@ -54,7 +54,7 @@ namespace MERGE
             Merge(bool verboseMode, const std::string &timeUnit) :
                 m_Sources(),
                 m_TimeUnit(timeUnit),
-                m_MaxTrailingTime(),
+                m_MaxLeadingTime(),
                 m_pMerged(),
                 m_VerboseMode(verboseMode)
             {
@@ -82,9 +82,9 @@ namespace MERGE
             /// @param The result time unit.
             std::string FindMinUnit();
 
-            /// Returns the max trailing time - the time between the first
+            /// Returns the max leading time - the time between the first
             /// event and the synchronization point.
-            uint64_t FindMaxTrailingTime();
+            uint64_t FindMaxLeadingTime();
 
             /// Returns the time value represented in the target time unit.
             ///
@@ -114,9 +114,9 @@ namespace MERGE
             /// Merging time unit.
             std::string m_TimeUnit;
 
-            /// The greatest trailing time among sources.
+            /// The greatest leading time among sources.
             /// Expressed in the time output unit.
-            uint64_t m_MaxTrailingTime;
+            uint64_t m_MaxLeadingTime;
 
             /// The output database.
             std::unique_ptr<SIGNAL::SignalDb> m_pMerged;

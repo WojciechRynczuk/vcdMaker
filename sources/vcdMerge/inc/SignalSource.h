@@ -118,7 +118,7 @@ namespace MERGE
 
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
-            uint64_t GetTrailingTime() const;
+            uint64_t GetLeadingTime() const;
 
         private:
             /// A type for split source parameters.

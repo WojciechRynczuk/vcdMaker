@@ -54,8 +54,8 @@ void MERGE::Merge::Run()
     // Create the output signal database and set its base time unit.
     m_pMerged = std::make_unique<SIGNAL::SignalDb>(m_TimeUnit);
 
-    // Find the longest trailing time for among all sources.
-    m_MaxTrailingTime = FindMaxTrailingTime();
+    // Find the longest leading time for among all sources.
+    m_MaxLeadingTime = FindMaxLeadingTime();
 
     // Merge Sources.
     for (const SignalSource *source : m_Sources)
@@ -99,18 +99,18 @@ std::string MERGE::Merge::FindMinUnit()
     return SIGNAL::Signal::TIME_UNITS[maxIndex];
 }
 
-uint64_t MERGE::Merge::FindMaxTrailingTime()
+uint64_t MERGE::Merge::FindMaxLeadingTime()
 {
-    uint64_t maxTrailingTime = 0;
+    uint64_t maxLeadingTime = 0;
 
     for (const SignalSource *const source : m_Sources)
     {
-        uint64_t span = TransformUnit(source->GetTrailingTime(),
+        uint64_t span = TransformUnit(source->GetLeadingTime(),
                                       source->GetTimeUnit());
-        maxTrailingTime = std::max(span, maxTrailingTime);
+        maxLeadingTime = std::max(span, maxLeadingTime);
     }
 
-    return maxTrailingTime;
+    return maxLeadingTime;
 }
 
 uint64_t MERGE::Merge::TransformUnit(uint64_t time,
@@ -143,5 +143,5 @@ uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,
                                         uint64_t normSync)
 {
     /// @todo Detect uint64_t overflow.
-    return (TransformUnit(time, sourceUnit) + m_MaxTrailingTime - normSync);
+    return (TransformUnit(time, sourceUnit) + m_MaxLeadingTime - normSync);
 }

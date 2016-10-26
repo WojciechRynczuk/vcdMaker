@@ -138,11 +138,14 @@ uint64_t MERGE::Merge::TransformUnit(uint64_t time,
     {
         denominator = (sourcePower - targetPower);
         /// @todo Range checking must be done.
-        newTime = time + static_cast<uint64_t>(((TEN_POWER[denominator]) / 2));
+        newTime = time + (TEN_POWER[denominator]) / 2);
     }
 
+    const double unitsRatio =
+        static_cast<double>(TEN_POWER[nominator]) / TEN_POWER[denominator];
+
     /// @todo Range checking must be done.
-    return static_cast<uint64_t>(newTime * ((long double)(TEN_POWER[nominator]) / (TEN_POWER[denominator])));
+    return static_cast<uint64_t>(newTime * unitsRatio);
 }
 
 uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,

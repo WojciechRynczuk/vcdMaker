@@ -168,7 +168,8 @@ if (UNIX)
     set(MAN_SOURCE_DIR ${PROJECT_SOURCE_DIR}/common/doc/man)
     set(MAN_COMMON_OPTIONS -r ${PROJECT_VERSION} -s 1 -v "vcdMaker manual")
     set(MAN_PAGES
-        vcdMaker)
+        vcdMaker
+        vcdMerge)
 
     foreach(MAN_PAGE IN LISTS MAN_PAGES)
         add_custom_command(OUTPUT ${OUTPUT_DIR_ABSOLUE}/${MAN_PAGE}.1.gz

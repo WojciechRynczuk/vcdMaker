@@ -1,8 +1,8 @@
 NAME
   vcdMaker - log file to VCD converter
 SYNOPSIS
-  vcdMaker  [-c line-counter-signal-name] -t s|ms|us|ns|ps|fs [-v]
-            -o output-file [--] [--version] [-h] input-file
+  vcdMaker  [-c line-counter-signal-name] -t s|ms|us|ns|ps|fs [-v] -o output-file
+            [--] [--version] [-h] input-file
 DESCRIPTION
   vcdMaker is a tool that converts textual log files to VCD trace files.
 
@@ -23,13 +23,13 @@ DESCRIPTION
   Generated log that consists of lines in above format can be transformed to VCD trace and later viewed using any graphical tool, eg. GTKWave.
 OPTIONS
   -c, --lineCounter line-counter-signal-name  If given, adds line counter signal with given name. Line counter signal is a signal that can be used to bind timestamp in VCD trace to line number in original log file.
-  -t, --timebase s|ms|us|ns|ps|fs             Log timebase specification (required)
-  -v, --verbose                               Enables verbose mode
-  -o, --file_out output-file                  Ouput VCD filename (required)
+  -t, --timebase s|ms|us|ns|ps|fs             Log timebase specification (required).
+  -v, --verbose                               Enables verbose mode.
+  -o, --file_out output-file                  Ouput VCD filename (required).
   --, --ignore_rest                           Ignores the rest of the labeled arguments following this flag.
   --version                                   Displays version information and exits.
   -h, --help                                  Displays usage information and exits.
-  input-file                                  Input log filename (required)
+  input-file                                  Input log filename (required).
 AUTHORS
   vcdMaker team
 
@@ -40,3 +40,5 @@ COPYRIGHTS
   Copyright (c) 2016 vcdMaker team
 
   vcdMaker is licensed under MIT license.
+SEE ALSO
+  vcdMerge(1)

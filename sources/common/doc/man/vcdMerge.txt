@@ -1,0 +1,29 @@
+NAME
+  vcdMerge - log files merging tool
+SYNOPSIS
+  vcdMerge  [-t s|ms|us|ns|ps|fs] [-v] -o output-file
+            [--] [--version] [-h] sources ...
+DESCRIPTION
+  vcdMerge is a tool that merges textual log files to one VCD trace file.
+
+  For log file format description see vcdMaker(1) manual page.
+OPTIONS
+  -t, --timebase s|ms|us|ns|ps|fs Optional log timebase specification.
+  -v, --verbose                   Enables verbose mode.
+  -o, --file_out output-file      Ouput VCD filename (required).
+  --, --ignore_rest               Ignores the rest of the labeled arguments following this flag.
+  --version                       Displays version information and exits.
+  -h, --help                      Displays usage information and exits.
+  sources                         Multiple source file specifications (required).
+AUTHORS
+  vcdMaker team
+
+  http://vcdmaker.org/
+
+  https://github.com/WojciechRynczuk/vcdMaker
+COPYRIGHTS
+  Copyright (c) 2016 vcdMaker team
+
+  vcdMaker is licensed under MIT license.
+SEE ALSO
+  vcdMaker(1)

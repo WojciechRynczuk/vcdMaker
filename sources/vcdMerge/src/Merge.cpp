@@ -138,7 +138,7 @@ uint64_t MERGE::Merge::TransformTimestamp(uint64_t time,
     {
         denominator = (sourcePower - targetPower);
         /// @todo Range checking must be done.
-        newTime = time + (TEN_POWER[denominator]) / 2);
+        newTime = time + (TEN_POWER[denominator] / 2);
     }
 
     const double unitsRatio =

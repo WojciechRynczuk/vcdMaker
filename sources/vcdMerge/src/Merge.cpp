@@ -69,7 +69,7 @@ void MERGE::Merge::Run()
 
         // Source sync time in the target unit.
         const uint64_t transformedSourceSync =
-            TransformUnit(source->GetSyncPoint(), m_MinTimeUnit, sourceTimeUnit);
+            TransformTimestamp(source->GetSyncPoint(), m_MinTimeUnit, sourceTimeUnit);
 
         // Merge signals here.
         for (auto current_signal : source->Get()->GetSignals())
@@ -77,9 +77,9 @@ void MERGE::Merge::Run()
             SIGNAL::Signal *signal = current_signal->Clone();
 
             // Set the signal's new timestamp.
-            signal->SetTimestamp(CalculateNewTime(TransformUnit(signal->GetTimestamp(), 
-                                                                m_MinTimeUnit, 
-                                                                sourceTimeUnit),
+            signal->SetTimestamp(CalculateNewTime(TransformTimestamp(signal->GetTimestamp(),
+                                                                     m_MinTimeUnit,
+                                                                     sourceTimeUnit),
                                                   transformedSourceSync));
 
             // Update its name.
@@ -110,18 +110,18 @@ uint64_t MERGE::Merge::FindMaxLeadingTime()
 
     for (const SignalSource *const source : m_Sources)
     {
-        uint64_t leadingTime = TransformUnit(source->GetLeadingTime(),
-                                             m_MinTimeUnit,
-                                             source->GetTimeUnit());
+        uint64_t leadingTime = TransformTimestamp(source->GetLeadingTime(),
+                                                  m_MinTimeUnit,
+                                                  source->GetTimeUnit());
         maxLeadingTime = std::max(leadingTime, maxLeadingTime);
     }
 
     return maxLeadingTime;
 }
 
-uint64_t MERGE::Merge::TransformUnit(uint64_t time,
-                                     const std::string &targetTimeUnit,
-                                     const std::string &sourceTimeUnit)
+uint64_t MERGE::Merge::TransformTimestamp(uint64_t time,
+                                          const std::string &targetTimeUnit,
+                                          const std::string &sourceTimeUnit)
 {
     uint64_t newTime = time;
     uint32_t nominator = 0;
@@ -152,5 +152,7 @@ uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,
                                         uint64_t syncPoint)
 {
     /// @todo Detect uint64_t overflow.
-    return (TransformUnit(time + m_MaxLeadingTime - syncPoint, m_TimeUnit, m_MinTimeUnit));
+    return (TransformTimestamp(time + m_MaxLeadingTime - syncPoint,
+                               m_TimeUnit,
+                               m_MinTimeUnit));
 }

@@ -91,9 +91,9 @@ namespace MERGE
             /// @param time A time value to be transformed.
             /// @param targetTimeUnit The target time unit.
             /// @param sourceTimeUnit The source time unit.
-            uint64_t TransformUnit(uint64_t time,
-                                   const std::string &targetTimeUnit,
-                                   const std::string &sourceTimeUnit);
+            uint64_t TransformTimestamp(uint64_t time,
+                                        const std::string &targetTimeUnit,
+                                        const std::string &sourceTimeUnit);
 
             /// Returns the new signal's time.
             ///

@@ -139,9 +139,13 @@ uint64_t MERGE::Merge::FindMaxLeadingTime()
 
     for (const SignalSource *const source : m_Sources)
     {
-        uint64_t leadingTime = TransformTimestamp(source->GetLeadingTime(),
-                               m_MinTimeUnit,
-                               source->GetTimeUnit());
+        uint64_t logLeadingTime = TransformTimestamp(source->GetLeadingTime(),
+                                  m_MinTimeUnit,
+                                  source->GetTimeUnit());
+        uint64_t userLeadingTime = TransformTimestamp(source->GetSyncPoint(),
+                                   m_MinTimeUnit,
+                                   source->GetTimeUnit());
+        uint64_t leadingTime = std::min(logLeadingTime, userLeadingTime);
         maxLeadingTime = std::max(leadingTime, maxLeadingTime);
     }
 

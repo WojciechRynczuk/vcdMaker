@@ -1,0 +1,6 @@
+vcdMerge.exe -o test0_us.vcd -v T,71050601,us,System1,Counter,system1_time1.txt T,234256037,us,System2,Counter,system2_time2.txt
+vcdMerge.exe -t ns -o test0_ns.vcd -v T,71050601,us,System1,Counter,system1_time1.txt T,234256037,us,System2,Counter,system2_time2.txt
+vcdMerge.exe -t ms -o test0_ms.vcd -v T,71050601,us,System1,Counter,system1_time1.txt T,234256037,us,System2,Counter,system2_time2.txt
+vcdMerge.exe -o test1_us.vcd -v T,0,us,System1,Counter,system1_time1.txt T,0,us,System2,Counter,system2_time1.txt
+vcdMerge.exe -t ns -o test1_ns.vcd -v T,0,us,System1,Counter,system1_time1.txt T,0,us,System2,Counter,system2_time1.txt
+vcdMerge.exe -t ms -o test1_ms.vcd -v T,0,us,System1,Counter,system1_time1.txt T,0,us,System2,Counter,system2_time1.txt

@@ -41,7 +41,7 @@ namespace MERGE
     {
         public:
             /// Source fields delimiter.
-            static const char SOURCE_PARAM_DELIM = ';';
+            static const char SOURCE_PARAM_DELIM = ',';
 
             /// Source parameters.
             class Parameters

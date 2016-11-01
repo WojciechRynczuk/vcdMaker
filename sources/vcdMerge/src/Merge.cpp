@@ -29,6 +29,8 @@
 
 #include <algorithm>
 #include <ratio>
+#include <limits>
+#include <iostream>
 
 #include "Merge.h"
 #include "Utils.h"
@@ -68,19 +70,46 @@ void MERGE::Merge::Run()
         const std::string sourceTimeUnit = source->GetTimeUnit();
 
         // Source sync time in the target unit.
-        const uint64_t transformedSourceSync =
-            TransformTimestamp(source->GetSyncPoint(), m_MinTimeUnit, sourceTimeUnit);
+        uint64_t transformedSourceSync = 0;
+
+        try
+        {
+            transformedSourceSync =
+                TransformTimestamp(source->GetSyncPoint(), m_MinTimeUnit, sourceTimeUnit);
+        }
+        catch (std::runtime_error &)
+        {
+            std::cout << "Synchronization time out of bounds. Cannot merge "
+                      << source->GetDescription()
+                      << "."
+                      << '\n';
+            continue;
+        }
 
         // Merge signals here.
         for (auto current_signal : source->Get()->GetSignals())
         {
             SIGNAL::Signal *signal = current_signal->Clone();
 
-            // Set the signal's new timestamp.
-            signal->SetTimestamp(CalculateNewTime(TransformTimestamp(signal->GetTimestamp(),
-                                                                     m_MinTimeUnit,
-                                                                     sourceTimeUnit),
-                                                  transformedSourceSync));
+            try
+            {
+                // Set the signal's new timestamp.
+                signal->SetTimestamp(CalculateNewTime(TransformTimestamp(signal->GetTimestamp(),
+                                                      m_MinTimeUnit,
+                                                      sourceTimeUnit),
+                                     transformedSourceSync));
+            }
+            catch (std::runtime_error &)
+            {
+                std::cout << "Timestamp out of bounds. Cannot merge "
+                          << signal->GetName()
+                          << " at "
+                          << signal->GetTimestamp() << " "
+                          << source->GetTimeUnit()
+                          << '\n';
+                delete signal;
+                continue;
+            }
 
             // Update its name.
             signal->SetName(source->GetPrefix() + signal->GetName());
@@ -111,8 +140,8 @@ uint64_t MERGE::Merge::FindMaxLeadingTime()
     for (const SignalSource *const source : m_Sources)
     {
         uint64_t leadingTime = TransformTimestamp(source->GetLeadingTime(),
-                                                  m_MinTimeUnit,
-                                                  source->GetTimeUnit());
+                               m_MinTimeUnit,
+                               source->GetTimeUnit());
         maxLeadingTime = std::max(leadingTime, maxLeadingTime);
     }
 
@@ -120,8 +149,8 @@ uint64_t MERGE::Merge::FindMaxLeadingTime()
 }
 
 uint64_t MERGE::Merge::TransformTimestamp(uint64_t time,
-                                          const std::string &targetTimeUnit,
-                                          const std::string &sourceTimeUnit)
+        const std::string &targetTimeUnit,
+        const std::string &sourceTimeUnit)
 {
     uint64_t newTime = time;
     uint32_t nominator = 0;
@@ -137,22 +166,53 @@ uint64_t MERGE::Merge::TransformTimestamp(uint64_t time,
     else if (targetPower < sourcePower)
     {
         denominator = (sourcePower - targetPower);
-        /// @todo Range checking must be done.
-        newTime = time + (TEN_POWER[denominator] / 2);
+        uint64_t rounding = TEN_POWER[denominator] / 2;
+
+        if ((std::numeric_limits<uint64_t>::max() - time) < rounding)
+        {
+            throw std::runtime_error("");
+        }
+        newTime = time + rounding;
+    }
+
+    if (nominator > 0)
+    {
+        if ((std::numeric_limits<uint64_t>::max() / TEN_POWER[nominator]) < newTime)
+        {
+            throw std::runtime_error("");
+        }
     }
 
     const double unitsRatio =
         static_cast<double>(TEN_POWER[nominator]) / TEN_POWER[denominator];
 
-    /// @todo Range checking must be done.
     return static_cast<uint64_t>(newTime * unitsRatio);
 }
 
 uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,
                                         uint64_t syncPoint)
 {
-    /// @todo Detect uint64_t overflow.
-    return (TransformTimestamp(time + m_MaxLeadingTime - syncPoint,
-                               m_TimeUnit,
-                               m_MinTimeUnit));
+    uint64_t max = std::max(time, m_MaxLeadingTime);
+    uint64_t min = std::min(time, m_MaxLeadingTime);
+    uint64_t tempTime = 0;
+
+    if (max < syncPoint)
+    {
+        if ((std::numeric_limits<uint64_t>::max() - min )  < max)
+        {
+            throw std::runtime_error("");
+        }
+        tempTime = max + min;
+        tempTime = tempTime - syncPoint;
+    }
+    else
+    {
+        tempTime = max - syncPoint;
+        if ((std::numeric_limits<uint64_t>::max() - min ) < tempTime)
+        {
+            throw std::runtime_error("");
+        }
+        tempTime = tempTime + min;
+    }
+    return (TransformTimestamp(tempTime, m_TimeUnit, m_MinTimeUnit));
 }

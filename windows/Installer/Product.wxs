@@ -24,6 +24,13 @@
     <Property Id='DiskPrompt' Value="vcdMaker $(var.ProductVersionInfo) Installation [1]" />
     <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
 
+    <DirectoryRef Id="TARGETDIR">
+      <Merge Id="VCRedist"
+             SourceFile="c:\Program Files (x86)\Common Files\Merge Modules\Microsoft_VC140_CRT_x86.msm"
+             DiskId="1"
+             Language="0"/>
+    </DirectoryRef>
+
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
         <Directory Id='INSTALLDIR' Name='vcdMaker'>
@@ -66,6 +73,14 @@
 
     <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
+
+    <Feature Id="VCRedist"
+             Title="Visual C++ 2015 Runtime"
+             AllowAdvertise="no"
+             Display="hidden"
+             Level="1">
+      <MergeRef Id="VCRedist"/>
+    </Feature>
 
     <Feature Id='MainProgram' Title='vcdMaker $(var.ProductVersionInfo)' Description='The vcdMaker package.' Level='1'>
       <ComponentRef Id='vcdMakerExecutable' />

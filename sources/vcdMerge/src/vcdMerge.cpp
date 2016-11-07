@@ -46,32 +46,32 @@ int main(int argc, const char *argv[])
     try
     {
         // Get input sources.
-        const std::vector<std::string> &inParameters = cli.GetInputSources();
+        const std::vector<std::string> &in_parameters = cli.GetInputSources();
 
         // Merging unit.
         MERGE::Merge merge(cli.IsVerboseMode(),
                            cli.GetTimeBase());
 
         // All added sources.
-        std::vector<std::unique_ptr<MERGE::SignalSource>> inSources;
+        std::vector<std::unique_ptr<MERGE::SignalSource>> in_sources;
 
         // There must be at least 2 files to be merged.
-        if (inParameters.size() < 2)
+        if (in_parameters.size() < 2)
         {
             throw std::runtime_error("There are at least two signal sources required.");
         }
 
-        for (const std::string &source : inParameters)
+        for (const std::string &source : in_parameters)
         {
-            inSources.push_back(std::make_unique<MERGE::SignalSource>(source,
-                                                                      registry,
-                                                                      cli.IsVerboseMode()));
+            in_sources.push_back(std::make_unique<MERGE::SignalSource>(source,
+                                                                       registry,
+                                                                       cli.IsVerboseMode()));
 
-            merge.AddSource(inSources.back().get());
+            merge.AddSource(in_sources.back().get());
         }
 
         std::cout << "Reading sources" << '\n';
-        for (std::unique_ptr<MERGE::SignalSource> &source : inSources)
+        for (std::unique_ptr<MERGE::SignalSource> &source : in_sources)
         {
             std::cout << '\n' << source->GetDescription() << '\n';
             source->Create();

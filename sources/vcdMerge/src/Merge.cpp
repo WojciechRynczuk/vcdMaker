@@ -67,15 +67,15 @@ void MERGE::Merge::Run()
     for (const SignalSource *source : m_Sources)
     {
         // Get the source's time unit.
-        const std::string sourceTimeUnit = source->GetTimeUnit();
+        const std::string source_time_unit = source->GetTimeUnit();
 
         // Source sync time in the target unit.
-        uint64_t transformedSourceSync = 0;
+        uint64_t transformed_source_sync = 0;
 
         try
         {
-            transformedSourceSync =
-                TransformTimestamp(source->GetSyncPoint(), m_MinTimeUnit, sourceTimeUnit);
+            transformed_source_sync =
+                TransformTimestamp(source->GetSyncPoint(), m_MinTimeUnit, source_time_unit);
         }
         catch (std::runtime_error &)
         {
@@ -96,8 +96,8 @@ void MERGE::Merge::Run()
                 // Set the signal's new timestamp.
                 signal->SetTimestamp(CalculateNewTime(TransformTimestamp(signal->GetTimestamp(),
                                                       m_MinTimeUnit,
-                                                      sourceTimeUnit),
-                                     transformedSourceSync));
+                                                      source_time_unit),
+                                     transformed_source_sync));
             }
             catch (std::runtime_error &)
             {
@@ -122,101 +122,101 @@ void MERGE::Merge::Run()
 
 std::string MERGE::Merge::FindMinUnit()
 {
-    size_t maxIndex = 0;
+    size_t max_index = 0;
 
     for (const SignalSource *const source : m_Sources)
     {
         const size_t index = UTILS::GetTimeUnitIndex(source->GetTimeUnit());
-        maxIndex = std::max(index, maxIndex);
+        max_index = std::max(index, max_index);
     }
 
-    return SIGNAL::Signal::TIME_UNITS[maxIndex];
+    return SIGNAL::Signal::TIME_UNITS[max_index];
 }
 
 uint64_t MERGE::Merge::FindMaxLeadingTime()
 {
-    uint64_t maxLeadingTime = 0;
+    uint64_t max_leading_time = 0;
 
     for (const SignalSource *const source : m_Sources)
     {
-        uint64_t logLeadingTime = TransformTimestamp(source->GetLeadingTime(),
-                                  m_MinTimeUnit,
-                                  source->GetTimeUnit());
-        uint64_t userLeadingTime = TransformTimestamp(source->GetSyncPoint(),
-                                   m_MinTimeUnit,
-                                   source->GetTimeUnit());
-        uint64_t leadingTime = std::min(logLeadingTime, userLeadingTime);
-        maxLeadingTime = std::max(leadingTime, maxLeadingTime);
+        const uint64_t log_leading_time = TransformTimestamp(source->GetLeadingTime(),
+                                                             m_MinTimeUnit,
+                                                             source->GetTimeUnit());
+        const uint64_t user_leading_time = TransformTimestamp(source->GetSyncPoint(),
+                                                              m_MinTimeUnit,
+                                                              source->GetTimeUnit());
+        const uint64_t leading_time = std::min(log_leading_time, user_leading_time);
+        max_leading_time = std::max(leading_time, max_leading_time);
     }
 
-    return maxLeadingTime;
+    return max_leading_time;
 }
 
 uint64_t MERGE::Merge::TransformTimestamp(uint64_t time,
-        const std::string &targetTimeUnit,
-        const std::string &sourceTimeUnit)
+                                          const std::string &targetTimeUnit,
+                                          const std::string &sourceTimeUnit)
 {
-    uint64_t newTime = time;
+    uint64_t new_time = time;
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    const uint32_t targetPower = UTILS::GetTimeUnitIndex(targetTimeUnit);
-    const uint32_t sourcePower = UTILS::GetTimeUnitIndex(sourceTimeUnit);
+    const uint32_t target_power = UTILS::GetTimeUnitIndex(targetTimeUnit);
+    const uint32_t source_power = UTILS::GetTimeUnitIndex(sourceTimeUnit);
 
-    if (targetPower > sourcePower)
+    if (target_power > source_power)
     {
-        nominator = (targetPower - sourcePower);
+        nominator = (target_power - source_power);
     }
-    else if (targetPower < sourcePower)
+    else if (target_power < source_power)
     {
-        denominator = (sourcePower - targetPower);
-        uint64_t rounding = TEN_POWER[denominator] / 2;
+        denominator = (source_power - target_power);
+        const uint64_t rounding = TEN_POWER[denominator] / 2;
 
         if ((std::numeric_limits<uint64_t>::max() - time) < rounding)
         {
             throw std::runtime_error("");
         }
-        newTime = time + rounding;
+        new_time = time + rounding;
     }
 
     if (nominator > 0)
     {
-        if ((std::numeric_limits<uint64_t>::max() / TEN_POWER[nominator]) < newTime)
+        if ((std::numeric_limits<uint64_t>::max() / TEN_POWER[nominator]) < new_time)
         {
             throw std::runtime_error("");
         }
     }
 
-    const double unitsRatio =
+    const double units_ratio =
         static_cast<double>(TEN_POWER[nominator]) / TEN_POWER[denominator];
 
-    return static_cast<uint64_t>(newTime * unitsRatio);
+    return static_cast<uint64_t>(new_time * units_ratio);
 }
 
 uint64_t MERGE::Merge::CalculateNewTime(uint64_t time,
                                         uint64_t syncPoint)
 {
-    uint64_t max = std::max(time, m_MaxLeadingTime);
-    uint64_t min = std::min(time, m_MaxLeadingTime);
-    uint64_t tempTime = 0;
+    const uint64_t max = std::max(time, m_MaxLeadingTime);
+    const uint64_t min = std::min(time, m_MaxLeadingTime);
+    uint64_t temp_time = 0;
 
     if (max < syncPoint)
     {
-        if ((std::numeric_limits<uint64_t>::max() - min )  < max)
+        if ((std::numeric_limits<uint64_t>::max() - min)  < max)
         {
             throw std::runtime_error("");
         }
-        tempTime = max + min;
-        tempTime = tempTime - syncPoint;
+        temp_time = max + min;
+        temp_time -= syncPoint;
     }
     else
     {
-        tempTime = max - syncPoint;
-        if ((std::numeric_limits<uint64_t>::max() - min ) < tempTime)
+        temp_time = max - syncPoint;
+        if ((std::numeric_limits<uint64_t>::max() - min) < temp_time)
         {
             throw std::runtime_error("");
         }
-        tempTime = tempTime + min;
+        temp_time += min;
     }
-    return (TransformTimestamp(tempTime, m_TimeUnit, m_MinTimeUnit));
+    return (TransformTimestamp(temp_time, m_TimeUnit, m_MinTimeUnit));
 }

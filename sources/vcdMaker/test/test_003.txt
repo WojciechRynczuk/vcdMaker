@@ -1,0 +1,21 @@
+#1 A.Val 4 8
+#2 A.Val 5 8
+#4 A.Val 6 8
+#3 D.Event e
+#2 C.Val 0.15 f
+#5 A.Val 6 8
+#6 A.Val 6 8
+#7 C.Val 1.45 f
+#7 A.Val 6 8
+#7 A.Val 7 8
+#7 A.Val 8 8
+#6 D.Event e
+#7 A.Val 9 8
+#7 A.Val 10 8
+#7 A.Val 11 8
+#3 B.Val 11 8
+#10 C.Val 3.14 f
+#9 D.Event e
+#4 B.Val 12 8
+#9 C.Val 3.14 f
+#10 A.Val 6 8

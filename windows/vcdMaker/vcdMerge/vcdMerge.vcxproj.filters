@@ -77,13 +77,19 @@
     <ClInclude Include="..\..\..\sources\common\inc\Version.h">
       <Filter>Common\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\sources\vcdMerge\inc\Source.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\sources\vcdMerge\inc\Merge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\common\inc\Utils.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\vcdMerge\inc\SignalSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\EventSignal.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\EventSignalCreator.h">
       <Filter>Common\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -133,13 +139,16 @@
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\sources\vcdMerge\src\Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\sources\vcdMerge\src\Merge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\Utils.cpp">
+      <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\vcdMerge\src\SignalSource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

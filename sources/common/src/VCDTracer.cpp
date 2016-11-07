@@ -80,7 +80,11 @@ void TRACER::VCDTracer::GenerateSignalDefaults()
     DumpLine("$dumpvars");
     for (const auto &signal : m_rSignalDb.GetSignalFootprint())
     {
-        DumpLine(signal.second->Footprint());
+        const std::string footprint = signal.second->Footprint();
+        if (!footprint.empty())
+        {
+            DumpLine(signal.second->Footprint());
+        }
     }
     DumpLine("$end");
 }

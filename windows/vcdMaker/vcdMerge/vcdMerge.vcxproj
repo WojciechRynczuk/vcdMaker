@@ -79,6 +79,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\common\inc\CliParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\EventSignal.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\EventSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
@@ -102,6 +104,7 @@
     <ClInclude Include="..\..\..\sources\vcdMerge\inc\SignalSource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />

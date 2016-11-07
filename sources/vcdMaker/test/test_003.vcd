@@ -1,0 +1,44 @@
+$date December 8, 2014 14:15:00
+$end
+$version VCD Tracer "Matylda" Release v.2.0.1
+$end
+$timescale 1 us
+$end
+$scope module A $end
+	$var wire 8 A.Val Val $end
+$upscope $end
+$scope module B $end
+	$var wire 8 B.Val Val $end
+$upscope $end
+$scope module C $end
+	$var real 64 C.Val Val $end
+$upscope $end
+$scope module D $end
+	$var event 0 D.Event Event $end
+$upscope $end
+$dumpvars
+bxxxxxxxx A.Val
+bxxxxxxxx B.Val
+r0.0 C.Val
+$end
+#1
+b00000100 A.Val
+#2
+b00000101 A.Val
+r0.15 C.Val
+#3
+b00001011 B.Val
+1D.Event
+#4
+b00000110 A.Val
+b00001100 B.Val
+#6
+1D.Event
+#7
+b00001011 A.Val
+r1.45 C.Val
+#9
+r3.14 C.Val
+1D.Event
+#10
+b00000110 A.Val

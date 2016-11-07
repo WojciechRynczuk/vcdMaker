@@ -1,9 +1,6 @@
-/// @file SignalFactory.h
+/// @file EventSignalCreator.h
 ///
-/// The signal factory class.
-///
-/// @par Full Description
-/// The signal factory object creates the appropriate signal objects.
+/// The event signal creator.
 ///
 /// @ingroup Parser
 ///
@@ -27,34 +24,22 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "SignalFactory.h"
 #include "EventSignalCreator.h"
-#include "ISignalCreator.h"
-#include "FSignalCreator.h"
+#include "EventSignal.h"
 
-PARSER::SignalFactory::SignalFactory() :
-    m_vpSignalCreators()
+SIGNAL::Signal *PARSER::EventSignalCreator::Create(const std::string &logLine,
+                                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
-    // Register creators
-    m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
-}
+    std::smatch result;
 
-SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine,
-                                              SIGNAL::SourceRegistry::HandleT sourceHandle) const
-{
-    for (const auto &creator : m_vpSignalCreators)
+    if (true == std::regex_search(logLine, result, m_SignalRegEx))
     {
-        // Try to use creator.
-        SIGNAL::Signal *pSignal = creator->Create(logLine, sourceHandle);
-
-        // If successful return created Signal, if not try next one.
-        if (pSignal != nullptr)
-        {
-            return pSignal;
-        }
+        return new SIGNAL::EventSignal(result[2].str(),
+                                       std::stoll(result[1].str()),
+                                       sourceHandle);
     }
-
-    return nullptr;
+    else
+    {
+        return nullptr;
+    }
 }

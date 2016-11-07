@@ -1,9 +1,6 @@
-/// @file SignalFactory.h
+/// @file EventSignalCreator.h
 ///
-/// The signal factory class.
-///
-/// @par Full Description
-/// The signal factory object creates the appropriate signal objects.
+/// The event signal creator.
 ///
 /// @ingroup Parser
 ///
@@ -27,34 +24,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "SignalFactory.h"
-#include "EventSignalCreator.h"
-#include "ISignalCreator.h"
-#include "FSignalCreator.h"
+#pragma once
 
-PARSER::SignalFactory::SignalFactory() :
-    m_vpSignalCreators()
-{
-    // Register creators
-    m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
-}
+#include "SignalCreator.h"
 
-SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine,
-                                              SIGNAL::SourceRegistry::HandleT sourceHandle) const
+namespace PARSER
 {
-    for (const auto &creator : m_vpSignalCreators)
+
+    /// The class provides means to create event signal objects.
+    class EventSignalCreator : public SignalCreator
     {
-        // Try to use creator.
-        SIGNAL::Signal *pSignal = creator->Create(logLine, sourceHandle);
+        public:
 
-        // If successful return created Signal, if not try next one.
-        if (pSignal != nullptr)
-        {
-            return pSignal;
-        }
-    }
+            /// The real signal creator constructor.
+            EventSignalCreator() :
+                SignalCreator("^#([[:d:]]+) ([[:graph:]]+) e")
+            {
+            }
 
-    return nullptr;
+            /// @copydoc SignalCreator::Create()
+            virtual SIGNAL::Signal *Create(const std::string &logLine,
+                                           SIGNAL::SourceRegistry::HandleT sourceHandle) const;
+
+    };
+
 }

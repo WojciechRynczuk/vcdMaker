@@ -41,6 +41,7 @@ project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}
 set(COMMON_SOURCES_DIR common/src)
 
 set(COMMON_SOURCES
+    ${COMMON_SOURCES_DIR}/EventSignalCreator.cpp
     ${COMMON_SOURCES_DIR}/FSignal.cpp
     ${COMMON_SOURCES_DIR}/FSignalCreator.cpp
     ${COMMON_SOURCES_DIR}/ISignal.cpp
@@ -66,6 +67,8 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/LogParser.h
     ${COMMON_HEADERS_DIR}/LineCounter.h
     ${COMMON_HEADERS_DIR}/TxtParser.h
+    ${COMMON_HEADERS_DIR}/EventSignalCreator.h
+    ${COMMON_HEADERS_DIR}/EventSignal.h
     ${COMMON_HEADERS_DIR}/FSignalCreator.h
     ${COMMON_HEADERS_DIR}/FSignal.h
     ${COMMON_HEADERS_DIR}/ISignalCreator.h

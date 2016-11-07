@@ -8,15 +8,15 @@ DESCRIPTION
 
   Expected log format is as follows:
 
-    #Timestamp TopModule.Module1...ModuleN.SignalName SignalValue <signal-size | f> Comment
+    #Timestamp TopModule.Module1...ModuleN.SignalName SignalValue <signal-size | f | e> Comment
 
   First field is a timestamp in some time unit. Please note that log lines need not to be sorted.
 
   Second field is a signal name. VCD uses hierarchical signal naming, this structure should be reflected in log line.
 
-  Third field is a signal value.
+  Third field is a signal value. Value is empty for event signal.
 
-  Four field is signal size/type. For integer signals signal-size should be a signal size in bits, for real number type code f should be used.
+  Four field is signal size/type. For integer signals signal-size should be a signal size in bits, for real number type code f should be used and for event signals type code e should be used.
 
   Last field is a comment, which is ignored.
 

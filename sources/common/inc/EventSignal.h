@@ -52,7 +52,7 @@ namespace SIGNAL
             {
             }
 
-            /// The floating signal cloning method.
+            /// The event signal cloning method.
             virtual Signal *Clone() const
             {
                 return new EventSignal(*this);

@@ -36,7 +36,7 @@ namespace PARSER
     {
         public:
 
-            /// The real signal creator constructor.
+            /// The event signal creator constructor.
             EventSignalCreator() :
                 SignalCreator("^#([[:d:]]+) ([[:graph:]]+) e")
             {

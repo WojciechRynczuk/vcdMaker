@@ -1,6 +1,6 @@
 $date December 8, 2014 14:15:00
 $end
-$version VCD Tracer "Matylda" Release v.1.0.1
+$version VCD Tracer "Mateusz" Release v.2.0.1
 $end
 $timescale 1 us
 $end
@@ -63,7 +63,7 @@ r0.562127 FRDM.Sensors.Light
 #50044817
 r0.220703 FRDM.Sensors.Accelerometer.AccX
 r-0.128662 FRDM.Sensors.Accelerometer.AccY
-r0.9462890000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.946289 FRDM.Sensors.Accelerometer.AccZ
 #50165495
 r0.350586 FRDM.Sensors.Accelerometer.AccX
 r-0.0065918 FRDM.Sensors.Accelerometer.AccY
@@ -96,12 +96,12 @@ r0.117676 FRDM.Sensors.Accelerometer.AccY
 r0.959473 FRDM.Sensors.Accelerometer.AccZ
 #50485498
 r0.321289 FRDM.Sensors.Accelerometer.AccX
-r0.08105469999999999 FRDM.Sensors.Accelerometer.AccY
+r0.0810547 FRDM.Sensors.Accelerometer.AccY
 r0.844727 FRDM.Sensors.Accelerometer.AccZ
 #50525499
 r0.303711 FRDM.Sensors.Accelerometer.AccX
 r0.111328 FRDM.Sensors.Accelerometer.AccY
-r0.9472660000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.947266 FRDM.Sensors.Accelerometer.AccZ
 #50925495
 r0.41748 FRDM.Sensors.Accelerometer.AccX
 r0.107422 FRDM.Sensors.Accelerometer.AccY
@@ -179,7 +179,7 @@ b00000000000000000000000110110011 FRDM.Sensors.Magnetometer.MagY
 #52255820
 b00000000000000000000110100010011 FRDM.Sensors.Magnetometer.MagZ
 #52285495
-r-0.5974120000000001 FRDM.Sensors.Accelerometer.AccX
+r-0.597412 FRDM.Sensors.Accelerometer.AccX
 r0.411133 FRDM.Sensors.Accelerometer.AccY
 r0.723633 FRDM.Sensors.Accelerometer.AccZ
 #52305659
@@ -201,7 +201,7 @@ b00000000000000000000000100011010 FRDM.Sensors.Magnetometer.MagY
 #52406171
 b00000000000000000000110011011000 FRDM.Sensors.Magnetometer.MagZ
 #52444817
-r-0.7380370000000001 FRDM.Sensors.Accelerometer.AccX
+r-0.738037 FRDM.Sensors.Accelerometer.AccX
 r0.595703 FRDM.Sensors.Accelerometer.AccY
 r0.428223 FRDM.Sensors.Accelerometer.AccZ
 #52485498
@@ -255,7 +255,7 @@ b00000000000000000000110000100011 FRDM.Sensors.Magnetometer.MagZ
 #52808245
 r-0.780029 FRDM.Sensors.Accelerometer.AccX
 r0.0605469 FRDM.Sensors.Accelerometer.AccY
-r0.08691409999999999 FRDM.Sensors.Accelerometer.AccZ
+r0.0869141 FRDM.Sensors.Accelerometer.AccZ
 #52844816
 r-1.10034 FRDM.Sensors.Accelerometer.AccX
 r0.0839844 FRDM.Sensors.Accelerometer.AccY
@@ -308,7 +308,7 @@ r-0.469482 FRDM.Sensors.Accelerometer.AccY
 r0.256836 FRDM.Sensors.Accelerometer.AccZ
 #53244816
 r-0.80835 FRDM.Sensors.Accelerometer.AccX
-r-0.5109860000000001 FRDM.Sensors.Accelerometer.AccY
+r-0.510986 FRDM.Sensors.Accelerometer.AccY
 r0.308105 FRDM.Sensors.Accelerometer.AccZ
 #53255530
 b00000000000000001111111100001110 FRDM.Sensors.Magnetometer.MagX
@@ -357,7 +357,7 @@ b00000000000000000000001000100011 FRDM.Sensors.Magnetometer.MagY
 #53605932
 b00000000000000000000101110101100 FRDM.Sensors.Magnetometer.MagZ
 #53685494
-r0.09472659999999999 FRDM.Sensors.Accelerometer.AccX
+r0.0947266 FRDM.Sensors.Accelerometer.AccX
 r-0.910889 FRDM.Sensors.Accelerometer.AccY
 r0.446289 FRDM.Sensors.Accelerometer.AccZ
 #53705585
@@ -382,8 +382,8 @@ b00000000000000000000001010011101 FRDM.Sensors.Magnetometer.MagY
 b00000000000000000000101111001001 FRDM.Sensors.Magnetometer.MagZ
 #53885496
 r0.21582 FRDM.Sensors.Accelerometer.AccX
-r-0.6984860000000001 FRDM.Sensors.Accelerometer.AccY
-r0.6181640000000001 FRDM.Sensors.Accelerometer.AccZ
+r-0.698486 FRDM.Sensors.Accelerometer.AccY
+r0.618164 FRDM.Sensors.Accelerometer.AccZ
 #53925495
 r0.350586 FRDM.Sensors.Accelerometer.AccX
 r-0.692139 FRDM.Sensors.Accelerometer.AccY
@@ -402,14 +402,14 @@ b00000000000000000000001011000010 FRDM.Sensors.Magnetometer.MagY
 b00000000000000000000110000010000 FRDM.Sensors.Magnetometer.MagZ
 #54008257
 r0.276367 FRDM.Sensors.Accelerometer.AccX
-r-0.5109860000000001 FRDM.Sensors.Accelerometer.AccY
+r-0.510986 FRDM.Sensors.Accelerometer.AccY
 r0.61377 FRDM.Sensors.Accelerometer.AccZ
 #54044816
 r0.420898 FRDM.Sensors.Accelerometer.AccX
 r-0.547607 FRDM.Sensors.Accelerometer.AccY
 r0.782227 FRDM.Sensors.Accelerometer.AccZ
 #54053226
-r0.5885860000000001 FRDM.Sensors.Light
+r0.588586 FRDM.Sensors.Light
 #54085496
 r0.418945 FRDM.Sensors.Accelerometer.AccX
 r-0.415771 FRDM.Sensors.Accelerometer.AccY
@@ -443,8 +443,8 @@ r0.736816 FRDM.Sensors.Accelerometer.AccZ
 #54253226
 r0.353552 FRDM.Sensors.Light
 #54285494
-r0.6806640000000001 FRDM.Sensors.Accelerometer.AccX
-r-0.09448239999999999 FRDM.Sensors.Accelerometer.AccY
+r0.680664 FRDM.Sensors.Accelerometer.AccX
+r-0.0944824 FRDM.Sensors.Accelerometer.AccY
 r0.76123 FRDM.Sensors.Accelerometer.AccZ
 #54305661
 b00000000000000001111111000111110 FRDM.Sensors.Magnetometer.MagX
@@ -528,7 +528,7 @@ b00000000000000000000001101111010 FRDM.Sensors.Magnetometer.MagY
 b00000000000000000000101111111011 FRDM.Sensors.Magnetometer.MagZ
 #56007981
 r0.738281 FRDM.Sensors.Accelerometer.AccX
-r0.5400390000000001 FRDM.Sensors.Accelerometer.AccY
+r0.540039 FRDM.Sensors.Accelerometer.AccY
 r0.376953 FRDM.Sensors.Accelerometer.AccZ
 #56325497
 r0.668945 FRDM.Sensors.Accelerometer.AccX
@@ -587,7 +587,7 @@ b00000000000000000000001010011100 FRDM.Sensors.Magnetometer.MagY
 #56756181
 b00000000000000000000110011100101 FRDM.Sensors.Magnetometer.MagZ
 #56844816
-r0.08105469999999999 FRDM.Sensors.Accelerometer.AccX
+r0.0810547 FRDM.Sensors.Accelerometer.AccX
 r0.15918 FRDM.Sensors.Accelerometer.AccY
 r0.959961 FRDM.Sensors.Accelerometer.AccZ
 #56903226
@@ -647,11 +647,11 @@ r-0.21167 FRDM.Sensors.Accelerometer.AccX
 r0.0146484 FRDM.Sensors.Accelerometer.AccY
 r0.909668 FRDM.Sensors.Accelerometer.AccZ
 #59803226
-r0.5774780000000001 FRDM.Sensors.Light
+r0.577478 FRDM.Sensors.Light
 #59808316
 r-0.111084 FRDM.Sensors.Accelerometer.AccX
 r0.0151367 FRDM.Sensors.Accelerometer.AccY
-r0.9389650000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.938965 FRDM.Sensors.Accelerometer.AccZ
 #59844818
 r-0.136475 FRDM.Sensors.Accelerometer.AccX
 r0.0610352 FRDM.Sensors.Accelerometer.AccY
@@ -663,12 +663,12 @@ b00000000000000000000001000011011 FRDM.Sensors.Magnetometer.MagY
 #59855832
 b00000000000000000000110100000010 FRDM.Sensors.Magnetometer.MagZ
 #59885495
-r-0.008544919999999999 FRDM.Sensors.Accelerometer.AccX
+r-0.00854492 FRDM.Sensors.Accelerometer.AccX
 r0.0537109 FRDM.Sensors.Accelerometer.AccY
 r0.999023 FRDM.Sensors.Accelerometer.AccZ
 #60685496
 r0.00244141 FRDM.Sensors.Accelerometer.AccX
-r-0.08081049999999999 FRDM.Sensors.Accelerometer.AccY
+r-0.0808105 FRDM.Sensors.Accelerometer.AccY
 r0.980957 FRDM.Sensors.Accelerometer.AccZ
 #60755547
 b00000000000000001111111001101101 FRDM.Sensors.Magnetometer.MagX
@@ -703,7 +703,7 @@ b00000000000000000000110011011001 FRDM.Sensors.Magnetometer.MagZ
 #61565495
 r0.0205078 FRDM.Sensors.Accelerometer.AccX
 r-0.0163574 FRDM.Sensors.Accelerometer.AccY
-r0.9545900000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.95459 FRDM.Sensors.Accelerometer.AccZ
 #61644818
 r-0.000732422 FRDM.Sensors.Accelerometer.AccX
 r0.124023 FRDM.Sensors.Accelerometer.AccY
@@ -775,7 +775,7 @@ r0.52462 FRDM.Sensors.Light
 #65165492
 r0.0488281 FRDM.Sensors.Accelerometer.AccX
 r-0.113525 FRDM.Sensors.Accelerometer.AccY
-r0.9775390000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.977539 FRDM.Sensors.Accelerometer.AccZ
 #65605580
 b00000000000000001111111000111010 FRDM.Sensors.Magnetometer.MagX
 #65605702
@@ -799,7 +799,7 @@ b00000000000000000000001011001001 FRDM.Sensors.Magnetometer.MagY
 #65705866
 b00000000000000000000110010110000 FRDM.Sensors.Magnetometer.MagZ
 #65765495
-r0.5014650000000001 FRDM.Sensors.Accelerometer.AccX
+r0.501465 FRDM.Sensors.Accelerometer.AccX
 r0.0737305 FRDM.Sensors.Accelerometer.AccY
 r0.84375 FRDM.Sensors.Accelerometer.AccZ
 #65803226
@@ -875,7 +875,7 @@ r0.808594 FRDM.Sensors.Accelerometer.AccX
 r0.237305 FRDM.Sensors.Accelerometer.AccY
 r0.293945 FRDM.Sensors.Accelerometer.AccZ
 #67007919
-r0.9545900000000001 FRDM.Sensors.Accelerometer.AccX
+r0.95459 FRDM.Sensors.Accelerometer.AccX
 r0.286133 FRDM.Sensors.Accelerometer.AccY
 r0.285156 FRDM.Sensors.Accelerometer.AccZ
 #67053227
@@ -894,7 +894,7 @@ r0.376349 FRDM.Sensors.Light
 #67503226
 r0.497627 FRDM.Sensors.Light
 #67653226
-r0.6448620000000001 FRDM.Sensors.Light
+r0.644862 FRDM.Sensors.Light
 #67803227
 r0.748791 FRDM.Sensors.Light
 #68003226
@@ -910,7 +910,7 @@ b00000000000000000000001110001001 FRDM.Sensors.Magnetometer.MagY
 #68956231
 b00000000000000000000101110011111 FRDM.Sensors.Magnetometer.MagZ
 #69003225
-r0.7316550000000001 FRDM.Sensors.Light
+r0.731655 FRDM.Sensors.Light
 #69103226
 r0.429664 FRDM.Sensors.Light
 #69125493
@@ -988,7 +988,7 @@ r1.19336 FRDM.Sensors.Accelerometer.AccX
 r0.114258 FRDM.Sensors.Accelerometer.AccY
 r0.589844 FRDM.Sensors.Accelerometer.AccZ
 #73685495
-r0.7597660000000001 FRDM.Sensors.Accelerometer.AccX
+r0.759766 FRDM.Sensors.Accelerometer.AccX
 r0.26123 FRDM.Sensors.Accelerometer.AccY
 r0.335938 FRDM.Sensors.Accelerometer.AccZ
 #73725499
@@ -1052,7 +1052,7 @@ b0111101 FRDM.Sensors.Slider
 #74644928
 r0.769043 FRDM.Sensors.Accelerometer.AccX
 r0.0292969 FRDM.Sensors.Accelerometer.AccY
-r0.5639650000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.563965 FRDM.Sensors.Accelerometer.AccZ
 #74683193
 b0111111 FRDM.Sensors.Slider
 #74723193
@@ -1093,7 +1093,7 @@ b1001111 FRDM.Sensors.Slider
 b1001101 FRDM.Sensors.Slider
 #75244927
 r0.639648 FRDM.Sensors.Accelerometer.AccX
-r0.06542969999999999 FRDM.Sensors.Accelerometer.AccY
+r0.0654297 FRDM.Sensors.Accelerometer.AccY
 r0.689941 FRDM.Sensors.Accelerometer.AccZ
 #75283193
 b1001100 FRDM.Sensors.Slider
@@ -1120,7 +1120,7 @@ b1000001 FRDM.Sensors.Slider
 #75605649
 b1000000 FRDM.Sensors.Slider
 #75608065
-r0.6503910000000001 FRDM.Sensors.Accelerometer.AccX
+r0.650391 FRDM.Sensors.Accelerometer.AccX
 r0.132324 FRDM.Sensors.Accelerometer.AccY
 r0.682617 FRDM.Sensors.Accelerometer.AccZ
 #75643194
@@ -1198,9 +1198,9 @@ r0.64502 FRDM.Sensors.Accelerometer.AccZ
 #77044814
 r0.749023 FRDM.Sensors.Accelerometer.AccX
 r0.103027 FRDM.Sensors.Accelerometer.AccY
-r0.6962890000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.696289 FRDM.Sensors.Accelerometer.AccZ
 #77207878
-r0.5952150000000001 FRDM.Sensors.Accelerometer.AccX
+r0.595215 FRDM.Sensors.Accelerometer.AccX
 r0.136719 FRDM.Sensors.Accelerometer.AccY
 r0.672852 FRDM.Sensors.Accelerometer.AccZ
 #77285495
@@ -1246,7 +1246,7 @@ r0.692383 FRDM.Sensors.Accelerometer.AccZ
 #78007919
 r0.938477 FRDM.Sensors.Accelerometer.AccX
 r0.186035 FRDM.Sensors.Accelerometer.AccY
-r0.8222660000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.822266 FRDM.Sensors.Accelerometer.AccZ
 #78044816
 r0.569336 FRDM.Sensors.Accelerometer.AccX
 r0.18457 FRDM.Sensors.Accelerometer.AccY
@@ -1270,7 +1270,7 @@ b00000000000000000000110000111011 FRDM.Sensors.Magnetometer.MagZ
 #78285498
 r0.62207 FRDM.Sensors.Accelerometer.AccX
 r0.264648 FRDM.Sensors.Accelerometer.AccY
-r0.6806640000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.680664 FRDM.Sensors.Accelerometer.AccZ
 #78325495
 r0.657227 FRDM.Sensors.Accelerometer.AccX
 r0.155273 FRDM.Sensors.Accelerometer.AccY
@@ -1282,7 +1282,7 @@ r0.685547 FRDM.Sensors.Accelerometer.AccZ
 #78525494
 r0.762695 FRDM.Sensors.Accelerometer.AccX
 r0.202148 FRDM.Sensors.Accelerometer.AccY
-r0.7275390000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.727539 FRDM.Sensors.Accelerometer.AccZ
 #78644819
 r0.786133 FRDM.Sensors.Accelerometer.AccX
 r0.172852 FRDM.Sensors.Accelerometer.AccY
@@ -1304,8 +1304,8 @@ b00000000000000000000001101001110 FRDM.Sensors.Magnetometer.MagY
 #78755915
 b00000000000000000000110000001100 FRDM.Sensors.Magnetometer.MagZ
 #78965493
-r0.6650390000000001 FRDM.Sensors.Accelerometer.AccX
-r0.07324219999999999 FRDM.Sensors.Accelerometer.AccY
+r0.665039 FRDM.Sensors.Accelerometer.AccX
+r0.0732422 FRDM.Sensors.Accelerometer.AccY
 r0.562012 FRDM.Sensors.Accelerometer.AccZ
 #79044817
 r0.757812 FRDM.Sensors.Accelerometer.AccX
@@ -1380,7 +1380,7 @@ b1 FRDM.Buttons.SW3
 #80085500
 r0.706055 FRDM.Sensors.Accelerometer.AccX
 r0.0322266 FRDM.Sensors.Accelerometer.AccY
-r0.8295900000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.82959 FRDM.Sensors.Accelerometer.AccZ
 #80125498
 r0.643555 FRDM.Sensors.Accelerometer.AccX
 r0.000488281 FRDM.Sensors.Accelerometer.AccY
@@ -1430,7 +1430,7 @@ r0.65918 FRDM.Sensors.Accelerometer.AccZ
 #81053227
 r0.564675 FRDM.Sensors.Light
 #81085497
-r0.6972660000000001 FRDM.Sensors.Accelerometer.AccX
+r0.697266 FRDM.Sensors.Accelerometer.AccX
 r0.762695 FRDM.Sensors.Accelerometer.AccZ
 #81193813
 b1 FRDM.Buttons.SW1
@@ -1464,14 +1464,14 @@ r0.758301 FRDM.Sensors.Accelerometer.AccZ
 b1 FRDM.Buttons.SW1
 #81607879
 r0.611816 FRDM.Sensors.Accelerometer.AccX
-r0.07519530000000001 FRDM.Sensors.Accelerometer.AccY
+r0.0751953 FRDM.Sensors.Accelerometer.AccY
 r0.910156 FRDM.Sensors.Accelerometer.AccZ
 #81624919
 b0 FRDM.Buttons.SW1
 #81644820
 r0.515137 FRDM.Sensors.Accelerometer.AccX
-r0.08105469999999999 FRDM.Sensors.Accelerometer.AccY
-r0.7514650000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.0810547 FRDM.Sensors.Accelerometer.AccY
+r0.751465 FRDM.Sensors.Accelerometer.AccZ
 #81725498
 r0.585938 FRDM.Sensors.Accelerometer.AccX
 r0.0844727 FRDM.Sensors.Accelerometer.AccY
@@ -1480,7 +1480,7 @@ r0.950195 FRDM.Sensors.Accelerometer.AccZ
 b1 FRDM.Buttons.SW1
 #81765500
 r0.496582 FRDM.Sensors.Accelerometer.AccX
-r0.06347659999999999 FRDM.Sensors.Accelerometer.AccY
+r0.0634766 FRDM.Sensors.Accelerometer.AccY
 r0.768066 FRDM.Sensors.Accelerometer.AccZ
 #81808015
 r0.503906 FRDM.Sensors.Accelerometer.AccX
@@ -1494,7 +1494,7 @@ r0.625488 FRDM.Sensors.Accelerometer.AccZ
 b0 FRDM.Buttons.SW1
 #81925498
 r0.499512 FRDM.Sensors.Accelerometer.AccX
-r0.09667969999999999 FRDM.Sensors.Accelerometer.AccY
+r0.0966797 FRDM.Sensors.Accelerometer.AccY
 r0.896973 FRDM.Sensors.Accelerometer.AccZ
 #82085493
 r0.753418 FRDM.Sensors.Accelerometer.AccX
@@ -1504,7 +1504,7 @@ r0.855957 FRDM.Sensors.Accelerometer.AccZ
 r0.365667 FRDM.Sensors.Light
 #82125493
 r0.334961 FRDM.Sensors.Accelerometer.AccX
-r0.08300780000000001 FRDM.Sensors.Accelerometer.AccY
+r0.0830078 FRDM.Sensors.Accelerometer.AccY
 r0.8125 FRDM.Sensors.Accelerometer.AccZ
 #82165495
 r0.479492 FRDM.Sensors.Accelerometer.AccX
@@ -1549,7 +1549,7 @@ b1 FRDM.Buttons.SW3
 #84318240
 b0 FRDM.Buttons.SW3
 #84407862
-r0.6025390000000001 FRDM.Sensors.Accelerometer.AccX
+r0.602539 FRDM.Sensors.Accelerometer.AccX
 r0.0317383 FRDM.Sensors.Accelerometer.AccY
 r0.773438 FRDM.Sensors.Accelerometer.AccZ
 #84553225
@@ -1596,7 +1596,7 @@ r0.0380859 FRDM.Sensors.Accelerometer.AccY
 r0.794434 FRDM.Sensors.Accelerometer.AccZ
 #86685496
 r0.579102 FRDM.Sensors.Accelerometer.AccX
-r0.09667969999999999 FRDM.Sensors.Accelerometer.AccY
+r0.0966797 FRDM.Sensors.Accelerometer.AccY
 r0.894531 FRDM.Sensors.Accelerometer.AccZ
 #86725497
 r0.550781 FRDM.Sensors.Accelerometer.AccX
@@ -1868,7 +1868,7 @@ b0111010 FRDM.Sensors.Slider
 r0.503319 FRDM.Sensors.Light
 #96965503
 r0.481445 FRDM.Sensors.Accelerometer.AccX
-r0.06933590000000001 FRDM.Sensors.Accelerometer.AccY
+r0.0693359 FRDM.Sensors.Accelerometer.AccY
 r0.566406 FRDM.Sensors.Accelerometer.AccZ
 #97005687
 b0111100 FRDM.Sensors.Slider
@@ -2041,7 +2041,7 @@ r-0.117432 FRDM.Sensors.Accelerometer.AccX
 r0.0625 FRDM.Sensors.Accelerometer.AccY
 r1.0249 FRDM.Sensors.Accelerometer.AccZ
 #101965595
-r0.009765619999999999 FRDM.Sensors.Accelerometer.AccX
+r0.00976562 FRDM.Sensors.Accelerometer.AccX
 r0.00878906 FRDM.Sensors.Accelerometer.AccY
 r1.00488 FRDM.Sensors.Accelerometer.AccZ
 #102103225
@@ -2063,7 +2063,7 @@ r0.0107422 FRDM.Sensors.Accelerometer.AccX
 r0.00488281 FRDM.Sensors.Accelerometer.AccY
 r1.00098 FRDM.Sensors.Accelerometer.AccZ
 #104803226
-r0.8079190000000001 FRDM.Sensors.Light
+r0.807919 FRDM.Sensors.Light
 #104903226
 r0.69543 FRDM.Sensors.Light
 #104953227
@@ -2075,7 +2075,7 @@ b00000000000000000000001000011111 FRDM.Sensors.Magnetometer.MagY
 #105205889
 b00000000000000000000110011000100 FRDM.Sensors.Magnetometer.MagZ
 #105885592
-r0.009765619999999999 FRDM.Sensors.Accelerometer.AccX
+r0.00976562 FRDM.Sensors.Accelerometer.AccX
 r0.00683594 FRDM.Sensors.Accelerometer.AccY
 r1.00146 FRDM.Sensors.Accelerometer.AccZ
 #106153227
@@ -2133,7 +2133,7 @@ r-0.362061 FRDM.Sensors.Accelerometer.AccX
 r0.133789 FRDM.Sensors.Accelerometer.AccY
 r0.959961 FRDM.Sensors.Accelerometer.AccZ
 #108953227
-r0.7317010000000001 FRDM.Sensors.Light
+r0.731701 FRDM.Sensors.Light
 #108965495
 r-0.463623 FRDM.Sensors.Accelerometer.AccX
 r0.0625 FRDM.Sensors.Accelerometer.AccY
@@ -2179,9 +2179,9 @@ b00000000000000000000000001100111 FRDM.Sensors.Magnetometer.MagY
 #109155860
 b00000000000000000000101110111111 FRDM.Sensors.Magnetometer.MagZ
 #109165498
-r-0.9411620000000001 FRDM.Sensors.Accelerometer.AccX
+r-0.941162 FRDM.Sensors.Accelerometer.AccX
 r-0.166748 FRDM.Sensors.Accelerometer.AccY
-r-0.07934570000000001 FRDM.Sensors.Accelerometer.AccZ
+r-0.0793457 FRDM.Sensors.Accelerometer.AccZ
 #109205586
 b00000000000000001111111011000001 FRDM.Sensors.Magnetometer.MagX
 #109205711
@@ -2225,7 +2225,7 @@ b00000000000000000000000001111111 FRDM.Sensors.Magnetometer.MagY
 #109755793
 b00000000000000000000101011011011 FRDM.Sensors.Magnetometer.MagZ
 #109765498
-r-0.8005370000000001 FRDM.Sensors.Accelerometer.AccX
+r-0.800537 FRDM.Sensors.Accelerometer.AccX
 r-0.195068 FRDM.Sensors.Accelerometer.AccY
 r-0.761475 FRDM.Sensors.Accelerometer.AccZ
 #109855601
@@ -2301,7 +2301,7 @@ r-0.621826 FRDM.Sensors.Accelerometer.AccY
 r0.0112305 FRDM.Sensors.Accelerometer.AccZ
 #110285495
 r-0.354736 FRDM.Sensors.Accelerometer.AccX
-r-0.9797360000000001 FRDM.Sensors.Accelerometer.AccY
+r-0.979736 FRDM.Sensors.Accelerometer.AccY
 r0.161621 FRDM.Sensors.Accelerometer.AccZ
 #110305585
 b00000000000000001111111101111100 FRDM.Sensors.Magnetometer.MagX
@@ -2346,7 +2346,7 @@ b00000000000000000000101101110110 FRDM.Sensors.Magnetometer.MagZ
 #110485495
 r0.258301 FRDM.Sensors.Accelerometer.AccX
 r-0.82251 FRDM.Sensors.Accelerometer.AccY
-r-0.06323239999999999 FRDM.Sensors.Accelerometer.AccZ
+r-0.0632324 FRDM.Sensors.Accelerometer.AccZ
 #110525495
 r0.46875 FRDM.Sensors.Accelerometer.AccX
 r-0.765869 FRDM.Sensors.Accelerometer.AccY
@@ -2396,7 +2396,7 @@ b00000000000000000000101100101111 FRDM.Sensors.Magnetometer.MagZ
 #110925495
 r0.642578 FRDM.Sensors.Accelerometer.AccX
 r-0.684326 FRDM.Sensors.Accelerometer.AccY
-r0.07910159999999999 FRDM.Sensors.Accelerometer.AccZ
+r0.0791016 FRDM.Sensors.Accelerometer.AccZ
 #110955602
 b00000000000000001111111010101110 FRDM.Sensors.Magnetometer.MagX
 #110955727
@@ -2422,19 +2422,19 @@ b00000000000000000000001011010110 FRDM.Sensors.Magnetometer.MagY
 #111055858
 b00000000000000000000101010111000 FRDM.Sensors.Magnetometer.MagZ
 #111085494
-r0.8066410000000001 FRDM.Sensors.Accelerometer.AccX
+r0.806641 FRDM.Sensors.Accelerometer.AccX
 r-0.339111 FRDM.Sensors.Accelerometer.AccY
 r-0.498779 FRDM.Sensors.Accelerometer.AccZ
 #111125495
 r0.640625 FRDM.Sensors.Accelerometer.AccX
-r-0.7492680000000001 FRDM.Sensors.Accelerometer.AccY
+r-0.749268 FRDM.Sensors.Accelerometer.AccY
 r-0.0065918 FRDM.Sensors.Accelerometer.AccZ
 #111165496
 r0.71875 FRDM.Sensors.Accelerometer.AccX
 r-0.159424 FRDM.Sensors.Accelerometer.AccY
 r-0.107666 FRDM.Sensors.Accelerometer.AccZ
 #111203226
-r0.7275199999999999 FRDM.Sensors.Light
+r0.72752 FRDM.Sensors.Light
 #111205920
 b00000000000000001111111001110010 FRDM.Sensors.Magnetometer.MagX
 #111206044
@@ -2471,7 +2471,7 @@ b00000000000000000000001010001111 FRDM.Sensors.Magnetometer.MagY
 b00000000000000000000100111111111 FRDM.Sensors.Magnetometer.MagZ
 #111365495
 r0.594727 FRDM.Sensors.Accelerometer.AccX
-r0.06738280000000001 FRDM.Sensors.Accelerometer.AccY
+r0.0673828 FRDM.Sensors.Accelerometer.AccY
 r-0.52124 FRDM.Sensors.Accelerometer.AccZ
 #111408010
 r0.339844 FRDM.Sensors.Accelerometer.AccX
@@ -2484,7 +2484,7 @@ r-0.812256 FRDM.Sensors.Accelerometer.AccZ
 #111485497
 r0.604492 FRDM.Sensors.Accelerometer.AccX
 r0.416992 FRDM.Sensors.Accelerometer.AccY
-r-0.5661620000000001 FRDM.Sensors.Accelerometer.AccZ
+r-0.566162 FRDM.Sensors.Accelerometer.AccZ
 #111505583
 b00000000000000001111110110001001 FRDM.Sensors.Magnetometer.MagX
 #111505707
@@ -2494,7 +2494,7 @@ b00000000000000000000101000001000 FRDM.Sensors.Magnetometer.MagZ
 #111525495
 r0.40625 FRDM.Sensors.Accelerometer.AccX
 r0.566895 FRDM.Sensors.Accelerometer.AccY
-r-0.6555180000000001 FRDM.Sensors.Accelerometer.AccZ
+r-0.655518 FRDM.Sensors.Accelerometer.AccZ
 #111553226
 r0.513603 FRDM.Sensors.Light
 #111555973
@@ -2506,7 +2506,7 @@ b00000000000000000000101000101011 FRDM.Sensors.Magnetometer.MagZ
 #111565497
 r0.464844 FRDM.Sensors.Accelerometer.AccX
 r0.666992 FRDM.Sensors.Accelerometer.AccY
-r-0.6086430000000001 FRDM.Sensors.Accelerometer.AccZ
+r-0.608643 FRDM.Sensors.Accelerometer.AccZ
 #111605610
 b00000000000000001111110101000001 FRDM.Sensors.Magnetometer.MagX
 #111605734
@@ -2532,7 +2532,7 @@ b00000000000000000000101001111000 FRDM.Sensors.Magnetometer.MagZ
 #111685495
 r0.664062 FRDM.Sensors.Accelerometer.AccX
 r1.10205 FRDM.Sensors.Accelerometer.AccY
-r-0.5817870000000001 FRDM.Sensors.Accelerometer.AccZ
+r-0.581787 FRDM.Sensors.Accelerometer.AccZ
 #111705620
 b00000000000000001111110011000101 FRDM.Sensors.Magnetometer.MagX
 #111705744
@@ -2619,7 +2619,7 @@ b00000000000000000000001001010111 FRDM.Sensors.Magnetometer.MagY
 b00000000000000000000110001100001 FRDM.Sensors.Magnetometer.MagZ
 #112125494
 r-0.11499 FRDM.Sensors.Accelerometer.AccX
-r0.9389650000000001 FRDM.Sensors.Accelerometer.AccY
+r0.938965 FRDM.Sensors.Accelerometer.AccY
 r0.274414 FRDM.Sensors.Accelerometer.AccZ
 #112155611
 b00000000000000001111110000101000 FRDM.Sensors.Magnetometer.MagX
@@ -2661,7 +2661,7 @@ b00000000000000000000000110001111 FRDM.Sensors.Magnetometer.MagY
 b00000000000000000000110001110110 FRDM.Sensors.Magnetometer.MagZ
 #112408377
 r-0.493896 FRDM.Sensors.Accelerometer.AccX
-r0.6962890000000001 FRDM.Sensors.Accelerometer.AccY
+r0.696289 FRDM.Sensors.Accelerometer.AccY
 r0.213867 FRDM.Sensors.Accelerometer.AccZ
 #112444815
 r-0.783936 FRDM.Sensors.Accelerometer.AccX
@@ -2727,7 +2727,7 @@ r0.142578 FRDM.Sensors.Accelerometer.AccY
 r0.779297 FRDM.Sensors.Accelerometer.AccZ
 #112844816
 r-1.04565 FRDM.Sensors.Accelerometer.AccX
-r0.07128909999999999 FRDM.Sensors.Accelerometer.AccY
+r0.0712891 FRDM.Sensors.Accelerometer.AccY
 r1.10596 FRDM.Sensors.Accelerometer.AccZ
 #112885495
 r-0.868896 FRDM.Sensors.Accelerometer.AccX
@@ -2752,7 +2752,7 @@ b00000000000000000000000010001100 FRDM.Sensors.Magnetometer.MagY
 #112955856
 b00000000000000000000110010100111 FRDM.Sensors.Magnetometer.MagZ
 #112965494
-r-0.8474120000000001 FRDM.Sensors.Accelerometer.AccX
+r-0.847412 FRDM.Sensors.Accelerometer.AccX
 r-0.349365 FRDM.Sensors.Accelerometer.AccY
 r-0.213623 FRDM.Sensors.Accelerometer.AccZ
 #113003226
@@ -2880,7 +2880,7 @@ b00000000000000000000000010100010 FRDM.Sensors.Magnetometer.MagY
 #113655884
 b00000000000000000000101110001101 FRDM.Sensors.Magnetometer.MagZ
 #113685494
-r-0.8474120000000001 FRDM.Sensors.Accelerometer.AccX
+r-0.847412 FRDM.Sensors.Accelerometer.AccX
 r-0.390381 FRDM.Sensors.Accelerometer.AccY
 r1.26074 FRDM.Sensors.Accelerometer.AccZ
 #113705611
@@ -2977,7 +2977,7 @@ r-0.12915 FRDM.Sensors.Accelerometer.AccY
 r-0.263428 FRDM.Sensors.Accelerometer.AccZ
 #114244817
 r0.24707 FRDM.Sensors.Accelerometer.AccX
-r-0.09887700000000001 FRDM.Sensors.Accelerometer.AccY
+r-0.098877 FRDM.Sensors.Accelerometer.AccY
 r-0.0109863 FRDM.Sensors.Accelerometer.AccZ
 #114285493
 r0.63623 FRDM.Sensors.Accelerometer.AccX
@@ -3050,7 +3050,7 @@ r0.418457 FRDM.Sensors.Accelerometer.AccX
 r-0.169678 FRDM.Sensors.Accelerometer.AccY
 r1.70654 FRDM.Sensors.Accelerometer.AccZ
 #114765494
-r0.06933590000000001 FRDM.Sensors.Accelerometer.AccX
+r0.0693359 FRDM.Sensors.Accelerometer.AccX
 r-0.338135 FRDM.Sensors.Accelerometer.AccY
 r1.78955 FRDM.Sensors.Accelerometer.AccZ
 #114805633
@@ -3071,7 +3071,7 @@ r0.204102 FRDM.Sensors.Accelerometer.AccX
 r-0.210693 FRDM.Sensors.Accelerometer.AccY
 r1.63232 FRDM.Sensors.Accelerometer.AccZ
 #114925493
-r0.07910159999999999 FRDM.Sensors.Accelerometer.AccX
+r0.0791016 FRDM.Sensors.Accelerometer.AccX
 r-0.064209 FRDM.Sensors.Accelerometer.AccY
 r1.28418 FRDM.Sensors.Accelerometer.AccZ
 #114965494
@@ -3152,7 +3152,7 @@ r0.150391 FRDM.Sensors.Accelerometer.AccX
 r0.043457 FRDM.Sensors.Accelerometer.AccY
 r0.162109 FRDM.Sensors.Accelerometer.AccZ
 #115608012
-r0.6191410000000001 FRDM.Sensors.Accelerometer.AccX
+r0.619141 FRDM.Sensors.Accelerometer.AccX
 r0.0263672 FRDM.Sensors.Accelerometer.AccY
 r1.01172 FRDM.Sensors.Accelerometer.AccZ
 #115644816
@@ -3192,9 +3192,9 @@ r0.0371094 FRDM.Sensors.Accelerometer.AccX
 r-0.173584 FRDM.Sensors.Accelerometer.AccY
 r1.12402 FRDM.Sensors.Accelerometer.AccZ
 #115965497
-r0.09667969999999999 FRDM.Sensors.Accelerometer.AccX
+r0.0966797 FRDM.Sensors.Accelerometer.AccX
 r-0.145752 FRDM.Sensors.Accelerometer.AccY
-r0.9785160000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.978516 FRDM.Sensors.Accelerometer.AccZ
 #116603225
 r0.5579 FRDM.Sensors.Light
 #117207964
@@ -3207,15 +3207,15 @@ r-0.120361 FRDM.Sensors.Accelerometer.AccY
 r0.973633 FRDM.Sensors.Accelerometer.AccZ
 #117407970
 r0.0996094 FRDM.Sensors.Accelerometer.AccX
-r-0.09643549999999999 FRDM.Sensors.Accelerometer.AccY
+r-0.0964355 FRDM.Sensors.Accelerometer.AccY
 r1.0752 FRDM.Sensors.Accelerometer.AccZ
 #117444818
 r0.0410156 FRDM.Sensors.Accelerometer.AccX
-r-0.09887700000000001 FRDM.Sensors.Accelerometer.AccY
+r-0.098877 FRDM.Sensors.Accelerometer.AccY
 r0.936035 FRDM.Sensors.Accelerometer.AccZ
 #117607866
 r0.146484 FRDM.Sensors.Accelerometer.AccX
-r-0.08081049999999999 FRDM.Sensors.Accelerometer.AccY
+r-0.0808105 FRDM.Sensors.Accelerometer.AccY
 r1.00977 FRDM.Sensors.Accelerometer.AccZ
 #117685498
 r0.0551758 FRDM.Sensors.Accelerometer.AccX
@@ -3224,7 +3224,7 @@ r0.870117 FRDM.Sensors.Accelerometer.AccZ
 #117725498
 r0.0786133 FRDM.Sensors.Accelerometer.AccX
 r-0.0983887 FRDM.Sensors.Accelerometer.AccY
-r0.9931640000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.993164 FRDM.Sensors.Accelerometer.AccZ
 #117925499
 r0.0839844 FRDM.Sensors.Accelerometer.AccX
 r-0.0876465 FRDM.Sensors.Accelerometer.AccY
@@ -3235,7 +3235,7 @@ r-0.194092 FRDM.Sensors.Accelerometer.AccY
 r1.23633 FRDM.Sensors.Accelerometer.AccZ
 #118007880
 r0.0200195 FRDM.Sensors.Accelerometer.AccX
-r-0.08666989999999999 FRDM.Sensors.Accelerometer.AccY
+r-0.0866699 FRDM.Sensors.Accelerometer.AccY
 r1.58594 FRDM.Sensors.Accelerometer.AccZ
 #118085494
 r0.125977 FRDM.Sensors.Accelerometer.AccX
@@ -3250,9 +3250,9 @@ b00000000000000000000110011000110 FRDM.Sensors.Magnetometer.MagZ
 #118125499
 r0.134766 FRDM.Sensors.Accelerometer.AccX
 r-0.135986 FRDM.Sensors.Accelerometer.AccY
-r0.9233400000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.92334 FRDM.Sensors.Accelerometer.AccZ
 #118165497
-r0.09277340000000001 FRDM.Sensors.Accelerometer.AccX
+r0.0927734 FRDM.Sensors.Accelerometer.AccX
 r-0.102295 FRDM.Sensors.Accelerometer.AccY
 r0.501953 FRDM.Sensors.Accelerometer.AccZ
 #118205660
@@ -3272,9 +3272,9 @@ r-0.531494 FRDM.Sensors.Accelerometer.AccZ
 #118285495
 r-0.0231934 FRDM.Sensors.Accelerometer.AccX
 r0.171875 FRDM.Sensors.Accelerometer.AccY
-r0.0009765620000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.000976562 FRDM.Sensors.Accelerometer.AccZ
 #118325497
-r0.06933590000000001 FRDM.Sensors.Accelerometer.AccX
+r0.0693359 FRDM.Sensors.Accelerometer.AccX
 r0.0957031 FRDM.Sensors.Accelerometer.AccY
 r1.11475 FRDM.Sensors.Accelerometer.AccZ
 #118355685
@@ -3306,7 +3306,7 @@ r1.104 FRDM.Sensors.Accelerometer.AccZ
 #118565498
 r0.0405273 FRDM.Sensors.Accelerometer.AccX
 r0.0600586 FRDM.Sensors.Accelerometer.AccY
-r0.9306640000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.930664 FRDM.Sensors.Accelerometer.AccZ
 #118807994
 r0.0703125 FRDM.Sensors.Accelerometer.AccX
 r-0.0495605 FRDM.Sensors.Accelerometer.AccY
@@ -3324,7 +3324,7 @@ r-0.0217285 FRDM.Sensors.Accelerometer.AccX
 r0.00927734 FRDM.Sensors.Accelerometer.AccY
 r1.02148 FRDM.Sensors.Accelerometer.AccZ
 #118965493
-r0.09277340000000001 FRDM.Sensors.Accelerometer.AccX
+r0.0927734 FRDM.Sensors.Accelerometer.AccX
 r0.0166016 FRDM.Sensors.Accelerometer.AccY
 r1.19336 FRDM.Sensors.Accelerometer.AccZ
 #119005647
@@ -3375,7 +3375,7 @@ r0.0332031 FRDM.Sensors.Accelerometer.AccY
 r1.28955 FRDM.Sensors.Accelerometer.AccZ
 #119725498
 r0.00683594 FRDM.Sensors.Accelerometer.AccX
-r0.009765619999999999 FRDM.Sensors.Accelerometer.AccY
+r0.00976562 FRDM.Sensors.Accelerometer.AccY
 r1.00146 FRDM.Sensors.Accelerometer.AccZ
 #119807891
 r0.0566406 FRDM.Sensors.Accelerometer.AccX
@@ -3404,7 +3404,7 @@ r0.999512 FRDM.Sensors.Accelerometer.AccZ
 #121903227
 r0.699062 FRDM.Sensors.Light
 #122203226
-r0.5799800000000001 FRDM.Sensors.Light
+r0.57998 FRDM.Sensors.Light
 #122903226
 r0.696406 FRDM.Sensors.Light
 #123253227
@@ -3475,7 +3475,7 @@ r0.0400391 FRDM.Sensors.Accelerometer.AccY
 #132653226
 r0.747478 FRDM.Sensors.Light
 #132903227
-r0.6179750000000001 FRDM.Sensors.Light
+r0.617975 FRDM.Sensors.Light
 #133565492
 r-0.017334 FRDM.Sensors.Accelerometer.AccX
 r1.00391 FRDM.Sensors.Accelerometer.AccZ
@@ -3539,7 +3539,7 @@ r0.637903 FRDM.Sensors.Light
 #144125495
 r0.129883 FRDM.Sensors.Accelerometer.AccX
 r0.297852 FRDM.Sensors.Accelerometer.AccY
-r0.9150390000000001 FRDM.Sensors.Accelerometer.AccZ
+r0.915039 FRDM.Sensors.Accelerometer.AccZ
 #144165495
 r-0.00463867 FRDM.Sensors.Accelerometer.AccX
 r0.0390625 FRDM.Sensors.Accelerometer.AccY
@@ -3561,7 +3561,7 @@ r-0.0476074 FRDM.Sensors.Accelerometer.AccX
 r0.0380859 FRDM.Sensors.Accelerometer.AccY
 r0.84668 FRDM.Sensors.Accelerometer.AccZ
 #145044820
-r-0.008544919999999999 FRDM.Sensors.Accelerometer.AccX
+r-0.00854492 FRDM.Sensors.Accelerometer.AccX
 r0.0244141 FRDM.Sensors.Accelerometer.AccY
 r1.00342 FRDM.Sensors.Accelerometer.AccZ
 #145053226
@@ -3592,7 +3592,7 @@ b0 FRDM.Buttons.SW1
 r0.618402 FRDM.Sensors.Light
 #146165498
 r0.00488281 FRDM.Sensors.Accelerometer.AccX
-r-0.009521480000000001 FRDM.Sensors.Accelerometer.AccY
+r-0.00952148 FRDM.Sensors.Accelerometer.AccY
 r0.89502 FRDM.Sensors.Accelerometer.AccZ
 #146207920
 r-0.00317383 FRDM.Sensors.Accelerometer.AccX
@@ -3607,7 +3607,7 @@ r0.491035 FRDM.Sensors.Light
 #147965494
 r-0.239502 FRDM.Sensors.Accelerometer.AccX
 r-0.000244141 FRDM.Sensors.Accelerometer.AccY
-r-0.08325200000000001 FRDM.Sensors.Accelerometer.AccZ
+r-0.083252 FRDM.Sensors.Accelerometer.AccZ
 #148008013
 r0.0454102 FRDM.Sensors.Accelerometer.AccX
 r0.00146484 FRDM.Sensors.Accelerometer.AccY
@@ -3643,7 +3643,7 @@ b00000000000000000000001010010001 FRDM.Sensors.Magnetometer.MagY
 #149605859
 b00000000000000000000110011011100 FRDM.Sensors.Magnetometer.MagZ
 #150044814
-r-0.008544919999999999 FRDM.Sensors.Accelerometer.AccX
+r-0.00854492 FRDM.Sensors.Accelerometer.AccX
 r0.0175781 FRDM.Sensors.Accelerometer.AccY
 r1.00439 FRDM.Sensors.Accelerometer.AccZ
 #151153224

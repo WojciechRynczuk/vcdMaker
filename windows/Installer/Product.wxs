@@ -56,6 +56,11 @@
             <Component Id='SampleFiles' Guid='00CB08B4-C7F5-4CCD-AF3F-854F68138B68'>
               <File Id="SampleTtx" Name="example.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.txt" KeyPath='yes'></File>
               <File Id="SampleVcd" Name="example.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.vcd"></File>
+              <File Id="System1Time1Txt" Name="system1_time1.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system1_time1.txt"></File>
+              <File Id="System2Time1Txt" Name="system2_time1.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system2_time1.txt"></File>
+              <File Id="System2Time2Txt" Name="system2_time2.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system2_time2.txt"></File>
+              <File Id="MergeT1T2Vcd" Name="merge_t1_t1.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\merge_t1_t1.vcd"></File>
+              <File Id="MergeT1T1Vcd" Name="merge_t1_t2.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\merge_t1_t2.vcd"></File>
             </Component>
           </Directory>
         

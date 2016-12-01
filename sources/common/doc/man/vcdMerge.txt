@@ -4,17 +4,38 @@ SYNOPSIS
   vcdMerge  [-t s|ms|us|ns|ps|fs] [-v] -o output-file
             [--] [--version] [-h] sources ...
 DESCRIPTION
-  vcdMerge is a tool that merges textual log files to one VCD trace file.
+  vcdMerge is a tool that merges textual log files and outputs a common VCD trace file.
 
-  For log file format description see vcdMaker(1) manual page.
+  For the log file format description see vcdMaker(1) manual page.
 OPTIONS
-  -t, --timebase s|ms|us|ns|ps|fs Optional log timebase specification.
+  -t, --timebase s|ms|us|ns|ps|fs An optional log timebase specification.
   -v, --verbose                   Enables verbose mode.
-  -o, --file_out output-file      Ouput VCD filename (required).
+  -o, --file_out output-file      An ouput VCD filename (required).
   --, --ignore_rest               Ignores the rest of the labeled arguments following this flag.
-  --version                       Displays version information and exits.
-  -h, --help                      Displays usage information and exits.
-  sources                         Multiple source file specifications (required).
+  --version                       Displays the version information and exits.
+  -h, --help                      Displays the usage information and exits.
+  sources                         Multiple source file specifications (required). At least two sources must be provided.
+  
+  The source format:
+  format,timestamp,unit,prefix,counter,filename
+
+  format                         The format of the input file. Currently only 'T' is supported.
+  timestamp                      The synchronisation time for the input log. 
+  unit                           The unit of the timestamp.
+  prefix                         The prefix to be added to all the signals within the unit. It can be left empty. Then, no prefix is added.
+  counter                        The line counter signal name to be added to the output file. It can be left empty. Then, no line counter signal is added.
+  filename                       The name of the file to be merged.
+
+  Examples:
+  All source options used:
+  vcdMerge -o out.vcd -v T,71050601,us,Prefix1,Counter1,log1.txt T,234256037,us,Prefix2,Counter2,log2.txt
+  
+  No signal counters:
+  vcdMerge -o out.vcd -v T,71050601,us,Prefix1,,log1.txt T,234256037,us,Prefix2,,log2.txt
+  
+  No prefixes nor signal counters:
+  vcdMerge -o out.vcd -v T,71050601,us,,,log1.txt T,234256037,us,,,log2.txt
+  
 AUTHORS
   vcdMaker team
 

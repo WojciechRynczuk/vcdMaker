@@ -6,30 +6,30 @@ SYNOPSIS
 DESCRIPTION
   vcdMaker is a tool that converts textual log files to VCD trace files.
 
-  Expected log format is as follows:
+  The expected log format is as follows:
 
     #Timestamp TopModule.Module1...ModuleN.SignalName SignalValue <signal-size | f | e> Comment
 
-  First field is a timestamp in some time unit. Please note that log lines need not to be sorted.
+  The first field is a timestamp in some time unit. Please note that log lines need not to be sorted.
 
-  Second field is a signal name. VCD uses hierarchical signal naming, this structure should be reflected in log line.
+  The second field is a signal name. VCD uses hierarchical signal naming, this structure should be reflected in the log line.
 
-  Third field is a signal value. Value is empty for event signal.
+  The third field is a signal value. The value is empty for event signals.
 
-  Four field is signal size/type. For integer signals signal-size should be a signal size in bits, for real number type code f should be used and for event signals type code e should be used.
+  The fourth field is a signal size/type. For integer signals the signal-size should be a signal size in bits, for real number type code 'f' should be used and for event signals type code 'e' should be used.
 
-  Last field is a comment, which is ignored.
+  The last field is a comment, which is ignored.
 
-  Generated log that consists of lines in above format can be transformed to VCD trace and later viewed using any graphical tool, eg. GTKWave.
+  The generated log that consists of lines in the above format can be transformed into a VCD trace and later viewed using any graphical tool, eg. GTKWave.
 OPTIONS
-  -c, --lineCounter line-counter-signal-name  If given, adds line counter signal with given name. Line counter signal is a signal that can be used to bind timestamp in VCD trace to line number in original log file.
-  -t, --timebase s|ms|us|ns|ps|fs             Log timebase specification (required).
+  -c, --lineCounter line-counter-signal-name  If given, adds a line counter signal with the given name. The line counter signal is a signal that binds the timestamp in the VCD trace to the line number in original log file.
+  -t, --timebase s|ms|us|ns|ps|fs             A log timebase specification (required).
   -v, --verbose                               Enables verbose mode.
-  -o, --file_out output-file                  Ouput VCD filename (required).
+  -o, --file_out output-file                  An ouput VCD filename (required).
   --, --ignore_rest                           Ignores the rest of the labeled arguments following this flag.
-  --version                                   Displays version information and exits.
-  -h, --help                                  Displays usage information and exits.
-  input-file                                  Input log filename (required).
+  --version                                   Displays the version information and exits.
+  -h, --help                                  Displays the usage information and exits.
+  input-file                                  An input log filename (required).
 AUTHORS
   vcdMaker team
 

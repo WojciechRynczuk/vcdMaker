@@ -74,7 +74,7 @@ namespace CLI
 
             /// Input sources.
             TCLAP::UnlabeledMultiArg<std::string> m_SourcesIn
-                { "source_in", "Input sources", true, "sources" };
+                { "source_in", "Input sources. At least two sources must be provided. Format: T,syncTime,unit,prefix,counter,filename", true, "sources" };
     };
 
 }

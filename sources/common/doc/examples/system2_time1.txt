@@ -2398,12 +2398,10 @@
 #70080087 FRDM.Sensors.Accelerometer.AccY -0.477295 f
 #70080087 FRDM.Sensors.Accelerometer.AccZ 0.796875 f
 #70117794 FRDM.Sensors.Slider 0 7
-#71050601 FRDM.Sync 1 1
-#71594291 FRDM.Sync 0 1
-#71594420 FRDM.Sync 1 1
-#71594552 FRDM.Sync 1 1
-#71594732 FRDM.Sync 1 1
-#71603999 FRDM.Sync 0 1
+#71050601 FRDM.Sync e
+#71594420 FRDM.Sync e
+#71594552 FRDM.Sync e
+#71594732 FRDM.Sync e
 #71720089 FRDM.Sensors.Accelerometer.AccX -0.478760 f
 #71720089 FRDM.Sensors.Accelerometer.AccY -0.438232 f
 #71720089 FRDM.Sensors.Accelerometer.AccZ 0.697266 f

@@ -4140,8 +4140,8 @@ Press joystick pressed for more than 3 seconds to start/stop logging.
 #71040690 Disco.Sensors.Accelerometer.AccX -5791.000000 f
 #71041212 Disco.Sensors.Accelerometer.AccY -6677.000000 f
 #71041732 Disco.Sensors.Accelerometer.AccZ -12865.000000 f
-#71050601 Disco.Sync 1 1 Key pressed
-#71050903 Disco.Sync 1 1 Key pressed
+#71050601 Disco.Sync e Key pressed
+#71050903 Disco.Sync e Key pressed
 #71080690 Disco.Sensors.Accelerometer.AccX -5709.000000 f
 #71081215 Disco.Sensors.Accelerometer.AccY -6807.000000 f
 #71081738 Disco.Sensors.Accelerometer.AccZ -13090.000000 f
@@ -4184,14 +4184,11 @@ Press joystick pressed for more than 3 seconds to start/stop logging.
 #71560690 Disco.Sensors.Accelerometer.AccX -6718.000000 f
 #71561211 Disco.Sensors.Accelerometer.AccY -6251.000000 f
 #71561739 Disco.Sensors.Accelerometer.AccZ -11927.000000 f
-#71593988 Disco.Sync 0 1 Key released
-#71594272 Disco.Sync 1 1 Key pressed
-#71594579 Disco.Sync 1 1 Key pressed
+#71594272 Disco.Sync e Key pressed
+#71594579 Disco.Sync e Key pressed
 #71600725 Disco.Sensors.Accelerometer.AccX -6260.000000 f
 #71601246 Disco.Sensors.Accelerometer.AccY -6543.000000 f
 #71601778 Disco.Sensors.Accelerometer.AccZ -12984.000000 f
-#71603691 Disco.Sync 0 1 Key released
-#71603972 Disco.Sync 0 1 Key released
 #71640690 Disco.Sensors.Accelerometer.AccX -6444.000000 f
 #71641215 Disco.Sensors.Accelerometer.AccY -7398.000000 f
 #71641741 Disco.Sensors.Accelerometer.AccZ -12582.000000 f

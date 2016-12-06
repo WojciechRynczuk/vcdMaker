@@ -2398,12 +2398,10 @@
 #233285523 FRDM.Sensors.Accelerometer.AccY -0.477295 f
 #233285523 FRDM.Sensors.Accelerometer.AccZ 0.796875 f
 #233323230 FRDM.Sensors.Slider 0 7
-#234256037 FRDM.Sync 1 1 Key pressed
-#234799727 FRDM.Sync 0 1 Key released
-#234799856 FRDM.Sync 1 1 Key pressed
-#234799988 FRDM.Sync 1 1 Key pressed
-#234800168 FRDM.Sync 1 1 Key pressed
-#234809435 FRDM.Sync 0 1 Key released
+#234256037 FRDM.Sync e Key pressed
+#234799856 FRDM.Sync e Key pressed
+#234799988 FRDM.Sync e Key pressed
+#234800168 FRDM.Sync e Key pressed
 #234925525 FRDM.Sensors.Accelerometer.AccX -0.478760 f
 #234925525 FRDM.Sensors.Accelerometer.AccY -0.438232 f
 #234925525 FRDM.Sensors.Accelerometer.AccZ 0.697266 f

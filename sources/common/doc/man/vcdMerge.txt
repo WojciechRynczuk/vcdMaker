@@ -15,9 +15,10 @@ OPTIONS
   --version                       Displays the version information and exits.
   -h, --help                      Displays the usage information and exits.
   sources                         Multiple source file specifications (required). At least two sources must be provided.
-  
-  The source format:
-  format,timestamp,unit,prefix,counter,filename
+
+  The sources parameter format is as follows:
+
+    format,timestamp,unit,prefix,counter,filename
 
   format                         The format of the input file. Currently only 'T' is supported.
   timestamp                      The synchronisation time for the input log. 
@@ -25,17 +26,19 @@ OPTIONS
   prefix                         The prefix to be added to all the signals within the unit. It can be left empty. Then, no prefix is added.
   counter                        The line counter signal name to be added to the output file. It can be left empty. Then, no line counter signal is added.
   filename                       The name of the file to be merged.
-
-  Examples:
+EXAMPLE
   All source options used:
-  vcdMerge -o out.vcd -v T,71050601,us,Prefix1,Counter1,log1.txt T,234256037,us,Prefix2,Counter2,log2.txt
-  
+
+    vcdMerge -o out.vcd -v T,71050601,us,Prefix1,Counter1,log1.txt T,234256037,us,Prefix2,Counter2,log2.txt
+
   No signal counters:
-  vcdMerge -o out.vcd -v T,71050601,us,Prefix1,,log1.txt T,234256037,us,Prefix2,,log2.txt
-  
+
+    vcdMerge -o out.vcd -v T,71050601,us,Prefix1,,log1.txt T,234256037,us,Prefix2,,log2.txt
+
   No prefixes nor signal counters:
-  vcdMerge -o out.vcd -v T,71050601,us,,,log1.txt T,234256037,us,,,log2.txt
-  
+
+    vcdMerge -o out.vcd -v T,71050601,us,,,log1.txt T,234256037,us,,,log2.txt
+
 AUTHORS
   vcdMaker team
 

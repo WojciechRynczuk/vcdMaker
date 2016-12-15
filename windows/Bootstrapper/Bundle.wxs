@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?include ..\Installer\version.wxi ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+  <!-- Can be added to bundle to change the installation icon: IconSourceFile="..\Installer\resources\vcdMaker128.ico"-->
+	<Bundle Name="vcdMaker $(var.ProductVersionInfo)" Version="2.0.1.0" Manufacturer="vcdMaker team" UpgradeCode="aa694554-90fe-4f5b-b432-1373894aa8da">
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+      <Payload SourceFile="resources\bootstrapper_logo.png"/>
+      <bal:WixStandardBootstrapperApplication
+        LicenseUrl=""
+        ThemeFile="resources\HyperlinkTheme.xml"
+        LocalizationFile="resources\HyperlinkTheme.wxl"
+        SuppressOptionsUI="yes" />
+    </BootstrapperApplicationRef>
+
+		<Chain>
+			<!-- TODO: Define the list of chained packages. -->
+			<!-- <MsiPackage SourceFile="path\to\your.msi" /> -->
+      <PackageGroupRef Id="vc_redist.x86"/>
+      <MsiPackage Id="vcdMakerInstaller" SourceFile="$(var.Installer.TargetPath)" DisplayInternalUI='yes'/>
+		</Chain>
+	</Bundle>
+  <Fragment>
+    <!-- Check for the VC++ Redistributable(x86)-->
+    <util:RegistrySearch Root="HKLM"
+                         Key="SOFTWARE\Microsoft\DevDiv\VC\Servicing\14.0\RuntimeMinimum"
+                         Value="Version"
+                         Variable="vcRedistVersion"/>
+    <PackageGroup Id="vc_redist.x86">
+      <ExePackage Id="vc_redist.x86"
+                  DisplayName="Microsoft Visual C++ 2015 Redistributable (x86)"
+                  DownloadUrl ="https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/vc_redist.x86.exe"
+                  Cache="yes"
+                  Compressed="no"
+                  PerMachine="yes"
+                  Permanent="yes"
+                  Protocol="burn"
+                  Vital="yes"
+                  SourceFile ="./vc_redist.x86.exe"
+                  InstallCommand="/quiet /norestart"
+                  DetectCondition="vcRedistVersion >= &quot;14.0.23506&quot;">
+      </ExePackage>
+    </PackageGroup>
+  </Fragment>
+</Wix>

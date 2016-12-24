@@ -28,6 +28,7 @@ branches:
 branches:
   only:
   - master
+  - v3_release
 
 before_script:
   - git submodule update --init --recursive

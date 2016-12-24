@@ -1,0 +1,41 @@
+#The initial configuration came from the article: http://genbattle.bitbucket.org/blog/2016/01/17/c++-travis-ci/
+
+sudo: required
+dist: trusty
+
+python:
+  - "3.5"
+
+#Disable the default Travis submodule behavior.
+git:
+  submodules: false
+  
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-6
+    - g++-6
+    - txt2man
+    
+# Blocklist - branches not to be built. RegEx is allowed.
+branches:
+  except:
+  - r2_release
+
+# Safelist - branches to be built.
+branches:
+  only:
+  - master
+
+before_script:
+  - git submodule update --init --recursive
+  - cd ./sources
+  - export CC=gcc-6
+  - export CXX=g++-6
+  
+script:
+  - cmake .
+  - make
+  - make comparisonTest

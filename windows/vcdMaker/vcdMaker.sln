@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcdMaker", "vcdMaker\vcdMaker.vcxproj", "{39CE447A-C072-4E08-9042-2208DF3A25D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E} = {DBC389FC-FB63-430B-9443-F4DE90F1AB0E}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcdMerge", "vcdMerge\vcdMerge.vcxproj", "{F2A67A23-8D8D-44FE-9F00-7C59DAD8A954}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E} = {DBC389FC-FB63-430B-9443-F4DE90F1AB0E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcdMakerCore", "vcdMakerCore\vcdMakerCore.vcxproj", "{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +35,14 @@ Global
 		{F2A67A23-8D8D-44FE-9F00-7C59DAD8A954}.Release|Win32.ActiveCfg = Release|Win32
 		{F2A67A23-8D8D-44FE-9F00-7C59DAD8A954}.Release|Win32.Build.0 = Release|Win32
 		{F2A67A23-8D8D-44FE-9F00-7C59DAD8A954}.Release|x64.ActiveCfg = Release|Win32
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Debug|Win32.Build.0 = Debug|Win32
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Debug|x64.ActiveCfg = Debug|x64
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Debug|x64.Build.0 = Debug|x64
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Release|Win32.ActiveCfg = Release|Win32
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Release|Win32.Build.0 = Release|Win32
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Release|x64.ActiveCfg = Release|x64
+		{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

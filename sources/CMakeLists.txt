@@ -92,12 +92,9 @@ set(TCLAP_HEADERS_DIR 3rdParty/tclap/include)
 set(OUTPUT_DIR output)
 set(OUTPUT_DIR_ABSOLUE ${CMAKE_CURRENT_BINARY_DIR}/${OUTPUT_DIR})
 
-# Function for target creation.
-function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HEADERS_DIR)
-    add_executable(${TARGET_NAME} ${COMMON_SOURCES} ${TARGET_SOURCES} ${COMMON_HEADERS} ${TARGET_HEADERS})
 
-    target_include_directories(${TARGET_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${TARGET_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
-
+# Function for setting general target properties.
+function(add_common_vcdtools_target_props TARGET_NAME)
     # Set C++14 support.
     set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 14)
     set_target_properties(${TARGET_NAME} PROPERTIES CXX_EXTENSIONS OFF)
@@ -109,6 +106,15 @@ function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HE
     elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
         target_compile_options(${TARGET_NAME} PUBLIC /W4)
     endif()
+endfunction(add_common_vcdtools_target_props)
+
+# Function for target creation.
+function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HEADERS_DIR)
+    add_executable(${TARGET_NAME} $<TARGET_OBJECTS:${COMMON_LIB_TARGET}> ${TARGET_SOURCES} ${COMMON_HEADERS} ${TARGET_HEADERS})
+
+    target_include_directories(${TARGET_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${TARGET_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
+
+    add_common_vcdtools_target_props(${TARGET_NAME})
 
     set_target_properties(${TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
 endfunction(add_vcdtools_target)

@@ -239,13 +239,14 @@ if (UNIX)
 endif()
 
 get_filename_component(DEVEL_SUPPORT_DIR ${PROJECT_SOURCE_DIR}/../development ABSOLUTE)
+get_filename_component(ROOT_DIR ${PROJECT_SOURCE_DIR}/.. ABSOLUTE)
 
 # Add test targets
 
 find_package(PythonInterp 3)
 
 if (PYTHONINTERP_FOUND)
-    set(COMPARISON_TEST_SCRIPT ${DEVEL_SUPPORT_DIR}/test/comparison_test.py)
+    set(COMPARISON_TEST_SCRIPT ${ROOT_DIR}/test/functional/comparison_test.py)
     set(COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
 
     add_custom_target(comparisonTest

@@ -9,7 +9,7 @@ python:
 #Disable the default Travis submodule behavior.
 git:
   submodules: false
-  
+
 addons:
   apt:
     sources:
@@ -18,7 +18,7 @@ addons:
     - gcc-6
     - g++-6
     - txt2man
-    
+
 # Blocklist - branches not to be built. RegEx is allowed.
 branches:
   except:
@@ -35,7 +35,7 @@ before_script:
   - cd ./sources
   - export CC=gcc-6
   - export CXX=g++-6
-  
+
 script:
   - cmake .
   - make

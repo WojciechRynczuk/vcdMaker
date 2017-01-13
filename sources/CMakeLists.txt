@@ -247,10 +247,12 @@ find_package(PythonInterp 3)
 
 if (PYTHONINTERP_FOUND)
     set(COMPARISON_TEST_SCRIPT ${ROOT_DIR}/test/functional/comparison_test.py)
-    set(COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
+    set(MAKER_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
+    set(MERGE_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMerge/test)
 
     add_custom_target(comparisonTest
-                      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${COMPARISON_TEST_DIR}
+                      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${MAKER_COMPARISON_TEST_DIR}
+		      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMerge -t ${MERGE_COMPARISON_TEST_DIR}
                       WORKING_DIRECTORY ${OUTPUT_DIR}
                       COMMENT "vcdMaker commparison test"
                       VERBATIM)

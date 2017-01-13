@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test>
+  <maker>
+    <common>
+        <name>Test 001</name>
+        <description></description>
+        <verbose></verbose>
+        <output_file>test_001.output</output_file>
+        <golden_file>test_001.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_001.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter></line_counter>
+    </unique>
+  </maker>
+  <maker>
+    <common>
+        <name>Test 002</name>
+        <description></description>
+        <verbose></verbose>
+        <output_file>test_002.output</output_file>
+        <golden_file>test_002.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_002.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter></line_counter>
+    </unique>
+  </maker>
+  <maker>
+    <common>
+        <name>Test 003</name>
+        <description></description>
+        <verbose></verbose>
+        <output_file>test_003.output</output_file>
+        <golden_file>test_003.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_003.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter></line_counter>
+    </unique>
+  </maker>
+</test>

@@ -252,7 +252,7 @@ if (PYTHONINTERP_FOUND)
 
     add_custom_target(comparisonTest
                       COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${MAKER_COMPARISON_TEST_DIR}
-		      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMerge -t ${MERGE_COMPARISON_TEST_DIR}
+                      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMerge -t ${MERGE_COMPARISON_TEST_DIR}
                       WORKING_DIRECTORY ${OUTPUT_DIR}
                       COMMENT "vcdMaker commparison test"
                       VERBATIM)

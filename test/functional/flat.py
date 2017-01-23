@@ -71,7 +71,7 @@ class Flat(object):
         for element in self.parameters:
             if self.parameters[element][1] != '':
                 if ((self.parameters[element][0] is None) or
-                        (self.parameters[element][0].strip() == '')):
+                        (not self.parameters[element][0].strip())):
                     self.errors.append(self.parameters[element][1])
 
         if len(self.errors) > 0:

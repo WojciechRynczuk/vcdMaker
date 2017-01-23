@@ -40,6 +40,8 @@ class Executor(object):
         """
         self.executable = executable
         self.tests = tests
+        self.output_filename = ''
+        self.golden_filename = ''
 
     def run(self):
         """Runs the tests.
@@ -54,61 +56,105 @@ class Executor(object):
         passed = 0
         for test in self.tests:
             cmd = [self.executable, *test.get_command()]
+            print(*cmd)
             subprocess.run(cmd, stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL)
-            if (self.compareGoldAndOutput(test.get_golden_file(),
-                                          test.get_output_file()) is True):
+            self.output_filename = test.get_output_file()
+            self.golden_filename = test.get_golden_file()
+            if self.is_gold_and_output_equal():
                 os.remove(test.get_output_file())
                 passed += 1
             else:
                 failed += 1
         return failed, failed, failed+passed
 
-    def compareGoldAndOutput(self, golden_filename, output_filename):
-        """Compares given files.
-
-        First three lines can actually change because they contain date
-        and version info. Those lines from ouput file are matched against
-        patterns.
-
-        Arguments:
-        golden_filename-- name of a gold file
-        outputFileName -- name of a vcdMaker generated file
+    def is_gold_and_output_equal(self):
+        """Compares the output and the golden file.
 
         Returns:
-        True if gold and output are equal, false otherwise.
+        True if the golden and the output are equal, false otherwise.
         """
 
-        with open(golden_filename) as gold_file, open(output_filename) as output_file:
-            gold_file.readline()
-            output_date_line = output_file.readline()
+        with open(self.golden_filename) as golden_file, open(self.output_filename) as output_file:
 
-            if not re.match(r'\$date .+\d\d?, \d\d\d\d \d\d:\d\d:\d\d',
-                            output_date_line):
-                print('FAIL: DATE WRONG IN {}'.format(output_filename))
+            if not self.is_date_equal(golden_file, output_file):
                 return False
 
-            gold_date_end_line = gold_file.readline()
-            output_date_end_line = output_file.readline()
-
-            if output_date_end_line != gold_date_end_line:
-                print('FAIL: DATE END WRONG IN {}'.format(output_filename))
+            if not self.is_version_equal(golden_file, output_file):
                 return False
 
-            gold_file.readline()
-            output_version_line = output_file.readline()
-
-            if not re.match(r'\$version ', output_version_line):
-                print('FAIL: VERSION WRONG IN {}'.format(output_filename))
+            if not self.is_body_equal(golden_file, output_file):
                 return False
 
-            line_nubmer = 4
-            for gold_line, output_line in itertools.zip_longest(gold_file, output_file):
-                if output_line != gold_line:
-                    print('FAIL: {} DOESN\'T EQUAL {} AT LINE {}'.format(output_filename, golden_filename, line_nubmer))
-                    return False
-
-                line_nubmer += 1
-
-            print('PASS: {} EQUALS {}'.format(output_filename, golden_filename))
+            print('PASS: {} EQUALS {}'.format(self.output_filename, self.golden_filename))
             return True
+
+    def is_date_equal(self, golden_file, output_file):
+        """Compares dates.
+
+        Arguments:
+        golden_file - the golden file handle
+        output_file - the output file handle
+
+        Returns:
+        True if dates are matching, false otherwise.
+        """
+
+        golden_file.readline()
+        output_date_line = output_file.readline()
+
+        if not re.match(r'\$date .+\d\d?, \d\d\d\d \d\d:\d\d:\d\d',
+                        output_date_line):
+            print('FAIL: DATE WRONG IN {}'.format(self.output_filename))
+            return False
+
+        gold_date_end_line = golden_file.readline()
+        output_date_end_line = output_file.readline()
+
+        if output_date_end_line != gold_date_end_line:
+            print('FAIL: DATE END WRONG IN {}'.format(self.output_filename))
+            return False
+
+        return True
+
+    def is_version_equal(self, golden_file, output_file):
+        """Compares versions.
+
+        Arguments:
+        golden_file - the golden file handle
+        output_file - the output file handle
+
+        Returns:
+        True if versions are matching, false otherwise.
+        """
+
+        golden_file.readline()
+        output_version_line = output_file.readline()
+
+        if not re.match(r'\$version ', output_version_line):
+            print('FAIL: VERSION WRONG IN {}'.format(self.output_filename))
+            return False
+
+        return True
+
+    def is_body_equal(self, golden_file, output_file):
+        """Compares bodies.
+
+        Arguments:
+        golden_file - the golden file handle
+        output_file - the output file handle
+
+        Returns:
+        True if bodies are matching, false otherwise.
+        """
+
+        line_nubmer = 4
+        for gold_line, output_line in itertools.zip_longest(golden_file, output_file):
+            if output_line != gold_line:
+                print('FAIL: {} DOESN\'T EQUAL {} AT LINE {}'.format(self.output_filename, self.golden_filename, line_nubmer))
+                return False
+
+            line_nubmer += 1
+
+        print('PASS: {} EQUALS {}'.format(self.output_filename, self.golden_filename))
+        return True

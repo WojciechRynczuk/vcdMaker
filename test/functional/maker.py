@@ -57,7 +57,7 @@ class Maker(object):
         self.command.append('-t')
         self.command.append(self.unique.get_parameter('time_unit'))
 
-        if (self.unique.get_parameter('line_counter')) is not None:
+        if self.unique.get_parameter('line_counter'):
             self.command.append('-c')
             self.command.append(self.unique.get_parameter('line_counter'))
 

@@ -50,11 +50,11 @@ class Source(object):
 
     def create_source(self, test_directory):
         """Builds the list of source parameters."""
-        self.source = [self.data.get_parameter('format'), ',',
-                       self.data.get_parameter('time_stamp'), ',',
-                       self.data.get_parameter('time_unit'), ',',
-                       self.data.get_parameter('prefix'), ',',
-                       self.data.get_parameter('line_counter'), ',',
+        self.source = [self.data.get_parameter('format'),
+                       self.data.get_parameter('time_stamp'),
+                       self.data.get_parameter('time_unit'),
+                       self.data.get_parameter('prefix'),
+                       self.data.get_parameter('line_counter'),
                        os.path.join(test_directory,
                                     self.data.get_parameter('input_file'))]
 
@@ -63,11 +63,11 @@ class Source(object):
         to vcdMerge.
         """
 
-        return ''.join(self.source)
+        return ','.join(self.source)
 
 
 class Sources(object):
-    """A place holder for sources."""
+    """A container for sources."""
 
     def __init__(self, node, test_directory):
         """The Sources class constructor.
@@ -119,7 +119,7 @@ class Merge(object):
         self.command.append(os.path.join(test_directory,
                                          self.common.get_parameter('output_file')))
 
-        if (self.unique.get_parameter('time_unit')) is not None:
+        if self.unique.get_parameter('time_unit'):
             self.command.append('-t')
             self.command.append(self.unique.get_parameter('time_unit'))
 

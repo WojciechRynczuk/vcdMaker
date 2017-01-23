@@ -10,18 +10,42 @@ $upscope $end
 $scope module B $end
 	$var wire 8 B.Val Val $end
 $upscope $end
+$scope module Top $end
+	$scope module Counter $end
+		$var wire 32 Top.Counter.High High $end
+		$var wire 32 Top.Counter.Low Low $end
+	$upscope $end
+$upscope $end
 $dumpvars
 bxxxxxxxx A.Val
 bxxxxxxxx B.Val
+bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Top.Counter.High
+bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx Top.Counter.Low
 $end
 #1
 b00000100 A.Val
+b00000000000000000000000000000001 Top.Counter.High
+b00000000000000000000000000000001 Top.Counter.Low
 #2
 b00000101 A.Val
+b00000000000000000000000000000010 Top.Counter.High
+b00000000000000000000000000000010 Top.Counter.Low
 #3
 b00001011 B.Val
+b00000000000000000000000000001100 Top.Counter.High
+b00000000000000000000000000001100 Top.Counter.Low
 #4
 b00000110 A.Val
 b00001100 B.Val
+b00000000000000000000000000001101 Top.Counter.High
+b00000000000000000000000000000011 Top.Counter.Low
+#5
+b00000000000000000000000000000100 Top.Counter.High
+b00000000000000000000000000000100 Top.Counter.Low
+#6
+b00000000000000000000000000000101 Top.Counter.High
+b00000000000000000000000000000101 Top.Counter.Low
 #7
 b00001011 A.Val
+b00000000000000000000000000001011 Top.Counter.High
+b00000000000000000000000000000110 Top.Counter.Low

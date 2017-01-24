@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+A sample test definition (containing all tags):
+
+  <maker>
+    <info>
+        <name>Test name</name>
+        <description>Brief test description</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>output_filename</output_file>
+        <golden_file>golden_filename</golden_file>
+    </common>
+    <unique>
+        <input_file>input_filename</input_file>
+        <time_unit>us</time_unit>
+        <line_counter>counter</line_counter>
+    </unique>
+  </maker>
+
+-->
+<test>
+
+  <maker>
+    <info>
+        <name>Smoke test 1</name>
+        <description>It tests the line counter.</description>
+    </info>
+    <common>
+        <output_file>test_001.output</output_file>
+        <golden_file>test_001.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_001.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter>Counter</line_counter>
+    </unique>
+  </maker>
+
+  <maker>
+    <info>
+        <name>Smoke test 2</name>
+        <description>A larger set of signals.</description>
+    </info>
+    <common>
+        <verbose></verbose>
+        <output_file>test_002.output</output_file>
+        <golden_file>test_002.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_002.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter></line_counter>
+    </unique>
+  </maker>
+
+  <maker>
+    <info>
+        <name>Smoke test 3</name>
+        <description>Tests events.</description>
+    </info>
+    <common>
+        <output_file>test_003.output</output_file>
+        <golden_file>test_003.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_003.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter>Cnt</line_counter>
+    </unique>
+  </maker>
+
+</test>

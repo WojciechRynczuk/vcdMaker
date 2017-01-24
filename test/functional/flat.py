@@ -92,8 +92,7 @@ class CommonFlat(Flat):
         """The constructor of the CommonFlat class specifies the common
         test parameters.
         """
-        self.common_params = {'name': ['', ''],
-                              'output_file': ['', 'Missing output file'],
+        self.common_params = {'output_file': ['', 'Missing output file'],
                               'golden_file': ['', 'Missing golden file']}
 
         self.test_directory = test_directory
@@ -110,3 +109,28 @@ class CommonFlat(Flat):
 
         return os.path.join(self.test_directory,
                             self.get_parameter('golden_file'))
+
+
+class InfoFlat(Flat):
+    """The class inheriting from Flat. Designed to handle information test
+    parameters.
+    """
+
+    def __init__(self, node):
+        """The constructor of the CommonFlat class specifies the common
+        test parameters.
+        """
+        self.info_params = {'name': ['', ''],
+                            'description': ['', '']}
+
+        Flat.__init__(self, node, self.info_params)
+
+    def get_test_name(self):
+        """Returns the test name."""
+
+        return self.get_parameter('name')
+
+    def get_test_description(self):
+        """Returns the test description."""
+
+        return self.get_parameter('description')

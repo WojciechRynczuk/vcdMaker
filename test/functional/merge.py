@@ -24,7 +24,8 @@
 
 import os
 
-from flat import Flat, CommonFlat
+from flat import Flat
+from test import Test
 
 
 class Source(object):
@@ -88,7 +89,7 @@ class Sources(object):
         return self.sources
 
 
-class Merge(object):
+class Merge(Test):
     """A vcdMerge specific test class."""
 
     def __init__(self, node, test_directory):
@@ -99,16 +100,15 @@ class Merge(object):
         test_directory - The test directory.
         """
 
+        Test.__init__(self, node, test_directory)
+
         self.command = []
         self.unique_params = {'time_unit': ['', '']}
 
-        for element in node:
-            if (element.tag == 'common'):
-                self.common = CommonFlat(element, test_directory)
-            if (element.tag == 'unique'):
-                self.unique = Flat(element, self.unique_params)
-                for item in element.iter(tag='sources'):
-                    self.sources = Sources(item, test_directory)
+        for element in node.iter(tag='unique'):
+            self.unique = Flat(element, self.unique_params)
+            for item in element.iter(tag='sources'):
+                self.sources = Sources(item, test_directory)
 
         self.create_command(test_directory)
 
@@ -125,18 +125,3 @@ class Merge(object):
 
         for source in self.sources.get():
             self.command.append(source.get())
-
-    def get_command(self):
-        """Returns a list of command line parameters."""
-
-        return self.command
-
-    def get_output_file(self):
-        """Returns the absolute path to the test output file."""
-
-        return self.common.get_output_file()
-
-    def get_golden_file(self):
-        """Returns the absolute path to the test golden file."""
-
-        return self.common.get_golden_file()

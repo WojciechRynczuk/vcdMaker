@@ -31,17 +31,19 @@ import os
 class Executor(object):
     """A test executor class."""
 
-    def __init__(self, executable, tests):
+    def __init__(self, executable, tests, verbose):
         """The test executor class constructor.
 
         Arguments:
         executable - The absolute path to the executable to be tested.
         tests - A list of tests to be executed.
+        verbose - If True the verbose output mode is enabled
         """
         self.executable = executable
         self.tests = tests
         self.output_filename = ''
         self.golden_filename = ''
+        self.verbose = verbose
 
     def run(self):
         """Runs the tests.
@@ -56,6 +58,10 @@ class Executor(object):
         passed = 0
         for test in self.tests:
             cmd = [self.executable, *test.get_command()]
+            if self.verbose:
+                print("TEST: ", test.get_name())
+                print("DESCRIPTION: ", test.get_description())
+                print("RUNNING: ", *cmd)
             subprocess.run(cmd, stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL)
             self.output_filename = test.get_output_file()

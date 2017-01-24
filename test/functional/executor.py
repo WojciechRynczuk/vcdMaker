@@ -56,7 +56,6 @@ class Executor(object):
         passed = 0
         for test in self.tests:
             cmd = [self.executable, *test.get_command()]
-            print(*cmd)
             subprocess.run(cmd, stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL)
             self.output_filename = test.get_output_file()

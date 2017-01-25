@@ -26,6 +26,7 @@ import subprocess
 import itertools
 import re
 import os
+import sys
 
 
 class Executor(object):
@@ -59,13 +60,19 @@ class Executor(object):
         for test in self.tests:
             cmd = [self.executable, *test.get_command()]
             if self.verbose:
-                print("TEST: ", test.get_name())
-                print("DESCRIPTION: ", test.get_description())
-                print("RUNNING: ", *cmd)
-                print(subprocess.getoutput(cmd))
+                print('TEST: ', test.get_name())
+                print('DESCRIPTION: ', test.get_description())
+                print('RUNNING: ', *cmd)
+                ret = subprocess.run(cmd, stdout=subprocess.PIPE,
+                                     stderr=subprocess.STDOUT)
+                print(ret.stdout.decode(sys.stdout.encoding))
             else:
-                subprocess.run(cmd, stdout=subprocess.DEVNULL,
-                               stderr=subprocess.DEVNULL)
+                ret = subprocess.run(cmd, stdout=subprocess.DEVNULL,
+                                     stderr=subprocess.DEVNULL)
+            if ret.returncode > 0:
+                print('Test FAILED for an unknown reason.')
+                failed += 1
+                continue
             self.output_filename = test.get_output_file()
             self.golden_filename = test.get_golden_file()
             if self.is_gold_and_output_equal():

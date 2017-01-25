@@ -62,8 +62,10 @@ class Executor(object):
                 print("TEST: ", test.get_name())
                 print("DESCRIPTION: ", test.get_description())
                 print("RUNNING: ", *cmd)
-            subprocess.run(cmd, stdout=subprocess.DEVNULL,
-                           stderr=subprocess.DEVNULL)
+                print(subprocess.getoutput(cmd))
+            else:
+                subprocess.run(cmd, stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL)
             self.output_filename = test.get_output_file()
             self.golden_filename = test.get_golden_file()
             if self.is_gold_and_output_equal():

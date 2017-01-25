@@ -112,12 +112,12 @@ class CommonFlat(Flat):
 
 
 class InfoFlat(Flat):
-    """The class inheriting from Flat. Designed to handle information test
+    """The class inheriting from Flat. Designed to handle test information
     parameters.
     """
 
     def __init__(self, node):
-        """The constructor of the CommonFlat class specifies the common
+        """The constructor of the InfoFlat class specifies the information
         test parameters.
         """
         self.info_params = {'name': ['', ''],

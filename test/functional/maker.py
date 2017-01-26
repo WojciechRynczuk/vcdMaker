@@ -24,10 +24,11 @@
 
 import os
 
-from flat import Flat, CommonFlat
+from flat import Flat
+from test import Test
 
 
-class Maker(object):
+class Maker(Test):
     """A vcdMaker specific test class."""
 
     def __init__(self, node, test_directory):
@@ -38,16 +39,15 @@ class Maker(object):
         test_directory - The test directory.
         """
 
+        Test.__init__(self, node, test_directory)
+
         self.command = []
         self.unique_params = {'input_file': ['', 'Missing input file'],
                               'time_unit': ['', 'Missing time unit'],
                               'line_counter': ['', '']}
 
-        for element in node:
-            if (element.tag == 'common'):
-                self.common = CommonFlat(element, test_directory)
-            if (element.tag == 'unique'):
-                self.unique = Flat(element, self.unique_params)
+        for element in node.iter(tag='unique'):
+            self.unique = Flat(element, self.unique_params)
 
         self.create_command(test_directory)
 
@@ -66,18 +66,3 @@ class Maker(object):
                                          self.common.get_parameter('output_file')))
         self.command.append(os.path.join(test_directory,
                                          self.unique.get_parameter('input_file')))
-
-    def get_command(self):
-        """Returns a list of command line parameters."""
-
-        return self.command
-
-    def get_output_file(self):
-        """Returns the absolute path to the test output file."""
-
-        return self.common.get_output_file()
-
-    def get_golden_file(self):
-        """Returns the absolute path to the test golden file."""
-
-        return self.common.get_golden_file()

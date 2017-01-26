@@ -259,7 +259,7 @@ get_filename_component(ROOT_DIR ${PROJECT_SOURCE_DIR}/.. ABSOLUTE)
 
 # Add test targets
 
-find_package(PythonInterp 3)
+find_package(PythonInterp 3.5)
 
 if (PYTHONINTERP_FOUND)
     set(COMPARISON_TEST_SCRIPT ${ROOT_DIR}/test/functional/comparison_test.py)

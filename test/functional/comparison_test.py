@@ -52,17 +52,6 @@ def check_arguments(args):
         raise RuntimeError('ERROR: {} doesn\'t exist'.format(args.testdir))
 
 
-def setup_verbose(enable):
-    """Setups global VERBOSE flag and printv function"""
-
-    local_printv = print if enable else lambda *a, **k: None
-    global printv
-    printv = local_printv
-
-    global VERBOSE
-    VERBOSE = enable
-
-
 def main():
     """comparison_test script entry point"""
 
@@ -73,10 +62,9 @@ def main():
     args = parser.parse_args()
 
     check_arguments(args)
-    setup_verbose(args.verbose)
 
     tests = Tests(args.testdir)
-    executor = Executor(args.exec, tests.get_tests())
+    executor = Executor(args.exec, tests.get_tests(), args.verbose)
 
     result, number_failed, number_total = executor.run()
 

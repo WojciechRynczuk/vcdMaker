@@ -258,6 +258,10 @@ if (PYTHONINTERP_FOUND)
                       VERBATIM)
 endif()
 
+# At least Python 3.5 is required
+
+find_package(PythonInterp 3.5)
+
 # Add Doxygen target
 
 find_package(Doxygen)

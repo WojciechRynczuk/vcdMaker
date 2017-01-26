@@ -69,7 +69,7 @@ class Executor(object):
             else:
                 ret = subprocess.run(cmd, stdout=subprocess.DEVNULL,
                                      stderr=subprocess.DEVNULL)
-            if ret.returncode > 0:
+            if ret.returncode != 0:
                 print('Test FAILED for an unknown reason.')
                 failed += 1
                 continue

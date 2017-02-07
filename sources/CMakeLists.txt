@@ -56,6 +56,7 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/LineCounter.cpp
     ${COMMON_SOURCES_DIR}/TimeFrame.cpp
     ${COMMON_SOURCES_DIR}/Utils.cpp
+    ${COMMON_SOURCES_DIR}/Instrument.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
 # Set common header files.
@@ -82,6 +83,7 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/VcdExceptions.h
     ${COMMON_HEADERS_DIR}/TimeFrame.h
     ${COMMON_HEADERS_DIR}/Utils.h
+    ${COMMON_HEADERS_DIR}/Instrument.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h
     ${VERSION_HEADER})
 

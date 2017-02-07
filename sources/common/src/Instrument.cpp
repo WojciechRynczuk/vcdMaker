@@ -1,11 +1,11 @@
-/// @file LogParser.cpp
+/// @file Instrument.cpp
 ///
-/// The log parser interface class.
+/// The instrument interface class.
 ///
 /// @par Full Description
-/// The log parser interface class.
+/// The instrument interface class.
 ///
-/// @ingroup Parser
+/// @ingroup Instrument
 ///
 /// @par Copyright (c) 2017 vcdMaker team
 ///
@@ -27,43 +27,12 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "LogParser.h"
+#include "Instrument.h"
 
-PARSER::LogParser::LogParser(const std::string &filename,
-                             SIGNAL::SourceRegistry &sourceRegistry,
-                             bool verboseMode) :
-    m_pSignalDb(),
-    m_FileName(filename),
-    m_LogFile(m_FileName),
-    m_SourceHandle(sourceRegistry.Register(filename)),
-    m_VerboseMode(verboseMode)
+INSTRUMENT::Instrument::Instrument(SIGNAL::SourceRegistry &sourceRegistry,
+                                   SIGNAL::SignalDb &signalDb,
+                                   std::string &sourceName) :
+    m_rSignalDb(signalDb)
 {
-    if (!m_LogFile.is_open())
-    {
-        throw std::runtime_error("Opening file '" + m_FileName +
-                                 "' failed, it either doesn't exist or is inaccessible.");
-    }
+    m_InstrumentHandle = sourceRegistry.Register(sourceName);
 }
-
-void PARSER::LogParser::Attach(INSTRUMENT::Instrument &instrument)
-{
-    m_vpInstruments.push_back(&instrument);
-}
-
-void PARSER::LogParser::TerminateInstruments()
-{
-    for (auto instrument : m_vpInstruments)
-    {
-        instrument->Terminate();
-    }
-}
-
-void PARSER::LogParser::Execute()
-{
-    // Process the log.
-    Parse();
-
-    // Trigger the final action of instruments.
-    TerminateInstruments();
-}
-

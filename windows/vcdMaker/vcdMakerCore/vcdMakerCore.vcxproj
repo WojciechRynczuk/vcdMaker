@@ -143,6 +143,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\EventSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Instrument.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\Instrument.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\LineCounter.cpp" />

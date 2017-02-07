@@ -6,9 +6,9 @@
 /// The object of this class allows for keeping a record of the line
 /// counting information. It is supposed to be used by the text parser.
 ///
-/// @ingroup Parser
+/// @ingroup Instrument
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,41 +32,38 @@
 
 #include <climits>
 
-#include "SignalDb.h"
+#include "Instrument.h"
 
-namespace PARSER
+namespace INSTRUMENT
 {
     /// The line counter class.
-    class LineCounter
+    class LineCounter : public Instrument
     {
         public:
-            /// A line number type (integral type).
-            using LineNumberT = size_t;
-
             /// The line counter constructor.
             ///
             /// If the counter name does not provide the top module name
             /// it will be automatically set to "Top".
             ///
+            /// @param filename The name of the file associated with the counter.
             /// @param counterName The counter signal name.
-            LineCounter(const std::string &counterName);
+            /// @param sourceRegistry Signal sources registry.
+            /// @param signalDb The signal database to be used.
+            LineCounter(const std::string &filename,
+                        const std::string &counterName,
+                        SIGNAL::SourceRegistry &sourceRegistry,
+                        SIGNAL::SignalDb &signalDb);
 
-            /// Updates the line counting information.
-            ///
-            /// @param timestamp The time the signal has been registered.
-            /// @param lineNumber The line number referencing to the signal's occurrence.
-            void Update(uint64_t timestamp, LineNumberT lineNumber);
+            /// @copydoc Instrument::Notify()
+            void Notify(LineNumberT lineNumber, const SIGNAL::Signal &signal);
 
-            /// Adds line counter signal to given database.
-            ///
-            /// @param signalDb Signal database.
-            /// @param sourceHandle Signal source handle.
-            void RecordToSignalDb(SIGNAL::SignalDb &signalDb,
-                                  SIGNAL::SourceRegistry::HandleT sourceHandle);
+            /// @copydoc Instrument::Terminate()
+            void Terminate() const;
 
         private:
             /// The counter value.
-            class CounterValue {
+            class CounterValue
+            {
                 public:
                     /// The low boundary of the line counter.
                     LineNumberT m_LineLow = 0;
@@ -85,6 +82,9 @@ namespace PARSER
             static constexpr size_t COUNTER_SIGNAL_SIZE =
                 sizeof(LineNumberT) * CHAR_BIT;
 
+            /// Line counter suffix for name in source registry.
+            static const std::string LINE_COUNTER_SUFFIX;
+
             /// Default name for "Top" module.
             static const std::string DEFAULT_TOP_MODULE_NAME;
 
@@ -95,13 +95,13 @@ namespace PARSER
             static const std::string HIGH_COUNTER_NAME;
 
             /// The counter name.
-            const std::string m_CounterName{};
+            const std::string m_CounterName {};
 
             /// The name of the counter signal low boundary.
-            const std::string m_CounterNameLow{};
+            const std::string m_CounterNameLow {};
 
             /// The name of the counter signal high boundary.
-            const std::string m_CounterNameHigh{};
+            const std::string m_CounterNameHigh {};
 
             /// The counter storage.
             CounterSignalT m_Counter{};

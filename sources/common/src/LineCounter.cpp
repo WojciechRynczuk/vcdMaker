@@ -6,9 +6,9 @@
 /// The object of this class allows for keeping a record of the line
 /// counting information. It is supposed to be used by the text parser.
 ///
-/// @ingroup Parser
+/// @ingroup Instrument
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -28,24 +28,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-
 #include "LineCounter.h"
-
 #include "ISignal.h"
 
-const std::string PARSER::LineCounter::DEFAULT_TOP_MODULE_NAME = "Top";
-const std::string PARSER::LineCounter::HIGH_COUNTER_NAME = "High";
-const std::string PARSER::LineCounter::LOW_COUNTER_NAME = "Low";
+const std::string INSTRUMENT::LineCounter::LINE_COUNTER_SUFFIX = "-LineCounter";
+const std::string INSTRUMENT::LineCounter::DEFAULT_TOP_MODULE_NAME = "Top";
+const std::string INSTRUMENT::LineCounter::HIGH_COUNTER_NAME = "High";
+const std::string INSTRUMENT::LineCounter::LOW_COUNTER_NAME = "Low";
 
-PARSER::LineCounter::LineCounter(const std::string &counterName) :
+INSTRUMENT::LineCounter::LineCounter(const std::string &filename,
+                                     const std::string &counterName,
+                                     SIGNAL::SourceRegistry &sourceRegistry,
+                                     SIGNAL::SignalDb &signalDb) :
+    Instrument(sourceRegistry, signalDb, filename + LINE_COUNTER_SUFFIX),
     m_CounterName(CreateCounterName(counterName)),
     m_CounterNameLow(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + LOW_COUNTER_NAME),
     m_CounterNameHigh(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + HIGH_COUNTER_NAME)
 {
 }
 
-void PARSER::LineCounter::Update(uint64_t timestamp, LineNumberT lineNumber)
+void INSTRUMENT::LineCounter::Notify(LineNumberT lineNumber, const SIGNAL::Signal &signal)
 {
+    uint64_t timestamp = signal.GetTimestamp();
     // Check if the source has been already registered.
     const CounterSignalT::iterator it = m_Counter.find(timestamp);
 
@@ -72,8 +76,7 @@ void PARSER::LineCounter::Update(uint64_t timestamp, LineNumberT lineNumber)
     }
 }
 
-void PARSER::LineCounter::RecordToSignalDb(SIGNAL::SignalDb &signalDb,
-                                           SIGNAL::SourceRegistry::HandleT sourceHandle)
+void INSTRUMENT::LineCounter::Terminate() const
 {
     for (const auto &counterRecord : m_Counter)
     {
@@ -82,20 +85,20 @@ void PARSER::LineCounter::RecordToSignalDb(SIGNAL::SignalDb &signalDb,
                                 COUNTER_SIGNAL_SIZE,
                                 counterRecord.first,
                                 counterRecord.second.m_LineLow,
-                                sourceHandle);
-        signalDb.Add(low_counter);
+                                m_InstrumentHandle);
+        m_rSignalDb.Add(low_counter);
 
         SIGNAL::ISignal *high_counter =
             new SIGNAL::ISignal(m_CounterNameHigh,
                                 COUNTER_SIGNAL_SIZE,
                                 counterRecord.first,
                                 counterRecord.second.m_LineHigh,
-                                sourceHandle);
-        signalDb.Add(high_counter);
+                                m_InstrumentHandle);
+        m_rSignalDb.Add(high_counter);
     }
 }
 
-std::string PARSER::LineCounter::CreateCounterName(const std::string &desiredName)
+std::string INSTRUMENT::LineCounter::CreateCounterName(const std::string &desiredName)
 {
     const std::string::size_type delim_position =
         desiredName.find(SIGNAL::Signal::SIGNAL_NAME_DELIM);

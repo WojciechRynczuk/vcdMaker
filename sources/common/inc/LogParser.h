@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -39,8 +39,10 @@
 #include <fstream>
 #include <memory>
 #include <sstream>
+#include <vector>
 
 #include "SignalDb.h"
+#include "Instrument.h"
 
 namespace PARSER
 {
@@ -49,10 +51,16 @@ namespace PARSER
     {
         public:
 
-            /// Returns reference to the signal database.
+            /// Returns the const reference to the signal database.
             const SIGNAL::SignalDb &GetSignalDb() const
             {
                 return *(m_pSignalDb.get());
+            }
+
+            /// Returns the non-const reference to the signal database.
+            SIGNAL::SignalDb &GetSignalDb()
+            {
+                return const_cast<SIGNAL::SignalDb &>((this)->GetSignalDb());
             }
 
             /// Moves ownership of signal database somewhere else.
@@ -60,6 +68,17 @@ namespace PARSER
             {
                 return std::move(m_pSignalDb);
             }
+
+            /// Invokes the parser.
+            void Execute();
+
+            /// Attaches an instrument to the parser.
+            ///
+            /// @param instrument An instrument to be attached.
+            void Attach(INSTRUMENT::Instrument &instrument);
+
+            /// Triggers the final instrument actions.
+            void TerminateInstruments();
 
         protected:
 
@@ -75,8 +94,14 @@ namespace PARSER
                       SIGNAL::SourceRegistry &sourceRegistry,
                       bool verboseMode);
 
+            /// Triggers parsing the source.
+            virtual void Parse() = 0;
+
             /// The signal database.
             std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
+
+            /// Instruments.
+            std::vector<INSTRUMENT::Instrument *> m_vpInstruments;
 
             /// The input file name.
             std::string m_FileName;

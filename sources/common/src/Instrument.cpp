@@ -31,7 +31,7 @@
 
 INSTRUMENT::Instrument::Instrument(SIGNAL::SourceRegistry &sourceRegistry,
                                    SIGNAL::SignalDb &signalDb,
-                                   std::string &sourceName) :
+                                   const std::string &sourceName) :
     m_rSignalDb(signalDb)
 {
     m_InstrumentHandle = sourceRegistry.Register(sourceName);

@@ -54,13 +54,13 @@ namespace PARSER
             /// Returns the const reference to the signal database.
             const SIGNAL::SignalDb &GetSignalDb() const
             {
-                return *(m_pSignalDb.get());
+                return const_cast<SIGNAL::SignalDb &>((this)->GetSignalDb());
             }
 
             /// Returns the non-const reference to the signal database.
             SIGNAL::SignalDb &GetSignalDb()
             {
-                return const_cast<SIGNAL::SignalDb &>((this)->GetSignalDb());
+                return *(m_pSignalDb.get());
             }
 
             /// Moves ownership of signal database somewhere else.

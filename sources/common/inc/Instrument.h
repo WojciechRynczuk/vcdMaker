@@ -74,7 +74,7 @@ namespace INSTRUMENT
             /// @param sourceName A source name.
             Instrument(SIGNAL::SourceRegistry &sourceRegistry,
                        SIGNAL::SignalDb &signalDb,
-                       std::string &sourceName);
+                       const std::string &sourceName);
 
             /// The signal database.
             SIGNAL::SignalDb &m_rSignalDb;

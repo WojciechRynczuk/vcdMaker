@@ -73,10 +73,13 @@ void MERGE::SignalSource::Create()
                              m_rSignalRegistry,
                              m_VerboseMode);
 
+    // Line counter.
+    INSTRUMENT::LineCounter *lineCounter = NULL;
+
     if (m_LineCounter.size())
     {
         // Register the line counting instrument.
-        INSTRUMENT::LineCounter *lineCounter = new INSTRUMENT::LineCounter(m_Filename,
+        lineCounter = new INSTRUMENT::LineCounter(m_Filename,
                 m_LineCounter,
                 m_rSignalRegistry,
                 parser.GetSignalDb());
@@ -85,6 +88,12 @@ void MERGE::SignalSource::Create()
 
     // Start parsing.
     parser.Execute();
+
+    // Line counter is no longer needed.
+    if (lineCounter)
+    {
+        delete lineCounter;
+    }
 
     m_pSignalDb = parser.MoveSignalDb();
 }

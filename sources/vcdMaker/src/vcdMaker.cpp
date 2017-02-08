@@ -46,6 +46,9 @@ int main(int argc, const char *argv[])
     // Source registry.
     SIGNAL::SourceRegistry registry;
 
+    // Line counter.
+    INSTRUMENT::LineCounter *lineCounter = NULL;
+
     try
     {
         // Create the log parser.
@@ -57,7 +60,7 @@ int main(int argc, const char *argv[])
         if (cli.GetLineCounterName().size())
         {
             // Register the line counting instrument.
-            INSTRUMENT::LineCounter *lineCounter = new INSTRUMENT::LineCounter(cli.GetInputFileName(),
+            lineCounter = new INSTRUMENT::LineCounter(cli.GetInputFileName(),
                     cli.GetLineCounterName(),
                     registry,
                     txtLog.GetSignalDb());
@@ -66,6 +69,12 @@ int main(int argc, const char *argv[])
 
         // Start parsing.
         txtLog.Execute();
+
+        // Line counter is no longer needed.
+        if (lineCounter)
+        {
+            delete lineCounter;
+        }
 
         // Create the VCD tracer and dump the output file.
         TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),

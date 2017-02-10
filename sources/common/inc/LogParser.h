@@ -95,7 +95,7 @@ namespace PARSER
                       bool verboseMode);
 
             /// The log parser destructor.
-            virtual ~LogParser() = 0 {};
+            virtual ~LogParser() = 0;
 
             /// Triggers parsing the source.
             virtual void Parse() = 0;

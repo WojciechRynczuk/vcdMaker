@@ -119,4 +119,6 @@ namespace PARSER
             bool m_VerboseMode;
     };
 
+	inline LogParser::~LogParser() = default;
+
 }

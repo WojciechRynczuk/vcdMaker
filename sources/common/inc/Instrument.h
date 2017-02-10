@@ -86,4 +86,6 @@ namespace INSTRUMENT
             SIGNAL::SourceRegistry::HandleT m_InstrumentHandle;
     };
 
+	inline Instrument::~Instrument() = default;
+
 }

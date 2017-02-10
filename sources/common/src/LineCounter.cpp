@@ -36,20 +36,20 @@ const std::string INSTRUMENT::LineCounter::DEFAULT_TOP_MODULE_NAME = "Top";
 const std::string INSTRUMENT::LineCounter::HIGH_COUNTER_NAME = "High";
 const std::string INSTRUMENT::LineCounter::LOW_COUNTER_NAME = "Low";
 
-INSTRUMENT::LineCounter::LineCounter(const std::string &filename,
-                                     const std::string &counterName,
-                                     SIGNAL::SourceRegistry &sourceRegistry,
-                                     SIGNAL::SignalDb &signalDb) :
-    Instrument(sourceRegistry, signalDb, filename + LINE_COUNTER_SUFFIX),
-    m_CounterName(CreateCounterName(counterName)),
+INSTRUMENT::LineCounter::LineCounter(const std::string &rFilename,
+                                     const std::string &rCounterName,
+                                     SIGNAL::SourceRegistry &rSourceRegistry,
+                                     SIGNAL::SignalDb &rSignalDb) :
+    Instrument(rSourceRegistry, rSignalDb, rFilename + LINE_COUNTER_SUFFIX),
+    m_CounterName(CreateCounterName(rCounterName)),
     m_CounterNameLow(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + LOW_COUNTER_NAME),
     m_CounterNameHigh(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + HIGH_COUNTER_NAME)
 {
 }
 
-void INSTRUMENT::LineCounter::Notify(LineNumberT lineNumber, const SIGNAL::Signal &signal)
+void INSTRUMENT::LineCounter::Notify(LineNumberT lineNumber, const SIGNAL::Signal &rSignal)
 {
-    uint64_t timestamp = signal.GetTimestamp();
+    uint64_t timestamp = rSignal.GetTimestamp();
     // Check if the source has been already registered.
     const CounterSignalT::iterator it = m_Counter.find(timestamp);
 
@@ -98,24 +98,24 @@ void INSTRUMENT::LineCounter::Terminate() const
     }
 }
 
-std::string INSTRUMENT::LineCounter::CreateCounterName(const std::string &desiredName)
+std::string INSTRUMENT::LineCounter::CreateCounterName(const std::string &rDesiredName)
 {
     const std::string::size_type delim_position =
-        desiredName.find(SIGNAL::Signal::SIGNAL_NAME_DELIM);
+        rDesiredName.find(SIGNAL::Signal::SIGNAL_NAME_DELIM);
 
     if (delim_position != std::string::npos)
     {
         if (delim_position == 0)
         {
-            return (DEFAULT_TOP_MODULE_NAME + desiredName);
+            return (DEFAULT_TOP_MODULE_NAME + rDesiredName);
         }
         else
         {
-            return desiredName;
+            return rDesiredName;
         }
     }
     else
     {
-        return (DEFAULT_TOP_MODULE_NAME + SIGNAL::Signal::SIGNAL_NAME_DELIM + desiredName);
+        return (DEFAULT_TOP_MODULE_NAME + SIGNAL::Signal::SIGNAL_NAME_DELIM + rDesiredName);
     }
 }

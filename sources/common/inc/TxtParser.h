@@ -47,18 +47,21 @@ namespace PARSER
             /// @param timeBase The time base used in the log.
             /// @param sourceRegistry Signal sources registry.
             /// @param verboseMode Value 'true' enables the verbose mode.
-            TxtParser(const std::string &filename,
-                      const std::string &timeBase,
-                      SIGNAL::SourceRegistry &sourceRegistry,
+            TxtParser(const std::string &rFilename,
+                      const std::string &rTimeBase,
+                      SIGNAL::SourceRegistry &rSourceRegistry,
                       bool verboseMode);
 
             /// The destructor.
             ~TxtParser();
 
-        private:
+        protected:
 
             /// Parses the input file.
-            void Parse();
+            virtual void Parse();
+
+
+        private:
 
             /// The number of valid lines.
             uint64_t m_ValidLines;

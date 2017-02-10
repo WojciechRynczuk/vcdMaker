@@ -29,13 +29,13 @@
 
 #include "LogParser.h"
 
-PARSER::LogParser::LogParser(const std::string &filename,
-                             SIGNAL::SourceRegistry &sourceRegistry,
+PARSER::LogParser::LogParser(const std::string &rFilename,
+                             SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
     m_pSignalDb(),
-    m_FileName(filename),
+    m_FileName(rFilename),
     m_LogFile(m_FileName),
-    m_SourceHandle(sourceRegistry.Register(filename)),
+    m_SourceHandle(rSourceRegistry.Register(rFilename)),
     m_VerboseMode(verboseMode)
 {
     if (!m_LogFile.is_open())
@@ -45,9 +45,9 @@ PARSER::LogParser::LogParser(const std::string &filename,
     }
 }
 
-void PARSER::LogParser::Attach(INSTRUMENT::Instrument &instrument)
+void PARSER::LogParser::Attach(INSTRUMENT::Instrument &rInstrument)
 {
-    m_vpInstruments.push_back(&instrument);
+    m_vpInstruments.push_back(&rInstrument);
 }
 
 void PARSER::LogParser::TerminateInstruments()
@@ -60,10 +60,7 @@ void PARSER::LogParser::TerminateInstruments()
 
 void PARSER::LogParser::Execute()
 {
-    // Process the log.
     Parse();
-
-    // Trigger the final action of instruments.
     TerminateInstruments();
 }
 

@@ -32,16 +32,16 @@
 #include "TxtParser.h"
 #include "SignalFactory.h"
 
-PARSER::TxtParser::TxtParser(const std::string &filename,
-                             const std::string &timeBase,
-                             SIGNAL::SourceRegistry &sourceRegistry,
+PARSER::TxtParser::TxtParser(const std::string &rFilename,
+                             const std::string &rTimeBase,
+                             SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
-    LogParser(filename, sourceRegistry, verboseMode),
+    LogParser(rFilename, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
-    m_SourceHandle(sourceRegistry.Register(filename))
+    m_SourceHandle(rSourceRegistry.Register(rFilename))
 {
-    m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(timeBase);
+    m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(rTimeBase);
 }
 
 PARSER::TxtParser::~TxtParser()

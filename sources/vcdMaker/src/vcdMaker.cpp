@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "VCDTracer.h"
 #include "CliMaker.h"
@@ -46,9 +47,6 @@ int main(int argc, const char *argv[])
     // Source registry.
     SIGNAL::SourceRegistry registry;
 
-    // Line counter.
-    INSTRUMENT::LineCounter *lineCounter = NULL;
-
     try
     {
         // Create the log parser.
@@ -57,24 +55,21 @@ int main(int argc, const char *argv[])
                                  registry,
                                  cli.IsVerboseMode());
 
-        if (cli.GetLineCounterName().size())
+        // Line counter.
+        std::unique_ptr<INSTRUMENT::LineCounter> lineCounter;
+
+        if (!cli.GetLineCounterName().empty())
         {
             // Register the line counting instrument.
-            lineCounter = new INSTRUMENT::LineCounter(cli.GetInputFileName(),
-                    cli.GetLineCounterName(),
-                    registry,
-                    txtLog.GetSignalDb());
+            lineCounter = std::make_unique<INSTRUMENT::LineCounter>(cli.GetInputFileName(),
+                                                                    cli.GetLineCounterName(),
+                                                                    registry,
+                                                                    txtLog.GetSignalDb());
             txtLog.Attach(*lineCounter);
         }
 
         // Start parsing.
         txtLog.Execute();
-
-        // Line counter is no longer needed.
-        if (lineCounter)
-        {
-            delete lineCounter;
-        }
 
         // Create the VCD tracer and dump the output file.
         TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),

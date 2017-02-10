@@ -49,16 +49,16 @@ namespace INSTRUMENT
             /// @param counterName The counter signal name.
             /// @param sourceRegistry Signal sources registry.
             /// @param signalDb The signal database to be used.
-            LineCounter(const std::string &filename,
-                        const std::string &counterName,
-                        SIGNAL::SourceRegistry &sourceRegistry,
-                        SIGNAL::SignalDb &signalDb);
+            LineCounter(const std::string &rFilename,
+                        const std::string &rCounterName,
+                        SIGNAL::SourceRegistry &rSourceRegistry,
+                        SIGNAL::SignalDb &rSignalDb);
 
             /// @copydoc Instrument::Notify()
-            void Notify(LineNumberT lineNumber, const SIGNAL::Signal &signal);
+            virtual void Notify(LineNumberT lineNumber, const SIGNAL::Signal &rSignal);
 
             /// @copydoc Instrument::Terminate()
-            void Terminate() const;
+            virtual void Terminate() const;
 
         private:
             /// The counter value.
@@ -76,7 +76,7 @@ namespace INSTRUMENT
             using CounterSignalT = std::map<uint64_t, CounterValue>;
 
             /// Creates counter name based on desired name.
-            std::string CreateCounterName(const std::string &desiredName);
+            std::string CreateCounterName(const std::string &rDesiredName);
 
             /// Size of the counter signal.
             static constexpr size_t COUNTER_SIGNAL_SIZE =
@@ -95,13 +95,13 @@ namespace INSTRUMENT
             static const std::string HIGH_COUNTER_NAME;
 
             /// The counter name.
-            const std::string m_CounterName {};
+            const std::string m_CounterName{};
 
             /// The name of the counter signal low boundary.
-            const std::string m_CounterNameLow {};
+            const std::string m_CounterNameLow{};
 
             /// The name of the counter signal high boundary.
-            const std::string m_CounterNameHigh {};
+            const std::string m_CounterNameHigh{};
 
             /// The counter storage.
             CounterSignalT m_Counter{};

@@ -127,8 +127,5 @@
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\sources\common\src\Instrument.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

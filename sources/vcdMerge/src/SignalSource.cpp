@@ -30,6 +30,7 @@
 
 #include <array>
 #include <algorithm>
+#include <memory>
 
 #include "SignalSource.h"
 #include "LineCounter.h"
@@ -74,26 +75,20 @@ void MERGE::SignalSource::Create()
                              m_VerboseMode);
 
     // Line counter.
-    INSTRUMENT::LineCounter *lineCounter = NULL;
+    std::unique_ptr<INSTRUMENT::LineCounter> lineCounter;
 
-    if (m_LineCounter.size())
+    if (!m_LineCounter.empty())
     {
         // Register the line counting instrument.
-        lineCounter = new INSTRUMENT::LineCounter(m_Filename,
-                m_LineCounter,
-                m_rSignalRegistry,
-                parser.GetSignalDb());
+        lineCounter = std::make_unique<INSTRUMENT::LineCounter>(m_Filename,
+                                                                m_LineCounter,
+                                                                m_rSignalRegistry,
+                                                                parser.GetSignalDb());
         parser.Attach(*lineCounter);
     }
 
     // Start parsing.
     parser.Execute();
-
-    // Line counter is no longer needed.
-    if (lineCounter)
-    {
-        delete lineCounter;
-    }
 
     m_pSignalDb = parser.MoveSignalDb();
 }

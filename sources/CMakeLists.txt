@@ -56,7 +56,6 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/LineCounter.cpp
     ${COMMON_SOURCES_DIR}/TimeFrame.cpp
     ${COMMON_SOURCES_DIR}/Utils.cpp
-    ${COMMON_SOURCES_DIR}/Instrument.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
 # Set common header files.

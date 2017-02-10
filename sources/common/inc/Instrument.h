@@ -54,7 +54,7 @@ namespace INSTRUMENT
             ///
             /// @param lineNumber The line number.
             /// @param signal The signal.
-            virtual void Notify(LineNumberT lineNumber, const SIGNAL::Signal &signal) = 0;
+            virtual void Notify(LineNumberT lineNumber, const SIGNAL::Signal &rSignal) = 0;
 
             /// Signalize the instrument the end of the parsing process.
             virtual void Terminate() const = 0;
@@ -68,9 +68,16 @@ namespace INSTRUMENT
             /// @param sourceRegistry A signal sources registry.
             /// @param signalDb A signal database.
             /// @param sourceName A source name.
-            Instrument(SIGNAL::SourceRegistry &sourceRegistry,
-                       SIGNAL::SignalDb &signalDb,
-                       const std::string &sourceName);
+            Instrument(SIGNAL::SourceRegistry &rSourceRegistry,
+                       SIGNAL::SignalDb &rSignalDb,
+                       const std::string &rSourceName) :
+                m_rSignalDb(rSignalDb)
+            {
+                m_InstrumentHandle = rSourceRegistry.Register(rSourceName);
+            }
+
+            /// The instrument destructor.
+            virtual ~Instrument() = 0 { };
 
             /// The signal database.
             SIGNAL::SignalDb &m_rSignalDb;

@@ -165,7 +165,6 @@
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
-    <ClCompile Include="..\..\..\sources\common\src\Instrument.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\LineCounter.cpp" />

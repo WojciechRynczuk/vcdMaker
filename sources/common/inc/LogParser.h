@@ -75,10 +75,10 @@ namespace PARSER
             /// Attaches an instrument to the parser.
             ///
             /// @param instrument An instrument to be attached.
-            void Attach(INSTRUMENT::Instrument &instrument);
+            virtual void Attach(INSTRUMENT::Instrument &rInstrument);
 
             /// Triggers the final instrument actions.
-            void TerminateInstruments();
+            virtual void TerminateInstruments();
 
         protected:
 
@@ -90,9 +90,12 @@ namespace PARSER
             /// @param filename The name of the log file to be open.
             /// @param verboseMode Value 'true' enables the verbose mode.
             /// @param sourceRegistry Signal sources registry.
-            LogParser(const std::string &filename,
-                      SIGNAL::SourceRegistry &sourceRegistry,
+            LogParser(const std::string &rFilename,
+                      SIGNAL::SourceRegistry &rSourceRegistry,
                       bool verboseMode);
+
+            /// The log parser destructor.
+            virtual ~LogParser() = 0 {};
 
             /// Triggers parsing the source.
             virtual void Parse() = 0;

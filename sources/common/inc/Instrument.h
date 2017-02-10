@@ -37,10 +37,6 @@
 /// The group is designed to provide instruments (observers) which can
 /// be hooked into log parsers.
 
-#include <fstream>
-#include <memory>
-#include <sstream>
-
 #include "SignalDb.h"
 
 namespace INSTRUMENT

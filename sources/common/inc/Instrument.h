@@ -77,7 +77,7 @@ namespace INSTRUMENT
             }
 
             /// The instrument destructor.
-            virtual ~Instrument() = 0 { };
+            virtual ~Instrument() = 0;
 
             /// The signal database.
             SIGNAL::SignalDb &m_rSignalDb;

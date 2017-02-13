@@ -36,12 +36,11 @@ PARSER::TxtParser::TxtParser(const std::string &rFilename,
                              const std::string &rTimeBase,
                              SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
-    LogParser(rFilename, rSourceRegistry, verboseMode),
+    LogParser(rFilename, rTimeBase, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
     m_SourceHandle(rSourceRegistry.Register(rFilename))
 {
-    m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(rTimeBase);
 }
 
 PARSER::TxtParser::~TxtParser()

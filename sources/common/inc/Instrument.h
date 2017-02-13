@@ -71,9 +71,9 @@ namespace INSTRUMENT
             Instrument(SIGNAL::SourceRegistry &rSourceRegistry,
                        SIGNAL::SignalDb &rSignalDb,
                        const std::string &rSourceName) :
-                m_rSignalDb(rSignalDb)
+                m_rSignalDb(rSignalDb),
+                m_InstrumentHandle(rSourceRegistry.Register(rSourceName))
             {
-                m_InstrumentHandle = rSourceRegistry.Register(rSourceName);
             }
 
             /// The instrument destructor.
@@ -86,6 +86,6 @@ namespace INSTRUMENT
             SIGNAL::SourceRegistry::HandleT m_InstrumentHandle;
     };
 
-	inline Instrument::~Instrument() = default;
+    inline Instrument::~Instrument() = default;
 
 }

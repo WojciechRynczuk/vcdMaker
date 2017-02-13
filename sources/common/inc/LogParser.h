@@ -88,9 +88,11 @@ namespace PARSER
             /// It opens the input log file and sets the verbose mode.
             ///
             /// @param filename The name of the log file to be open.
+            /// @param timeBase The time base used in the log.
             /// @param verboseMode Value 'true' enables the verbose mode.
             /// @param sourceRegistry Signal sources registry.
             LogParser(const std::string &rFilename,
+                      const std::string &rTimeBase,
                       SIGNAL::SourceRegistry &rSourceRegistry,
                       bool verboseMode);
 
@@ -119,6 +121,6 @@ namespace PARSER
             bool m_VerboseMode;
     };
 
-	inline LogParser::~LogParser() = default;
+    inline LogParser::~LogParser() = default;
 
 }

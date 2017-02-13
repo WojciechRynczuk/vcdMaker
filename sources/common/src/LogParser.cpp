@@ -30,9 +30,10 @@
 #include "LogParser.h"
 
 PARSER::LogParser::LogParser(const std::string &rFilename,
+                             const std::string &rTimeBase,
                              SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
-    m_pSignalDb(),
+    m_pSignalDb(std::make_unique<SIGNAL::SignalDb>(rTimeBase)),
     m_FileName(rFilename),
     m_LogFile(m_FileName),
     m_SourceHandle(rSourceRegistry.Register(rFilename)),

@@ -2,7 +2,7 @@
 ///
 /// The main module of the vcdMaker application.
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -24,11 +24,13 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "VCDTracer.h"
 #include "CliMaker.h"
 #include "TxtParser.h"
 #include "SourceRegistry.h"
+#include "LineCounter.h"
 #include "VcdExceptions.h"
 
 ///  The vcdMaker main function.
@@ -47,12 +49,27 @@ int main(int argc, const char *argv[])
 
     try
     {
-        // Parse the log file.
+        // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
                                  cli.GetTimebase(),
                                  registry,
-                                 cli.GetLineCounterName(),
                                  cli.IsVerboseMode());
+
+        // Line counter.
+        std::unique_ptr<INSTRUMENT::LineCounter> lineCounter;
+
+        if (!cli.GetLineCounterName().empty())
+        {
+            // Register the line counting instrument.
+            lineCounter = std::make_unique<INSTRUMENT::LineCounter>(cli.GetInputFileName(),
+                                                                    cli.GetLineCounterName(),
+                                                                    registry,
+                                                                    txtLog.GetSignalDb());
+            txtLog.Attach(*lineCounter);
+        }
+
+        // Start parsing.
+        txtLog.Execute();
 
         // Create the VCD tracer and dump the output file.
         TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(),

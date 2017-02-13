@@ -74,6 +74,9 @@
     <ClInclude Include="..\..\..\sources\common\inc\Version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\Instrument.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp">

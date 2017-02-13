@@ -30,8 +30,10 @@
 
 #include <array>
 #include <algorithm>
+#include <memory>
 
 #include "SignalSource.h"
+#include "LineCounter.h"
 #include "Utils.h"
 
 MERGE::SignalSource::SignalSource(const std::string &description,
@@ -70,8 +72,23 @@ void MERGE::SignalSource::Create()
     PARSER::TxtParser parser(m_Filename,
                              m_TimeUnit,
                              m_rSignalRegistry,
-                             m_LineCounter,
                              m_VerboseMode);
+
+    // Line counter.
+    std::unique_ptr<INSTRUMENT::LineCounter> lineCounter;
+
+    if (!m_LineCounter.empty())
+    {
+        // Register the line counting instrument.
+        lineCounter = std::make_unique<INSTRUMENT::LineCounter>(m_Filename,
+                                                                m_LineCounter,
+                                                                m_rSignalRegistry,
+                                                                parser.GetSignalDb());
+        parser.Attach(*lineCounter);
+    }
+
+    // Start parsing.
+    parser.Execute();
 
     m_pSignalDb = parser.MoveSignalDb();
 }

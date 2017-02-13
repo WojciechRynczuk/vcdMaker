@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -39,8 +39,10 @@
 #include <fstream>
 #include <memory>
 #include <sstream>
+#include <vector>
 
 #include "SignalDb.h"
+#include "Instrument.h"
 
 namespace PARSER
 {
@@ -49,8 +51,14 @@ namespace PARSER
     {
         public:
 
-            /// Returns reference to the signal database.
+            /// Returns the const reference to the signal database.
             const SIGNAL::SignalDb &GetSignalDb() const
+            {
+                return const_cast<SIGNAL::SignalDb &>((this)->GetSignalDb());
+            }
+
+            /// Returns the non-const reference to the signal database.
+            SIGNAL::SignalDb &GetSignalDb()
             {
                 return *(m_pSignalDb.get());
             }
@@ -61,6 +69,17 @@ namespace PARSER
                 return std::move(m_pSignalDb);
             }
 
+            /// Invokes the parser.
+            void Execute();
+
+            /// Attaches an instrument to the parser.
+            ///
+            /// @param instrument An instrument to be attached.
+            virtual void Attach(INSTRUMENT::Instrument &rInstrument);
+
+            /// Triggers the final instrument actions.
+            virtual void TerminateInstruments();
+
         protected:
 
             /// The log parser constructor.
@@ -69,14 +88,25 @@ namespace PARSER
             /// It opens the input log file and sets the verbose mode.
             ///
             /// @param filename The name of the log file to be open.
+            /// @param timeBase The time base used in the log.
             /// @param verboseMode Value 'true' enables the verbose mode.
             /// @param sourceRegistry Signal sources registry.
-            LogParser(const std::string &filename,
-                      SIGNAL::SourceRegistry &sourceRegistry,
+            LogParser(const std::string &rFilename,
+                      const std::string &rTimeBase,
+                      SIGNAL::SourceRegistry &rSourceRegistry,
                       bool verboseMode);
+
+            /// The log parser destructor.
+            virtual ~LogParser() = 0;
+
+            /// Triggers parsing the source.
+            virtual void Parse() = 0;
 
             /// The signal database.
             std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
+
+            /// Instruments.
+            std::vector<INSTRUMENT::Instrument *> m_vpInstruments;
 
             /// The input file name.
             std::string m_FileName;
@@ -90,5 +120,7 @@ namespace PARSER
             /// Verbose mode.
             bool m_VerboseMode;
     };
+
+    inline LogParser::~LogParser() = default;
 
 }

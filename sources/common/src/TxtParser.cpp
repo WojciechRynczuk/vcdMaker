@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,38 +32,15 @@
 #include "TxtParser.h"
 #include "SignalFactory.h"
 
-const std::string PARSER::TxtParser::LINE_COUNTER_SUFFIX = "-LineCounter";
-
-PARSER::TxtParser::TxtParser(const std::string &filename,
-                             const std::string &timeBase,
-                             SIGNAL::SourceRegistry &sourceRegistry,
-                             const std::string &lineCounter,
+PARSER::TxtParser::TxtParser(const std::string &rFilename,
+                             const std::string &rTimeBase,
+                             SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
-    LogParser(filename, sourceRegistry, verboseMode),
+    LogParser(rFilename, rTimeBase, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
-    m_SourceHandle(sourceRegistry.Register(filename)),
-    m_LineCounter(lineCounter),
-    m_LineCounterEnabled(!lineCounter.empty()),
-    m_LineCounterSourceHandle(SIGNAL::SourceRegistry::BAD_HANDLE)
+    m_SourceHandle(rSourceRegistry.Register(rFilename))
 {
-    m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(timeBase);
-
-    // Check if the line counter has been enabled
-    if (m_LineCounterEnabled)
-    {
-        m_LineCounterSourceHandle = sourceRegistry.Register(m_FileName + LINE_COUNTER_SUFFIX);
-    }
-
-    // Process the log
-    Parse();
-
-    // Dump the line counting information.
-    if (m_LineCounterEnabled)
-    {
-        m_LineCounter.RecordToSignalDb(*(m_pSignalDb.get()),
-                                       m_LineCounterSourceHandle);
-    }
 }
 
 PARSER::TxtParser::~TxtParser()
@@ -80,7 +57,7 @@ void PARSER::TxtParser::Parse()
     const SignalFactory signal_factory;
 
     // Line counter.
-    LineCounter::LineNumberT line_number = 1;
+    INSTRUMENT::Instrument::LineNumberT line_number = 1;
 
     // Process the log file.
     std::string input_line;
@@ -92,9 +69,9 @@ void PARSER::TxtParser::Parse()
         if (signal)
         {
             m_pSignalDb->Add(signal);
-            if (m_LineCounterEnabled)
+            for (auto instrument : m_vpInstruments)
             {
-                m_LineCounter.Update(signal->GetTimestamp(), line_number);
+                instrument->Notify(line_number, *signal);
             }
             ++m_ValidLines;
         }

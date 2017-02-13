@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -30,7 +30,6 @@
 #pragma once
 
 #include "LogParser.h"
-#include "LineCounter.h"
 
 namespace PARSER
 {
@@ -47,25 +46,22 @@ namespace PARSER
             /// @param filename The name of the log file to be open.
             /// @param timeBase The time base used in the log.
             /// @param sourceRegistry Signal sources registry.
-            /// @param lineCounter The name of the line counting signal
-            ///        or empty if not used.
             /// @param verboseMode Value 'true' enables the verbose mode.
-            TxtParser(const std::string &filename,
-                      const std::string &timeBase,
-                      SIGNAL::SourceRegistry &sourceRegistry,
-                      const std::string &lineCounter,
+            TxtParser(const std::string &rFilename,
+                      const std::string &rTimeBase,
+                      SIGNAL::SourceRegistry &rSourceRegistry,
                       bool verboseMode);
 
             /// The destructor.
             ~TxtParser();
 
-        private:
+        protected:
 
             /// Parses the input file.
-            void Parse();
+            virtual void Parse();
 
-            /// Line counter suffix for name in source registry.
-            static const std::string LINE_COUNTER_SUFFIX;
+
+        private:
 
             /// The number of valid lines.
             uint64_t m_ValidLines;
@@ -75,15 +71,6 @@ namespace PARSER
 
             /// The signal source handle.
             SIGNAL::SourceRegistry::HandleT m_SourceHandle;
-
-            /// The line counter.
-            LineCounter m_LineCounter;
-
-            /// The line counter mode.
-            bool m_LineCounterEnabled;
-
-            /// The line counter signal source handle.
-            SIGNAL::SourceRegistry::HandleT m_LineCounterSourceHandle;
     };
 
 }

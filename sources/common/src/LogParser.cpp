@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,13 +29,14 @@
 
 #include "LogParser.h"
 
-PARSER::LogParser::LogParser(const std::string &filename,
-                             SIGNAL::SourceRegistry &sourceRegistry,
+PARSER::LogParser::LogParser(const std::string &rFilename,
+                             const std::string &rTimeBase,
+                             SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
-    m_pSignalDb(),
-    m_FileName(filename),
+    m_pSignalDb(std::make_unique<SIGNAL::SignalDb>(rTimeBase)),
+    m_FileName(rFilename),
     m_LogFile(m_FileName),
-    m_SourceHandle(sourceRegistry.Register(filename)),
+    m_SourceHandle(rSourceRegistry.Register(rFilename)),
     m_VerboseMode(verboseMode)
 {
     if (!m_LogFile.is_open())
@@ -44,3 +45,23 @@ PARSER::LogParser::LogParser(const std::string &filename,
                                  "' failed, it either doesn't exist or is inaccessible.");
     }
 }
+
+void PARSER::LogParser::Attach(INSTRUMENT::Instrument &rInstrument)
+{
+    m_vpInstruments.push_back(&rInstrument);
+}
+
+void PARSER::LogParser::TerminateInstruments()
+{
+    for (auto instrument : m_vpInstruments)
+    {
+        instrument->Terminate();
+    }
+}
+
+void PARSER::LogParser::Execute()
+{
+    Parse();
+    TerminateInstruments();
+}
+

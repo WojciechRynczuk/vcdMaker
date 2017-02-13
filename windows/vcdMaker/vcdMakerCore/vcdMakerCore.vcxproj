@@ -143,6 +143,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\EventSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Instrument.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h" />

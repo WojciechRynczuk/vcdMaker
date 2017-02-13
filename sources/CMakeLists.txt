@@ -82,6 +82,7 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/VcdExceptions.h
     ${COMMON_HEADERS_DIR}/TimeFrame.h
     ${COMMON_HEADERS_DIR}/Utils.h
+    ${COMMON_HEADERS_DIR}/Instrument.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h
     ${VERSION_HEADER})
 

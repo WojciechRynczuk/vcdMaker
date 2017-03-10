@@ -30,7 +30,7 @@
 /// Version component macros.
 /// Also used by CMake to get application version.
 /// @{
-#define D_VERSION_MAJOR 2
+#define D_VERSION_MAJOR 3
 #define D_VERSION_MINOR 0
 #define D_VERSION_PATCH 1
 /// @}

@@ -3,7 +3,7 @@
 <?define UpgradeCode="3A563016-E31D-4D93-A36B-105420BA6E57"?>
 
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='vcdMaker $(var.ProductVersionInfo)' Id='E11FE905-A80F-4764-B77C-AC7EADDF98CE' UpgradeCode='$(var.UpgradeCode)'
+  <Product Name='vcdMaker $(var.ProductVersionInfo)' Id='3A142969-4CD6-48F2-AB64-D44F690E7193' UpgradeCode='$(var.UpgradeCode)'
     Language='1033' Codepage='1252' Version='$(var.ProductVersion)' Manufacturer='vcdMaker team'>
 
     <Package Id='*' Keywords='vcdMaker Installer'
@@ -17,7 +17,7 @@
     <Upgrade Id='$(var.UpgradeCode)'>
     <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
         Minimum='1.0.0' IncludeMinimum='yes'
-        Maximum='2.0.1' IncludeMaximum='no' />
+        Maximum='3.0.1' IncludeMaximum='no' />
     </Upgrade>
 
     <Media Id='1' Cabinet='Install.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
@@ -28,25 +28,25 @@
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
         <Directory Id='INSTALLDIR' Name='vcdMaker'>
 
-          <Component Id='vcdMakerExecutable' Guid='5A12ED7E-8977-44D3-BB79-70B7130718F2'>
+          <Component Id='vcdMakerExecutable' Guid='15247FDC-7EA8-4931-B96A-DD3B3926B74E'>
             <Environment Id='UpdatePath' Name='PATH' Action='set' Permanent='no' System='no' Part='last' Value='[INSTALLDIR]' />
             <File Id='vcdMakerEXE' Name='$(var.vcdMaker.TargetFileName)' DiskId='1' Source='$(var.vcdMaker.TargetPath)' KeyPath='yes'>
             </File>
           </Component>
 
-          <Component Id='vcdMergeExecutable' Guid='4D660398-6AB3-4B41-BD90-D77581B91A89'>
+          <Component Id='vcdMergeExecutable' Guid='2E82E953-9A3F-4AC0-A4C0-9F352C0ACDF1'>
             <File Id='vcdMergeEXE' Name='$(var.vcdMerge.TargetFileName)' DiskId='1' Source='$(var.vcdMerge.TargetPath)' KeyPath='yes'>
             </File>
           </Component>
 
-          <Component Id='vcdMakerManual' Guid='F3A2D8F6-2FE0-4CE9-9A67-C41BBF3F5824'>
+          <Component Id='vcdMakerManual' Guid='11B39AA4-49B4-4D18-AE33-3D278BC8BE84'>
             <File Id="ManualPdf" Name="Manual.pdf" Source="$(var.SolutionDir)..\..\sources\common\doc\manual.pdf" KeyPath='yes'>
               <Shortcut Id="vcdMakerManualLnk" Directory="ProgramMenuDir" Name="vcdMaker $(var.ProductVersionInfo) Manual" WorkingDirectory='INSTALLDIR' IconIndex="0" Advertise="yes" />
             </File>
           </Component>
           
           <Directory Id='SampleDir' Name='samples'>
-            <Component Id='SampleFiles' Guid='00CB08B4-C7F5-4CCD-AF3F-854F68138B68'>
+            <Component Id='SampleFiles' Guid='59F4E01F-5FE3-48B3-97A2-8E7808E6EED7'>
               <File Id="SampleTtx" Name="example.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.txt" KeyPath='yes'></File>
               <File Id="SampleVcd" Name="example.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.vcd"></File>
               <File Id="System1Time1Txt" Name="system1_time1.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system1_time1.txt"></File>
@@ -62,7 +62,7 @@
 
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuDir" Name="vcdMaker $(var.ProductVersionInfo)">
-          <Component Id="ProgramMenuDir" Guid="8CE0301F-EEC9-4696-B0E8-74F9C1942495">
+          <Component Id="ProgramMenuDir" Guid="59CBFDEC-3666-4313-9DF6-D6B97768FFD5">
             <RemoveFolder Id='ProgramMenuDir' On='uninstall' />
             <RegistryValue Root='HKCU' Key='Software\[Manufacturer]\[ProductName]' Type='string' Value='' KeyPath='yes' />
           </Component>

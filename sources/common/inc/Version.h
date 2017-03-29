@@ -5,7 +5,7 @@
 /// @par Full Description
 /// Version information header.
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -33,6 +33,7 @@
 #define D_VERSION_MAJOR 3
 #define D_VERSION_MINOR 0
 #define D_VERSION_PATCH 1
+#define D_RELEASE_NAME  "Perun"
 /// @}
 
 /// Stringification helpers.
@@ -58,6 +59,9 @@ constexpr int PATCH = D_VERSION_PATCH;
 /// Application version string.
 constexpr const char *STRING = MAKE_VERSION_STR;
 
+/// Application release name.
+constexpr const char *RELEASE_NAME = D_RELEASE_NAME;
+
 }
 
 // Now clean up.
@@ -67,3 +71,4 @@ constexpr const char *STRING = MAKE_VERSION_STR;
 #undef D_VERSION_PATCH
 #undef D_VERSION_MINOR
 #undef D_VERSION_MAJOR
+#undef D_RELEASE_NAME

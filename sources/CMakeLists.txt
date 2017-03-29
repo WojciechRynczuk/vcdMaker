@@ -264,8 +264,8 @@ find_package(PythonInterp 3.5)
 
 if (PYTHONINTERP_FOUND)
     set(COMPARISON_TEST_SCRIPT ${ROOT_DIR}/test/functional/comparison_test.py)
-    set(MAKER_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
-    set(MERGE_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMerge/test)
+    set(MAKER_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test/functional)
+    set(MERGE_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMerge/test/functional)
 
     add_custom_target(comparisonTest
                       COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${MAKER_COMPARISON_TEST_DIR}

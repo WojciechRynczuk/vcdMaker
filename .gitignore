@@ -287,3 +287,12 @@ paket-files/
 *.exe
 *.out
 *.app
+
+# Created by https://www.gitignore.io/api/python
+# (few lines only)
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

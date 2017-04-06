@@ -2,7 +2,7 @@
 #
 # vcdMaker and vcdMerge CMake file.
 #
-# Copyright (c) 2016 vcdMaker team
+# Copyright (c) 2017 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -260,6 +260,14 @@ get_filename_component(ROOT_DIR ${PROJECT_SOURCE_DIR}/.. ABSOLUTE)
 
 # Add test targets
 
+enable_testing()
+
+add_custom_target(check
+                  COMMAND ${CMAKE_CTEST_COMMAND} -V
+                  COMMENT "vcdMaker test suite")
+
+# Functional tests
+
 find_package(PythonInterp 3.5)
 
 if (PYTHONINTERP_FOUND)
@@ -274,6 +282,37 @@ if (PYTHONINTERP_FOUND)
                       COMMENT "vcdMaker commparison test"
                       VERBATIM)
 endif()
+
+# Unit tests
+
+set(COMMON_UT_DIR common/test/unitTest)
+
+set(CATCH_HEADERS_DIR 3rdParty/catch/single_include)
+
+set(OUTPUT_UT_DIR output/ut)
+
+set(COMMON_UT_TARGET utCommon)
+
+# Function for unit test creation.
+function(add_vcdtools_ut UT_NAME UT_SOURCES)
+    add_executable(${UT_NAME} EXCLUDE_FROM_ALL $<TARGET_OBJECTS:${COMMON_UT_TARGET}> ${UT_SOURCES})
+
+    target_include_directories(${UT_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${VMAKER_HEADERS_DIR} ${VMERGE_HEADERS_DIR} ${CATCH_HEADERS_DIR})
+
+    add_common_vcdtools_target_props(${UT_NAME})
+
+    set_target_properties(${UT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_UT_DIR})
+
+    add_test(NAME ${UT_NAME}
+             COMMAND ${UT_NAME} --use-colour yes)
+    add_dependencies(check ${UT_NAME})
+endfunction(add_vcdtools_ut)
+
+add_library(${COMMON_UT_TARGET} OBJECT ${COMMON_UT_DIR}/UtMain.cpp)
+
+target_include_directories(${COMMON_UT_TARGET} PUBLIC ${CATCH_HEADERS_DIR})
+
+add_common_vcdtools_target_props(${COMMON_UT_TARGET})
 
 # Add Doxygen target
 

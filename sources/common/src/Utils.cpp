@@ -7,7 +7,7 @@
 ///
 /// @ingroup Utils
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -43,7 +43,10 @@ std::vector<std::string> UTILS::Split(const std::string &inString,
 
     while (std::getline(inStream, outField, delimiter))
     {
-        outStrings.push_back(outField);
+        if (!outField.empty())
+        {
+            outStrings.push_back(outField);
+        }
     }
 
     return outStrings;

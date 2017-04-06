@@ -286,6 +286,7 @@ endif()
 # Unit tests
 
 set(COMMON_UT_DIR common/test/unitTest)
+set(COMMON_UT_STUB_DIR common/test/unitTest/stub)
 
 set(CATCH_HEADERS_DIR 3rdParty/catch/single_include)
 
@@ -313,6 +314,13 @@ add_library(${COMMON_UT_TARGET} OBJECT ${COMMON_UT_DIR}/UtMain.cpp)
 target_include_directories(${COMMON_UT_TARGET} PUBLIC ${CATCH_HEADERS_DIR})
 
 add_common_vcdtools_target_props(${COMMON_UT_TARGET})
+
+set(UT_UTILS_SOURCES
+    ${COMMON_UT_DIR}/Utils.cpp
+    ${COMMON_UT_STUB_DIR}/Signal.cpp
+    ${COMMON_SOURCES_DIR}/Utils.cpp)
+
+add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")
 
 # Add Doxygen target
 

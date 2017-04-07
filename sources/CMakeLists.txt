@@ -322,6 +322,12 @@ set(UT_UTILS_SOURCES
 
 add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")
 
+set(UT_SOURCE_REGISTRY_SOURCES
+    ${COMMON_UT_DIR}/SourceRegistry.cpp
+    ${COMMON_SOURCES_DIR}/SourceRegistry.cpp)
+
+add_vcdtools_ut(utSourceRegistry "${UT_SOURCE_REGISTRY_SOURCES}")
+
 # Add Doxygen target
 
 find_package(Doxygen)

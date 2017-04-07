@@ -27,5 +27,13 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+/// @defgroup UnitTest UnitTest
+///
+/// @brief vcdMaker and vcdMerge unit tests.
+///
+/// @par Full Description
+/// The group consists of the unit test files: actual unit test sources
+/// and stubs.
+
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"

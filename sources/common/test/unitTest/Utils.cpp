@@ -2,9 +2,6 @@
 ///
 /// The utilities unit test.
 ///
-/// @par Full Description
-/// Unit test for the utilities used among vcdMaker applications.
-///
 /// @ingroup UnitTest
 ///
 /// @par Copyright (c) 2017 vcdMaker team

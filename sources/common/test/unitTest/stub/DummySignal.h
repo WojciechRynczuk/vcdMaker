@@ -39,7 +39,9 @@ class DummySignal : public SIGNAL::Signal
 
         /// Dummy values used to construct dummy signal.
         /// @{
-        static const size_t DUMMY_SIZE = 1;
+        static constexpr const char *DUMMY_NAME = "signal";
+        static const size_t DUMMY_SIZE = 32;
+        static const uint64_t DUMMY_TIMESTAMP = 0;
         static constexpr const char *DUMMY_TYPE = "dummy";
         static const SIGNAL::SourceRegistry::HandleT DUMMY_HANDLE = 1;
         /// @}
@@ -78,6 +80,13 @@ class DummySignal : public SIGNAL::Signal
         /// @copydoc Signal::EqualTo()
         virtual bool EqualTo(Signal const &other) const
         {
-            return (GetName() == other.GetName());
+            if (DummySignal const *p = dynamic_cast<DummySignal const *>(&other))
+            {
+                return (m_Name == p->m_Name);
+            }
+            else
+            {
+                return false;
+            }
         }
 };

@@ -315,18 +315,20 @@ target_include_directories(${COMMON_UT_TARGET} PUBLIC ${CATCH_HEADERS_DIR})
 
 add_common_vcdtools_target_props(${COMMON_UT_TARGET})
 
-set(UT_UTILS_SOURCES
-    ${COMMON_UT_DIR}/Utils.cpp
-    ${COMMON_UT_STUB_DIR}/Signal.cpp
-    ${COMMON_SOURCES_DIR}/Utils.cpp)
 
-add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")
 
 set(UT_SOURCE_REGISTRY_SOURCES
     ${COMMON_UT_DIR}/SourceRegistry.cpp
     ${COMMON_SOURCES_DIR}/SourceRegistry.cpp)
 
 add_vcdtools_ut(utSourceRegistry "${UT_SOURCE_REGISTRY_SOURCES}")
+
+set(UT_UTILS_SOURCES
+    ${COMMON_UT_DIR}/Utils.cpp
+    ${COMMON_UT_STUB_DIR}/Signal.cpp
+    ${COMMON_SOURCES_DIR}/Utils.cpp)
+
+add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")
 
 # Add Doxygen target
 

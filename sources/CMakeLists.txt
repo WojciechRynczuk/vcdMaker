@@ -322,6 +322,12 @@ set(UT_SIGNAL_SOURCES
 
 add_vcdtools_ut(utSignal "${UT_SIGNAL_SOURCES}")
 
+set(UT_ISIGNAL_SOURCES
+    ${COMMON_UT_DIR}/ISignal.cpp
+    ${COMMON_SOURCES_DIR}/ISignal.cpp)
+
+add_vcdtools_ut(utISignal "${UT_ISIGNAL_SOURCES}")
+
 set(UT_SOURCE_REGISTRY_SOURCES
     ${COMMON_UT_DIR}/SourceRegistry.cpp
     ${COMMON_SOURCES_DIR}/SourceRegistry.cpp)

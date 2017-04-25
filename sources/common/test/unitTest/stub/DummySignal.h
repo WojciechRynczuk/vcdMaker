@@ -3,7 +3,7 @@
 /// The dummy signal class.
 ///
 /// @par Full Description
-/// The dummy signal class. It implements Signal interface for Unit Test
+/// The dummy signal class that implements Signal interface for unit test
 /// purposes.
 ///
 /// @ingroup UnitTest
@@ -37,9 +37,12 @@ class DummySignal : public SIGNAL::Signal
 {
     public:
 
+        /// Dummy values used to construct dummy signal.
+        /// @{
         static const size_t DUMMY_SIZE = 1;
         static constexpr const char *DUMMY_TYPE = "dummy";
         static const SIGNAL::SourceRegistry::HandleT DUMMY_HANDLE = 1;
+        /// @}
 
         /// Dumy signal signal constructor.
         DummySignal(const std::string &name,

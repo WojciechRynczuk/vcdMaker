@@ -2,9 +2,6 @@
 ///
 /// Signal class stub for unit tests.
 ///
-/// @par Full Description
-/// Signal class stub for unit tests.
-///
 /// @ingroup UnitTest
 ///
 /// @par Copyright (c) 2017 vcdMaker team

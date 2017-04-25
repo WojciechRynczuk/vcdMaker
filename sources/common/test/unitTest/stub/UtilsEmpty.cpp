@@ -1,9 +1,9 @@
 /// @file UtilsEmpty.cpp
 ///
-/// Utils stub for unit tests.
+/// Utilities stub for unit tests.
 ///
 /// @par Full Description
-/// Utils stub for unit tests. Contains dummy empty functions.
+/// To make compliation possible. Contains dummy empty functions.
 ///
 /// @ingroup UnitTest
 ///

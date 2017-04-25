@@ -1,4 +1,4 @@
-/// @file Utils.cpp
+/// @file SourceRegistry.cpp
 ///
 /// Unit test for SourceRegistry class.
 ///

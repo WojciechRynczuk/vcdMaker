@@ -309,7 +309,7 @@ function(add_vcdtools_ut UT_NAME UT_SOURCES)
     add_dependencies(check ${UT_NAME})
 endfunction(add_vcdtools_ut)
 
-add_library(${COMMON_UT_TARGET} OBJECT ${COMMON_UT_DIR}/UtMain.cpp)
+add_library(${COMMON_UT_TARGET} EXCLUDE_FROM_ALL OBJECT ${COMMON_UT_DIR}/UtMain.cpp)
 
 target_include_directories(${COMMON_UT_TARGET} PUBLIC ${CATCH_HEADERS_DIR})
 

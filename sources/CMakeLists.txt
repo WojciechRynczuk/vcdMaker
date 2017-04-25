@@ -315,7 +315,12 @@ target_include_directories(${COMMON_UT_TARGET} PUBLIC ${CATCH_HEADERS_DIR})
 
 add_common_vcdtools_target_props(${COMMON_UT_TARGET})
 
+set(UT_SIGNAL_SOURCES
+    ${COMMON_UT_DIR}/Signal.cpp
+    ${COMMON_UT_STUB_DIR}/UtilsEmpty.cpp
+    ${COMMON_SOURCES_DIR}/Signal.cpp)
 
+add_vcdtools_ut(utSignal "${UT_SIGNAL_SOURCES}")
 
 set(UT_SOURCE_REGISTRY_SOURCES
     ${COMMON_UT_DIR}/SourceRegistry.cpp

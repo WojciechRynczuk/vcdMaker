@@ -8,7 +8,7 @@
 ///
 /// @ingroup Tracer
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -63,7 +63,7 @@ void TRACER::VCDTracer::GenerateBasicInformation()
 {
     DumpLine("$date December 8, 2014 14:15:00");
     DumpLine("$end");
-    DumpLine("$version VCD Tracer \"Mateusz\" Release v." + std::string(VERSION::STRING));
+    DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME) + "\" Release v." + std::string(VERSION::STRING));
     DumpLine("$end");
     DumpLine("$timescale 1 " + m_rSignalDb.GetTimeUnit());
     DumpLine("$end");

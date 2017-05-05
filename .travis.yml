@@ -32,7 +32,7 @@ addons:
       name: vcdMaker
       version: v3.0
       description: Coverity Scan by Travis CI
-      notification_email: vcdmaker@mail.com
+    notification_email: vcdmaker@mail.com
     build_command_prepend: "cov-configure --comptype gcc --compiler g++-6 --template && cmake ."
     build_command: "make"
     branch_pattern: coverity_scan

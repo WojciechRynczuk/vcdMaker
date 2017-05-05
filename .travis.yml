@@ -6,6 +6,14 @@ dist: trusty
 python:
   - "3.5"
 
+env:
+  global:
+    #COVERITY_SCAN_TOKEN
+    - secure: "OtVLkLQ+O18ZOxFCVTotdxWwxOqE0HcCh7LEguFPpPOp5KX9JsBrRdN8Hq689AK+GnQVuYVHkRPdiduYq8CUoLppZy0AMus7muJp2bdnotwufOIZ0r9lqzau9F4HKcdg8LBjyoHq2gnJZgNsSlrma9AGJ8nKBlVCsOJU/2DB0zJ0ufUR92otRsbKlF0TFXC2SARHYL1fgjoJBtwtKyUkHcn5/85EZjUeZGVvvRIA1oqFN2ksHv2QSevSb4auZgi8Gz4LdkQFfWa+SYDoguMYDZCkJRg4kP/ciuAxWfulroXUyAHOGvg29AwkK7hpnFCiGCxm+mOoDousBrJymuqdblwyTzy3d84i1QZQWEAaSROuPA/cpmSPHBvx+H/YTkmdPKXp46728I1wSILOclN1icWll9KhuiDMGY48e2Zmux5SKuLTjg1wzFNrVEwLeiGT7kExWXeKdPMRo/xmH2vPDlBUVrl2z12RRinpGLW0lgG70f5EJl0K30ArNXmFfFZ775nUBokc9nVgK/bjA9t2olRlOC3tzkhgZnDYp7N/AudKeOnpsWeZEQjf9p/o7SjvMvqgbGXL6kZ74n8Jkau1nKIB+9viplLpBInxEYyMSZ/9qFZf3roYmBVYRA8v6G6PsFagYnqp4vl1zGjiO49KEW1jEF56gWKRYuYHQOaebsI="
+    #Compilers
+    - CC=gcc-6
+    - CXX=g++-6
+
 #Disable the default Travis submodule behavior.
 git:
   submodules: false
@@ -19,6 +27,16 @@ addons:
     - g++-6
     - txt2man
 
+  coverity_scan:
+    project:
+      name: vcdMaker
+      version: v3.0
+      description: Coverity Scan by Travis CI
+      notification_email: vcdmaker@mail.com
+    build_command_prepend: "cov-configure --comptype gcc --compiler g++-6 --template && cmake ."
+    build_command: "make"
+    branch_pattern: coverity_scan
+
 # Blocklist - branches not to be built. RegEx is allowed.
 branches:
   except:
@@ -29,12 +47,11 @@ branches:
   only:
   - master
   - v3_release
+  - coverity_scan
 
 before_script:
   - git submodule update --init --recursive
   - cd ./sources
-  - export CC=gcc-6
-  - export CXX=g++-6
 
 script:
   - cmake .

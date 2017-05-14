@@ -45,6 +45,7 @@
 
 #include "SourceRegistry.h"
 
+/// Signal handling.
 namespace SIGNAL
 {
     /// The base VCD signal class. The integer and real signal classes

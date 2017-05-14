@@ -157,8 +157,11 @@
     <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Utils.h" />
-    <ClInclude Include="..\..\..\sources\common\inc\VcdExceptions.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VcdError.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VcdException.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VcdExceptionList.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VcdWarning.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Version.h" />
   </ItemGroup>
   <ItemGroup>

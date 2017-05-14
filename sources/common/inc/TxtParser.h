@@ -31,6 +31,7 @@
 
 #include "LogParser.h"
 
+/// Log parser.
 namespace PARSER
 {
     /// The text log parser class.
@@ -43,9 +44,9 @@ namespace PARSER
             /// This constructor is used by the vcdMaker app.
             /// It opens the input log file, sets the timebase and the verbose mode.
             ///
-            /// @param filename The name of the log file to be open.
-            /// @param timeBase The time base used in the log.
-            /// @param sourceRegistry Signal sources registry.
+            /// @param rFilename The name of the log file to be open.
+            /// @param rTimeBase The time base used in the log.
+            /// @param rSourceRegistry Signal sources registry.
             /// @param verboseMode Value 'true' enables the verbose mode.
             TxtParser(const std::string &rFilename,
                       const std::string &rTimeBase,

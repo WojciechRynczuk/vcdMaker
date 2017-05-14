@@ -7,7 +7,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -34,6 +34,41 @@
 
 #include "Merge.h"
 #include "Utils.h"
+#include "VcdWarning.h"
+
+/// The synchronization time out of bounds.
+class SynchronizationTimeOutOfBounds : public EXCEPTION::VcdWarning
+{
+    public:
+        /// The warning constructor.
+        ///
+        /// @param rSource The full warning description.
+        SynchronizationTimeOutOfBounds(const std::string &rSource) :
+            VcdWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
+                       "Synchronization time out of bounds.Cannot merge " + rSource + ".")
+        {
+        }
+};
+
+/// The timestamp out of bounds.
+class TimestampOutOfBounds : public EXCEPTION::VcdWarning
+{
+    public:
+        /// The warning constructor.
+        ///
+        /// @param rSignalName The name of the troublesome signal.
+        /// @param timestamp The timestamp of the signal.
+        /// @param rTimeUnit The time unit of the signal.
+        TimestampOutOfBounds(const std::string &rSignalName, uint64_t timestamp, const std::string &rTimeUnit) :
+            VcdWarning(EXCEPTION::Warning::TIMESTAMP_OUT_OF_BOUNDS,
+                       std::string("Timestamp out of bounds. Cannot merge " +
+                                   rSignalName +
+                                   " at " +
+                                   std::to_string(timestamp) + " " +
+                                   rTimeUnit))
+        {
+        }
+};
 
 const uint64_t MERGE::Merge::TEN_POWER[] =
 {
@@ -79,10 +114,7 @@ void MERGE::Merge::Run()
         }
         catch (std::runtime_error &)
         {
-            std::cout << "Synchronization time out of bounds. Cannot merge "
-                      << source->GetDescription()
-                      << "."
-                      << '\n';
+            SynchronizationTimeOutOfBounds warning(source->GetDescription());
             continue;
         }
 
@@ -101,12 +133,8 @@ void MERGE::Merge::Run()
             }
             catch (std::runtime_error &)
             {
-                std::cout << "Timestamp out of bounds. Cannot merge "
-                          << signal->GetName()
-                          << " at "
-                          << signal->GetTimestamp() << " "
-                          << source->GetTimeUnit()
-                          << '\n';
+                TimestampOutOfBounds warning(signal->GetName(), signal->GetTimestamp(), source->GetTimeUnit());
+
                 delete signal;
                 continue;
             }
@@ -153,15 +181,15 @@ uint64_t MERGE::Merge::FindMaxLeadingTime()
 }
 
 uint64_t MERGE::Merge::TransformTimestamp(uint64_t time,
-                                          const std::string &targetTimeUnit,
-                                          const std::string &sourceTimeUnit)
+                                          const std::string &rTargetTimeUnit,
+                                          const std::string &rSourceTimeUnit)
 {
     uint64_t new_time = time;
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    const uint32_t target_power = UTILS::GetTimeUnitIndex(targetTimeUnit);
-    const uint32_t source_power = UTILS::GetTimeUnitIndex(sourceTimeUnit);
+    const uint32_t target_power = UTILS::GetTimeUnitIndex(rTargetTimeUnit);
+    const uint32_t source_power = UTILS::GetTimeUnitIndex(rSourceTimeUnit);
 
     if (target_power > source_power)
     {

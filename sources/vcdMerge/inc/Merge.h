@@ -38,6 +38,7 @@
 
 #include "SignalSource.h"
 
+/// The merging engine.
 namespace MERGE
 {
     /// The merging unit class. Allows for merging different

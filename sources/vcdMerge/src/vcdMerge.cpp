@@ -2,7 +2,7 @@
 ///
 /// The main module of the vcdMerge application.
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -25,7 +25,7 @@
 #include "CliMerge.h"
 #include "VCDTracer.h"
 #include "SourceRegistry.h"
-#include "VcdExceptions.h"
+#include "VcdException.h"
 #include "SignalSource.h"
 #include "Merge.h"
 
@@ -39,9 +39,6 @@ int main(int argc, const char *argv[])
     // Parse input parameters
     CLI::CliMerge cli;
     cli.Parse(argc, argv);
-
-    // Source registry.
-    SIGNAL::SourceRegistry registry;
 
     try
     {
@@ -64,7 +61,7 @@ int main(int argc, const char *argv[])
         for (const std::string &source : in_parameters)
         {
             in_sources.push_back(std::make_unique<MERGE::SignalSource>(source,
-                                                                       registry,
+                                                                       SIGNAL::SourceRegistry::GetInstance(),
                                                                        cli.IsVerboseMode()));
 
             merge.AddSource(in_sources.back().get());
@@ -85,21 +82,9 @@ int main(int argc, const char *argv[])
         std::cout << '\n' << "Dumping " << cli.GetOutputFileName() << '\n';
         vcd_trace.Dump();
     }
-    catch (const EXCEPTION::ConflictingNames &exception)
+    catch (const EXCEPTION::VcdException &exception)
     {
-        // Conflicting signal names in different sources.
-        std::cerr << exception.what()
-                  << " Signal "
-                  << exception.GetName()
-                  << " in the sources: "
-                  << registry.GetSourceName(exception.GetSourceA())
-                  << " and "
-                  << registry.GetSourceName(exception.GetSourceB())
-                  << '\n';
-    }
-    catch (const std::runtime_error &exception)
-    {
-        std::cerr << exception.what() << '\n';
+        std::cerr << exception.GetMessage();
     }
 }
 

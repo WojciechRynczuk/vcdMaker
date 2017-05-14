@@ -7,7 +7,7 @@
 ///
 /// @ingroup Utils
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,6 +32,8 @@
 #include <vector>
 #include <string>
 
+#include "vcdError.h"
+
 /// @defgroup Utils Utils
 ///
 /// @brief Utilities.
@@ -40,19 +42,35 @@
 /// The utilities used among vcdMaker applications.
 
 /// Utilities namespace.
-namespace UTILS {
+namespace UTILS
+{
+
+    /// The invalid time unit exception.
+    class InvalidTimeUnit : public EXCEPTION::VcdErrorGeneric
+    {
+            /// @todo The exception shall be moved to the time unit class.
+        public:
+            /// The constructor of the exception.
+            ///
+            /// @param rInvalidTimeUnit The invalid time unit.
+            InvalidTimeUnit(const std::string &rInvalidTimeUnit) :
+                VcdErrorGeneric(EXCEPTION::Error::INVALID_TIME_UNIT,
+                                "Invalid time unit: " + rInvalidTimeUnit)
+            {
+            }
+    };
 
     /// Returns a vector of separated strings.
     ///
-    /// @param inString The string to be split.
+    /// @param rInString The string to be split.
     /// @param delimiter The delimiter.
-    std::vector<std::string> Split(const std::string &inString,
+    std::vector<std::string> Split(const std::string &rInString,
                                    const char delimiter);
 
     /// Checks if given time unit is supported.
-    bool IsTimeUnitValid(const std::string &unit);
+    bool IsTimeUnitValid(const std::string &rUnit);
 
     /// Returns given time unit index in supported units list.
-    size_t GetTimeUnitIndex(const std::string &unit);
+    size_t GetTimeUnitIndex(const std::string &rUnit);
 
 }

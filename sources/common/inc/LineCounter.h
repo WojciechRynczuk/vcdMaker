@@ -45,10 +45,10 @@ namespace INSTRUMENT
             /// If the counter name does not provide the top module name
             /// it will be automatically set to "Top".
             ///
-            /// @param filename The name of the file associated with the counter.
-            /// @param counterName The counter signal name.
-            /// @param sourceRegistry Signal sources registry.
-            /// @param signalDb The signal database to be used.
+            /// @param rFilename The name of the file associated with the counter.
+            /// @param rCounterName The counter signal name.
+            /// @param rSourceRegistry Signal sources registry.
+            /// @param rSignalDb The signal database to be used.
             LineCounter(const std::string &rFilename,
                         const std::string &rCounterName,
                         SIGNAL::SourceRegistry &rSourceRegistry,
@@ -95,13 +95,13 @@ namespace INSTRUMENT
             static const std::string HIGH_COUNTER_NAME;
 
             /// The counter name.
-            const std::string m_CounterName{};
+            const std::string m_CounterName {};
 
             /// The name of the counter signal low boundary.
-            const std::string m_CounterNameLow{};
+            const std::string m_CounterNameLow {};
 
             /// The name of the counter signal high boundary.
-            const std::string m_CounterNameHigh{};
+            const std::string m_CounterNameHigh {};
 
             /// The counter storage.
             CounterSignalT m_Counter{};

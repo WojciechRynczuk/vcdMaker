@@ -39,6 +39,7 @@
 
 #include "tclap/CmdLine.h"
 
+/// Command Line Interface
 namespace CLI
 {
 

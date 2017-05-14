@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -46,6 +46,13 @@ namespace SIGNAL
             static constexpr HandleT BAD_HANDLE =
                 std::numeric_limits<HandleT>::min();
 
+            /// Source registry is unique. Let it be a singleton.
+            static SourceRegistry &GetInstance()
+            {
+                static SourceRegistry instance;
+                return instance;
+            }
+
             /// Registers a signal source.
             ///
             /// @param sourceName The name of the signal source.
@@ -56,7 +63,7 @@ namespace SIGNAL
             HandleT Register(const std::string &sourceName);
 
             /// Returns the name of the signal source.
-            std::string GetSourceName(HandleT sourceHandle);
+            std::string GetSourceName(HandleT sourceHandle) const;
 
         private:
             /// A registry type.

@@ -74,7 +74,7 @@ namespace PARSER
 
             /// Attaches an instrument to the parser.
             ///
-            /// @param instrument An instrument to be attached.
+            /// @param rInstrument An instrument to be attached.
             virtual void Attach(INSTRUMENT::Instrument &rInstrument);
 
             /// Triggers the final instrument actions.
@@ -87,10 +87,10 @@ namespace PARSER
             /// This constructor shall be used by the inheriting classes.
             /// It opens the input log file and sets the verbose mode.
             ///
-            /// @param filename The name of the log file to be open.
-            /// @param timeBase The time base used in the log.
+            /// @param rFilename The name of the log file to be open.
+            /// @param rTimeBase The time base used in the log.
             /// @param verboseMode Value 'true' enables the verbose mode.
-            /// @param sourceRegistry Signal sources registry.
+            /// @param rSourceRegistry Signal sources registry.
             LogParser(const std::string &rFilename,
                       const std::string &rTimeBase,
                       SIGNAL::SourceRegistry &rSourceRegistry,

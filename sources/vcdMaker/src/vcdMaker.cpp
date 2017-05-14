@@ -31,7 +31,7 @@
 #include "TxtParser.h"
 #include "SourceRegistry.h"
 #include "LineCounter.h"
-#include "VcdExceptions.h"
+#include "VcdException.h"
 
 ///  The vcdMaker main function.
 ///
@@ -44,15 +44,12 @@ int main(int argc, const char *argv[])
     CLI::CliMaker cli;
     cli.Parse(argc, argv);
 
-    // Source registry.
-    SIGNAL::SourceRegistry registry;
-
     try
     {
         // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
                                  cli.GetTimebase(),
-                                 registry,
+                                 SIGNAL::SourceRegistry::GetInstance(),
                                  cli.IsVerboseMode());
 
         // Line counter.
@@ -63,7 +60,7 @@ int main(int argc, const char *argv[])
             // Register the line counting instrument.
             lineCounter = std::make_unique<INSTRUMENT::LineCounter>(cli.GetInputFileName(),
                                                                     cli.GetLineCounterName(),
-                                                                    registry,
+                                                                    SIGNAL::SourceRegistry::GetInstance(),
                                                                     txtLog.GetSignalDb());
             txtLog.Attach(*lineCounter);
         }
@@ -76,21 +73,9 @@ int main(int argc, const char *argv[])
                                     txtLog.GetSignalDb());
         vcd_trace.Dump();
     }
-    catch (const EXCEPTION::ConflictingNames &exception)
+    catch (const EXCEPTION::VcdException &rException)
     {
-        // Conflicting signal names in different sources.
-        std::cerr << exception.what()
-                  << " Signal "
-                  << exception.GetName()
-                  << " in the sources: "
-                  << registry.GetSourceName(exception.GetSourceA())
-                  << " and "
-                  << registry.GetSourceName(exception.GetSourceB())
-                  << '\n';
-    }
-    catch (const std::runtime_error &exception)
-    {
-        std::cerr << exception.what() << '\n';
+        std::cerr << rException.GetMessage();
     }
 }
 

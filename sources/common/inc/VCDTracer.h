@@ -40,6 +40,7 @@
 
 #include "SignalDb.h"
 
+/// VCD tracer.
 namespace TRACER
 {
     /// The class provides means for creating

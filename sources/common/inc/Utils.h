@@ -32,7 +32,7 @@
 #include <vector>
 #include <string>
 
-#include "vcdError.h"
+#include "VcdError.h"
 
 /// @defgroup Utils Utils
 ///

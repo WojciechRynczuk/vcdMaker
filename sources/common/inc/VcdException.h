@@ -59,8 +59,8 @@ namespace EXCEPTION
             ///
             /// @param id The ID of the exception.
             VcdException(uint32_t id) :
-                m_ExceptionId(id),
-                std::runtime_error("vcdException")
+                std::runtime_error("vcdException"),
+                m_ExceptionId(id)
             {
             }
 

@@ -40,7 +40,7 @@ namespace EXCEPTION
 
         /// Timestamp out of bounds.
         const uint32_t TIMESTAMP_OUT_OF_BOUNDS = 2U;
-    };
+    }
 
     /// The list of errors.
     namespace Error
@@ -76,5 +76,5 @@ namespace EXCEPTION
 
         /// Too many signal sources.
         const uint32_t TOO_MANY_SIGNAL_SOURCES = 9002U;
-    };
+    }
 }

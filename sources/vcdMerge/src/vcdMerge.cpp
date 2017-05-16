@@ -25,9 +25,20 @@
 #include "CliMerge.h"
 #include "VCDTracer.h"
 #include "SourceRegistry.h"
-#include "VcdException.h"
+#include "VcdError.h"
 #include "SignalSource.h"
 #include "Merge.h"
+
+/// The invalid number of sources.
+class InvalidNoOfSources : public EXCEPTION::VcdErrorGeneric
+{
+    public:
+        /// The invalid signal source exception constructor.
+        InvalidNoOfSources() : VcdErrorGeneric(EXCEPTION::Error::INVALID_NO_OF_SOURCES,
+                                               "There are at least two signal sources required.")
+        {
+        }
+};
 
 ///  The vcdMerge main function.
 ///
@@ -55,7 +66,7 @@ int main(int argc, const char *argv[])
         // There must be at least 2 files to be merged.
         if (in_parameters.size() < 2)
         {
-            throw std::runtime_error("There are at least two signal sources required.");
+            throw InvalidNoOfSources();
         }
 
         for (const std::string &source : in_parameters)

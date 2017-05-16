@@ -26,6 +26,8 @@ addons:
     - gcc-6
     - g++-6
     - txt2man
+    - doxygen
+    - graphviz
 
   coverity_scan:
     project:

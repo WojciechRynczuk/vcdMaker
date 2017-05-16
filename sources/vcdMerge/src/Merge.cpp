@@ -42,10 +42,10 @@ class SynchronizationTimeOutOfBounds : public EXCEPTION::VcdWarning
     public:
         /// The warning constructor.
         ///
-        /// @param rSource The full warning description.
+        /// @param rSource The full source description.
         SynchronizationTimeOutOfBounds(const std::string &rSource) :
             VcdWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
-                       "Synchronization time out of bounds.Cannot merge " + rSource + ".")
+                       "Synchronization time out of bounds. Cannot merge " + rSource + ".")
         {
         }
 };
@@ -66,6 +66,18 @@ class TimestampOutOfBounds : public EXCEPTION::VcdWarning
                                    " at " +
                                    std::to_string(timestamp) + " " +
                                    rTimeUnit))
+        {
+        }
+};
+
+/// The leading time out of bounds.
+class LeadingTimeOutOfBounds : public EXCEPTION::VcdErrorGeneric
+{
+    public:
+        /// The error constructor.
+        LeadingTimeOutOfBounds() :
+            VcdErrorGeneric(EXCEPTION::Error::LEADING_TIME_OUT_OF_BOUNDS,
+                            "Leading time out of bounds.")
         {
         }
 };
@@ -95,8 +107,16 @@ void MERGE::Merge::Run()
     // Create the output signal database and set its base time unit.
     m_pMerged = std::make_unique<SIGNAL::SignalDb>(m_TimeUnit);
 
-    // Find the longest leading time for among all sources.
-    m_MaxLeadingTime = FindMaxLeadingTime();
+    // Find the longest leading time among all sources.
+    try
+    {
+        m_MaxLeadingTime = FindMaxLeadingTime();
+    }
+    catch (std::runtime_error &)
+    {
+        // Sources cannot be merged.
+        throw LeadingTimeOutOfBounds();
+    }
 
     // Merge Sources.
     for (const SignalSource *source : m_Sources)

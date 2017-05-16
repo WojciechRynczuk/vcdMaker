@@ -8,7 +8,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -76,11 +76,11 @@ namespace MERGE
             /// is created (all log files read in and processed) the configurations
             /// shall be validated to return any syntax errors as quickly as possible.
             ///
-            /// @param description The description of the source.
-            /// @param signalRegistry The reference to the signal registry common for all sources.
+            /// @param rDescription The description of the source.
+            /// @param rSignalRegistry The reference to the signal registry common for all sources.
             /// @param verboseMode 'true' enables the verbose mode.
-            SignalSource(const std::string &description,
-                         SIGNAL::SourceRegistry &signalRegistry,
+            SignalSource(const std::string &rDescription,
+                         SIGNAL::SourceRegistry &rSignalRegistry,
                          bool verboseMode);
 
             /// Creates the source data.
@@ -118,6 +118,8 @@ namespace MERGE
 
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
+            ///
+            /// @throws VcdError if the first source timestamp is greater than the synchronization point.
             uint64_t GetLeadingTime() const;
 
         private:
@@ -152,24 +154,34 @@ namespace MERGE
             const bool m_VerboseMode;
 
             /// Sets the format of the source log file.
-            void SetFormat(const std::string &format);
+            ///
+            /// @throws VcdError for a invalid format.
+            void SetFormat(const std::string &rFormat);
 
             /// Sets the synchronization point of the source.
-            void SetSyncPoint(const std::string &syncPoint);
+            ///
+            /// @throws VcdError if the format of the synchronization point is invalid.
+            void SetSyncPoint(const std::string &rSyncPoint);
 
             /// Sets the time unit of the source.
-            void SetTimeUnit(const std::string &timeUnit);
+            ///
+            /// @throws VcdError for an invalid time unit.
+            void SetTimeUnit(const std::string &rTimeUnit);
 
             /// Sets the prefix added to the source signals.
-            void SetPrefix(const std::string &prefix);
+            void SetPrefix(const std::string &rPrefix);
 
             /// Sets the source line counter name.
-            void SetCounterName(const std::string &lineCounter);
+            void SetCounterName(const std::string &rLineCounter);
 
             /// Sets the source log filename.
-            void SetFilename(const std::string &filename);
+            ///
+            /// @throws VcdError if the file does not exist.
+            void SetFilename(const std::string &rFilename);
 
             /// Parses user provided parameters.
+            ///
+            /// @throws VcdError for an invalid number of source parameters.
             void ParseParameters();
 
             /// Divides the aggregated user parameter into fields.

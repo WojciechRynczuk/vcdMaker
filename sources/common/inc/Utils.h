@@ -71,6 +71,9 @@ namespace UTILS
     bool IsTimeUnitValid(const std::string &rUnit);
 
     /// Returns given time unit index in supported units list.
+    ///
+    /// @throws VcdError if the time unit is out of spec.
+    /// @param rUnit The time unit string.
     size_t GetTimeUnitIndex(const std::string &rUnit);
 
 }

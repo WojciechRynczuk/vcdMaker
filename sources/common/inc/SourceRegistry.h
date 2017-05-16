@@ -55,14 +55,17 @@ namespace SIGNAL
 
             /// Registers a signal source.
             ///
-            /// @param sourceName The name of the signal source.
+            /// @param rSourceName The name of the signal source.
             /// @return The handle of the registered signal source.
             ///         BAD_HANDLE if operation failed.
             ///
             /// @note C++17 std::optional should be used here.
-            HandleT Register(const std::string &sourceName);
+            HandleT Register(const std::string &rSourceName);
 
             /// Returns the name of the signal source.
+            ///
+            /// @throws VcdError if cannot find the source name.
+            /// @param sourceHandle The source handle.
             std::string GetSourceName(HandleT sourceHandle) const;
 
         private:
@@ -78,16 +81,16 @@ namespace SIGNAL
 
             /// Returns a handle of the given signal source.
             ///
-            /// @param sourceName The name of the signal source.
+            /// @param rSourceName The name of the signal source.
             /// @return The handle of the registered signal source.
             ///         BAD_HANDLE if operation failed.
             ///
             /// @note C++17 std::optional should be used here.
-            HandleT GetHandleForSource(const std::string &sourceName);
+            HandleT GetHandleForSource(const std::string &rSourceName);
 
             /// Returns new handle.
             ///
-            /// @throw std::runtime_error if no handles available.
+            /// @throws VcdError if no handles available.
             HandleT GetNewHandle();
     };
 

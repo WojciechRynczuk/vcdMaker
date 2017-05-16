@@ -7,7 +7,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -50,11 +50,12 @@ namespace MERGE
         public:
             /// The merge constructor.
             ///
+            /// @throws VcdError if sources cannot be merged.
             /// @param verboseMode 'true' enables the verbose mode.
-            /// @param timeUnit The time unit of the output file.
-            Merge(bool verboseMode, const std::string &timeUnit) :
+            /// @param rTimeUnit The time unit of the output file.
+            Merge(bool verboseMode, const std::string &rTimeUnit) :
                 m_Sources(),
-                m_TimeUnit(timeUnit),
+                m_TimeUnit(rTimeUnit),
                 m_MaxLeadingTime(),
                 m_pMerged(),
                 m_VerboseMode(verboseMode)
@@ -62,9 +63,9 @@ namespace MERGE
             }
 
             /// Adds a signal source to be merged.
-            void AddSource(const SignalSource *source)
+            void AddSource(const SignalSource *pSource)
             {
-                m_Sources.push_back(source);
+                m_Sources.push_back(pSource);
             }
 
             /// Triggers the merge.
@@ -89,15 +90,17 @@ namespace MERGE
 
             /// Returns the time value represented in the target time unit.
             ///
+            /// @throws std::runtime_error() if the new time value is out of bounds.
             /// @param time A time value to be transformed.
-            /// @param targetTimeUnit The target time unit.
-            /// @param sourceTimeUnit The source time unit.
+            /// @param rTargetTimeUnit The target time unit.
+            /// @param rSourceTimeUnit The source time unit.
             uint64_t TransformTimestamp(uint64_t time,
-                                        const std::string &targetTimeUnit,
-                                        const std::string &sourceTimeUnit);
+                                        const std::string &rTargetTimeUnit,
+                                        const std::string &rSourceTimeUnit);
 
             /// Returns the new signal's time.
             ///
+            /// @throws std::runtime_error() is the new time value is out of bounds.
             /// @param time The original signal's timestamp.
             /// @param sync The source's sync point.
             uint64_t CalculateNewTime(uint64_t time,

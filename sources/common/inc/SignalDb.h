@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -42,8 +42,8 @@ namespace SIGNAL
 
             /// The SignalDb constructor.
             ///
-            /// @param timeUnit The time unit in which logged signals are timestamped.
-            SignalDb(const std::string &timeUnit);
+            /// @param rTimeUnit The time unit in which logged signals are timestamped.
+            SignalDb(const std::string &rTimeUnit);
 
             /// The destructor.
             ~SignalDb();
@@ -53,7 +53,11 @@ namespace SIGNAL
             /// This method adds a signal to the signals' container.
             /// IMPORTANT!!! The signals do not have to be ordered (in the terms of time).
             /// They will be re-ordered automatically when needed.
-            void Add(const SIGNAL::Signal *signal);
+            ///
+            /// @throws VcdError if the signal has a wrong source handle.
+            /// @throws VcdError if there are conflicting signal names.
+            /// @param pSignal The signal to be added to the database.
+            void Add(const SIGNAL::Signal *pSignal);
 
             /// Returns a reference to the signals collection.
             const SIGNAL::SignalCollectionT &GetSignals() const

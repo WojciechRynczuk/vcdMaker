@@ -66,6 +66,12 @@ namespace EXCEPTION
         /// Invalid number of the source parameters.
         const uint32_t INVALID_NUMBER_OF_SOURCE_PARAMS = 7U;
 
+        /// Leading time out of bounds.
+        const uint32_t LEADING_TIME_OUT_OF_BOUNDS = 8U;
+
+        /// Invalid number of sources.
+        const uint32_t INVALID_NO_OF_SOURCES = 9U;
+
         /// Logic errors which shall never happen start from 9000.
 
         /// Invalid signal source.

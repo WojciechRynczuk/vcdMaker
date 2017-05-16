@@ -87,6 +87,7 @@ namespace PARSER
             /// This constructor shall be used by the inheriting classes.
             /// It opens the input log file and sets the verbose mode.
             ///
+            /// @throws VcdError if the file cannot be open.
             /// @param rFilename The name of the log file to be open.
             /// @param rTimeBase The time base used in the log.
             /// @param verboseMode Value 'true' enables the verbose mode.

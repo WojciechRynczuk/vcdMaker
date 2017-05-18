@@ -68,7 +68,7 @@ namespace EXCEPTION
             virtual ~VcdException();
 
             /// Returns the ID of the exception.
-            const uint32_t GetId() const
+            uint32_t GetId() const
             {
                 return m_ExceptionId;
             }

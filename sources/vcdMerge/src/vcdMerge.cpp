@@ -25,20 +25,10 @@
 #include "CliMerge.h"
 #include "VCDTracer.h"
 #include "SourceRegistry.h"
-#include "VcdError.h"
+#include "VcdException.h"
 #include "SignalSource.h"
 #include "Merge.h"
-
-/// The invalid number of sources.
-class InvalidNoOfSources : public EXCEPTION::VcdErrorGeneric
-{
-    public:
-        /// The invalid signal source exception constructor.
-        InvalidNoOfSources() : VcdErrorGeneric(EXCEPTION::Error::INVALID_NO_OF_SOURCES,
-                                               "There are at least two signal sources required.")
-        {
-        }
-};
+#include "Logger.h"
 
 ///  The vcdMerge main function.
 ///
@@ -47,6 +37,9 @@ class InvalidNoOfSources : public EXCEPTION::VcdErrorGeneric
 ///  @return The execution status.
 int main(int argc, const char *argv[])
 {
+    // The application execution status.
+    int32_t executionStatus = EXECUTION::APP_OK;
+
     // Parse input parameters
     CLI::CliMerge cli;
     cli.Parse(argc, argv);
@@ -66,7 +59,8 @@ int main(int argc, const char *argv[])
         // There must be at least 2 files to be merged.
         if (in_parameters.size() < 2)
         {
-            throw InvalidNoOfSources();
+            throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_NO_OF_SOURCES,
+                                          "There are at least two signal sources required.");
         }
 
         for (const std::string &source : in_parameters)
@@ -93,10 +87,11 @@ int main(int argc, const char *argv[])
         std::cout << '\n' << "Dumping " << cli.GetOutputFileName() << '\n';
         vcd_trace.Dump();
     }
-    catch (const EXCEPTION::VcdException &exception)
+    catch (const EXCEPTION::VcdException &rException)
     {
-        std::cerr << exception.GetMessage();
+        LOGGER::Logger logger;
+        logger.Log(rException);
+        executionStatus = EXECUTION::APP_ERROR;
     }
+    return executionStatus;
 }
-
-

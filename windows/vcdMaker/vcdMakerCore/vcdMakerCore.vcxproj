@@ -147,6 +147,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Logger.h" />
     <ClInclude Include="..\..\..\sources\common\inc\LogParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
@@ -157,11 +158,9 @@
     <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Utils.h" />
-    <ClInclude Include="..\..\..\sources\common\inc\VcdError.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VcdException.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VcdExceptionList.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
-    <ClInclude Include="..\..\..\sources\common\inc\VcdWarning.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Version.h" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +170,7 @@
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\LineCounter.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\Logger.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\LogParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />

@@ -33,6 +33,7 @@
 
 #include "Utils.h"
 #include "Signal.h"
+#include "VcdException.h"
 
 std::vector<std::string> UTILS::Split(const std::string &rInString,
                                       const char delimiter)
@@ -64,7 +65,8 @@ size_t UTILS::GetTimeUnitIndex(const std::string &rUnit)
 
     if (index == SIGNAL::Signal::TIME_UNITS.size())
     {
-        throw InvalidTimeUnit(rUnit);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_TIME_UNIT,
+                                      "Invalid time unit: " + rUnit);
     }
     else
     {

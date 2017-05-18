@@ -41,10 +41,8 @@
 /// The merging engine.
 namespace MERGE
 {
-    /// The merging unit class. Allows for merging different
-    /// signal sources.
-
     /// The merging unit class.
+    /// Allows for merging different signal sources.
     class Merge
     {
         public:

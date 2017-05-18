@@ -95,13 +95,13 @@ namespace INSTRUMENT
             static const std::string HIGH_COUNTER_NAME;
 
             /// The counter name.
-            const std::string m_CounterName {};
+            const std::string m_CounterName{};
 
             /// The name of the counter signal low boundary.
-            const std::string m_CounterNameLow {};
+            const std::string m_CounterNameLow{};
 
             /// The name of the counter signal high boundary.
-            const std::string m_CounterNameHigh {};
+            const std::string m_CounterNameHigh{};
 
             /// The counter storage.
             CounterSignalT m_Counter{};

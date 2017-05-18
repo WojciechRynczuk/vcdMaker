@@ -22,8 +22,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <iostream>
-#include <string>
 #include <memory>
 
 #include "VCDTracer.h"
@@ -32,6 +30,7 @@
 #include "SourceRegistry.h"
 #include "LineCounter.h"
 #include "VcdException.h"
+#include "Logger.h"
 
 ///  The vcdMaker main function.
 ///
@@ -40,6 +39,9 @@
 ///  @return The execution status.
 int main(int argc, const char *argv[])
 {
+    // The application execution status.
+    int32_t executionStatus = EXECUTION::APP_OK;
+
     // Parse input parameters
     CLI::CliMaker cli;
     cli.Parse(argc, argv);
@@ -75,7 +77,10 @@ int main(int argc, const char *argv[])
     }
     catch (const EXCEPTION::VcdException &rException)
     {
-        std::cerr << rException.GetMessage();
+        LOGGER::Logger logger;
+        logger.Log(rException);
+        executionStatus = EXECUTION::APP_ERROR;
     }
-}
 
+    return executionStatus;
+}

@@ -34,9 +34,8 @@
 
 namespace MERGE
 {
-    /// The objects of this class describe the source and holds source data.
-
     /// The signal source base class.
+    /// The objects of this class describe the source and holds source data.
     class SignalSource
     {
         public:

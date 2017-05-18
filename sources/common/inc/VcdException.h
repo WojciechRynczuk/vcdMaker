@@ -37,16 +37,15 @@
 /// The module provides means for handling errors and warnings.
 
 #include <stdexcept>
-#include <sstream>
-#include <iomanip>
+
+#include "VcdExceptionList.h"
 
 /// The vcdMaker exceptions.
 namespace EXCEPTION
 {
+    /// The base exception class.
     /// The base exception class. The error and warning classes
     /// inherit from it.
-
-    /// The base exception class.
     class VcdException : public std::runtime_error
     {
             /// The exception ID to identify the error or warning.
@@ -58,8 +57,9 @@ namespace EXCEPTION
             /// It initializes the ID of the exception.
             ///
             /// @param id The ID of the exception.
-            VcdException(uint32_t id) :
-                std::runtime_error("vcdException"),
+            /// @param rMessage The exception warning.
+            VcdException(uint32_t id, const std::string &rMessage) :
+                std::runtime_error(rMessage),
                 m_ExceptionId(id)
             {
             }
@@ -67,29 +67,31 @@ namespace EXCEPTION
             /// The destructor.
             virtual ~VcdException();
 
-            /// Returns the formatted exception description.
-            const std::string GetMessage() const
+            /// Returns the ID of the exception.
+            const uint32_t GetId() const
             {
-                return "[" + GetType() + " " + GetExceptionNumber() + "]: " + GetInfo() + '\n';
-            }
-
-        protected:
-            /// Returns the description of the exception.
-            virtual const std::string GetType() const = 0;
-
-            /// Returns the exception specific description.
-            virtual const std::string GetInfo() const = 0;
-
-        private:
-            /// Returns the formatted exception number.
-            const std::string GetExceptionNumber() const
-            {
-                std::ostringstream exceptionValue;
-
-                exceptionValue << std::setfill('0') << std::setw(4) << m_ExceptionId;
-                return exceptionValue.str();
+                return m_ExceptionId;
             }
     };
-
     inline VcdException::~VcdException() = default;
+
+    /// @brief The logic exception base class.
+    /// The logic exception class shall be used
+    /// to handle internal logic errors.
+    class VcdLogicException : public VcdException
+    {
+        public:
+            /// The logic error constructor.
+            ///
+            /// @param id The error ID.
+            /// @param rMessage The error message.
+            VcdLogicException(uint32_t id, const std::string &rMessage) :
+                VcdException(id, rMessage +
+                             " Please e-mail your application version, parameters and input files to vcdmaker@mail.com for analysis.")
+            {}
+
+            /// The default destructor.
+            ~VcdLogicException();
+    };
+    inline VcdLogicException::~VcdLogicException() = default;
 }

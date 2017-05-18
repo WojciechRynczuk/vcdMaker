@@ -43,10 +43,9 @@
 /// VCD tracer.
 namespace TRACER
 {
+    /// The VCD file creator.
     /// The class provides means for creating
     /// the output VCD file.
-
-    ///  This class creates the output VCD file.
     class VCDTracer
     {
         public:

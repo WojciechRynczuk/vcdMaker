@@ -30,6 +30,15 @@
 
 #pragma once
 
+namespace EXECUTION
+{
+    /// Application's proper termination.
+    const int32_t APP_OK = 0;
+
+    /// Application's failure.
+    const int32_t APP_ERROR = -1;
+}
+
 namespace EXCEPTION
 {
     /// The list of warnings.
@@ -72,7 +81,8 @@ namespace EXCEPTION
         /// Invalid number of sources.
         const uint32_t INVALID_NO_OF_SOURCES = 9U;
 
-        /// Logic errors which shall never happen start from 9000.
+        // Logic errors below shall never happen.
+        // They are enumerated from 9000.
 
         /// Invalid signal source.
         const uint32_t INVALID_SIGNAL_SOURCE = 9000U;

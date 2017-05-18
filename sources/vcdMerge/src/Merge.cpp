@@ -30,57 +30,11 @@
 #include <algorithm>
 #include <ratio>
 #include <limits>
-#include <iostream>
 
 #include "Merge.h"
 #include "Utils.h"
-#include "VcdWarning.h"
-
-/// The synchronization time out of bounds.
-class SynchronizationTimeOutOfBounds : public EXCEPTION::VcdWarning
-{
-    public:
-        /// The warning constructor.
-        ///
-        /// @param rSource The full source description.
-        SynchronizationTimeOutOfBounds(const std::string &rSource) :
-            VcdWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
-                       "Synchronization time out of bounds. Cannot merge " + rSource + ".")
-        {
-        }
-};
-
-/// The timestamp out of bounds.
-class TimestampOutOfBounds : public EXCEPTION::VcdWarning
-{
-    public:
-        /// The warning constructor.
-        ///
-        /// @param rSignalName The name of the troublesome signal.
-        /// @param timestamp The timestamp of the signal.
-        /// @param rTimeUnit The time unit of the signal.
-        TimestampOutOfBounds(const std::string &rSignalName, uint64_t timestamp, const std::string &rTimeUnit) :
-            VcdWarning(EXCEPTION::Warning::TIMESTAMP_OUT_OF_BOUNDS,
-                       std::string("Timestamp out of bounds. Cannot merge " +
-                                   rSignalName +
-                                   " at " +
-                                   std::to_string(timestamp) + " " +
-                                   rTimeUnit))
-        {
-        }
-};
-
-/// The leading time out of bounds.
-class LeadingTimeOutOfBounds : public EXCEPTION::VcdErrorGeneric
-{
-    public:
-        /// The error constructor.
-        LeadingTimeOutOfBounds() :
-            VcdErrorGeneric(EXCEPTION::Error::LEADING_TIME_OUT_OF_BOUNDS,
-                            "Leading time out of bounds.")
-        {
-        }
-};
+#include "VcdException.h"
+#include "Logger.h"
 
 const uint64_t MERGE::Merge::TEN_POWER[] =
 {
@@ -115,14 +69,15 @@ void MERGE::Merge::Run()
     catch (std::runtime_error &)
     {
         // Sources cannot be merged.
-        throw LeadingTimeOutOfBounds();
+        throw EXCEPTION::VcdException(EXCEPTION::Error::LEADING_TIME_OUT_OF_BOUNDS,
+                                      "Leading time out of bounds.");
     }
 
     // Merge Sources.
-    for (const SignalSource *source : m_Sources)
+    for (const SignalSource *pSource : m_Sources)
     {
         // Get the source's time unit.
-        const std::string source_time_unit = source->GetTimeUnit();
+        const std::string source_time_unit = pSource->GetTimeUnit();
 
         // Source sync time in the target unit.
         uint64_t transformed_source_sync = 0;
@@ -130,40 +85,48 @@ void MERGE::Merge::Run()
         try
         {
             transformed_source_sync =
-                TransformTimestamp(source->GetSyncPoint(), m_MinTimeUnit, source_time_unit);
+                TransformTimestamp(pSource->GetSyncPoint(), m_MinTimeUnit, source_time_unit);
         }
         catch (std::runtime_error &)
         {
-            SynchronizationTimeOutOfBounds warning(source->GetDescription());
+            LOGGER::Logger logger;
+            logger.LogWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
+                              "Synchronization time out of bounds. Cannot merge " + pSource->GetDescription() + ".");
             continue;
         }
 
         // Merge signals here.
-        for (auto current_signal : source->Get()->GetSignals())
+        for (auto current_signal : pSource->Get()->GetSignals())
         {
-            SIGNAL::Signal *signal = current_signal->Clone();
+            SIGNAL::Signal *pSignal = current_signal->Clone();
 
             try
             {
                 // Set the signal's new timestamp.
-                signal->SetTimestamp(CalculateNewTime(TransformTimestamp(signal->GetTimestamp(),
+                pSignal->SetTimestamp(CalculateNewTime(TransformTimestamp(pSignal->GetTimestamp(),
                                                       m_MinTimeUnit,
                                                       source_time_unit),
                                      transformed_source_sync));
             }
             catch (std::runtime_error &)
             {
-                TimestampOutOfBounds warning(signal->GetName(), signal->GetTimestamp(), source->GetTimeUnit());
+                LOGGER::Logger logger;
+                logger.LogWarning(EXCEPTION::Warning::TIMESTAMP_OUT_OF_BOUNDS,
+                                  std::string("Timestamp out of bounds. Cannot merge " +
+                                              pSignal->GetName() +
+                                              " at " +
+                                              std::to_string(pSignal->GetTimestamp()) + " " +
+                                              pSource->GetTimeUnit()));
 
-                delete signal;
+                delete pSignal;
                 continue;
             }
 
             // Update its name.
-            signal->SetName(source->GetPrefix() + signal->GetName());
+            pSignal->SetName(pSource->GetPrefix() + pSignal->GetName());
 
             // Add to the output signals database.
-            m_pMerged->Add(signal);
+            m_pMerged->Add(pSignal);
         }
     }
 }

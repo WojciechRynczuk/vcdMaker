@@ -29,31 +29,7 @@
 /// IN THE SOFTWARE.
 
 #include "SourceRegistry.h"
-#include "VcdError.h"
-
-/// Logic error. Cannot find source signal name.
-class CannotFindSourceSignalName : public EXCEPTION::VcdErrorLogic
-{
-    public:
-        /// The cannot find source signal name exception constructor.
-        CannotFindSourceSignalName() :
-            VcdErrorLogic(EXCEPTION::Error::CANNOT_FIND_SOURCE_SIGNAL_NAME,
-                          "Couldn't find source signal name!")
-        {
-        }
-};
-
-/// Logic error. Too many signal sources.
-class TooManySignalSources : public EXCEPTION::VcdErrorLogic
-{
-    public:
-        /// Too many signal sources exception constructor.
-        TooManySignalSources() :
-            VcdErrorLogic(EXCEPTION::Error::TOO_MANY_SIGNAL_SOURCES,
-                          "Too many signal sources!")
-        {
-        }
-};
+#include "VcdException.h"
 
 SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::Register(const std::string &rSourceName)
 {
@@ -82,7 +58,8 @@ std::string SIGNAL::SourceRegistry::GetSourceName(const HandleT sourceHandle) co
         }
     }
 
-    throw CannotFindSourceSignalName();
+    throw EXCEPTION::VcdLogicException(EXCEPTION::Error::CANNOT_FIND_SOURCE_SIGNAL_NAME,
+                                       "Couldn't find source signal name!");
 }
 
 SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::GetHandleForSource(const std::string &rSourceName)
@@ -109,6 +86,7 @@ SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::GetNewHandle()
     }
     else
     {
-        throw TooManySignalSources();
+        throw EXCEPTION::VcdLogicException(EXCEPTION::Error::TOO_MANY_SIGNAL_SOURCES,
+                                           "Too many signal sources!");
     }
 }

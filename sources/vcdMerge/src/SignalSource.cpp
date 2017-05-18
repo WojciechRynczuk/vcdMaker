@@ -8,7 +8,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -35,80 +35,7 @@
 #include "SignalSource.h"
 #include "LineCounter.h"
 #include "Utils.h"
-#include "VcdError.h"
-
-/// The synchronization point out of bounds exception.
-class SynchronizationPointOutOfBounds : public EXCEPTION::VcdErrorGeneric
-{
-    public:
-        /// The error exception constructor.
-        ///
-        /// @param synchronizationPoint the value of the synchronization point.
-        SynchronizationPointOutOfBounds(uint64_t synchronizationPoint) :
-            VcdErrorGeneric(EXCEPTION::Error::SYNCHRONIZATION_POINT_OUT_OF_BOUNDS,
-                            "Synchronization point value out of bounds: " + synchronizationPoint)
-        {
-        }
-};
-
-/// The invalid log file fomat error.
-class InvalidLogFileFormat : public EXCEPTION::VcdErrorGeneric
-{
-    public:
-        /// The error exception constructor.
-        ///
-        /// @param rFormat The format of the invalid log file.
-        InvalidLogFileFormat(const std::string &rFormat) :
-            VcdErrorGeneric(EXCEPTION::Error::INVALID_LOG_FILE_FORMAT,
-                            "Invalid log file format: " + rFormat)
-        {
-        }
-};
-
-/// Invalid synchronization point value error.
-class InvalidSynchronizationPointValue : public EXCEPTION::VcdErrorGeneric
-{
-    public:
-        /// The error exception constructor.
-        ///
-        /// @param rValue The value of the invalid synchronization point.
-        InvalidSynchronizationPointValue(const std::string &rValue) :
-            VcdErrorGeneric(EXCEPTION::Error::INVALID_SYNCHRONIZATION_POINT_VALUE,
-                            "Invalid synchronization point value: " + rValue)
-        {
-        }
-};
-
-/// Cannot open file error.
-class CannotOpenFile : public EXCEPTION::VcdErrorGeneric
-{
-        /// @todo Duplicate. Maybe a common file class is needed.
-    public:
-        /// The error exception constructor.
-        ///
-        /// @param rFileName The name of the missing file.
-        CannotOpenFile(const std::string &rFileName) :
-            VcdErrorGeneric(EXCEPTION::Error::CANNOT_OPEN_FILE,
-                            "Opening file '" +
-                            rFileName +
-                            "' failed, it either doesn't exist or is inaccessible.")
-        {
-        }
-};
-
-/// Invalid number of source parameters error.
-class InvalidNumberOfSourceParameters : public EXCEPTION::VcdErrorGeneric
-{
-    public:
-        /// The error exception constructor.
-        ///
-        /// @param rSourceDescription The source description.
-        InvalidNumberOfSourceParameters(const std::string &rSourceDescription) :
-            VcdErrorGeneric(EXCEPTION::Error::INVALID_NUMBER_OF_SOURCE_PARAMS,
-                            "Invalid number of source parameters: " + rSourceDescription)
-        {
-        }
-};
+#include "VcdException.h"
 
 MERGE::SignalSource::SignalSource(const std::string &rDescription,
                                   SIGNAL::SourceRegistry &rSignalRegistry,
@@ -134,7 +61,8 @@ uint64_t MERGE::SignalSource::GetLeadingTime() const
     // The sync point value is out of bounds.
     if ((t0 > m_SyncPoint) && (m_SyncPoint > 0))
     {
-        throw SynchronizationPointOutOfBounds(m_SyncPoint);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::SYNCHRONIZATION_POINT_OUT_OF_BOUNDS,
+                                      "Synchronization point value out of bounds: " + m_SyncPoint);
     }
 
     return (m_SyncPoint - t0);
@@ -171,7 +99,8 @@ void MERGE::SignalSource::SetFormat(const std::string &rFormat)
 {
     if (rFormat != "T")
     {
-        throw InvalidLogFileFormat(rFormat);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_LOG_FILE_FORMAT,
+                                      "Invalid log file format: " + rFormat);
     }
 }
 
@@ -183,7 +112,8 @@ void MERGE::SignalSource::SetSyncPoint(const std::string &rSyncPoint)
     }
     catch (std::logic_error &)
     {
-        throw InvalidSynchronizationPointValue(rSyncPoint);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_SYNCHRONIZATION_POINT_VALUE,
+                                      "Invalid synchronization point value: " + rSyncPoint);
     }
 }
 
@@ -195,7 +125,8 @@ void MERGE::SignalSource::SetTimeUnit(const std::string &rTimeUnit)
     }
     else
     {
-        throw UTILS::InvalidTimeUnit(rTimeUnit);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_TIME_UNIT,
+                                      "Invalid time unit: " + rTimeUnit);
     }
 }
 
@@ -228,7 +159,10 @@ void MERGE::SignalSource::SetFilename(const std::string &rFilename)
     }
     else
     {
-        throw CannotOpenFile(rFilename);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
+                                      "Opening file '" +
+                                      rFilename +
+                                      "' failed, it either doesn't exist or is inaccessible.");
     }
 }
 
@@ -238,7 +172,8 @@ void MERGE::SignalSource::ParseParameters()
 
     if (params.size() != Parameters::SOURCE_PARAM_N)
     {
-        throw InvalidNumberOfSourceParameters(m_SourceDescription);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_NUMBER_OF_SOURCE_PARAMS,
+                                      "Invalid number of source parameters: " + m_SourceDescription);
     }
     else
     {

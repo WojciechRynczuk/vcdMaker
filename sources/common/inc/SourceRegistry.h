@@ -69,6 +69,9 @@ namespace SIGNAL
             std::string GetSourceName(HandleT sourceHandle) const;
 
         private:
+            /// The default constructor.
+            SourceRegistry();
+
             /// A registry type.
             using RegistryT = std::map<std::string, HandleT>;
 
@@ -93,5 +96,5 @@ namespace SIGNAL
             /// @throws VcdError if no handles available.
             HandleT GetNewHandle();
     };
-
+    inline SourceRegistry::SourceRegistry() = default;
 }

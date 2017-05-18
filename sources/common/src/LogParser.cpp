@@ -28,22 +28,7 @@
 /// IN THE SOFTWARE.
 
 #include "LogParser.h"
-#include "VcdError.h"
-
-/// The exception to be thrown on missing or inaccessible files.
-class CannotOpenFile : public EXCEPTION::VcdErrorGeneric
-{
-        /// @todo Maybe we need a class for it as the code is duplicate.
-    public:
-        /// The constructor of the exception.
-        ///
-        /// @param rFileName The file name.
-        CannotOpenFile(const std::string &rFileName) :
-            VcdErrorGeneric(EXCEPTION::Error::CANNOT_OPEN_FILE,
-                            "Opening file '" + rFileName + "' failed, it either doesn't exist or is inaccessible.")
-        {
-        }
-};
+#include "VcdException.h"
 
 PARSER::LogParser::LogParser(const std::string &rFilename,
                              const std::string &rTimeBase,
@@ -57,7 +42,8 @@ PARSER::LogParser::LogParser(const std::string &rFilename,
 {
     if (!m_LogFile.is_open())
     {
-        throw CannotOpenFile(m_FileName);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
+                                      "Opening file '" + m_FileName + "' failed, it either doesn't exist or is inaccessible.");
     }
 }
 

@@ -89,9 +89,10 @@ void MERGE::Merge::Run()
         }
         catch (std::runtime_error &)
         {
-            LOGGER::Logger logger;
-            logger.LogWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
-                              "Synchronization time out of bounds. Cannot merge " + pSource->GetDescription() + ".");
+            LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
+                              "Synchronization time out of bounds. Cannot merge "
+                              + pSource->GetDescription()
+                              + ".");
             continue;
         }
 
@@ -110,13 +111,12 @@ void MERGE::Merge::Run()
             }
             catch (std::runtime_error &)
             {
-                LOGGER::Logger logger;
-                logger.LogWarning(EXCEPTION::Warning::TIMESTAMP_OUT_OF_BOUNDS,
-                                  std::string("Timestamp out of bounds. Cannot merge " +
-                                              pSignal->GetName() +
-                                              " at " +
-                                              std::to_string(pSignal->GetTimestamp()) + " " +
-                                              pSource->GetTimeUnit()));
+                LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::TIMESTAMP_OUT_OF_BOUNDS,
+                                  "Timestamp out of bounds. Cannot merge " +
+                                  pSignal->GetName() +
+                                  " at " +
+                                  std::to_string(pSignal->GetTimestamp()) + " " +
+                                  pSource->GetTimeUnit());
 
                 delete pSignal;
                 continue;

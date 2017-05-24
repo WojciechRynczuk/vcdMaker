@@ -89,8 +89,7 @@ int main(int argc, const char *argv[])
     }
     catch (const EXCEPTION::VcdException &rException)
     {
-        LOGGER::Logger logger;
-        logger.Log(rException);
+        LOGGER::Logger::GetInstance().LogError(rException);
         executionStatus = EXECUTION::APP_ERROR;
     }
     return executionStatus;

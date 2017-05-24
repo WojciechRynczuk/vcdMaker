@@ -64,16 +64,12 @@ namespace EXCEPTION
             {
             }
 
-            /// The destructor.
-            virtual ~VcdException();
-
             /// Returns the ID of the exception.
             uint32_t GetId() const
             {
                 return m_ExceptionId;
             }
     };
-    inline VcdException::~VcdException() = default;
 
     /// @brief The logic exception base class.
     /// The logic exception class shall be used
@@ -86,12 +82,10 @@ namespace EXCEPTION
             /// @param id The error ID.
             /// @param rMessage The error message.
             VcdLogicException(uint32_t id, const std::string &rMessage) :
-                VcdException(id, rMessage +
-                             " Please e-mail your application version, parameters and input files to vcdmaker@mail.com for analysis.")
+                VcdException(id,
+                             rMessage +
+                             " Please log an issue on https://github.com/WojciechRynczuk/vcdMaker." +
+                             " Provide the application version, parameters and input files if possible.")
             {}
-
-            /// The default destructor.
-            ~VcdLogicException();
     };
-    inline VcdLogicException::~VcdLogicException() = default;
 }

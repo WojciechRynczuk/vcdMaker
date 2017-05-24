@@ -30,17 +30,27 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <functional>
 
 #include "Logger.h"
 
+LOGGER::Logger::Logger() :
+    m_pOutput(&std::cerr)
+{}
+
 void LOGGER::Logger::LogWarning(uint32_t number, const std::string &rMessage)
 {
-    Log(std::cout, "Warning", number, rMessage);
+    Log("Warning", number, rMessage);
 }
 
-void LOGGER::Logger::Log(const EXCEPTION::VcdException &rException)
+void LOGGER::Logger::LogError(const EXCEPTION::VcdException &rException)
 {
-    Log(std::cerr, "Error", rException.GetId(), rException.what());
+    Log("Error", rException.GetId(), rException.what());
+}
+
+void LOGGER::Logger::SetOutput(std::ostream *pOutputStream)
+{
+    m_pOutput = pOutputStream;
 }
 
 const std::string LOGGER::Logger::FormatNumber(uint32_t number) const
@@ -51,7 +61,7 @@ const std::string LOGGER::Logger::FormatNumber(uint32_t number) const
     return exceptionValue.str();
 }
 
-void LOGGER::Logger::Log(std::ostream &rOs, const std::string &rType, uint32_t number, const std::string &rMessage)
+void LOGGER::Logger::Log(const std::string &rType, uint32_t number, const std::string &rMessage)
 {
-    rOs << "[" << rType << " " << FormatNumber(number) << "]: " << rMessage << '\n';
+    *m_pOutput << "[" << rType << " " << FormatNumber(number) << "]: " << rMessage << '\n';
 }

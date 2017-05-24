@@ -46,20 +46,29 @@ namespace LOGGER
     class Logger
     {
         public:
-            /// The logger constructor.
-            Logger()
-            {}
-
-            /// The destructor.
-            ~Logger();
-
             /// The warning logging method.
             void LogWarning(uint32_t number, const std::string &rMessage);
 
             /// The error logging method.
-            void Log(const EXCEPTION::VcdException &rException);
+            void LogError(const EXCEPTION::VcdException &rException);
+
+            /// Let the logger be a singleton.
+            static Logger &GetInstance()
+            {
+                static Logger instance;
+                return instance;
+            }
+
+            /// Sets the output stream.
+            /// The method is supposed for unit testing.
+            ///
+            /// @param pOutputStream The default outputstream for warnings and errors.
+            void SetOutput(std::ostream *pOutputStream);
 
         private:
+            /// Let it be a singleton.
+            Logger();
+
             /// Returns the formatted exception number.
             ///
             /// @param number The numeric value to be converted and formatted.
@@ -67,11 +76,12 @@ namespace LOGGER
 
             /// Logging method.
             ///
-            /// @param rOs The output stream. Could be std::cout or std::cerr.
             /// @param rType The string representing the type of the logged message (error, warning).
             /// @param number The catalogued number of the warnning or error message.
             /// @param rMessage The message to be logged.
-            void Log(std::ostream &rOs, const std::string &rType, uint32_t number, const std::string &rMessage);
+            void Log(const std::string &rType, uint32_t number, const std::string &rMessage);
+
+            /// The logger output.
+            std::ostream *m_pOutput;
     };
-    inline Logger::~Logger() = default;
 }

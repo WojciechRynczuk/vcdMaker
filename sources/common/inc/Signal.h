@@ -45,12 +45,12 @@
 
 #include "SourceRegistry.h"
 
+/// Signal handling.
 namespace SIGNAL
 {
+    /// A base signal class.
     /// The base VCD signal class. The integer and real signal classes
     /// inherit from it.
-
-    /// A base signal class.
     class Signal
     {
         public:

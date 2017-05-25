@@ -22,8 +22,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <iostream>
-#include <string>
 #include <memory>
 
 #include "VCDTracer.h"
@@ -31,7 +29,8 @@
 #include "TxtParser.h"
 #include "SourceRegistry.h"
 #include "LineCounter.h"
-#include "VcdExceptions.h"
+#include "VcdException.h"
+#include "Logger.h"
 
 ///  The vcdMaker main function.
 ///
@@ -40,19 +39,19 @@
 ///  @return The execution status.
 int main(int argc, const char *argv[])
 {
+    // The application execution status.
+    int32_t executionStatus = EXECUTION::APP_OK;
+
     // Parse input parameters
     CLI::CliMaker cli;
     cli.Parse(argc, argv);
-
-    // Source registry.
-    SIGNAL::SourceRegistry registry;
 
     try
     {
         // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
                                  cli.GetTimebase(),
-                                 registry,
+                                 SIGNAL::SourceRegistry::GetInstance(),
                                  cli.IsVerboseMode());
 
         // Line counter.
@@ -63,7 +62,7 @@ int main(int argc, const char *argv[])
             // Register the line counting instrument.
             lineCounter = std::make_unique<INSTRUMENT::LineCounter>(cli.GetInputFileName(),
                                                                     cli.GetLineCounterName(),
-                                                                    registry,
+                                                                    SIGNAL::SourceRegistry::GetInstance(),
                                                                     txtLog.GetSignalDb());
             txtLog.Attach(*lineCounter);
         }
@@ -76,21 +75,11 @@ int main(int argc, const char *argv[])
                                     txtLog.GetSignalDb());
         vcd_trace.Dump();
     }
-    catch (const EXCEPTION::ConflictingNames &exception)
+    catch (const EXCEPTION::VcdException &rException)
     {
-        // Conflicting signal names in different sources.
-        std::cerr << exception.what()
-                  << " Signal "
-                  << exception.GetName()
-                  << " in the sources: "
-                  << registry.GetSourceName(exception.GetSourceA())
-                  << " and "
-                  << registry.GetSourceName(exception.GetSourceB())
-                  << '\n';
+        LOGGER::Logger::GetInstance().LogError(rException);
+        executionStatus = EXECUTION::APP_ERROR;
     }
-    catch (const std::runtime_error &exception)
-    {
-        std::cerr << exception.what() << '\n';
-    }
-}
 
+    return executionStatus;
+}

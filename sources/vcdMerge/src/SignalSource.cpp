@@ -8,7 +8,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -35,12 +35,13 @@
 #include "SignalSource.h"
 #include "LineCounter.h"
 #include "Utils.h"
+#include "VcdException.h"
 
-MERGE::SignalSource::SignalSource(const std::string &description,
-                                  SIGNAL::SourceRegistry &signalRegistry,
+MERGE::SignalSource::SignalSource(const std::string &rDescription,
+                                  SIGNAL::SourceRegistry &rSignalRegistry,
                                   bool verboseMode) :
-    m_SourceDescription(description),
-    m_rSignalRegistry(signalRegistry),
+    m_SourceDescription(rDescription),
+    m_rSignalRegistry(rSignalRegistry),
     m_pSignalDb(),
     m_SyncPoint(),
     m_TimeUnit(),
@@ -60,7 +61,8 @@ uint64_t MERGE::SignalSource::GetLeadingTime() const
     // The sync point value is out of bounds.
     if ((t0 > m_SyncPoint) && (m_SyncPoint > 0))
     {
-        throw std::runtime_error("Synchronization point value out of bounds: " + m_SyncPoint);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::SYNCHRONIZATION_POINT_OUT_OF_BOUNDS,
+                                      "Synchronization point value out of bounds: " + m_SyncPoint);
     }
 
     return (m_SyncPoint - t0);
@@ -93,68 +95,74 @@ void MERGE::SignalSource::Create()
     m_pSignalDb = parser.MoveSignalDb();
 }
 
-void MERGE::SignalSource::SetFormat(const std::string &format)
+void MERGE::SignalSource::SetFormat(const std::string &rFormat)
 {
-    if (format != "T")
+    if (rFormat != "T")
     {
-        throw std::runtime_error("Invalid log file format: " + format);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_LOG_FILE_FORMAT,
+                                      "Invalid log file format: " + rFormat);
     }
 }
 
-void MERGE::SignalSource::SetSyncPoint(const std::string &syncPoint)
+void MERGE::SignalSource::SetSyncPoint(const std::string &rSyncPoint)
 {
     try
     {
-        m_SyncPoint = std::stoull(syncPoint);
+        m_SyncPoint = std::stoull(rSyncPoint);
     }
     catch (std::logic_error &)
     {
-        throw std::runtime_error("Invalid synchronization point value: " + syncPoint);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_SYNCHRONIZATION_POINT_VALUE,
+                                      "Invalid synchronization point value: " + rSyncPoint);
     }
 }
 
-void MERGE::SignalSource::SetTimeUnit(const std::string &timeUnit)
+void MERGE::SignalSource::SetTimeUnit(const std::string &rTimeUnit)
 {
-    if (UTILS::IsTimeUnitValid(timeUnit))
+    if (UTILS::IsTimeUnitValid(rTimeUnit))
     {
-        m_TimeUnit = timeUnit;
+        m_TimeUnit = rTimeUnit;
     }
     else
     {
-        throw std::runtime_error("Invalid time unit: " + timeUnit);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_TIME_UNIT,
+                                      "Invalid time unit: " + rTimeUnit);
     }
 }
 
-void MERGE::SignalSource::SetPrefix(const std::string &prefix)
+void MERGE::SignalSource::SetPrefix(const std::string &rPrefix)
 {
-    if (!prefix.empty())
+    if (!rPrefix.empty())
     {
         // The prefix shall contain the terminating '.' but the user
         // does not have to provide it.
-        m_Prefix = prefix + ".";
+        m_Prefix = rPrefix + ".";
     }
     else
     {
-        m_Prefix = prefix;
+        m_Prefix = rPrefix;
     }
 }
 
-void MERGE::SignalSource::SetCounterName(const std::string &lineCounter)
+void MERGE::SignalSource::SetCounterName(const std::string &rLineCounter)
 {
-    m_LineCounter = lineCounter;
+    m_LineCounter = rLineCounter;
 }
 
-void MERGE::SignalSource::SetFilename(const std::string &filename)
+void MERGE::SignalSource::SetFilename(const std::string &rFilename)
 {
-    std::ifstream infile(filename);
+    std::ifstream infile(rFilename);
 
     if (infile.good())
     {
-        m_Filename = filename;
+        m_Filename = rFilename;
     }
     else
     {
-        throw std::runtime_error("No such file: " + filename);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
+                                      "Opening file '" +
+                                      rFilename +
+                                      "' failed, it either doesn't exist or is inaccessible.");
     }
 }
 
@@ -164,7 +172,8 @@ void MERGE::SignalSource::ParseParameters()
 
     if (params.size() != Parameters::SOURCE_PARAM_N)
     {
-        throw std::runtime_error("Invalid number of source parameters: " + m_SourceDescription);
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_NUMBER_OF_SOURCE_PARAMS,
+                                      "Invalid number of source parameters: " + m_SourceDescription);
     }
     else
     {

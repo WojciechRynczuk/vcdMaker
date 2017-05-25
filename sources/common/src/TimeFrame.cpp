@@ -30,12 +30,12 @@
 
 #include "TimeFrame.h"
 
-void TRACER::TimeFrame::Add(const SIGNAL::Signal *signal)
+void TRACER::TimeFrame::Add(const SIGNAL::Signal *pSignal)
 {
-    if (WasSignalValueAdded(signal))
+    if (WasSignalValueAdded(pSignal))
     {
-        m_Signals[signal->GetName()] = signal;
-        m_FrameSignals[signal->GetName()] = signal;
+        m_Signals[pSignal->GetName()] = pSignal;
+        m_FrameSignals[pSignal->GetName()] = pSignal;
     }
 }
 
@@ -54,13 +54,13 @@ void TRACER::TimeFrame::DumpAndClear()
     }
 }
 
-bool TRACER::TimeFrame::WasSignalValueAdded(const SIGNAL::Signal *signal)
+bool TRACER::TimeFrame::WasSignalValueAdded(const SIGNAL::Signal *pSignal)
 {
-    const auto it = m_Signals.find(signal->GetName());
+    const auto it = m_Signals.find(pSignal->GetName());
 
     if (it != m_Signals.end())
     {
-        return (*it->second != *signal);
+        return (*it->second != *pSignal);
     }
     else
     {

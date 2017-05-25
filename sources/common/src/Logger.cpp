@@ -1,11 +1,11 @@
-/// @file Utils.h
+/// @file Logger.cpp
 ///
-/// The utilities.
+/// An error and warning logger.
 ///
 /// @par Full Description
-/// The utilities used among vcdMaker applications.
+/// This is a simple module for printing error and warning messages.
 ///
-/// @ingroup Utils
+/// @ingroup Logger
 ///
 /// @par Copyright (c) 2017 vcdMaker team
 ///
@@ -27,35 +27,41 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#pragma once
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <functional>
 
-#include <vector>
-#include <string>
+#include "Logger.h"
 
-/// @defgroup Utils Utils
-///
-/// @brief Utilities.
-///
-/// @par Full Description
-/// The utilities used among vcdMaker applications.
+LOGGER::Logger::Logger() :
+    m_pOutput(&std::cerr)
+{}
 
-/// Utilities namespace.
-namespace UTILS
+void LOGGER::Logger::LogWarning(uint32_t number, const std::string &rMessage)
 {
-    /// Returns a vector of separated strings.
-    ///
-    /// @param rInString The string to be split.
-    /// @param delimiter The delimiter.
-    std::vector<std::string> Split(const std::string &rInString,
-                                   const char delimiter);
+    Log("Warning", number, rMessage);
+}
 
-    /// Checks if given time unit is supported.
-    bool IsTimeUnitValid(const std::string &rUnit);
+void LOGGER::Logger::LogError(const EXCEPTION::VcdException &rException)
+{
+    Log("Error", rException.GetId(), rException.what());
+}
 
-    /// Returns given time unit index in supported units list.
-    ///
-    /// @throws VcdError if the time unit is out of spec.
-    /// @param rUnit The time unit string.
-    size_t GetTimeUnitIndex(const std::string &rUnit);
+void LOGGER::Logger::SetOutput(std::ostream *pOutputStream)
+{
+    m_pOutput = pOutputStream;
+}
 
+const std::string LOGGER::Logger::FormatNumber(uint32_t number) const
+{
+    std::ostringstream exceptionValue;
+
+    exceptionValue << std::setfill('0') << std::setw(4) << number;
+    return exceptionValue.str();
+}
+
+void LOGGER::Logger::Log(const std::string &rType, uint32_t number, const std::string &rMessage)
+{
+    *m_pOutput << "[" << rType << " " << FormatNumber(number) << "]: " << rMessage << '\n';
 }

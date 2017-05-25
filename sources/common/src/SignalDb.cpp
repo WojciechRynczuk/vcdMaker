@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,10 +29,11 @@
 /// IN THE SOFTWARE.
 
 #include "SignalDb.h"
-#include "VcdExceptions.h"
+#include "VcdException.h"
+#include "SourceRegistry.h"
 
-SIGNAL::SignalDb::SignalDb(const std::string &timeUnit) :
-    m_TimeUnit(timeUnit)
+SIGNAL::SignalDb::SignalDb(const std::string &rTimeUnit) :
+    m_TimeUnit(rTimeUnit)
 {
 }
 
@@ -44,33 +45,38 @@ SIGNAL::SignalDb::~SignalDb()
     }
 }
 
-void SIGNAL::SignalDb::Add(const SIGNAL::Signal *signal)
+void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
 {
     // A signal shall have a valid source once added to the database.
-    if (signal->GetSource() == SourceRegistry::BAD_HANDLE)
+    if (pSignal->GetSource() == SourceRegistry::BAD_HANDLE)
     {
-        throw std::logic_error("Invalid signal source.");
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_SIGNAL_SOURCE,
+                                      "Invalid signal source.");
     }
 
-    const auto it = m_AddedSignals.find(signal->GetName());
+    const auto it = m_AddedSignals.find(pSignal->GetName());
 
     // Is this a new signal to be logged?
     if (it == m_AddedSignals.end())
     {
-        m_AddedSignals[signal->GetName()] = signal;
+        m_AddedSignals[pSignal->GetName()] = pSignal;
     }
     else
     {
-        if ( (it->second->GetName() == signal->GetName()) &&
-             (it->second->GetSource() != signal->GetSource()) )
+        if ( (it->second->GetName() == pSignal->GetName()) &&
+             (it->second->GetSource() != pSignal->GetSource()) )
         {
             // There are duplicated signal names in different sources.
-            throw EXCEPTION::ConflictingNames(signal->GetName(),
-                                              it->second->GetSource(),
-                                              signal->GetSource());
+            throw EXCEPTION::VcdException(EXCEPTION::Error::CONFLICTING_SIGNAL_NAMES,
+                                          "Conflicting signal names! " +
+                                          pSignal->GetName() +
+                                          " in the sources: " +
+                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(it->second->GetSource()) +
+                                          " and " +
+                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()));
         }
     }
 
     // Store the full signal data
-    m_SignalSet.insert(signal);
+    m_SignalSet.insert(pSignal);
 }

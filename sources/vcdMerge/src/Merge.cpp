@@ -7,7 +7,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -30,10 +30,11 @@
 #include <algorithm>
 #include <ratio>
 #include <limits>
-#include <iostream>
 
 #include "Merge.h"
 #include "Utils.h"
+#include "VcdException.h"
+#include "Logger.h"
 
 const uint64_t MERGE::Merge::TEN_POWER[] =
 {
@@ -60,14 +61,23 @@ void MERGE::Merge::Run()
     // Create the output signal database and set its base time unit.
     m_pMerged = std::make_unique<SIGNAL::SignalDb>(m_TimeUnit);
 
-    // Find the longest leading time for among all sources.
-    m_MaxLeadingTime = FindMaxLeadingTime();
+    // Find the longest leading time among all sources.
+    try
+    {
+        m_MaxLeadingTime = FindMaxLeadingTime();
+    }
+    catch (std::runtime_error &)
+    {
+        // Sources cannot be merged.
+        throw EXCEPTION::VcdException(EXCEPTION::Error::LEADING_TIME_OUT_OF_BOUNDS,
+                                      "Leading time out of bounds.");
+    }
 
     // Merge Sources.
-    for (const SignalSource *source : m_Sources)
+    for (const SignalSource *pSource : m_Sources)
     {
         // Get the source's time unit.
-        const std::string source_time_unit = source->GetTimeUnit();
+        const std::string source_time_unit = pSource->GetTimeUnit();
 
         // Source sync time in the target unit.
         uint64_t transformed_source_sync = 0;
@@ -75,47 +85,48 @@ void MERGE::Merge::Run()
         try
         {
             transformed_source_sync =
-                TransformTimestamp(source->GetSyncPoint(), m_MinTimeUnit, source_time_unit);
+                TransformTimestamp(pSource->GetSyncPoint(), m_MinTimeUnit, source_time_unit);
         }
         catch (std::runtime_error &)
         {
-            std::cout << "Synchronization time out of bounds. Cannot merge "
-                      << source->GetDescription()
-                      << "."
-                      << '\n';
+            LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
+                              "Synchronization time out of bounds. Cannot merge "
+                              + pSource->GetDescription()
+                              + ".");
             continue;
         }
 
         // Merge signals here.
-        for (auto current_signal : source->Get()->GetSignals())
+        for (auto current_signal : pSource->Get()->GetSignals())
         {
-            SIGNAL::Signal *signal = current_signal->Clone();
+            SIGNAL::Signal *pSignal = current_signal->Clone();
 
             try
             {
                 // Set the signal's new timestamp.
-                signal->SetTimestamp(CalculateNewTime(TransformTimestamp(signal->GetTimestamp(),
+                pSignal->SetTimestamp(CalculateNewTime(TransformTimestamp(pSignal->GetTimestamp(),
                                                       m_MinTimeUnit,
                                                       source_time_unit),
                                      transformed_source_sync));
             }
             catch (std::runtime_error &)
             {
-                std::cout << "Timestamp out of bounds. Cannot merge "
-                          << signal->GetName()
-                          << " at "
-                          << signal->GetTimestamp() << " "
-                          << source->GetTimeUnit()
-                          << '\n';
-                delete signal;
+                LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::TIMESTAMP_OUT_OF_BOUNDS,
+                                  "Timestamp out of bounds. Cannot merge " +
+                                  pSignal->GetName() +
+                                  " at " +
+                                  std::to_string(pSignal->GetTimestamp()) + " " +
+                                  pSource->GetTimeUnit());
+
+                delete pSignal;
                 continue;
             }
 
             // Update its name.
-            signal->SetName(source->GetPrefix() + signal->GetName());
+            pSignal->SetName(pSource->GetPrefix() + pSignal->GetName());
 
             // Add to the output signals database.
-            m_pMerged->Add(signal);
+            m_pMerged->Add(pSignal);
         }
     }
 }
@@ -153,15 +164,15 @@ uint64_t MERGE::Merge::FindMaxLeadingTime()
 }
 
 uint64_t MERGE::Merge::TransformTimestamp(uint64_t time,
-                                          const std::string &targetTimeUnit,
-                                          const std::string &sourceTimeUnit)
+                                          const std::string &rTargetTimeUnit,
+                                          const std::string &rSourceTimeUnit)
 {
     uint64_t new_time = time;
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    const uint32_t target_power = UTILS::GetTimeUnitIndex(targetTimeUnit);
-    const uint32_t source_power = UTILS::GetTimeUnitIndex(sourceTimeUnit);
+    const uint32_t target_power = UTILS::GetTimeUnitIndex(rTargetTimeUnit);
+    const uint32_t source_power = UTILS::GetTimeUnitIndex(rSourceTimeUnit);
 
     if (target_power > source_power)
     {

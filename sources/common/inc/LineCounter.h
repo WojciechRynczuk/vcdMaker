@@ -45,10 +45,10 @@ namespace INSTRUMENT
             /// If the counter name does not provide the top module name
             /// it will be automatically set to "Top".
             ///
-            /// @param filename The name of the file associated with the counter.
-            /// @param counterName The counter signal name.
-            /// @param sourceRegistry Signal sources registry.
-            /// @param signalDb The signal database to be used.
+            /// @param rFilename The name of the file associated with the counter.
+            /// @param rCounterName The counter signal name.
+            /// @param rSourceRegistry Signal sources registry.
+            /// @param rSignalDb The signal database to be used.
             LineCounter(const std::string &rFilename,
                         const std::string &rCounterName,
                         SIGNAL::SourceRegistry &rSourceRegistry,

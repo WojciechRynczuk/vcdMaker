@@ -39,6 +39,7 @@
 
 #include "SignalDb.h"
 
+/// Instrumentation.
 namespace INSTRUMENT
 {
     /// The instrument interface class.
@@ -53,7 +54,7 @@ namespace INSTRUMENT
             /// It is to be invoked by a parser.
             ///
             /// @param lineNumber The line number.
-            /// @param signal The signal.
+            /// @param rSignal The signal.
             virtual void Notify(LineNumberT lineNumber, const SIGNAL::Signal &rSignal) = 0;
 
             /// Signalize the instrument the end of the parsing process.
@@ -65,9 +66,9 @@ namespace INSTRUMENT
             ///
             /// This constructor shall be used by the inheriting classes.
             ///
-            /// @param sourceRegistry A signal sources registry.
-            /// @param signalDb A signal database.
-            /// @param sourceName A source name.
+            /// @param rSourceRegistry A signal sources registry.
+            /// @param rSignalDb A signal database.
+            /// @param rSourceName A source name.
             Instrument(SIGNAL::SourceRegistry &rSourceRegistry,
                        SIGNAL::SignalDb &rSignalDb,
                        const std::string &rSourceName) :

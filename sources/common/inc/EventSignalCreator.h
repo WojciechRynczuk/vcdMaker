@@ -38,7 +38,7 @@ namespace PARSER
 
             /// The event signal creator constructor.
             EventSignalCreator() :
-                SignalCreator("^#([[:d:]]+) ([[:graph:]]+) e")
+                SignalCreator("^#([[:d:]]+) ([[:graph:]]+) e .*")
             {
             }
 

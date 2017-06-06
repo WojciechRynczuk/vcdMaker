@@ -38,7 +38,7 @@ namespace PARSER
         public:
             /// The integer signal creator constructor.
             ISignalCreator() :
-                SignalCreator("^#([[:digit:]]+) ([[:graph:]]+) ([[:digit:]]+) ([[:digit:]]+)(?:[:space:]+.*)?")
+                SignalCreator("^#([[:digit:]]+) ([[:graph:]]+) ([[:digit:]]+) ([[:digit:]]+)( +.*)?")
             {
             }
 

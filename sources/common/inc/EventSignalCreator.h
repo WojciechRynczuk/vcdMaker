@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -38,12 +38,12 @@ namespace PARSER
 
             /// The event signal creator constructor.
             EventSignalCreator() :
-                SignalCreator("^#([[:d:]]+) ([[:graph:]]+) e")
+                SignalCreator("^#([[:digit:]]+) ([[:graph:]]+) e( +.*)?")
             {
             }
 
             /// @copydoc SignalCreator::Create()
-            virtual SIGNAL::Signal *Create(const std::string &logLine,
+            virtual SIGNAL::Signal *Create(const std::string &rLogLine,
                                            SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
     };

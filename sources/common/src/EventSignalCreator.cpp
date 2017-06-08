@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -27,12 +27,12 @@
 #include "EventSignalCreator.h"
 #include "EventSignal.h"
 
-SIGNAL::Signal *PARSER::EventSignalCreator::Create(const std::string &logLine,
+SIGNAL::Signal *PARSER::EventSignalCreator::Create(const std::string &rLogLine,
                                                    SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 
-    if (true == std::regex_search(logLine, result, m_SignalRegEx))
+    if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
     {
         return new SIGNAL::EventSignal(result[2].str(),
                                        std::stoll(result[1].str()),

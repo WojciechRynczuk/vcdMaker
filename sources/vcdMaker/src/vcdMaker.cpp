@@ -42,12 +42,12 @@ int main(int argc, const char *argv[])
     // The application execution status.
     int32_t executionStatus = EXECUTION::APP_OK;
 
-    // Parse input parameters
-    CLI::CliMaker cli;
-    cli.Parse(argc, argv);
-
     try
     {
+        // Parse input parameters
+        CLI::CliMaker cli;
+        cli.Parse(argc, argv);
+
         // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
                                  cli.GetTimebase(),
@@ -78,6 +78,10 @@ int main(int argc, const char *argv[])
     catch (const EXCEPTION::VcdException &rException)
     {
         LOGGER::Logger::GetInstance().LogError(rException);
+        executionStatus = EXECUTION::APP_ERROR;
+    }
+    catch (TCLAP::CmdLineParseException &)
+    {
         executionStatus = EXECUTION::APP_ERROR;
     }
 

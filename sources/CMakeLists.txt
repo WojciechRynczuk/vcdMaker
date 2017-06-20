@@ -334,6 +334,11 @@ set(UT_FSIGNAL_SOURCES
 
 add_vcdtools_ut(utFSignal "${UT_FSIGNAL_SOURCES}")
 
+set(UT_EVENTSIGNAL_SOURCES
+    ${COMMON_UT_DIR}/EventSignal.cpp)
+
+add_vcdtools_ut(utEventSignal "${UT_EVENTSIGNAL_SOURCES}")
+
 set(UT_SOURCE_REGISTRY_SOURCES
     ${COMMON_UT_DIR}/SourceRegistry.cpp
     ${COMMON_SOURCES_DIR}/SourceRegistry.cpp)

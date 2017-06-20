@@ -32,9 +32,21 @@
 #include "stub/DummySignal.h"
 
 /// Create valid VCD line for ISignal.
-static inline std::string getSignalPrint(const std::string &value)
+static inline std::string getISignalPrint(const std::string &value)
 {
     return ('b' + value + ' ' + DummySignal::DUMMY_NAME);
+}
+
+/// Create ISignal with given value and size (dummy by default).
+/// Other parameters are dummies.
+static inline SIGNAL::ISignal getISignal(uint64_t value,
+                                         size_t size = DummySignal::DUMMY_SIZE)
+{
+    return {DummySignal::DUMMY_NAME,
+            size,
+            DummySignal::DUMMY_TIMESTAMP,
+            value,
+            DummySignal::DUMMY_HANDLE};
 }
 
 /// Structure describing expected signal value.
@@ -69,13 +81,10 @@ TEST_CASE("ISignal::Print")
 {
     for (const auto &testCase : SIGNAL_VALUE_TESTS)
     {
-        SIGNAL::ISignal signal(DummySignal::DUMMY_NAME,
-                               testCase.m_Size,
-                               DummySignal::DUMMY_TIMESTAMP,
-                               testCase.m_Value,
-                               DummySignal::DUMMY_HANDLE);
+        const SIGNAL::ISignal signal =
+            getISignal(testCase.m_Value, testCase.m_Size);
 
-        const std::string expectedPrint = getSignalPrint(testCase.m_ValueString);
+        const std::string expectedPrint = getISignalPrint(testCase.m_ValueString);
 
         REQUIRE(signal.Print() == expectedPrint);
     }
@@ -105,26 +114,13 @@ TEST_CASE("ISignal::Footprint")
 {
     for (const auto &testCase : SIGNAL_SIZE_TESTS)
     {
-        SIGNAL::ISignal signal(DummySignal::DUMMY_NAME,
-                               testCase.m_Size,
-                               DummySignal::DUMMY_TIMESTAMP,
-                               0,
-                               DummySignal::DUMMY_HANDLE);
+        const SIGNAL::ISignal signal =
+            getISignal(0, testCase.m_Size);
 
-        const std::string expectedFootprint = getSignalPrint(testCase.m_Footprint);
+        const std::string expectedFootprint = getISignalPrint(testCase.m_Footprint);
 
         REQUIRE(signal.Footprint() == expectedFootprint);
     }
-}
-
-/// Create ISignal with given value. Other parameters are dummies.
-static inline SIGNAL::ISignal getISignal(uint64_t value)
-{
-    return {DummySignal::DUMMY_NAME,
-            DummySignal::DUMMY_SIZE,
-            DummySignal::DUMMY_TIMESTAMP,
-            value,
-            DummySignal::DUMMY_HANDLE};
 }
 
 TEST_CASE("ISignal::EqualTo")

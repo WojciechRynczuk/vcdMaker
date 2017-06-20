@@ -31,9 +31,9 @@
 
 TEST_CASE("Signal")
 {
-    DummySignal dummySignal1("dummy1", 1);
-    DummySignal dummySignal2("dummy2", 2);
-    DummySignal dummySignal3("dummy2", 2);
+    DummySignal dummySignal1("dummy1", 1, "1");
+    DummySignal dummySignal2("dummy2", 2, "2");
+    DummySignal dummySignal3("dummy2", 2, "2");
 
     SIGNAL::Signal &rSignal1 = dummySignal1;
     SIGNAL::Signal &rSignal2 = dummySignal2;

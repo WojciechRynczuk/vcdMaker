@@ -42,22 +42,26 @@ class DummySignal : public SIGNAL::Signal
         static constexpr const char *DUMMY_NAME = "signal";
         static const size_t DUMMY_SIZE = 32;
         static const uint64_t DUMMY_TIMESTAMP = 0;
+        static constexpr const char *DUMMY_VALUE = "0";
         static constexpr const char *DUMMY_TYPE = "dummy";
         static const SIGNAL::SourceRegistry::HandleT DUMMY_HANDLE = 1;
         /// @}
 
         /// Dumy signal signal constructor.
         DummySignal(const std::string &name,
-                    uint64_t timestamp) :
+                    uint64_t timestamp,
+                    const std::string &value = DUMMY_VALUE,
+                    SIGNAL::SourceRegistry::HandleT source = DUMMY_HANDLE) :
             Signal(name,
                    DUMMY_SIZE,
                    timestamp,
                    DUMMY_TYPE,
-                   DUMMY_HANDLE)
+                   source),
+            m_Value(value)
         {
         }
 
-        /// Dumy signal signal cloning method.
+        /// Dummy signal signal cloning method.
         virtual Signal *Clone() const
         {
             return new DummySignal(*this);
@@ -66,7 +70,7 @@ class DummySignal : public SIGNAL::Signal
         /// @copydoc Signal::Print()
         virtual std::string Print() const
         {
-            return "PRINT " + GetName();
+            return "PRINT " + m_Value + " " + GetName();
         }
 
         /// @copydoc Signal::Footprint()
@@ -82,11 +86,16 @@ class DummySignal : public SIGNAL::Signal
         {
             if (DummySignal const *p = dynamic_cast<DummySignal const *>(&other))
             {
-                return (m_Name == p->m_Name);
+                return (m_Value == p->m_Value);
             }
             else
             {
                 return false;
             }
         }
+
+    private:
+
+        /// Some dummy value.
+        std::string m_Value;
 };

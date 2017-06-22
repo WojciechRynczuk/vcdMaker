@@ -30,6 +30,7 @@
 
 using namespace std::string_literals;
 
+/// Vector of strings.
 using StringVector = std::vector<std::string>;
 
 /// Unit test for Split().

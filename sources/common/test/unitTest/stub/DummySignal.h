@@ -1,4 +1,4 @@
-/// @file DummySignal.h
+/// @file common/test/unitTest/stub/DummySignal.h
 ///
 /// The dummy signal class.
 ///

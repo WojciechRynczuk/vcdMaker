@@ -1,4 +1,4 @@
-/// @file SourceRegistry.cpp
+/// @file common/test/unitTest/SourceRegistry.cpp
 ///
 /// Unit test for SourceRegistry class.
 ///

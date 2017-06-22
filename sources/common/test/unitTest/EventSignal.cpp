@@ -1,4 +1,4 @@
-/// @file EventSignal.cpp
+/// @file common/test/unitTest/EventSignal.cpp
 ///
 /// Unit test for EventSignal class.
 ///

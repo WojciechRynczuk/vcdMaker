@@ -1,4 +1,4 @@
-/// @file UtMain.cpp
+/// @file common/test/unitTest/UtMain.cpp
 ///
 /// Unit tests main source file.
 ///

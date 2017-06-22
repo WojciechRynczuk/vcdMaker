@@ -1,4 +1,4 @@
-/// @file UtilsEmpty.cpp
+/// @file common/test/unitTest/stub/UtilsEmpty.cpp
 ///
 /// Utilities stub for unit tests.
 ///

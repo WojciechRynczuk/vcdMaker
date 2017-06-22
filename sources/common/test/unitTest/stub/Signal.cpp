@@ -1,4 +1,4 @@
-/// @file Signal.cpp
+/// @file common/test/unitTest/stub/Signal.cpp
 ///
 /// Signal class stub for unit tests.
 ///

@@ -63,7 +63,7 @@ class SignalValueTest
         std::string m_ValueString;
 };
 
-/// Signal::Print() test vector.
+/// ISignal::Print() test vector.
 SignalValueTest SIGNAL_VALUE_TESTS[] =
 {
     { 1, 0, "0" },
@@ -77,6 +77,7 @@ SignalValueTest SIGNAL_VALUE_TESTS[] =
     { 64, UINT64_C(2548849195707703904), "0010001101011111010101001101011011010000001100101010001001100000" }
 };
 
+/// Unit test for ISignal::Print().
 TEST_CASE("ISignal::Print")
 {
     for (const auto &testCase : SIGNAL_VALUE_TESTS)
@@ -101,7 +102,7 @@ class SignalSizeTest
         std::string m_Footprint;
 };
 
-/// Signal::Footprint() test vector.
+/// ISignal::Footprint() test vector.
 SignalSizeTest SIGNAL_SIZE_TESTS[] =
 {
     { 1,  "x" },
@@ -110,6 +111,7 @@ SignalSizeTest SIGNAL_SIZE_TESTS[] =
     { 64, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" }
 };
 
+/// Unit test for ISignal::Footprint().
 TEST_CASE("ISignal::Footprint")
 {
     for (const auto &testCase : SIGNAL_SIZE_TESTS)
@@ -123,6 +125,7 @@ TEST_CASE("ISignal::Footprint")
     }
 }
 
+/// Unit test for ISignal::EqualTo().
 TEST_CASE("ISignal::EqualTo")
 {
     SIGNAL::ISignal signal1 = getISignal(1);

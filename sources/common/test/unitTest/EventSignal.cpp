@@ -43,6 +43,7 @@ static inline SIGNAL::EventSignal getEventSignal()
             DummySignal::DUMMY_HANDLE};
 }
 
+/// Unit test for EventSignal::Print().
 TEST_CASE("EventSignal::Print")
 {
     const SIGNAL::EventSignal signal = getEventSignal();
@@ -52,6 +53,7 @@ TEST_CASE("EventSignal::Print")
     REQUIRE(signal.Print() == expectedPrint);
 }
 
+/// Unit test for EventSignal::Footprint().
 TEST_CASE("EventSignal::Footprint")
 {
     const SIGNAL::EventSignal signal = getEventSignal();
@@ -59,6 +61,8 @@ TEST_CASE("EventSignal::Footprint")
     REQUIRE(signal.Footprint().empty());
 }
 
+/// Unit test for EventSignal::EqualTo().
+/// Note that EventSignal compares false to everything.
 TEST_CASE("EventSignal::EqualTo")
 {
     SIGNAL::EventSignal signal1 = getEventSignal();

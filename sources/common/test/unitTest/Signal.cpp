@@ -29,6 +29,9 @@
 #include "Signal.h"
 #include "stub/DummySignal.h"
 
+/// Unit test for Signal class.
+/// Since Signal class is an interface Dummy signal is used to test
+/// operators and comparator.
 TEST_CASE("Signal")
 {
     DummySignal dummySignal1("dummy1", 1, "1");

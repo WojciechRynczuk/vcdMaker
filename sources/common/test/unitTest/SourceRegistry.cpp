@@ -30,6 +30,7 @@
 
 constexpr SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::BAD_HANDLE;
 
+/// Unit test for SourceRegistry class.
 TEST_CASE("SourceRegistry")
 {
     const std::string name1 = "abcd";

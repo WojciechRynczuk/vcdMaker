@@ -3,7 +3,7 @@
 /// Utilities stub for unit tests.
 ///
 /// @par Full Description
-/// To make compliation possible. Contains dummy empty functions.
+/// To make compilation possible. Contains dummy empty functions.
 ///
 /// @ingroup UnitTest
 ///

@@ -32,6 +32,7 @@ using namespace std::string_literals;
 
 using StringVector = std::vector<std::string>;
 
+/// Unit test for Split().
 TEST_CASE("UTILS::Split")
 {
     REQUIRE((UTILS::Split(""s, '\0')) == (StringVector{}));
@@ -43,6 +44,7 @@ TEST_CASE("UTILS::Split")
     REQUIRE((UTILS::Split("a b   c  d"s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
 }
 
+/// Unit test for IsTimeUnitValid().
 TEST_CASE("UTILS::IsTimeUnitValid")
 {
     REQUIRE(UTILS::IsTimeUnitValid("a"s));
@@ -53,6 +55,7 @@ TEST_CASE("UTILS::IsTimeUnitValid")
     REQUIRE_FALSE(UTILS::IsTimeUnitValid("e"s));
 }
 
+/// Unit test for GetTimeUnitIndex().
 TEST_CASE("UTILS::GetTimeUnitIndex")
 {
     REQUIRE(UTILS::GetTimeUnitIndex("a"s) == 0);

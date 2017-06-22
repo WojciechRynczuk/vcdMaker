@@ -45,6 +45,7 @@ static inline SIGNAL::FSignal getFSignal(const std::string &value)
             DummySignal::DUMMY_HANDLE};
 }
 
+/// Unit test for FSignal::Print().
 TEST_CASE("FSignal::Print")
 {
     const std::string test_value = "123456789.10111213141516";
@@ -57,6 +58,7 @@ TEST_CASE("FSignal::Print")
     REQUIRE(signal.Print() == expectedPrint);
 }
 
+/// Unit test for FSignal::Footprint().
 TEST_CASE("FSignal::Footprint")
 {
     const SIGNAL::FSignal signal =
@@ -67,6 +69,7 @@ TEST_CASE("FSignal::Footprint")
     REQUIRE(signal.Footprint() == expectedFootprint);
 }
 
+/// Unit test for FSignal::EqualTo().
 TEST_CASE("FSignal::EqualTo")
 {
     SIGNAL::FSignal signal1 = getFSignal("1.1");

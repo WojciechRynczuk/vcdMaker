@@ -47,7 +47,7 @@ class DummySignal : public SIGNAL::Signal
         static const SIGNAL::SourceRegistry::HandleT DUMMY_HANDLE = 1;
         /// @}
 
-        /// Dumy signal signal constructor.
+        /// Dummy signal signal constructor.
         DummySignal(const std::string &name,
                     uint64_t timestamp,
                     const std::string &value = DUMMY_VALUE,
@@ -67,13 +67,13 @@ class DummySignal : public SIGNAL::Signal
             return new DummySignal(*this);
         }
 
-        /// @copydoc Signal::Print()
+        /// @copydoc SIGNAL::Signal::Print()
         virtual std::string Print() const
         {
             return "PRINT " + m_Value + " " + GetName();
         }
 
-        /// @copydoc Signal::Footprint()
+        /// @copydoc SIGNAL::Signal::Footprint()
         virtual std::string Footprint() const
         {
             return "FOOTPRINT " + GetName();
@@ -81,7 +81,7 @@ class DummySignal : public SIGNAL::Signal
 
     protected:
 
-        /// @copydoc Signal::EqualTo()
+        /// @copydoc SIGNAL::Signal::EqualTo()
         virtual bool EqualTo(Signal const &other) const
         {
             if (DummySignal const *p = dynamic_cast<DummySignal const *>(&other))

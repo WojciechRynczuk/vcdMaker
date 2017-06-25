@@ -44,7 +44,10 @@ std::vector<std::string> UTILS::Split(const std::string &rInString,
 
     while (std::getline(inStream, outField, delimiter))
     {
-        outStrings.push_back(outField);
+        if (!outField.empty())
+        {
+            outStrings.push_back(outField);
+        }
     }
 
     return outStrings;

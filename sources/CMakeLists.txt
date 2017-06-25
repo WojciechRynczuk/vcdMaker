@@ -2,7 +2,7 @@
 #
 # vcdMaker and vcdMerge CMake file.
 #
-# Copyright (c) 2016 vcdMaker team
+# Copyright (c) 2017 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -263,12 +263,20 @@ get_filename_component(ROOT_DIR ${PROJECT_SOURCE_DIR}/.. ABSOLUTE)
 
 # Add test targets
 
+enable_testing()
+
+add_custom_target(check
+                  COMMAND ${CMAKE_CTEST_COMMAND} -V
+                  COMMENT "vcdMaker test suite")
+
+# Functional tests
+
 find_package(PythonInterp 3.5)
 
 if (PYTHONINTERP_FOUND)
     set(COMPARISON_TEST_SCRIPT ${ROOT_DIR}/test/functional/comparison_test.py)
-    set(MAKER_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test)
-    set(MERGE_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMerge/test)
+    set(MAKER_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test/functional)
+    set(MERGE_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMerge/test/functional)
 
     add_custom_target(comparisonTest
                       COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${MAKER_COMPARISON_TEST_DIR}
@@ -277,6 +285,75 @@ if (PYTHONINTERP_FOUND)
                       COMMENT "vcdMaker commparison test"
                       VERBATIM)
 endif()
+
+# Unit tests
+
+set(COMMON_UT_DIR common/test/unitTest)
+set(COMMON_UT_STUB_DIR common/test/unitTest/stub)
+
+set(CATCH_HEADERS_DIR 3rdParty/catch/single_include)
+
+set(OUTPUT_UT_DIR output/ut)
+
+set(COMMON_UT_TARGET utCommon)
+
+# Function for unit test creation.
+function(add_vcdtools_ut UT_NAME UT_SOURCES)
+    add_executable(${UT_NAME} EXCLUDE_FROM_ALL $<TARGET_OBJECTS:${COMMON_UT_TARGET}> ${UT_SOURCES})
+
+    target_include_directories(${UT_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${VMAKER_HEADERS_DIR} ${VMERGE_HEADERS_DIR} ${CATCH_HEADERS_DIR})
+
+    add_common_vcdtools_target_props(${UT_NAME})
+
+    set_target_properties(${UT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_UT_DIR})
+
+    add_test(NAME ${UT_NAME}
+             COMMAND ${UT_NAME} --use-colour yes)
+    add_dependencies(check ${UT_NAME})
+endfunction(add_vcdtools_ut)
+
+add_library(${COMMON_UT_TARGET} EXCLUDE_FROM_ALL OBJECT ${COMMON_UT_DIR}/UtMain.cpp)
+
+target_include_directories(${COMMON_UT_TARGET} PUBLIC ${CATCH_HEADERS_DIR})
+
+add_common_vcdtools_target_props(${COMMON_UT_TARGET})
+
+set(UT_SIGNAL_SOURCES
+    ${COMMON_UT_DIR}/Signal.cpp
+    ${COMMON_UT_STUB_DIR}/UtilsEmpty.cpp
+    ${COMMON_SOURCES_DIR}/Signal.cpp)
+
+add_vcdtools_ut(utSignal "${UT_SIGNAL_SOURCES}")
+
+set(UT_ISIGNAL_SOURCES
+    ${COMMON_UT_DIR}/ISignal.cpp
+    ${COMMON_SOURCES_DIR}/ISignal.cpp)
+
+add_vcdtools_ut(utISignal "${UT_ISIGNAL_SOURCES}")
+
+set(UT_FSIGNAL_SOURCES
+    ${COMMON_UT_DIR}/FSignal.cpp
+    ${COMMON_SOURCES_DIR}/FSignal.cpp)
+
+add_vcdtools_ut(utFSignal "${UT_FSIGNAL_SOURCES}")
+
+set(UT_EVENTSIGNAL_SOURCES
+    ${COMMON_UT_DIR}/EventSignal.cpp)
+
+add_vcdtools_ut(utEventSignal "${UT_EVENTSIGNAL_SOURCES}")
+
+set(UT_SOURCE_REGISTRY_SOURCES
+    ${COMMON_UT_DIR}/SourceRegistry.cpp
+    ${COMMON_SOURCES_DIR}/SourceRegistry.cpp)
+
+add_vcdtools_ut(utSourceRegistry "${UT_SOURCE_REGISTRY_SOURCES}")
+
+set(UT_UTILS_SOURCES
+    ${COMMON_UT_DIR}/Utils.cpp
+    ${COMMON_UT_STUB_DIR}/Signal.cpp
+    ${COMMON_SOURCES_DIR}/Utils.cpp)
+
+add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")
 
 # Add Doxygen target
 

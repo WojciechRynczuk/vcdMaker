@@ -360,11 +360,13 @@ add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")
 find_package(Doxygen)
 
 if (DOXYGEN_FOUND)
-  set(DOXYFILE ${DEVEL_SUPPORT_DIR}/config/Doxyfile)
+  set(DOXYFILE_IN ${DEVEL_SUPPORT_DIR}/config/Doxyfile.in)
+  set(DOXYFILE_OUT Doxyfile.out)
+
+  configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT})
 
   add_custom_target(doxygen
-                    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
-                    WORKING_DIRECTORY ${OUTPUT_DIR}
+                    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
                     COMMENT "Generate doxygen documentation"
                     VERBATIM)
 endif()

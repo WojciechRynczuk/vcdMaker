@@ -1,4 +1,4 @@
-/// @file Signal.cpp
+/// @file common/src/Signal.cpp
 ///
 /// The base VCD signal class.
 ///

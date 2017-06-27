@@ -1,4 +1,4 @@
-/// @file EventSignalCreator.h
+/// @file common/src/EventSignalCreator.cpp
 ///
 /// The event signal creator.
 ///

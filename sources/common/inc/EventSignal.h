@@ -1,4 +1,4 @@
-/// @file EventSignal.h
+/// @file common/inc/EventSignal.h
 ///
 /// The signal class supporting events
 ///

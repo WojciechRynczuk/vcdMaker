@@ -1,4 +1,4 @@
-/// @file Signal.h
+/// @file common/inc/Signal.h
 ///
 /// The base VCD signal class.
 ///

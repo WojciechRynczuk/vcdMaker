@@ -1,4 +1,4 @@
-/// @file SourceRegistry.cpp
+/// @file common/src/SourceRegistry.cpp
 ///
 /// The signal source registry.
 ///

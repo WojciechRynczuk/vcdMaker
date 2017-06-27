@@ -1,4 +1,4 @@
-/// @file vcdMaker.cpp
+/// @file vcdMaker/src/vcdMaker.cpp
 ///
 /// The main module of the vcdMaker application.
 ///

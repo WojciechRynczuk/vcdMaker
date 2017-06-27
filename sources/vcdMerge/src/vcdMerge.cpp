@@ -1,4 +1,4 @@
-/// @file vcdMerge.cpp
+/// @file vcdMerge/src/vcdMerge.cpp
 ///
 /// The main module of the vcdMerge application.
 ///

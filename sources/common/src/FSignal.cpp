@@ -1,4 +1,4 @@
-/// @file FSignal.h
+/// @file common/src/FSignal.cpp
 ///
 /// The signal class supporting real numbers.
 ///

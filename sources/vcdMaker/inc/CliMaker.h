@@ -1,4 +1,4 @@
-/// @file CliMaker.h
+/// @file vcdMaker/inc/CliMaker.h
 ///
 /// The vcdMaker CLI implemantation.
 ///

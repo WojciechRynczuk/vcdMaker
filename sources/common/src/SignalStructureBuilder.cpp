@@ -1,4 +1,4 @@
-/// @file SignalStructureBuilder.cpp
+/// @file common/src/SignalStructureBuilder.cpp
 ///
 /// VCD signal structure builder class.
 ///

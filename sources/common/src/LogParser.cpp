@@ -1,4 +1,4 @@
-/// @file LogParser.cpp
+/// @file common/src/LogParser.cpp
 ///
 /// The log parser interface class.
 ///

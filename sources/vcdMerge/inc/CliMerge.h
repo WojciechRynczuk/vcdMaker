@@ -1,4 +1,4 @@
-/// @file CliMerge.h
+/// @file vcdMerge/inc/CliMerge.h
 ///
 /// The vcdMerge CLI implemantation.
 ///

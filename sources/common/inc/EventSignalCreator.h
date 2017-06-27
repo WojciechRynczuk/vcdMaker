@@ -1,4 +1,4 @@
-/// @file EventSignalCreator.h
+/// @file common/inc/EventSignalCreator.h
 ///
 /// The event signal creator.
 ///

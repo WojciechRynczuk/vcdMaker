@@ -1,4 +1,4 @@
-/// @file VCDTracer.h
+/// @file common/inc/VCDTracer.h
 ///
 /// The VCD generation module.
 ///

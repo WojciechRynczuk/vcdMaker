@@ -1,4 +1,4 @@
-/// @file LineCounter.h
+/// @file common/inc/LineCounter.h
 ///
 /// The line counting class.
 ///

@@ -1,4 +1,4 @@
-/// @file SignalDb.cpp
+/// @file common/src/SignalDb.cpp
 ///
 /// Signal database class.
 ///

@@ -1,4 +1,4 @@
-/// @file VcdExceptionList.h
+/// @file common/inc/VcdExceptionList.h
 ///
 /// The file lists errors and warnings which might occur within vcdMaker
 /// applications.

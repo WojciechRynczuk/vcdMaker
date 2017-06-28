@@ -1,4 +1,4 @@
-/// @file SignalCreator.h
+/// @file common/inc/SignalCreator.h
 ///
 /// The signal creator interface class.
 ///

@@ -1,4 +1,4 @@
-/// @file SignalFactory.h
+/// @file common/src/SignalFactory.cpp
 ///
 /// The signal factory class.
 ///

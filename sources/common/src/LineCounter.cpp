@@ -1,4 +1,4 @@
-/// @file LineCounter.cpp
+/// @file common/src/LineCounter.cpp
 ///
 /// The line counting class.
 ///

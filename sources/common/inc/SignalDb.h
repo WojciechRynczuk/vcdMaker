@@ -1,4 +1,4 @@
-/// @file SignalDb.h
+/// @file common/inc/SignalDb.h
 ///
 /// Signal database class.
 ///

@@ -1,4 +1,4 @@
-/// @file Merge.h
+/// @file vcdMerge/inc/Merge.h
 ///
 /// The merging unit.
 ///

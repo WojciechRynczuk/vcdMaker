@@ -1,4 +1,4 @@
-/// @file Instrument.h
+/// @file common/inc/Instrument.h
 ///
 /// The instrument interface class.
 ///

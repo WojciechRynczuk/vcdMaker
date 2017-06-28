@@ -1,4 +1,4 @@
-/// @file LogParser.h
+/// @file common/inc/LogParser.h
 ///
 /// The log parser interface class.
 ///

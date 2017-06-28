@@ -1,4 +1,4 @@
-/// @file ISignalCreator.h
+/// @file common/src/ISignalCreator.cpp
 ///
 /// The integer signal creator.
 ///

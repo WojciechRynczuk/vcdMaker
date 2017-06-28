@@ -1,4 +1,4 @@
-/// @file ISignal.h
+/// @file common/src/ISignal.cpp
 ///
 /// The signal class supporting integer numbers.
 ///

@@ -1,4 +1,4 @@
-/// @file SignalSource.h
+/// @file vcdMerge/inc/SignalSource.h
 ///
 /// The signal source class.
 ///

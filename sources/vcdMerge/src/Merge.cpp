@@ -1,4 +1,4 @@
-/// @file Merge.cpp
+/// @file vcdMerge/src/Merge.cpp
 ///
 /// The merging unit.
 ///

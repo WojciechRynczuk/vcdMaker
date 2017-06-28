@@ -1,4 +1,4 @@
-/// @file SourceRegistry.h
+/// @file common/inc/SourceRegistry.h
 ///
 /// The signal source registry.
 ///

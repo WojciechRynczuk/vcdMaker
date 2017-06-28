@@ -1,4 +1,4 @@
-/// @file VcdException.h
+/// @file common/inc/VcdException.h
 ///
 /// The VCD exception base class.
 ///

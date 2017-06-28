@@ -1,4 +1,4 @@
-/// @file SignalSource.cpp
+/// @file vcdMerge/src/SignalSource.cpp
 ///
 /// The signal source class.
 ///

@@ -278,12 +278,18 @@ if (PYTHONINTERP_FOUND)
     set(MAKER_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test/functional)
     set(MERGE_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMerge/test/functional)
 
-    add_custom_target(comparisonTest
-                      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${MAKER_COMPARISON_TEST_DIR}
-                      COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMerge -t ${MERGE_COMPARISON_TEST_DIR}
-                      WORKING_DIRECTORY ${OUTPUT_DIR}
-                      COMMENT "vcdMaker commparison test"
-                      VERBATIM)
+    add_test(NAME vcdMakerComparisonTest
+             COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${MAKER_COMPARISON_TEST_DIR}
+             WORKING_DIRECTORY ${OUTPUT_DIR_ABSOLUE})
+
+    add_dependencies(check vcdMaker)
+
+    add_test(NAME vcdMergeComparisonTest
+             COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMerge -t ${MERGE_COMPARISON_TEST_DIR}
+             WORKING_DIRECTORY ${OUTPUT_DIR_ABSOLUE})
+
+    add_dependencies(check vcdMerge)
+
 endif()
 
 # Unit tests

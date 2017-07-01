@@ -36,7 +36,7 @@ TEST_CASE("SourceRegistry")
     const std::string name1 = "abcd";
     const std::string name2 = "efgh";
 
-    SIGNAL::SourceRegistry registry;
+    SIGNAL::SourceRegistry &registry = SIGNAL::SourceRegistry::GetInstance();
 
     const SIGNAL::SourceRegistry::HandleT handle1 =
         registry.Register(name1);

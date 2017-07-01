@@ -58,4 +58,4 @@ before_script:
 script:
   - cmake .
   - make
-  - make comparisonTest
+  - make check

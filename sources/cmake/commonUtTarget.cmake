@@ -1,16 +1,6 @@
-# CMakeLists.txt
+# commonUtTarget.cmake
 #
-# vcdMaker and vcdMerge CMake file.
-#
-# This file is split into several other files that include majority
-# of CMake code. Those files are dependent on each other through
-# the use of variables. Because of that they can't really be treated
-# like stand-alone modules.
-#
-# Most interesting cmake files are:
-# - commonSources.cmake: list of all common sources and dirs.
-# - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
-# - unitTests.cmake: list of unit tests.
+# Common unit test target functions.
 #
 # Copyright (c) 2017 vcdMaker team
 #
@@ -32,37 +22,34 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-cmake_minimum_required(VERSION 3.0)
+# Unit tests
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(COMMON_UT_DIR common/test/unitTest)
+set(COMMON_UT_STUB_DIR common/test/unitTest/stub)
 
-include(version)
+set(CATCH_HEADERS_DIR 3rdParty/catch/single_include)
 
-# Setup project.
-project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+set(OUTPUT_UT_DIR output/ut)
 
-include(commonSources)
+set(COMMON_UT_TARGET utCommon)
 
-include(commonTarget)
+# Function for unit test creation.
+function(add_vcdtools_ut UT_NAME UT_SOURCES)
+    add_executable(${UT_NAME} EXCLUDE_FROM_ALL $<TARGET_OBJECTS:${COMMON_UT_TARGET}> ${UT_SOURCES})
 
-include(vcdMaker)
+    target_include_directories(${UT_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${VMAKER_HEADERS_DIR} ${VMERGE_HEADERS_DIR} ${CATCH_HEADERS_DIR})
 
-include(vcdMerge)
+    add_common_vcdtools_target_props(${UT_NAME})
 
-if (UNIX)
-    include(manPages)
+    set_target_properties(${UT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_UT_DIR})
 
-    include(install)
+    add_test(NAME ${UT_NAME}
+             COMMAND ${UT_NAME} --use-colour yes)
+    add_dependencies(check ${UT_NAME})
+endfunction(add_vcdtools_ut)
 
-    include(installCpack)
-endif()
+add_library(${COMMON_UT_TARGET} EXCLUDE_FROM_ALL OBJECT ${COMMON_UT_DIR}/UtMain.cpp)
 
-include(check)
+target_include_directories(${COMMON_UT_TARGET} PUBLIC ${CATCH_HEADERS_DIR})
 
-include(comparisonTest)
-
-include(commonUtTarget)
-
-include(unitTests)
-
-include(doxygen)
+add_common_vcdtools_target_props(${COMMON_UT_TARGET})

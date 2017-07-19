@@ -1,16 +1,6 @@
-# CMakeLists.txt
+# comparisonTest.cmake
 #
-# vcdMaker and vcdMerge CMake file.
-#
-# This file is split into several other files that include majority
-# of CMake code. Those files are dependent on each other through
-# the use of variables. Because of that they can't really be treated
-# like stand-alone modules.
-#
-# Most interesting cmake files are:
-# - commonSources.cmake: list of all common sources and dirs.
-# - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
-# - unitTests.cmake: list of unit tests.
+# Comparison test targets.
 #
 # Copyright (c) 2017 vcdMaker team
 #
@@ -32,37 +22,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-cmake_minimum_required(VERSION 3.0)
+# Comparison functional test.
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+find_package(PythonInterp 3.5)
 
-include(version)
+if (PYTHONINTERP_FOUND)
+    set(COMPARISON_TEST_SCRIPT ${ROOT_DIR}/test/functional/comparison_test.py)
+    set(MAKER_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMaker/test/functional)
+    set(MERGE_COMPARISON_TEST_DIR ${PROJECT_SOURCE_DIR}/vcdMerge/test/functional)
 
-# Setup project.
-project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+    add_test(NAME vcdMakerComparisonTest
+            COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMaker -t ${MAKER_COMPARISON_TEST_DIR}
+            WORKING_DIRECTORY ${OUTPUT_DIR_ABSOLUE})
 
-include(commonSources)
+    add_dependencies(check vcdMaker)
 
-include(commonTarget)
+    add_test(NAME vcdMergeComparisonTest
+            COMMAND ${PYTHON_EXECUTABLE} ${COMPARISON_TEST_SCRIPT} -e ./vcdMerge -t ${MERGE_COMPARISON_TEST_DIR}
+            WORKING_DIRECTORY ${OUTPUT_DIR_ABSOLUE})
 
-include(vcdMaker)
-
-include(vcdMerge)
-
-if (UNIX)
-    include(manPages)
-
-    include(install)
-
-    include(installCpack)
+    add_dependencies(check vcdMerge)
 endif()
-
-include(check)
-
-include(comparisonTest)
-
-include(commonUtTarget)
-
-include(unitTests)
-
-include(doxygen)

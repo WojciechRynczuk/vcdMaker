@@ -1,16 +1,6 @@
-# CMakeLists.txt
+# version.cmake
 #
-# vcdMaker and vcdMerge CMake file.
-#
-# This file is split into several other files that include majority
-# of CMake code. Those files are dependent on each other through
-# the use of variables. Because of that they can't really be treated
-# like stand-alone modules.
-#
-# Most interesting cmake files are:
-# - commonSources.cmake: list of all common sources and dirs.
-# - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
-# - unitTests.cmake: list of unit tests.
+# Version header handling.
 #
 # Copyright (c) 2017 vcdMaker team
 #
@@ -32,37 +22,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-cmake_minimum_required(VERSION 3.0)
+# Extract version information
+set(VERSION_HEADER common/inc/Version.h)
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+file(STRINGS ${VERSION_HEADER} VERSION_LINE REGEX "#define D_VERSION_")
+string(REGEX MATCHALL "[0-9]+" VERSION_COMPONENTS ${VERSION_LINE})
 
-include(version)
-
-# Setup project.
-project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
-
-include(commonSources)
-
-include(commonTarget)
-
-include(vcdMaker)
-
-include(vcdMerge)
-
-if (UNIX)
-    include(manPages)
-
-    include(install)
-
-    include(installCpack)
-endif()
-
-include(check)
-
-include(comparisonTest)
-
-include(commonUtTarget)
-
-include(unitTests)
-
-include(doxygen)
+list(GET VERSION_COMPONENTS 0 VERSION_MAJOR)
+list(GET VERSION_COMPONENTS 1 VERSION_MINOR)
+list(GET VERSION_COMPONENTS 2 VERSION_PATCH)

@@ -1,16 +1,6 @@
-# CMakeLists.txt
+# vcdMerge.cmake
 #
-# vcdMaker and vcdMerge CMake file.
-#
-# This file is split into several other files that include majority
-# of CMake code. Those files are dependent on each other through
-# the use of variables. Because of that they can't really be treated
-# like stand-alone modules.
-#
-# Most interesting cmake files are:
-# - commonSources.cmake: list of all common sources and dirs.
-# - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
-# - unitTests.cmake: list of unit tests.
+# vcdMerge target.
 #
 # Copyright (c) 2017 vcdMaker team
 #
@@ -32,37 +22,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-cmake_minimum_required(VERSION 3.0)
+# Set vcdMerge build.
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(VMERGE_SOURCES_DIR vcdMerge/src)
+set(VMERGE_SOURCES
+    ${VMERGE_SOURCES_DIR}/vcdMerge.cpp
+    ${VMERGE_SOURCES_DIR}/Merge.cpp
+    ${VMERGE_SOURCES_DIR}/SignalSource.cpp)
 
-include(version)
+set(VMERGE_HEADERS_DIR vcdMerge/inc)
+set(VMERGE_HEADERS
+    ${VMERGE_HEADERS_DIR}/CliMerge.h
+    ${VMERGE_HEADERS_DIR}/Merge.h
+    ${VMERGE_HEADERS_DIR}/SignalSource.h)
 
-# Setup project.
-project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
-
-include(commonSources)
-
-include(commonTarget)
-
-include(vcdMaker)
-
-include(vcdMerge)
-
-if (UNIX)
-    include(manPages)
-
-    include(install)
-
-    include(installCpack)
-endif()
-
-include(check)
-
-include(comparisonTest)
-
-include(commonUtTarget)
-
-include(unitTests)
-
-include(doxygen)
+add_vcdtools_target(vcdMerge
+                    "${VMERGE_SOURCES}"
+                    "${VMERGE_HEADERS}"
+                    ${VMERGE_HEADERS_DIR})

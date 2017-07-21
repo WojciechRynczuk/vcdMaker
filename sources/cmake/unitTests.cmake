@@ -1,16 +1,6 @@
-# CMakeLists.txt
+# unitTests.cmake
 #
-# vcdMaker and vcdMerge CMake file.
-#
-# This file is split into several other files that include majority
-# of CMake code. Those files are dependent on each other through
-# the use of variables. Because of that they can't really be treated
-# like stand-alone modules.
-#
-# Most interesting cmake files are:
-# - commonSources.cmake: list of all common sources and dirs.
-# - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
-# - unitTests.cmake: list of unit tests.
+# Unit test targets.
 #
 # Copyright (c) 2017 vcdMaker team
 #
@@ -32,37 +22,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-cmake_minimum_required(VERSION 3.0)
+# List of unit tests.
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(UT_SIGNAL_SOURCES
+    ${COMMON_UT_DIR}/Signal.cpp
+    ${COMMON_UT_STUB_DIR}/UtilsEmpty.cpp
+    ${COMMON_SOURCES_DIR}/Signal.cpp)
 
-include(version)
+add_vcdtools_ut(utSignal "${UT_SIGNAL_SOURCES}")
 
-# Setup project.
-project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+set(UT_ISIGNAL_SOURCES
+    ${COMMON_UT_DIR}/ISignal.cpp
+    ${COMMON_SOURCES_DIR}/ISignal.cpp)
 
-include(commonSources)
+add_vcdtools_ut(utISignal "${UT_ISIGNAL_SOURCES}")
 
-include(commonTarget)
+set(UT_FSIGNAL_SOURCES
+    ${COMMON_UT_DIR}/FSignal.cpp
+    ${COMMON_SOURCES_DIR}/FSignal.cpp)
 
-include(vcdMaker)
+add_vcdtools_ut(utFSignal "${UT_FSIGNAL_SOURCES}")
 
-include(vcdMerge)
+set(UT_EVENTSIGNAL_SOURCES
+    ${COMMON_UT_DIR}/EventSignal.cpp)
 
-if (UNIX)
-    include(manPages)
+add_vcdtools_ut(utEventSignal "${UT_EVENTSIGNAL_SOURCES}")
 
-    include(install)
+set(UT_SOURCE_REGISTRY_SOURCES
+    ${COMMON_UT_DIR}/SourceRegistry.cpp
+    ${COMMON_SOURCES_DIR}/SourceRegistry.cpp)
 
-    include(installCpack)
-endif()
+add_vcdtools_ut(utSourceRegistry "${UT_SOURCE_REGISTRY_SOURCES}")
 
-include(check)
+set(UT_UTILS_SOURCES
+    ${COMMON_UT_DIR}/Utils.cpp
+    ${COMMON_UT_STUB_DIR}/Signal.cpp
+    ${COMMON_SOURCES_DIR}/Utils.cpp)
 
-include(comparisonTest)
-
-include(commonUtTarget)
-
-include(unitTests)
-
-include(doxygen)
+add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")

@@ -1,16 +1,6 @@
-# CMakeLists.txt
+# version.cmake
 #
-# vcdMaker and vcdMerge CMake file.
-#
-# This file is split into several other files that include majority
-# of CMake code. Those files are dependent on each other through
-# the use of variables. Because of that they can't really be treated
-# like stand-alone modules.
-#
-# Most interesting cmake files are:
-# - commonSources.cmake: list of all common sources and dirs.
-# - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
-# - unitTests.cmake: list of unit tests.
+# Doxygen target.
 #
 # Copyright (c) 2017 vcdMaker team
 #
@@ -32,37 +22,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-cmake_minimum_required(VERSION 3.0)
+# Add Doxygen target.
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+find_package(Doxygen)
 
-include(version)
+if (DOXYGEN_FOUND)
+  set(DOXYFILE_IN ${DEVEL_SUPPORT_DIR}/config/Doxyfile.in)
+  set(DOXYFILE_OUT Doxyfile.out)
 
-# Setup project.
-project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+  configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT})
 
-include(commonSources)
-
-include(commonTarget)
-
-include(vcdMaker)
-
-include(vcdMerge)
-
-if (UNIX)
-    include(manPages)
-
-    include(install)
-
-    include(installCpack)
+  add_custom_target(doxygen
+                    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
+                    COMMENT "Generate doxygen documentation"
+                    VERBATIM)
 endif()
-
-include(check)
-
-include(comparisonTest)
-
-include(commonUtTarget)
-
-include(unitTests)
-
-include(doxygen)

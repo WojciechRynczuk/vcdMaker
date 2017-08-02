@@ -66,3 +66,5 @@ include(commonUtTarget)
 include(unitTests)
 
 include(doxygen)
+
+include(pugixml)

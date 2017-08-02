@@ -25,6 +25,11 @@
 # Comparison functional test.
 
 find_package(PythonInterp 3.5)
+set_package_properties(PythonInterp PROPERTIES
+                       URL "http://python.org"
+                       DESCRIPTION "Python programming language interpretter"
+                       TYPE OPTIONAL
+                       PURPOSE "Enables comparison test.")
 
 if (PYTHONINTERP_FOUND)
     set(COMPARISON_TEST_SCRIPT ${ROOT_DIR}/test/functional/comparison_test.py)

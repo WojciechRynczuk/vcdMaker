@@ -25,6 +25,11 @@
 # Add Doxygen target.
 
 find_package(Doxygen)
+set_package_properties(Doxygen PROPERTIES
+                       URL "http://doxygen.org"
+                       DESCRIPTION "Tool for generating documentation from annotated C++ sources"
+                       TYPE OPTIONAL
+                       PURPOSE "Enables generation of code documentation.")
 
 if (DOXYGEN_FOUND)
   set(DOXYFILE_IN ${DEVEL_SUPPORT_DIR}/config/Doxyfile.in)

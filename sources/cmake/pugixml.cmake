@@ -22,7 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-option(USE_STATIC_PUGIXML "Set to ON to build and static link pugixml library, set to OFF to use system library" OFF)
+option(USE_STATIC_PUGIXML "Set to ON to build and static link pugixml library, set to OFF to use system library." OFF)
+add_feature_info(StaticPugixml USE_STATIC_PUGIXML "Enables usage of source based, bundled pugixml library.")
 
 if (USE_STATIC_PUGIXML)
     set(PUGIXML_OUTPUT_DIR ${OUTPUT_DIR_ABSOLUE}/pugixml)
@@ -60,6 +61,11 @@ if (USE_STATIC_PUGIXML)
      set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${PUGIXML_LIB_FILE})
 else()
     find_package(pugixml REQUIRED)
+    set_package_properties(pugixml PROPERTIES
+                           URL "http://pugixml.org"
+                           DESCRIPTION "Light-weight C++ XML processing library."
+                           TYPE REQUIRED
+                           PURPOSE "Enables parsing of XML files.")
 endif()
 
 target_link_libraries(vcdMaker pugixml)

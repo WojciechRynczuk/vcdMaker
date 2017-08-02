@@ -24,16 +24,18 @@
 
 # Set installation.
 
+include(GNUInstallDirs)
+
 install(TARGETS vcdMaker vcdMerge
-        RUNTIME DESTINATION bin
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
         COMPONENT runtime)
 
 install(FILES ${MAN_PAGES_GENERATED}
-        DESTINATION share/man/man1
+        DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
         COMPONENT documentation)
 
 install(DIRECTORY common/doc/
-        DESTINATION share/doc/${CMAKE_PROJECT_NAME}
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}
         COMPONENT documentation
         PATTERN "*.odt" EXCLUDE
         PATTERN "man" EXCLUDE)

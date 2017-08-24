@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT signals   (vector | real | event)*>
+
+<!ELEMENT vector    (   line,
+                        timestamp,
+                        name,
+                        value,
+                        size)
+>
+<!ELEMENT real      (   line,
+                        timestamp,
+                        name,
+                        value)
+>
+<!ELEMENT event     (   line,
+                        timestamp,
+                        name)
+>
+<!ELEMENT line (#PCDATA)>
+<!ELEMENT timestamp (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT value (#PCDATA)>
+<!ELEMENT size (#PCDATA)>

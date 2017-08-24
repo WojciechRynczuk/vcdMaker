@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE signals SYSTEM "vcdMaker.dtd">
+<signals>
+
+<vector>
+    <line>^#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+)( +.*)?</line>
+    <timestamp>1</timestamp>
+    <name>2</name>
+    <value>3</value>
+    <size>4</size>
+</vector>
+
+<real>
+    <line>^#([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f( +.*)?</line>
+    <timestamp>1</timestamp>
+    <name>2</name>
+    <value>3</value>
+</real>
+
+<event>
+    <line>^#([[:d:]]+) ([[:graph:]]+) e( +.*)?</line>
+    <timestamp>1</timestamp>
+    <name>2</name>
+</event>
+
+<event>
+    <line>test1</line>
+    <timestamp>1</timestamp>
+    <name>2</name>
+</event>
+
+<vector>
+    <line>test2</line>
+    <timestamp>1</timestamp>
+    <name>2</name>
+    <value>3</value>
+    <size>4</size>
+</vector>
+
+</signals >

@@ -32,13 +32,16 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 
-PARSER::SignalFactory::SignalFactory() :
+PARSER::SignalFactory::SignalFactory(bool default_creators) :
     m_vpSignalCreators()
 {
     // Register creators
-    m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
+    if (default_creators)
+    {
+        m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
+        m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
+        m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
+    }
 }
 
 SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine,

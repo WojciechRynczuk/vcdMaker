@@ -31,6 +31,7 @@
 #pragma once
 
 #include "TxtParser.h"
+#include "XmlSignalFactory.h"
 
 namespace MERGE
 {
@@ -133,6 +134,9 @@ namespace MERGE
 
             /// The signals database.
             std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
+
+            /// The signal factory.
+            std::unique_ptr<PARSER::SignalFactory> m_pSignalFactory;
 
             /// The source synchronization point.
             uint64_t m_SyncPoint;

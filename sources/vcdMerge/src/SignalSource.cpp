@@ -43,6 +43,7 @@ MERGE::SignalSource::SignalSource(const std::string &rDescription,
     m_SourceDescription(rDescription),
     m_rSignalRegistry(rSignalRegistry),
     m_pSignalDb(),
+    m_pSignalFactory(),
     m_SyncPoint(),
     m_TimeUnit(),
     m_Prefix(),
@@ -74,6 +75,7 @@ void MERGE::SignalSource::Create()
     PARSER::TxtParser parser(m_Filename,
                              m_TimeUnit,
                              m_rSignalRegistry,
+                             *m_pSignalFactory,
                              m_VerboseMode);
 
     // Line counter.
@@ -97,11 +99,32 @@ void MERGE::SignalSource::Create()
 
 void MERGE::SignalSource::SetFormat(const std::string &rFormat)
 {
-    if (rFormat != "T")
+    if (rFormat == "T")
     {
-        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_LOG_FILE_FORMAT,
-                                      "Invalid log file format: " + rFormat);
+        m_pSignalFactory = std::make_unique<PARSER::SignalFactory>();
+        return;
     }
+
+    if ((rFormat[0] == 'U') && 
+        (rFormat[1] == '(') && 
+        (rFormat[rFormat.length() - 1] == ')'))
+    {
+        const std::string filename(rFormat.substr(2, rFormat.length() - 3));
+        std::ifstream infile(filename);
+
+        if (!infile.good())
+        {
+            throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
+                                          "Opening file '" +
+                                          filename +
+                                          "' failed, it either doesn't exist or is inaccessible.");
+        }
+        m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(filename);
+        return;
+    }
+
+    throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_LOG_FILE_FORMAT,
+                                  "Invalid log file format: " + rFormat);
 }
 
 void MERGE::SignalSource::SetSyncPoint(const std::string &rSyncPoint)

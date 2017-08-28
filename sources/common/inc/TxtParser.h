@@ -30,6 +30,7 @@
 #pragma once
 
 #include "LogParser.h"
+#include "SignalFactory.h"
 
 /// Log parser.
 namespace PARSER
@@ -47,10 +48,12 @@ namespace PARSER
             /// @param rFilename The name of the log file to be open.
             /// @param rTimeBase The time base used in the log.
             /// @param rSourceRegistry Signal sources registry.
+            /// @param rSignalFactory The signal factory.
             /// @param verboseMode Value 'true' enables the verbose mode.
             TxtParser(const std::string &rFilename,
                       const std::string &rTimeBase,
                       SIGNAL::SourceRegistry &rSourceRegistry,
+                      const SignalFactory &rSignalFactory,
                       bool verboseMode);
 
             /// The destructor.
@@ -72,6 +75,9 @@ namespace PARSER
 
             /// The signal source handle.
             SIGNAL::SourceRegistry::HandleT m_SourceHandle;
+
+            /// The signal factory.
+            const SignalFactory &m_rSignalFactory;
     };
 
 }

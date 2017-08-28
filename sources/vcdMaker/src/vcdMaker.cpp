@@ -31,6 +31,7 @@
 #include "LineCounter.h"
 #include "VcdException.h"
 #include "Logger.h"
+#include "XmlSignalFactory.h"
 
 ///  The vcdMaker main function.
 ///
@@ -48,10 +49,22 @@ int main(int argc, const char *argv[])
         CLI::CliMaker cli;
         cli.Parse(argc, argv);
 
+        // Build the signal factory.
+        std::unique_ptr<PARSER::SignalFactory> pSignalFactory = NULL;
+        if (cli.GetUserLogFormat().length())
+        {
+            pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(cli.GetUserLogFormat());
+        }
+        else
+        {
+            pSignalFactory = std::make_unique<PARSER::SignalFactory>();
+        }
+
         // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
                                  cli.GetTimebase(),
                                  SIGNAL::SourceRegistry::GetInstance(),
+                                 *pSignalFactory,
                                  cli.IsVerboseMode());
 
         // Line counter.

@@ -44,7 +44,9 @@ namespace PARSER
         public:
 
             /// The signal factory default constructor.
-            SignalFactory();
+            ///
+            /// @param default_creators Defines if the default vcdMaker signal creatos shall be used.
+            SignalFactory(bool default_creators = true);
 
             /// Creates the appropriate signal object.
             ///
@@ -56,7 +58,7 @@ namespace PARSER
             SIGNAL::Signal *Create(std::string &logLine,
                                    SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
-        private:
+        protected:
 
             /// The table of pointers to signal creators.
             std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;

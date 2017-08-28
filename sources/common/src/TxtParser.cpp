@@ -35,11 +35,13 @@
 PARSER::TxtParser::TxtParser(const std::string &rFilename,
                              const std::string &rTimeBase,
                              SIGNAL::SourceRegistry &rSourceRegistry,
+                             const PARSER::SignalFactory &rSignalFactory,
                              bool verboseMode) :
     LogParser(rFilename, rTimeBase, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
-    m_SourceHandle(rSourceRegistry.Register(rFilename))
+    m_SourceHandle(rSourceRegistry.Register(rFilename)),
+    m_rSignalFactory(rSignalFactory)
 {
 }
 
@@ -53,9 +55,6 @@ PARSER::TxtParser::~TxtParser()
 
 void PARSER::TxtParser::Parse()
 {
-    // Create the signal factory.
-    const SignalFactory signal_factory;
-
     // Line counter.
     INSTRUMENT::Instrument::LineNumberT line_number = 1;
 
@@ -64,7 +63,7 @@ void PARSER::TxtParser::Parse()
     while (std::getline(m_LogFile, input_line))
     {
         const SIGNAL::Signal *signal =
-            signal_factory.Create(input_line, m_SourceHandle);
+            m_rSignalFactory.Create(input_line, m_SourceHandle);
 
         if (signal)
         {

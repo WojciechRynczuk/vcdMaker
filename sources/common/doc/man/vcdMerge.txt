@@ -20,7 +20,7 @@ OPTIONS
 
     format,timestamp,unit,prefix,counter,filename
 
-  format                         The format of the input file. 'T' for the inherent vcdMaker format. 'U(<description>)' for the user defined log format. See the full documentation for details.
+  format                         The format of the input file. 'T' for the inherent vcdMaker format. 'U{description_xml}' for the user defined log format. See the full documentation for details.
   timestamp                      The synchronisation time for the input log. 
   unit                           The unit of the timestamp.
   prefix                         The prefix to be added to all the signals within the unit. It can be left empty. Then, no prefix is added.
@@ -29,7 +29,7 @@ OPTIONS
 EXAMPLE
   All source options used:
 
-    vcdMerge -o out.vcd -v T,71050601,us,Prefix1,Counter1,log1.txt U(vcdMaker.xml),234256037,us,Prefix2,Counter2,log2.txt
+    vcdMerge -o out.vcd -v T,71050601,us,Prefix1,Counter1,log1.txt U{vcdMaker.xml},234256037,us,Prefix2,Counter2,log2.txt
 
   No signal counters:
 

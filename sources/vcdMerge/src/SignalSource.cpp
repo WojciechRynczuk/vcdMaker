@@ -106,8 +106,8 @@ void MERGE::SignalSource::SetFormat(const std::string &rFormat)
     }
 
     if ((rFormat[0] == 'U') && 
-        (rFormat[1] == '(') && 
-        (rFormat[rFormat.length() - 1] == ')'))
+        (rFormat[1] == '{') && 
+        (rFormat[rFormat.length() - 1] == '}'))
     {
         const std::string filename(rFormat.substr(2, rFormat.length() - 3));
         std::ifstream infile(filename);

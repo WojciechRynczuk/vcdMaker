@@ -249,7 +249,7 @@ A sample test definition (containing all tags):
     <unique>
         <sources>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>71050601</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -290,7 +290,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>234256037</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>
@@ -315,7 +315,7 @@ A sample test definition (containing all tags):
         <time_unit>ms</time_unit>
         <sources>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>71050601</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -323,7 +323,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>234256037</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>
@@ -347,7 +347,7 @@ A sample test definition (containing all tags):
     <unique>
         <sources>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -388,7 +388,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>
@@ -413,7 +413,7 @@ A sample test definition (containing all tags):
         <time_unit>ms</time_unit>
         <sources>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -421,7 +421,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U(./common/doc/examples/vcdMaker.xml)</format>
+                <format>U{./common/doc/examples/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>

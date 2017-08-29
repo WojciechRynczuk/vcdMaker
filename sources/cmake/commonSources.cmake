@@ -32,6 +32,11 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/ISignal.cpp
     ${COMMON_SOURCES_DIR}/ISignalCreator.cpp
     ${COMMON_SOURCES_DIR}/SignalFactory.cpp
+    ${COMMON_SOURCES_DIR}/XmlEventSignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlFSignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlISignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlSignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlSignalFactory.cpp
     ${COMMON_SOURCES_DIR}/SignalStructureBuilder.cpp
     ${COMMON_SOURCES_DIR}/Signal.cpp
     ${COMMON_SOURCES_DIR}/SignalDb.cpp
@@ -61,6 +66,11 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/ISignal.h
     ${COMMON_HEADERS_DIR}/SignalCreator.h
     ${COMMON_HEADERS_DIR}/SignalFactory.h
+    ${COMMON_HEADERS_DIR}/XmlEventSignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlFSignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlISignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlSignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlSignalFactory.h
     ${COMMON_HEADERS_DIR}/SignalStructureBuilder.h
     ${COMMON_HEADERS_DIR}/Signal.h
     ${COMMON_HEADERS_DIR}/SourceRegistry.h
@@ -76,6 +86,15 @@ set(COMMON_HEADERS
 
 # 3rd party directories.
 set(TCLAP_HEADERS_DIR 3rdParty/tclap/include)
+set(PUGIXML_HEADERS_DIR 3rdParty/pugixml/src)
+
+# Set PugiXml source files.
+set(PUGIXML_SOURCES
+    ${PUGIXML_HEADERS_DIR}/pugixml.cpp)
+
+set(PUGIXML_HEADERS
+    ${PUGIXML_HEADERS_DIR}/pugixml.hpp
+    ${PUGIXML_HEADERS_DIR}/pugiconfig.hpp)
 
 # Other directories.
 get_filename_component(DEVEL_SUPPORT_DIR ${PROJECT_SOURCE_DIR}/../development ABSOLUTE)

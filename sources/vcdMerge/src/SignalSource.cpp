@@ -105,15 +105,18 @@ void MERGE::SignalSource::SetFormat(const std::string &rFormat)
         return;
     }
 
-    if ((rFormat[0] == 'U') && 
-        (rFormat[1] == '{') && 
-        (rFormat[rFormat.length() - 1] == '}'))
+    if (rFormat.length() > 3)
     {
-        const std::string filename(rFormat.substr(2, rFormat.length() - 3));
-        IsAccessible(filename);
+        if ((rFormat[0] == 'U') &&
+            (rFormat[1] == '{') &&
+            (rFormat[rFormat.length() - 1] == '}'))
+        {
+            const std::string filename(rFormat.substr(2, rFormat.length() - 3));
+            IsAccessible(filename);
 
-        m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(filename);
-        return;
+            m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(filename);
+            return;
+        }
     }
 
     throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_LOG_FILE_FORMAT,
@@ -168,6 +171,7 @@ void MERGE::SignalSource::SetCounterName(const std::string &rLineCounter)
 void MERGE::SignalSource::SetFilename(const std::string &rFilename)
 {
     IsAccessible(rFilename);
+    m_Filename = rFilename;
 }
 
 void MERGE::SignalSource::ParseParameters()
@@ -195,7 +199,7 @@ MERGE::SignalSource::SourceParametersT MERGE::SignalSource::GetSourceParameters(
     return UTILS::Split(m_SourceDescription, SOURCE_PARAM_DELIM);
 }
 
-void MERGE::SignalSource::IsAccessible(const std::string& rFilename) const
+void MERGE::SignalSource::IsAccessible(const std::string &rFilename) const
 {
     std::ifstream infile(rFilename);
 

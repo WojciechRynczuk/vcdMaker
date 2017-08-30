@@ -119,7 +119,7 @@ namespace MERGE
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
             ///
-            /// @throws VcdError if the first source timestamp is greater than the synchronization point.
+            /// @throws VcdException if the first source timestamp is greater than the synchronization point.
             uint64_t GetLeadingTime() const;
 
         private:
@@ -158,17 +158,17 @@ namespace MERGE
 
             /// Sets the format of the source log file.
             ///
-            /// @throws VcdError for a invalid format.
+            /// @throws VcdException for a invalid format.
             void SetFormat(const std::string &rFormat);
 
             /// Sets the synchronization point of the source.
             ///
-            /// @throws VcdError if the format of the synchronization point is invalid.
+            /// @throws VcdException if the format of the synchronization point is invalid.
             void SetSyncPoint(const std::string &rSyncPoint);
 
             /// Sets the time unit of the source.
             ///
-            /// @throws VcdError for an invalid time unit.
+            /// @throws VcdException for an invalid time unit.
             void SetTimeUnit(const std::string &rTimeUnit);
 
             /// Sets the prefix added to the source signals.
@@ -179,15 +179,21 @@ namespace MERGE
 
             /// Sets the source log filename.
             ///
-            /// @throws VcdError if the file does not exist.
+            /// @throws VcdException if the file does not exist.
             void SetFilename(const std::string &rFilename);
 
             /// Parses user provided parameters.
             ///
-            /// @throws VcdError for an invalid number of source parameters.
+            /// @throws VcdException for an invalid number of source parameters.
             void ParseParameters();
 
             /// Divides the aggregated user parameter into fields.
             SourceParametersT GetSourceParameters() const;
+
+            /// Checks if the file is accessible.
+            ///
+            /// @param rFilename The name of the file to be accessed.
+            /// @throws VcdException when the file is inaccessible.
+            void IsAccessible(const std::string &rFilename) const;
     };
 }

@@ -110,15 +110,8 @@ void MERGE::SignalSource::SetFormat(const std::string &rFormat)
         (rFormat[rFormat.length() - 1] == '}'))
     {
         const std::string filename(rFormat.substr(2, rFormat.length() - 3));
-        std::ifstream infile(filename);
+        IsAccessible(filename);
 
-        if (!infile.good())
-        {
-            throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
-                                          "Opening file '" +
-                                          filename +
-                                          "' failed, it either doesn't exist or is inaccessible.");
-        }
         m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(filename);
         return;
     }
@@ -174,19 +167,7 @@ void MERGE::SignalSource::SetCounterName(const std::string &rLineCounter)
 
 void MERGE::SignalSource::SetFilename(const std::string &rFilename)
 {
-    std::ifstream infile(rFilename);
-
-    if (infile.good())
-    {
-        m_Filename = rFilename;
-    }
-    else
-    {
-        throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
-                                      "Opening file '" +
-                                      rFilename +
-                                      "' failed, it either doesn't exist or is inaccessible.");
-    }
+    IsAccessible(rFilename);
 }
 
 void MERGE::SignalSource::ParseParameters()
@@ -212,4 +193,17 @@ void MERGE::SignalSource::ParseParameters()
 MERGE::SignalSource::SourceParametersT MERGE::SignalSource::GetSourceParameters() const
 {
     return UTILS::Split(m_SourceDescription, SOURCE_PARAM_DELIM);
+}
+
+void MERGE::SignalSource::IsAccessible(const std::string& rFilename) const
+{
+    std::ifstream infile(rFilename);
+
+    if (!infile.good())
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
+                                      "Opening file '" +
+                                      rFilename +
+                                      "' failed, it either doesn't exist or is inaccessible.");
+    }
 }

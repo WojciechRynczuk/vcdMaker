@@ -27,7 +27,7 @@
 find_package(PythonInterp 3.5)
 set_package_properties(PythonInterp PROPERTIES
                        URL "http://python.org"
-                       DESCRIPTION "Python programming language interpretter"
+                       DESCRIPTION "Python programming language interpreter"
                        TYPE OPTIONAL
                        PURPOSE "Enables comparison test.")
 

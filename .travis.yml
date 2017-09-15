@@ -56,6 +56,6 @@ before_script:
   - cd ./sources
 
 script:
-  - cmake .
+  - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
   - make
   - make check

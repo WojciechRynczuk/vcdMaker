@@ -34,6 +34,8 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+include(FeatureSummary)
+
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 include(version)
@@ -66,3 +68,7 @@ include(commonUtTarget)
 include(unitTests)
 
 include(doxygen)
+
+include(pugixml)
+
+feature_summary(WHAT ALL)

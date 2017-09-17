@@ -31,9 +31,9 @@
 #pragma once
 
 #include <memory>
+#include <pugixml.hpp>
 
 #include "SignalFactory.h"
-#include "pugixml.hpp"
 
 namespace PARSER
 {

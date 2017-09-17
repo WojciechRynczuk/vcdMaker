@@ -46,7 +46,7 @@ AUTHORS
 
   https://github.com/WojciechRynczuk/vcdMaker
 COPYRIGHTS
-  Copyright (c) 2016 vcdMaker team
+  Copyright (c) 2017 vcdMaker team
 
   vcdMaker is licensed under MIT license.
 SEE ALSO

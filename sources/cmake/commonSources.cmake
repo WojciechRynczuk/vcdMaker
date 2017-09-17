@@ -86,15 +86,6 @@ set(COMMON_HEADERS
 
 # 3rd party directories.
 set(TCLAP_HEADERS_DIR 3rdParty/tclap/include)
-set(PUGIXML_HEADERS_DIR 3rdParty/pugixml/src)
-
-# Set PugiXml source files.
-set(PUGIXML_SOURCES
-    ${PUGIXML_HEADERS_DIR}/pugixml.cpp)
-
-set(PUGIXML_HEADERS
-    ${PUGIXML_HEADERS_DIR}/pugixml.hpp
-    ${PUGIXML_HEADERS_DIR}/pugiconfig.hpp)
 
 # Other directories.
 get_filename_component(DEVEL_SUPPORT_DIR ${PROJECT_SOURCE_DIR}/../development ABSOLUTE)

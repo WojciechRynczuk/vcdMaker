@@ -28,7 +28,6 @@ set(OUTPUT_DIR_ABSOLUE ${CMAKE_CURRENT_BINARY_DIR}/${OUTPUT_DIR})
 
 # Common sources target name.
 set(COMMON_LIB_TARGET vcdToolsCommon)
-set(PUGIXML_LIB_TARGET pugiXml)
 
 # Function for setting general target properties.
 function(add_common_vcdtools_target_props TARGET_NAME)
@@ -47,9 +46,9 @@ endfunction(add_common_vcdtools_target_props)
 
 # Function for target creation.
 function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HEADERS_DIR)
-    add_executable(${TARGET_NAME} $<TARGET_OBJECTS:${COMMON_LIB_TARGET}> $<TARGET_OBJECTS:${PUGIXML_LIB_TARGET}> ${TARGET_SOURCES} ${COMMON_HEADERS} ${PUGIXML_HEADERS} ${TARGET_HEADERS})
+    add_executable(${TARGET_NAME} $<TARGET_OBJECTS:${COMMON_LIB_TARGET}> ${TARGET_SOURCES} ${COMMON_HEADERS} ${TARGET_HEADERS})
 
-    target_include_directories(${TARGET_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${TARGET_HEADERS_DIR} ${TCLAP_HEADERS_DIR} ${PUGIXML_HEADERS_DIR})
+    target_include_directories(${TARGET_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${TARGET_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
 
     add_common_vcdtools_target_props(${TARGET_NAME})
 
@@ -59,10 +58,7 @@ endfunction(add_vcdtools_target)
 # Set common sources build
 
 add_library(${COMMON_LIB_TARGET} OBJECT ${COMMON_SOURCES} ${COMMON_HEADERS})
-add_library(${PUGIXML_LIB_TARGET} OBJECT ${PUGIXML_SOURCES} ${PUGIXML_HEADERS})
 
-target_include_directories(${COMMON_LIB_TARGET} PUBLIC ${COMMON_HEADERS_DIR} ${TCLAP_HEADERS_DIR} ${PUGIXML_HEADERS_DIR})
-target_include_directories(${PUGIXML_LIB_TARGET} PUBLIC ${PUGIXML_HEADERS_DIR})
+target_include_directories(${COMMON_LIB_TARGET} PUBLIC ${COMMON_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
 
 add_common_vcdtools_target_props(${COMMON_LIB_TARGET})
-add_common_vcdtools_target_props(${PUGIXML_LIB_TARGET})

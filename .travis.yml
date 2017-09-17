@@ -57,5 +57,5 @@ before_script:
 
 script:
   - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
-  - make
+  - VERBOSE=1 make
   - make check

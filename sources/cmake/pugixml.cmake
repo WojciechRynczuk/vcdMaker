@@ -54,11 +54,15 @@ if (USE_STATIC_PUGIXML)
 
     set(PUGIXML_LIB_FILE ${PUGIXML_OUTPUT_DIR}/${LIB_PREFIX}pugixml${LIB_SUFFIX})
 
+    set(PUGIXML_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/3rdParty/pugixml/src)
+
     set_target_properties(pugixml PROPERTIES
                           IMPORTED_LOCATION ${PUGIXML_LIB_FILE}
-                          INTERFACE_INCLUDE_DIRECTORIES ${PROJECT_SOURCE_DIR}/3rdParty/pugixml/src)
+                          INTERFACE_INCLUDE_DIRECTORIES ${PUGIXML_INCLUDE_DIR})
 
-     set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${PUGIXML_LIB_FILE})
+    target_include_directories(${COMMON_LIB_TARGET} PUBLIC ${PUGIXML_INCLUDE_DIR})
+
+    set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${PUGIXML_LIB_FILE})
 else()
     find_package(pugixml REQUIRED)
     set_package_properties(pugixml PROPERTIES

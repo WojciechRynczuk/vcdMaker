@@ -44,10 +44,10 @@ namespace PARSER
             /// @param rValue The expression to create the value of the signal.
             /// @param rSize The expression to create the size of the signal.
             XmlSignalCreator(const std::string &rRegEx,
-                const std::string &rTimestamp,
-                const std::string &rName,
-                const std::string &rValue,
-                const std::string &rSize) :
+                             const std::string &rTimestamp,
+                             const std::string &rName,
+                             const std::string &rValue,
+                             const std::string &rSize) :
                 SignalCreator(rRegEx),
                 m_Timestamp(rTimestamp),
                 m_Name(rName),

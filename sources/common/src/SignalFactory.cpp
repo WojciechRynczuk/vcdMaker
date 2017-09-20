@@ -31,22 +31,22 @@
 #include "EventSignalCreator.h"
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
+#include "VcdException.h"
+#include "VcdExceptionList.h"
 
-PARSER::SignalFactory::SignalFactory(bool default_creators) :
+PARSER::SignalFactory::SignalFactory() :
     m_vpSignalCreators()
 {
-    // Register creators
-    if (default_creators)
-    {
-        m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
-        m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
-        m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
-    }
 }
 
 SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine,
                                               SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
+    if (m_vpSignalCreators.empty())
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::NO_SIGNALS_CREATORS,
+            "No signals creators. Hint: Verify the correctness of the XML file specifying the user log format.");
+    }
     for (const auto &creator : m_vpSignalCreators)
     {
         // Try to use creator.

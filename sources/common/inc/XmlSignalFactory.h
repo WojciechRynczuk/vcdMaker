@@ -43,45 +43,44 @@ namespace PARSER
     class XmlDescription
     {
         public:
-        /// The XML signal class constructor.
-        ///
-        /// Creates the XML signal.
-        ///
-        /// @param rNode The main XML node.
-        XmlDescription(const pugi::xml_node &rNode);
+            /// The XML signal class constructor.
+            ///
+            /// Creates the XML signal.
+            ///
+            /// @param rNode The main XML node.
+            XmlDescription(const pugi::xml_node &rNode);
 
-        /// Returns the regular expression used to create the signal.
-        const std::string & GetRegex() const;
+            /// Returns the regular expression used to create the signal.
+            const std::string &GetRegex() const;
 
-        /// Returns the timestamp tag value.
-        const std::string & GetTimestamp() const;
+            /// Returns the timestamp tag value.
+            const std::string &GetTimestamp() const;
 
-        /// Returns the name tag value.
-        const std::string & GetName() const;
+            /// Returns the name tag value.
+            const std::string &GetName() const;
 
-        /// Returns the value tag value.
-        const std::string & GetValue() const;
+            /// Returns the value tag value.
+            const std::string &GetValue() const;
 
-        /// Returns the size tag value.
-        const std::string & GetSize() const;
+            /// Returns the size tag value.
+            const std::string &GetSize() const;
 
         private:
+            /// Stores the regular expression needed to create the signal.
+            /// The XML line tag value.
+            std::string m_RegexLine;
 
-        /// Stores the regular expression needed to create the signal.
-        /// The XML line tag value.
-        std::string m_RegexLine;
+            /// Stores the XML timestamp tag value.
+            std::string m_Timestamp;
 
-        /// Stores the XML timestamp tag value.
-        std::string m_Timestamp;
+            /// Stores the XML name tag value.
+            std::string m_Name;
 
-        /// Stores the XML name tag value.
-        std::string m_Name;
+            /// Stores the XML value tag value.
+            std::string m_Value;
 
-        /// Stores the XML value tag value.
-        std::string m_Value;
-
-        /// Stores the XML size tag value.
-        std::string m_Size;
+            /// Stores the XML size tag value.
+            std::string m_Size;
     };
 
     /// The class implements the factory method design pattern to build
@@ -95,6 +94,6 @@ namespace PARSER
             /// The XML signal factory default constructor.
             ///
             /// @param rXmlFileName The name of the XML file specifying the user log syntax.
-            XmlSignalFactory(const std::string& rXmlFileName);
+            XmlSignalFactory(const std::string &rXmlFileName);
     };
 }

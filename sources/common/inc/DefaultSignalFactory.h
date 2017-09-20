@@ -1,6 +1,9 @@
-/// @file common/src/XmlFSignalCreator.cpp
+/// @file common/inc/DefaultSignalFactory.h
 ///
-/// The XML real signal creator.
+/// The default signal factory class.
+///
+/// @par Full Description
+/// The standard vcdMaker signal factory.
 ///
 /// @ingroup Parser
 ///
@@ -24,23 +27,21 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "XmlFSignalCreator.h"
-#include "FSignal.h"
+#pragma once
 
-SIGNAL::Signal *PARSER::XmlFSignalCreator::Create(const std::string &rLogLine,
-                                                  SIGNAL::SourceRegistry::HandleT sourceHandle) const
+#include "SignalFactory.h"
+
+namespace PARSER
 {
-    std::smatch result;
+    /// The class implements the factory method design pattern to build
+    /// different types of signals.
 
-    if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
+    /// The standard signal factory class.
+    class DefaultSignalFactory : public SignalFactory
     {
-        return new SIGNAL::FSignal(GetName(result),
-                                   GetTimestamp(result),
-                                   GetValue(result),
-                                   sourceHandle);
-    }
-    else
-    {
-        return nullptr;
-    }
+        public:
+
+            /// @copydoc SignalFactory::SignalFactory()
+            DefaultSignalFactory();
+    };
 }

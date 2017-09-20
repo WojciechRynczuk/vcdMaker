@@ -38,10 +38,10 @@ namespace PARSER
         public:
             /// @copydoc XmlSignalCreator::XmlSignalCreator()
             XmlISignalCreator(const std::string &rRegEx,
-                const std::string &rTimestamp,
-                const std::string &rName,
-                const std::string &rValue,
-                const std::string &rSize) :
+                              const std::string &rTimestamp,
+                              const std::string &rName,
+                              const std::string &rValue,
+                              const std::string &rSize) :
                 XmlSignalCreator(rRegEx, rTimestamp, rName, rValue, rSize)
             {
             }

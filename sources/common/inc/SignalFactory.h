@@ -44,9 +44,7 @@ namespace PARSER
         public:
 
             /// The signal factory default constructor.
-            ///
-            /// @param default_creators Defines if the default vcdMaker signal creatos shall be used.
-            SignalFactory(bool default_creators = true);
+            SignalFactory();
 
             /// Creates the appropriate signal object.
             ///

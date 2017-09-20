@@ -99,6 +99,12 @@ namespace EXCEPTION
         /// Unexpected tag.
         const uint32_t UNEXPECTED_TAG = 15U;
 
+        /// XML file read error.
+        const uint32_t XML_READ_ERROR = 16U;
+
+        /// No signals creators.
+        const uint32_t NO_SIGNALS_CREATORS = 17U;
+
         // Logic errors below shall never happen.
         // They are enumerated from 9000.
 

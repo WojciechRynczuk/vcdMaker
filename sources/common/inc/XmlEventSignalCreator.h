@@ -36,13 +36,15 @@ namespace PARSER
     {
         public:
 
-            /// @copydoc XmlSignalCreator::XmlSignalCreator()
+            /// The XML event signal creator constructor.
+            ///
+            /// @param rRegEx The regular expression matching the log line.
+            /// @param rTimestamp The expression to create the timestamp of the signal.
+            /// @param rName The expression to create the name of the signal.
             XmlEventSignalCreator(const std::string &rRegEx,
-                const std::string &rTimestamp,
-                const std::string &rName,
-                const std::string &rValue,
-                const std::string &rSize) :
-                XmlSignalCreator(rRegEx, rTimestamp, rName, rValue, rSize)
+                                  const std::string &rTimestamp,
+                                  const std::string &rName) :
+                XmlSignalCreator(rRegEx, rTimestamp, rName, "", "")
             {
             }
 

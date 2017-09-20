@@ -31,7 +31,6 @@
 #pragma once
 
 #include "TxtParser.h"
-#include "XmlSignalFactory.h"
 
 namespace MERGE
 {
@@ -68,6 +67,18 @@ namespace MERGE
 
                     /// Number of a source description's elements.
                     static constexpr size_t SOURCE_PARAM_N = 6;
+            };
+
+            /// Source formats.
+            class Formats
+            {
+                public:
+
+                    /// Original vcdMaker text format.
+                    static const char VCD_TEXT_FORMAT;
+
+                    /// The user provided XML format.
+                    static const char USER_XML_FORMAT;
             };
 
             /// The source constructor.
@@ -190,10 +201,16 @@ namespace MERGE
             /// Divides the aggregated user parameter into fields.
             SourceParametersT GetSourceParameters() const;
 
-            /// Checks if the file is accessible.
+            /// Throws the exception.
             ///
-            /// @param rFilename The name of the file to be accessed.
-            /// @throws VcdException when the file is inaccessible.
-            void IsAccessible(const std::string &rFilename) const;
+            /// @param rFilename The name of the inaccessible file.
+            /// @throws VcdException
+            void ThrowFileInaccessibleException(const std::string &rFilename) const;
+
+            /// Checks if the format of the given source is the original VCD format.
+            bool IsVcdFormat(const std::string &rFormat) const;
+
+            /// Checks if the format of the given source is the user XML format.
+            bool IsUserXmlFormat(const std::string &rFormat) const;
     };
 }

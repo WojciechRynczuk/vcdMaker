@@ -90,7 +90,7 @@ A sample test definition (containing all tags):
         <input_file>test_001.txt</input_file>
         <time_unit>us</time_unit>
         <line_counter>Counter</line_counter>
-        <user_format>../common/doc/examples/vcdMaker.xml</user_format>
+        <user_format>../common/test/functional/vcdMaker.xml</user_format>
     </unique>
   </maker>
 
@@ -108,7 +108,7 @@ A sample test definition (containing all tags):
         <input_file>test_002.txt</input_file>
         <time_unit>us</time_unit>
         <line_counter></line_counter>
-        <user_format>../common/doc/examples/vcdMaker.xml</user_format>
+        <user_format>../common/test/functional/vcdMaker.xml</user_format>
     </unique>
   </maker>
 
@@ -125,7 +125,7 @@ A sample test definition (containing all tags):
         <input_file>test_003.txt</input_file>
         <time_unit>us</time_unit>
         <line_counter>Cnt</line_counter>
-        <user_format>../common/doc/examples/vcdMaker.xml</user_format>
+        <user_format>../common/test/functional/vcdMaker.xml</user_format>
     </unique>
   </maker>
 

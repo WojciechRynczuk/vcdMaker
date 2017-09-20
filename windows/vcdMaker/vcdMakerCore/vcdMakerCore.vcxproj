@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\common\inc\CliParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\DefaultSignalFactory.h" />
     <ClInclude Include="..\..\..\sources\common\inc\EventSignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\EventSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\XmlSignalFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\sources\common\src\DefaultSignalFactory.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />

@@ -32,6 +32,7 @@
 #include "VcdException.h"
 #include "Logger.h"
 #include "XmlSignalFactory.h"
+#include "DefaultSignalFactory.h"
 
 ///  The vcdMaker main function.
 ///
@@ -57,7 +58,7 @@ int main(int argc, const char *argv[])
         }
         else
         {
-            pSignalFactory = std::make_unique<PARSER::SignalFactory>();
+            pSignalFactory = std::make_unique<PARSER::DefaultSignalFactory>();
         }
 
         // Create the log parser.

@@ -28,20 +28,20 @@
 
 uint64_t PARSER::XmlSignalCreator::GetTimestamp(const std::smatch &rMatch) const
 {
-    return std::stoll(rMatch[std::stoi(m_Timestamp.c_str())].str());
+    return std::stoull(rMatch[std::stoi(m_Timestamp)].str());
 }
 
 std::string PARSER::XmlSignalCreator::GetName(const std::smatch &rMatch) const
 {
-    return rMatch[std::stoi(m_Name.c_str())].str();
+    return rMatch[std::stoi(m_Name)].str();
 }
 
 std::string PARSER::XmlSignalCreator::GetValue(const std::smatch &rMatch) const
 {
-    return rMatch[std::stoi(m_Value.c_str())].str();
+    return rMatch[std::stoi(m_Value)].str();
 }
 
 size_t PARSER::XmlSignalCreator::GetSize(const std::smatch &rMatch) const
 {
-    return std::stoi(rMatch[std::stoi(m_Size.c_str())].str());
+    return std::stoi(rMatch[std::stoi(m_Size)].str());
 }

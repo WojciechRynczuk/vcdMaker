@@ -28,7 +28,7 @@
 #include "ISignal.h"
 
 SIGNAL::Signal *PARSER::XmlISignalCreator::Create(const std::string &rLogLine,
-                                               SIGNAL::SourceRegistry::HandleT sourceHandle) const
+                                                  SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 

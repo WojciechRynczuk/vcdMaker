@@ -98,6 +98,9 @@
     <ClInclude Include="..\..\..\sources\common\inc\XmlSignalCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\DefaultSignalFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp">
@@ -164,6 +167,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\XmlSignalCreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\common\src\DefaultSignalFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

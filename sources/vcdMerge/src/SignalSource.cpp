@@ -36,6 +36,11 @@
 #include "LineCounter.h"
 #include "Utils.h"
 #include "VcdException.h"
+#include "XmlSignalFactory.h"
+#include "DefaultSignalFactory.h"
+
+const char MERGE::SignalSource::Formats::VCD_TEXT_FORMAT = 'T';
+const char MERGE::SignalSource::Formats::USER_XML_FORMAT = 'U';
 
 MERGE::SignalSource::SignalSource(const std::string &rDescription,
                                   SIGNAL::SourceRegistry &rSignalRegistry,
@@ -99,24 +104,27 @@ void MERGE::SignalSource::Create()
 
 void MERGE::SignalSource::SetFormat(const std::string &rFormat)
 {
-    if (rFormat == "T")
+    if (IsVcdFormat(rFormat))
     {
-        m_pSignalFactory = std::make_unique<PARSER::SignalFactory>();
+        m_pSignalFactory = std::make_unique<PARSER::DefaultSignalFactory>();
         return;
     }
 
-    if (rFormat.length() > 3)
+    if (IsUserXmlFormat(rFormat))
     {
-        if ((rFormat[0] == 'U') &&
-            (rFormat[1] == '{') &&
-            (rFormat[rFormat.length() - 1] == '}'))
-        {
-            const std::string filename(rFormat.substr(2, rFormat.length() - 3));
-            IsAccessible(filename);
+        // Extract the file name from the source description.
+        // E.g. from 'U{file_name}' the 'file_name' will be extracted.
+        // The first two characters must be skipped and the name's length does not include 'U{}'
+        const std::string filename(rFormat, 2, rFormat.length() - 3);
+        const std::ifstream infile(filename);
 
-            m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(filename);
-            return;
+        if (!infile.good())
+        {
+            ThrowFileInaccessibleException(filename);
         }
+
+        m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(filename);
+        return;
     }
 
     throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_LOG_FILE_FORMAT,
@@ -170,7 +178,12 @@ void MERGE::SignalSource::SetCounterName(const std::string &rLineCounter)
 
 void MERGE::SignalSource::SetFilename(const std::string &rFilename)
 {
-    IsAccessible(rFilename);
+    const std::ifstream infile(rFilename);
+
+    if (!infile.good())
+    {
+        ThrowFileInaccessibleException(rFilename);
+    }
     m_Filename = rFilename;
 }
 
@@ -199,15 +212,35 @@ MERGE::SignalSource::SourceParametersT MERGE::SignalSource::GetSourceParameters(
     return UTILS::Split(m_SourceDescription, SOURCE_PARAM_DELIM);
 }
 
-void MERGE::SignalSource::IsAccessible(const std::string &rFilename) const
+void MERGE::SignalSource::ThrowFileInaccessibleException(const std::string &rFilename) const
 {
-    std::ifstream infile(rFilename);
+    throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
+                                  "Opening file '" +
+                                  rFilename +
+                                  "' failed, it either doesn't exist or is inaccessible.");
+}
 
-    if (!infile.good())
+bool MERGE::SignalSource::IsVcdFormat(const std::string &rFormat) const
+{
+    if (rFormat == std::string(1,'T'))
     {
-        throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
-                                      "Opening file '" +
-                                      rFilename +
-                                      "' failed, it either doesn't exist or is inaccessible.");
+        return true;
     }
+    return false;
+}
+
+bool MERGE::SignalSource::IsUserXmlFormat(const std::string &rFormat) const
+{
+    // It means there will be at list a single character in the brackets.
+    // E.g. U{a}
+    if (rFormat.length() > 3)
+    {
+        if ((rFormat[0] == Formats::USER_XML_FORMAT) &&
+            (rFormat[1] == '{') &&
+            (rFormat[rFormat.length() - 1] == '}'))
+        {
+            return true;
+        }
+    }
+    return false;
 }

@@ -28,11 +28,11 @@
 #include "EventSignal.h"
 
 SIGNAL::Signal *PARSER::XmlEventSignalCreator::Create(const std::string &rLogLine,
-                                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const
+                                                      SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 
-    if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
+    if (std::regex_search(rLogLine, result, m_SignalRegEx))
     {
         return new SIGNAL::EventSignal(GetName(result),
                                        GetTimestamp(result),

@@ -1,13 +1,13 @@
-/// @file common/inc/SignalFactory.h
+/// @file common/inc/DefaultSignalFactory.h
 ///
-/// The signal factory class.
+/// The default signal factory class.
 ///
 /// @par Full Description
-/// The signal factory object creates the appropriate signal objects.
+/// The standard vcdMaker signal factory.
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,37 +29,19 @@
 
 #pragma once
 
-#include <memory>
-
-#include "SignalCreator.h"
+#include "SignalFactory.h"
 
 namespace PARSER
 {
-    /// The class implements the factory method design pattern so as to handle
-    /// building different types of signals.
+    /// The class implements the factory method design pattern to build
+    /// different types of signals.
 
-    /// The signal factory base class.
-    class SignalFactory
+    /// The standard signal factory class.
+    class DefaultSignalFactory : public SignalFactory
     {
         public:
 
-            /// The signal factory default constructor.
-            SignalFactory();
-
-            /// Creates the appropriate signal object.
-            ///
-            /// Returns the pointer to the appropriate signal object.
-            /// Or nullptr if it couldn't be created.
-            ///
-            /// @param logLine One line from the log.
-            /// @param sourceHandle Signal source handle.
-            SIGNAL::Signal *Create(std::string &logLine,
-                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const;
-
-        protected:
-
-            /// The table of pointers to signal creators.
-            std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
+            /// @copydoc SignalFactory::SignalFactory()
+            DefaultSignalFactory();
     };
-
 }

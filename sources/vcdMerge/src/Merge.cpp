@@ -29,11 +29,9 @@
 
 #include <algorithm>
 #include <ratio>
-#include <limits>
 
 #include "Merge.h"
 #include "Utils.h"
-#include "VcdException.h"
 #include "Logger.h"
 
 const uint64_t MERGE::Merge::TEN_POWER[] =

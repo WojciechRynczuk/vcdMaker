@@ -1,13 +1,13 @@
-/// @file common/src/SignalFactory.cpp
+/// @file common/src/DefaultSignalFactory.cpp
 ///
-/// The signal factory class.
+/// The default signal factory class.
 ///
 /// @par Full Description
-/// The signal factory object creates the appropriate signal objects.
+/// The standard vcdMaker signal factory.
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -27,37 +27,16 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "SignalFactory.h"
+#include "DefaultSignalFactory.h"
 #include "EventSignalCreator.h"
-#include "ISignalCreator.h"
 #include "FSignalCreator.h"
-#include "VcdException.h"
-#include "VcdExceptionList.h"
+#include "ISignalCreator.h"
 
-PARSER::SignalFactory::SignalFactory() :
-    m_vpSignalCreators()
+PARSER::DefaultSignalFactory::DefaultSignalFactory() :
+    SignalFactory()
 {
+    m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
+    m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
+    m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
 }
 
-SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine,
-                                              SIGNAL::SourceRegistry::HandleT sourceHandle) const
-{
-    if (m_vpSignalCreators.empty())
-    {
-        throw EXCEPTION::VcdException(EXCEPTION::Error::NO_SIGNALS_CREATORS,
-            "No signals creators. Hint: Verify the correctness of the XML file specifying the user log format.");
-    }
-    for (const auto &creator : m_vpSignalCreators)
-    {
-        // Try to use creator.
-        SIGNAL::Signal *pSignal = creator->Create(logLine, sourceHandle);
-
-        // If successful return created Signal, if not try next one.
-        if (pSignal != nullptr)
-        {
-            return pSignal;
-        }
-    }
-
-    return nullptr;
-}

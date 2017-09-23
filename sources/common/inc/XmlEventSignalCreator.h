@@ -1,13 +1,10 @@
-/// @file common/inc/SignalFactory.h
+/// @file common/inc/XmlEventSignalCreator.h
 ///
-/// The signal factory class.
-///
-/// @par Full Description
-/// The signal factory object creates the appropriate signal objects.
+/// The XML event signal creator.
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,37 +26,32 @@
 
 #pragma once
 
-#include <memory>
-
-#include "SignalCreator.h"
+#include "XmlSignalCreator.h"
 
 namespace PARSER
 {
-    /// The class implements the factory method design pattern so as to handle
-    /// building different types of signals.
 
-    /// The signal factory base class.
-    class SignalFactory
+    /// The class provides means to create teh XML event signal objects.
+    class XmlEventSignalCreator : public XmlSignalCreator
     {
         public:
 
-            /// The signal factory default constructor.
-            SignalFactory();
-
-            /// Creates the appropriate signal object.
+            /// The XML event signal creator constructor.
             ///
-            /// Returns the pointer to the appropriate signal object.
-            /// Or nullptr if it couldn't be created.
-            ///
-            /// @param logLine One line from the log.
-            /// @param sourceHandle Signal source handle.
-            SIGNAL::Signal *Create(std::string &logLine,
-                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const;
+            /// @param rRegEx The regular expression matching the log line.
+            /// @param rTimestamp The expression to create the timestamp of the signal.
+            /// @param rName The expression to create the name of the signal.
+            XmlEventSignalCreator(const std::string &rRegEx,
+                                  const std::string &rTimestamp,
+                                  const std::string &rName) :
+                XmlSignalCreator(rRegEx, rTimestamp, rName, "", "")
+            {
+            }
 
-        protected:
+            /// @copydoc SignalCreator::Create()
+            virtual SIGNAL::Signal *Create(const std::string &rLogLine,
+                                           SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
-            /// The table of pointers to signal creators.
-            std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
     };
 
 }

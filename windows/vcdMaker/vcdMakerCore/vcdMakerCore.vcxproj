@@ -83,7 +83,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include;$(ProjectDir)..\..\..\sources\3rdParty\pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,7 +112,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include;$(ProjectDir)..\..\..\sources\3rdParty\pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\common\inc\CliParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\DefaultSignalFactory.h" />
     <ClInclude Include="..\..\..\sources\common\inc\EventSignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\EventSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
@@ -162,8 +163,14 @@
     <ClInclude Include="..\..\..\sources\common\inc\VcdExceptionList.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Version.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlEventSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlFSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlISignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlSignalFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\sources\common\src\DefaultSignalFactory.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
@@ -181,6 +188,11 @@
     <ClCompile Include="..\..\..\sources\common\src\TxtParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Utils.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlEventSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlFSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlISignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlSignalFactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -69,6 +69,18 @@ namespace MERGE
                     static constexpr size_t SOURCE_PARAM_N = 6;
             };
 
+            /// Source formats.
+            class Formats
+            {
+                public:
+
+                    /// Original vcdMaker text format.
+                    static const char VCD_TEXT_FORMAT;
+
+                    /// The user provided XML format.
+                    static const char USER_XML_FORMAT;
+            };
+
             /// The source constructor.
             ///
             /// It is only configuring the source. Before all source data
@@ -118,7 +130,7 @@ namespace MERGE
             /// Returns the distance between the first logged signal and
             /// the synchronization point.
             ///
-            /// @throws VcdError if the first source timestamp is greater than the synchronization point.
+            /// @throws VcdException if the first source timestamp is greater than the synchronization point.
             uint64_t GetLeadingTime() const;
 
         private:
@@ -133,6 +145,9 @@ namespace MERGE
 
             /// The signals database.
             std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
+
+            /// The signal factory.
+            std::unique_ptr<PARSER::SignalFactory> m_pSignalFactory;
 
             /// The source synchronization point.
             uint64_t m_SyncPoint;
@@ -154,17 +169,17 @@ namespace MERGE
 
             /// Sets the format of the source log file.
             ///
-            /// @throws VcdError for a invalid format.
+            /// @throws VcdException for a invalid format.
             void SetFormat(const std::string &rFormat);
 
             /// Sets the synchronization point of the source.
             ///
-            /// @throws VcdError if the format of the synchronization point is invalid.
+            /// @throws VcdException if the format of the synchronization point is invalid.
             void SetSyncPoint(const std::string &rSyncPoint);
 
             /// Sets the time unit of the source.
             ///
-            /// @throws VcdError for an invalid time unit.
+            /// @throws VcdException for an invalid time unit.
             void SetTimeUnit(const std::string &rTimeUnit);
 
             /// Sets the prefix added to the source signals.
@@ -175,15 +190,27 @@ namespace MERGE
 
             /// Sets the source log filename.
             ///
-            /// @throws VcdError if the file does not exist.
+            /// @throws VcdException if the file does not exist.
             void SetFilename(const std::string &rFilename);
 
             /// Parses user provided parameters.
             ///
-            /// @throws VcdError for an invalid number of source parameters.
+            /// @throws VcdException for an invalid number of source parameters.
             void ParseParameters();
 
             /// Divides the aggregated user parameter into fields.
             SourceParametersT GetSourceParameters() const;
+
+            /// Throws the exception.
+            ///
+            /// @param rFilename The name of the inaccessible file.
+            /// @throws VcdException
+            void ThrowFileInaccessibleException(const std::string &rFilename) const;
+
+            /// Checks if the format of the given source is the original VCD format.
+            bool IsVcdFormat(const std::string &rFormat) const;
+
+            /// Checks if the format of the given source is the user XML format.
+            bool IsUserXmlFormat(const std::string &rFormat) const;
     };
 }

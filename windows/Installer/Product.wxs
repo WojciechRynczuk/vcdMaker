@@ -54,6 +54,8 @@
               <File Id="System2Time2Txt" Name="system2_time2.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system2_time2.txt"></File>
               <File Id="MergeT1T2Vcd" Name="merge_t1_t1.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\merge_t1_t1.vcd"></File>
               <File Id="MergeT1T1Vcd" Name="merge_t1_t2.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\merge_t1_t2.vcd"></File>
+              <File Id="vcdMakerXml" Name="vcdMaker.xml" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\vcdMaker.xml"></File>
+              <File Id="vcdMakerDtd" Name="vcdMaker.dtd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\vcdMaker.dtd"></File>
             </Component>
           </Directory>
         

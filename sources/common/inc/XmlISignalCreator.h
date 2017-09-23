@@ -1,13 +1,10 @@
-/// @file common/inc/SignalFactory.h
+/// @file common/inc/XmlISignalCreator.h
 ///
-/// The signal factory class.
-///
-/// @par Full Description
-/// The signal factory object creates the appropriate signal objects.
+/// The XML integer signal creator.
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,37 +26,29 @@
 
 #pragma once
 
-#include <memory>
-
-#include "SignalCreator.h"
+#include "XmlSignalCreator.h"
 
 namespace PARSER
 {
-    /// The class implements the factory method design pattern so as to handle
-    /// building different types of signals.
+    /// The class provides means to create XML integer signal objects.
 
-    /// The signal factory base class.
-    class SignalFactory
+    ///  The XML integer signal creator class.
+    class XmlISignalCreator : public XmlSignalCreator
     {
         public:
+            /// @copydoc XmlSignalCreator::XmlSignalCreator()
+            XmlISignalCreator(const std::string &rRegEx,
+                              const std::string &rTimestamp,
+                              const std::string &rName,
+                              const std::string &rValue,
+                              const std::string &rSize) :
+                XmlSignalCreator(rRegEx, rTimestamp, rName, rValue, rSize)
+            {
+            }
 
-            /// The signal factory default constructor.
-            SignalFactory();
-
-            /// Creates the appropriate signal object.
-            ///
-            /// Returns the pointer to the appropriate signal object.
-            /// Or nullptr if it couldn't be created.
-            ///
-            /// @param logLine One line from the log.
-            /// @param sourceHandle Signal source handle.
-            SIGNAL::Signal *Create(std::string &logLine,
-                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const;
-
-        protected:
-
-            /// The table of pointers to signal creators.
-            std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
+            /// @copydoc SignalCreator::Create()
+            virtual SIGNAL::Signal *Create(const std::string &rLogLine,
+                                           SIGNAL::SourceRegistry::HandleT sourceHandle) const;
     };
 
 }

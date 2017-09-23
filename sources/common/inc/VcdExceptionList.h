@@ -81,6 +81,30 @@ namespace EXCEPTION
         /// Invalid number of sources.
         const uint32_t INVALID_NO_OF_SOURCES = 9U;
 
+        /// No parsing regular expression.
+        const uint32_t NO_REGEX_EXPRESSION = 10U;
+
+        /// No timestamp expression.
+        const uint32_t NO_TIMESTAMP_EXPRESSION = 11U;
+
+        /// No name expression.
+        const uint32_t NO_NAME_EXPRESSION = 12U;
+
+        /// No value expression.
+        const uint32_t NO_VALUE_EXPRESSION = 13U;
+
+        /// No size expression.
+        const uint32_t NO_SIZE_EXPRESSION = 14U;
+
+        /// Unexpected tag.
+        const uint32_t UNEXPECTED_TAG = 15U;
+
+        /// XML file read error.
+        const uint32_t XML_READ_ERROR = 16U;
+
+        /// No signals creators.
+        const uint32_t NO_SIGNALS_CREATORS = 17U;
+
         // Logic errors below shall never happen.
         // They are enumerated from 9000.
 

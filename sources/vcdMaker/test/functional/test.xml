@@ -16,6 +16,7 @@ A sample test definition (containing all tags):
         <input_file>input_filename</input_file>
         <time_unit>us</time_unit>
         <line_counter>counter</line_counter>
+        <user_format>format.xml</user_format>
     </unique>
   </maker>
 
@@ -35,6 +36,7 @@ A sample test definition (containing all tags):
         <input_file>test_001.txt</input_file>
         <time_unit>us</time_unit>
         <line_counter>Counter</line_counter>
+        <user_format></user_format>
     </unique>
   </maker>
 
@@ -52,6 +54,7 @@ A sample test definition (containing all tags):
         <input_file>test_002.txt</input_file>
         <time_unit>us</time_unit>
         <line_counter></line_counter>
+        <user_format></user_format>
     </unique>
   </maker>
 
@@ -68,6 +71,61 @@ A sample test definition (containing all tags):
         <input_file>test_003.txt</input_file>
         <time_unit>us</time_unit>
         <line_counter>Cnt</line_counter>
+        <user_format></user_format>
+    </unique>
+  </maker>
+
+  <!-- User log format tests.-->
+  
+  <maker>
+    <info>
+        <name>Smoke test 4</name>
+        <description>It tests the line counter. User log format.</description>
+    </info>
+    <common>
+        <output_file>ul_test_001.output</output_file>
+        <golden_file>test_001.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_001.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter>Counter</line_counter>
+        <user_format>../common/test/functional/vcdMaker.xml</user_format>
+    </unique>
+  </maker>
+
+  <maker>
+    <info>
+        <name>Smoke test 5</name>
+        <description>A larger set of signals. User log format.</description>
+    </info>
+    <common>
+        <verbose></verbose>
+        <output_file>ul_test_002.output</output_file>
+        <golden_file>test_002.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_002.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter></line_counter>
+        <user_format>../common/test/functional/vcdMaker.xml</user_format>
+    </unique>
+  </maker>
+
+  <maker>
+    <info>
+        <name>Smoke test 6</name>
+        <description>Tests events. User log format.</description>
+    </info>
+    <common>
+        <output_file>ul_test_003.output</output_file>
+        <golden_file>test_003.vcd</golden_file>
+    </common>
+    <unique>
+        <input_file>test_003.txt</input_file>
+        <time_unit>us</time_unit>
+        <line_counter>Cnt</line_counter>
+        <user_format>../common/test/functional/vcdMaker.xml</user_format>
     </unique>
   </maker>
 

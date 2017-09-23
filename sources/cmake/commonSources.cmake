@@ -32,6 +32,12 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/ISignal.cpp
     ${COMMON_SOURCES_DIR}/ISignalCreator.cpp
     ${COMMON_SOURCES_DIR}/SignalFactory.cpp
+    ${COMMON_SOURCES_DIR}/XmlEventSignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlFSignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlISignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlSignalCreator.cpp
+    ${COMMON_SOURCES_DIR}/XmlSignalFactory.cpp
+    ${COMMON_SOURCES_DIR}/DefaultSignalFactory.cpp
     ${COMMON_SOURCES_DIR}/SignalStructureBuilder.cpp
     ${COMMON_SOURCES_DIR}/Signal.cpp
     ${COMMON_SOURCES_DIR}/SignalDb.cpp
@@ -61,6 +67,12 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/ISignal.h
     ${COMMON_HEADERS_DIR}/SignalCreator.h
     ${COMMON_HEADERS_DIR}/SignalFactory.h
+    ${COMMON_HEADERS_DIR}/XmlEventSignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlFSignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlISignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlSignalCreator.h
+    ${COMMON_HEADERS_DIR}/XmlSignalFactory.h
+    ${COMMON_HEADERS_DIR}/DefaultSignalFactory.h
     ${COMMON_HEADERS_DIR}/SignalStructureBuilder.h
     ${COMMON_HEADERS_DIR}/Signal.h
     ${COMMON_HEADERS_DIR}/SourceRegistry.h

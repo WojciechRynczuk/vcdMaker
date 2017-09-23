@@ -46,24 +46,31 @@ namespace CLI
                 CliParser("Log file to VCD converter.", VERSION::STRING)
             {
                 m_Cli.add(m_Timebase);
+                m_Cli.add(m_UserLogFormat);
                 m_Cli.add(m_FileIn);
                 m_Cli.add(m_LineCounter);
             }
 
             /// Returns the timebase parameter.
-            const std::string& GetTimebase()
+            const std::string &GetTimebase()
             {
                 return m_Timebase.getValue();
             }
 
+            /// Returns the user log format parameter.
+            const std::string &GetUserLogFormat()
+            {
+                return m_UserLogFormat.getValue();
+            }
+
             /// Returns the input filename.
-            const std::string& GetInputFileName()
+            const std::string &GetInputFileName()
             {
                 return m_FileIn.getValue();
             }
 
             /// Returns the line counter signal name.
-            const std::string& GetLineCounterName()
+            const std::string &GetLineCounterName()
             {
                 return m_LineCounter.getValue();
             }
@@ -76,6 +83,10 @@ namespace CLI
             /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase
                 {"t", "timebase", "Log timebase specification", true, "ms", &m_AllowedTimebases};
+
+            /// User log format parameter.
+            TCLAP::ValueArg<std::string> m_UserLogFormat
+                { "u", "user_format", "The user log format XML description", false, "", "user-log-format" };
 
             /// Input filename parameter.
             TCLAP::UnlabeledValueArg<std::string> m_FileIn

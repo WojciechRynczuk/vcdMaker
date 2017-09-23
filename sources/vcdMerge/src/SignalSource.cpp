@@ -30,7 +30,6 @@
 
 #include <array>
 #include <algorithm>
-#include <memory>
 
 #include "SignalSource.h"
 #include "LineCounter.h"
@@ -222,7 +221,7 @@ void MERGE::SignalSource::ThrowFileInaccessibleException(const std::string &rFil
 
 bool MERGE::SignalSource::IsVcdFormat(const std::string &rFormat) const
 {
-    if (rFormat == std::string(1,'T'))
+    if ((1 == rFormat.length()) && (Formats::VCD_TEXT_FORMAT == rFormat[0]))
     {
         return true;
     }

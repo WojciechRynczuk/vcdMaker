@@ -52,7 +52,7 @@ int main(int argc, const char *argv[])
 
         // Build the signal factory.
         std::unique_ptr<PARSER::SignalFactory> pSignalFactory = NULL;
-        if (cli.GetUserLogFormat().length())
+        if (!cli.GetUserLogFormat().empty())
         {
             pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(cli.GetUserLogFormat());
         }

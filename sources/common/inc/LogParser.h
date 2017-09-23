@@ -39,7 +39,6 @@
 #include <fstream>
 #include <memory>
 #include <sstream>
-#include <vector>
 
 #include "SignalDb.h"
 #include "Instrument.h"

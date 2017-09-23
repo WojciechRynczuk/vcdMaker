@@ -41,7 +41,7 @@ PARSER::XmlDescription::XmlDescription(const pugi::xml_node &rNode) :
     m_Value(),
     m_Size()
 {
-    for (pugi::xml_node &tag : rNode.children())
+    for (const pugi::xml_node &tag : rNode.children())
     {
         if (!std::strcmp("line", tag.name()))
         {
@@ -82,7 +82,7 @@ const std::string &PARSER::XmlDescription::GetRegex() const
 
 const std::string &PARSER::XmlDescription::GetTimestamp() const
 {
-    if (m_Timestamp.length())
+    if (!m_Timestamp.empty())
     {
         return m_Timestamp;
     }
@@ -92,7 +92,7 @@ const std::string &PARSER::XmlDescription::GetTimestamp() const
 
 const std::string &PARSER::XmlDescription::GetName() const
 {
-    if (m_Name.length())
+    if (!m_Name.empty())
     {
         return m_Name;
     }
@@ -102,7 +102,7 @@ const std::string &PARSER::XmlDescription::GetName() const
 
 const std::string &PARSER::XmlDescription::GetValue() const
 {
-    if (m_Value.length())
+    if (!m_Value.empty())
     {
         return m_Value;
     }
@@ -112,7 +112,7 @@ const std::string &PARSER::XmlDescription::GetValue() const
 
 const std::string &PARSER::XmlDescription::GetSize() const
 {
-    if (m_Size.length())
+    if (!m_Size.empty())
     {
         return m_Size;
     }
@@ -144,30 +144,26 @@ PARSER::XmlSignalFactory::XmlSignalFactory(const std::string &rXmlFileName) :
                                                                              description->GetName(),
                                                                              description->GetValue(),
                                                                              description->GetSize()));
-            continue;
         }
-
-        if (!std::strcmp("real", signal.name()))
+        else if (!std::strcmp("real", signal.name()))
         {
             std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
             m_vpSignalCreators.push_back(std::make_unique<XmlFSignalCreator>(description->GetRegex(),
                                                                              description->GetTimestamp(),
                                                                              description->GetName(),
                                                                              description->GetValue()));
-            continue;
         }
-
-        if (!std::strcmp("event", signal.name()))
+        else if (!std::strcmp("event", signal.name()))
         {
             std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
             m_vpSignalCreators.push_back(std::make_unique<XmlEventSignalCreator>(description->GetRegex(),
                                                                                  description->GetTimestamp(),
                                                                                  description->GetName()));
-            continue;
         }
-
-        throw EXCEPTION::VcdException(EXCEPTION::Error::UNEXPECTED_TAG,
-                                      "XML - Unexpected tag: " + std::string(signal.name()));
+        else
+        {
+            throw EXCEPTION::VcdException(EXCEPTION::Error::UNEXPECTED_TAG,
+                                          "XML - Unexpected tag: " + std::string(signal.name()));
+        }
     }
 }
-

@@ -48,7 +48,8 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/TimeFrame.cpp
     ${COMMON_SOURCES_DIR}/Utils.cpp
     ${COMMON_SOURCES_DIR}/Logger.cpp
-    ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
+    ${COMMON_SOURCES_DIR}/VCDTracer.cpp
+    ${COMMON_SOURCES_DIR}/SafeUInt.cpp)
 
 # Set common header files.
 # This shouldn't be needed, but helps IDE project generators.
@@ -84,6 +85,8 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/Utils.h
     ${COMMON_HEADERS_DIR}/Instrument.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h
+    ${COMMON_HEADERS_DIR}/SafeUInt.h
+    ${COMMON_HEADERS_DIR}/Timestamp.h
     ${VERSION_HEADER})
 
 # 3rd party directories.

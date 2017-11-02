@@ -49,7 +49,7 @@ INSTRUMENT::LineCounter::LineCounter(const std::string &rFilename,
 
 void INSTRUMENT::LineCounter::Notify(LineNumberT lineNumber, const SIGNAL::Signal &rSignal)
 {
-    uint64_t timestamp = rSignal.GetTimestamp();
+    TIME::Timestamp timestamp = rSignal.GetTimestamp();
     // Check if the source has been already registered.
     const CounterSignalT::iterator it = m_Counter.find(timestamp);
 

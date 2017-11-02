@@ -32,7 +32,6 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 #include "VcdException.h"
-#include "VcdExceptionList.h"
 
 PARSER::SignalFactory::SignalFactory() :
     m_vpSignalCreators()

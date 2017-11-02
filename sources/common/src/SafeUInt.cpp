@@ -1,14 +1,13 @@
-/// @file common/src/TimeFrame.cpp
+/// @file common/src/SafeUInt.cpp
 ///
-/// The time frame class.
+/// The safe integer implementations.
 ///
 /// @par Full Description
-/// The object of this class is supposed to be used by the tracing object
-/// to keep a track of signals within the same time frame.
+/// The basic safe integer implementations.
 ///
-/// @ingroup Tracer
+/// @ingroup Generic
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -28,42 +27,21 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "TimeFrame.h"
+#include "SafeUInt.h"
 
-void TRACER::TimeFrame::Add(const SIGNAL::Signal *pSignal)
+/// Overrides the output stream operator.
+std::ostream &operator<<(std::ostream &out, SafeUInt<uint64_t> &ts)
 {
-    if (WasSignalValueAdded(pSignal))
-    {
-        m_Signals[pSignal->GetName()] = pSignal;
-        m_FrameSignals[pSignal->GetName()] = pSignal;
-    }
+    out << ts.GetValue();
+    return out;
 }
 
-void TRACER::TimeFrame::DumpAndClear()
+/// Overrides the multiplication operator.
+SafeUInt<uint64_t> operator*(uint64_t lhs, const SafeUInt<uint64_t> &rhs)
 {
-    if (!m_FrameSignals.empty())
+    if ((std::numeric_limits<uint64_t>::max() / lhs) < rhs.GetValue())
     {
-        DumpLine('#' + std::to_string(m_Timestamp.GetValue()));
-
-        for (const auto &signal : m_FrameSignals)
-        {
-            DumpLine(signal.second->Print());
-        }
-
-        m_FrameSignals.clear();
+        throw std::out_of_range("");
     }
-}
-
-bool TRACER::TimeFrame::WasSignalValueAdded(const SIGNAL::Signal *pSignal)
-{
-    const auto it = m_Signals.find(pSignal->GetName());
-
-    if (it != m_Signals.end())
-    {
-        return (*it->second != *pSignal);
-    }
-    else
-    {
-        return true;
-    }
+    return SafeUInt<uint64_t>(lhs * rhs.GetValue());
 }

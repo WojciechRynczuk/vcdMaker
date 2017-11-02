@@ -42,10 +42,10 @@ namespace TRACER
         public:
             /// The time frame constructor.
             ///
-            /// @param timestamp The initial timestamp.
+            /// @param rTimestamp The initial timestamp.
             /// @param rFile The output stream.
-            TimeFrame(const uint64_t timestamp, std::ofstream &rFile) :
-                m_Timestamp(timestamp),
+            TimeFrame(const TIME::Timestamp &rTimestamp, std::ofstream &rFile) :
+                m_Timestamp(rTimestamp),
                 m_rFile(rFile),
                 m_FrameSignals(),
                 m_Signals()
@@ -55,7 +55,7 @@ namespace TRACER
             /// Sets the beginning of the frame.
             ///
             /// @param frameStart New timestamp characterizing a frame.
-            void SetTime(uint64_t frameStart)
+            void SetTime(TIME::Timestamp frameStart)
             {
                 m_Timestamp = frameStart;
             }
@@ -86,7 +86,7 @@ namespace TRACER
             bool WasSignalValueAdded(const SIGNAL::Signal *pSignal);
 
             /// The timestamp of the time frame.
-            uint64_t m_Timestamp;
+            TIME::Timestamp m_Timestamp;
 
             /// The output stream.
             std::ofstream &m_rFile;

@@ -92,11 +92,11 @@ void TRACER::VCDTracer::GenerateSignalDefaults()
 void TRACER::VCDTracer::GenerateBody()
 {
     TimeFrame frame(0, m_File);
-    uint64_t previous_timestamp = 0;
+    TIME::Timestamp previous_timestamp = 0;
 
     for (const SIGNAL::Signal *current_signal : m_rSignalDb.GetSignals())
     {
-        const uint64_t current_timestamp = current_signal->GetTimestamp();
+        const TIME::Timestamp current_timestamp = current_signal->GetTimestamp();
 
         if (current_timestamp != previous_timestamp)
         {

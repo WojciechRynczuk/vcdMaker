@@ -150,6 +150,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Logger.h" />
     <ClInclude Include="..\..\..\sources\common\inc\LogParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SafeUInt.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SourceRegistry.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Timestamp.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Utils.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VcdException.h" />
@@ -179,6 +181,7 @@
     <ClCompile Include="..\..\..\sources\common\src\LineCounter.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Logger.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\LogParser.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SafeUInt.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp" />

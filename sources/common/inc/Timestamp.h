@@ -1,14 +1,13 @@
-/// @file common/src/TimeFrame.cpp
+/// @file common/inc/Timestamp.h
 ///
-/// The time frame class.
+/// The signal timestamp class.
 ///
 /// @par Full Description
-/// The object of this class is supposed to be used by the tracing object
-/// to keep a track of signals within the same time frame.
+/// The signal time stamp class.
 ///
-/// @ingroup Tracer
+/// @ingroup Time
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -28,42 +27,19 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "TimeFrame.h"
+#pragma once
+#include "SafeUInt.h"
 
-void TRACER::TimeFrame::Add(const SIGNAL::Signal *pSignal)
+/// @defgroup Time Time
+///
+/// @brief The group defines entities for time operations.
+///
+/// @par Full Description
+/// The group defines the time stamp class. It also provides means to make time
+/// unit conversions.
+
+namespace TIME
 {
-    if (WasSignalValueAdded(pSignal))
-    {
-        m_Signals[pSignal->GetName()] = pSignal;
-        m_FrameSignals[pSignal->GetName()] = pSignal;
-    }
-}
-
-void TRACER::TimeFrame::DumpAndClear()
-{
-    if (!m_FrameSignals.empty())
-    {
-        DumpLine('#' + std::to_string(m_Timestamp.GetValue()));
-
-        for (const auto &signal : m_FrameSignals)
-        {
-            DumpLine(signal.second->Print());
-        }
-
-        m_FrameSignals.clear();
-    }
-}
-
-bool TRACER::TimeFrame::WasSignalValueAdded(const SIGNAL::Signal *pSignal)
-{
-    const auto it = m_Signals.find(pSignal->GetName());
-
-    if (it != m_Signals.end())
-    {
-        return (*it->second != *pSignal);
-    }
-    else
-    {
-        return true;
-    }
+    /// This type serves as signals time stamps.
+    using Timestamp = SafeUInt<uint64_t>;
 }

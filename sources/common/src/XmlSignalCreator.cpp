@@ -26,7 +26,7 @@
 
 #include "XmlSignalCreator.h"
 
-uint64_t PARSER::XmlSignalCreator::GetTimestamp(const std::smatch &rMatch) const
+TIME::Timestamp PARSER::XmlSignalCreator::GetTimestamp(const std::smatch &rMatch) const
 {
     return std::stoull(rMatch[std::stoi(m_Timestamp)].str());
 }

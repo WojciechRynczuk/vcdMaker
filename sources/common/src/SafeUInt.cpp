@@ -39,9 +39,12 @@ std::ostream &operator<<(std::ostream &out, SafeUInt<uint64_t> &ts)
 /// Overrides the multiplication operator.
 SafeUInt<uint64_t> operator*(uint64_t lhs, const SafeUInt<uint64_t> &rhs)
 {
-    if ((std::numeric_limits<uint64_t>::max() / lhs) < rhs.GetValue())
+    if (lhs)
     {
-        throw std::out_of_range("");
+        if ((std::numeric_limits<uint64_t>::max() / lhs) < rhs.GetValue())
+        {
+            throw std::out_of_range("");
+        }
     }
     return SafeUInt<uint64_t>(lhs * rhs.GetValue());
 }

@@ -38,6 +38,7 @@
 /// The group contains classes which could be used anywhere else.
 
 #include <cstdint>
+#include <limits>
 #include <iostream>
 #include <stdexcept>
 
@@ -137,9 +138,12 @@ template<class T> class SafeUInt
         /// Overrides the multiplication operator '*'.
         SafeUInt<T> operator*(uint64_t rhs) const
         {
-            if ((std::numeric_limits<T>::max() / m_Value) > rhs)
+            if (m_Value)
             {
-                throw std::out_of_range("");
+                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
+                {
+                    throw std::out_of_range("");
+                }
             }
             return SafeUInt<T>(m_Value * rhs);
         }
@@ -147,9 +151,12 @@ template<class T> class SafeUInt
         /// Overrides the multiplication operator '*= uint64_t'.
         SafeUInt<T> &operator*=(uint64_t rhs)
         {
-            if ((std::numeric_limits<T>::max() / m_Value) > rhs)
+            if (m_Value)
             {
-                throw std::out_of_range("");
+                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
+                {
+                    throw std::out_of_range("");
+                }
             }
             m_Value *= rhs;
             return *this;
@@ -158,9 +165,12 @@ template<class T> class SafeUInt
         /// Overrides the multiplication operator '* double'.
         SafeUInt<T> operator*(double rhs) const
         {
-            if ((std::numeric_limits<T>::max() / m_Value) > rhs)
+            if (m_Value)
             {
-                throw std::out_of_range("");
+                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
+                {
+                    throw std::out_of_range("");
+                }
             }
             return SafeUInt<T>(static_cast<T>(m_Value * rhs));
         }
@@ -168,6 +178,13 @@ template<class T> class SafeUInt
         /// Overrides the multiplication operator '*= double'.
         SafeUInt<T> &operator*=(double rhs)
         {
+            if (m_Value)
+            {
+                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
+                {
+                    throw std::out_of_range("");
+                }
+            }
             m_Value *= rhs;
             return *this;
         }
@@ -192,10 +209,10 @@ template<class T> class SafeUInt
         }
 
         /// Overrides the output stream operator.
-        friend std::ostream &operator<<(std::ostream &out, SafeUInt<T> &ts);
+        template<T> friend std::ostream &operator<<(std::ostream &out, SafeUInt<T> &ts);
 
         /// Overrides the multiplication operator.
-        friend SafeUInt<T> operator*(uint64_t lhs, const SafeUInt<T> &rhs);
+        template<T> friend SafeUInt<T> operator*(uint64_t lhs, const SafeUInt<T> &rhs);
 
     private:
 

@@ -56,10 +56,7 @@ template<class T> class SafeUInt
         }
 
         /// The default constructor.
-        ///
-        /// By default the integer is set to 0.
-        SafeUInt() :
-            m_Value(0)
+        SafeUInt()
         {
         }
 
@@ -69,59 +66,15 @@ template<class T> class SafeUInt
             return m_Value;
         }
 
-        /// Overrides 'equal to' operator.
-        bool operator==(const SafeUInt<T> &rhs) const
-        {
-            return m_Value == rhs.GetValue();
-        }
-
-        /// Overrides 'not equal to' operator.
-        bool operator!=(const SafeUInt<T> &rhs) const
-        {
-            return !(*this == rhs);
-        }
-
-        /// Overrides 'greater than' operator.
-        bool operator>(const SafeUInt<T> &rhs) const
-        {
-            return (m_Value > rhs.GetValue());
-        }
-
-        /// Overrides 'less than' operator.
-        bool operator<(const SafeUInt<T> &rhs) const
-        {
-            return (m_Value < rhs.GetValue());
-        }
-
-        /// Overrides the addition operator '+'.
-        SafeUInt<T> operator+(const SafeUInt<T> &rhs) const
-        {
-            if ( (std::numeric_limits<T>::max() - m_Value) < rhs.GetValue())
-            {
-                throw std::out_of_range("");
-            }
-            return SafeUInt<T>(m_Value + rhs.GetValue());
-        }
-
         /// Overrides the addition operator '+='.
         SafeUInt<T> &operator+=(const SafeUInt<T> &rhs)
         {
             if ((std::numeric_limits<T>::max() - m_Value) < rhs.GetValue())
             {
-                throw std::out_of_range("");
+                throw std::out_of_range("Arthmetic overflow");
             }
             m_Value += rhs.GetValue();
             return *this;
-        }
-
-        /// Overrides the substraction operator '-'.
-        SafeUInt<T> operator-(const SafeUInt<T> &rhs) const
-        {
-            if (m_Value < rhs.GetValue())
-            {
-                throw std::out_of_range("");
-            }
-            return SafeUInt<T>(m_Value - rhs.GetValue());
         }
 
         /// Overrides the substraction operator '-='.
@@ -129,93 +82,100 @@ template<class T> class SafeUInt
         {
             if (m_Value < rhs.GetValue())
             {
-                throw std::out_of_range("");
+                throw std::out_of_range("Arthmetic underflow");
             }
             m_Value -= rhs.GetValue();
             return *this;
         }
 
-        /// Overrides the multiplication operator '*'.
-        SafeUInt<T> operator*(uint64_t rhs) const
+        /// Overrides the multiplication operator '*='.
+        SafeUInt<T> &operator*=(const SafeUInt<T> &rhs)
         {
-            if (m_Value)
+            if ((std::numeric_limits<T>::max() / m_Value) > rhs.m_Value)
             {
-                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
-                {
-                    throw std::out_of_range("");
-                }
+                throw std::out_of_range("Arthmetic overflow");
             }
-            return SafeUInt<T>(m_Value * rhs);
-        }
-
-        /// Overrides the multiplication operator '*= uint64_t'.
-        SafeUInt<T> &operator*=(uint64_t rhs)
-        {
-            if (m_Value)
-            {
-                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
-                {
-                    throw std::out_of_range("");
-                }
-            }
-            m_Value *= rhs;
+            m_Value *= rhs.m_Value;
             return *this;
-        }
-
-        /// Overrides the multiplication operator '* double'.
-        SafeUInt<T> operator*(double rhs) const
-        {
-            if (m_Value)
-            {
-                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
-                {
-                    throw std::out_of_range("");
-                }
-            }
-            return SafeUInt<T>(static_cast<T>(m_Value * rhs));
-        }
-
-        /// Overrides the multiplication operator '*= double'.
-        SafeUInt<T> &operator*=(double rhs)
-        {
-            if (m_Value)
-            {
-                if ((std::numeric_limits<T>::max() / m_Value) < rhs)
-                {
-                    throw std::out_of_range("");
-                }
-            }
-            m_Value *= rhs;
-            return *this;
-        }
-
-        /// Overrides the division operator '/'.
-        SafeUInt<T> operator/(uint64_t rhs) const
-        {
-            return SafeUInt<T>(m_Value / rhs);
         }
 
         /// Overrides the division operator '=/'.
-        SafeUInt<T> &operator/=(uint64_t rhs)
+        SafeUInt<T> &operator/=(const SafeUInt<T> &rhs)
         {
-            m_Value /= rhs;
+            m_Value /= rhs.m_Value;
             return *this;
         }
 
         /// Returns the maximum type value.
-        static SafeUInt<T> max()
+        static constexpr SafeUInt<T> max()
         {
             return SafeUInt<T>(std::numeric_limits<T>::max());
         }
 
         /// Overrides the output stream operator.
-        template<T> friend std::ostream &operator<<(std::ostream &out, SafeUInt<T> &ts);
-
-        /// Overrides the multiplication operator.
-        template<T> friend SafeUInt<T> operator*(uint64_t lhs, const SafeUInt<T> &rhs);
+        friend std::ostream &operator<<(std::ostream &out, SafeUInt<T> &ts);
 
     private:
 
         /// The unsigned integer value.
-        T m_Value;
+        T m_Value = 0;
 };
+
+/// Overrides 'equal to' operator.
+template<class T>  bool operator==(const SafeUInt<T> &lhs, const SafeUInt<T> &rhs)
+{
+    return lhs.GetValue() == rhs.GetValue();
+}
+
+/// Overrides 'not equal to' operator.
+template<class T>  bool operator!=(const SafeUInt<T> &lhs, const SafeUInt<T> &rhs)
+{
+    return !(lhs == rhs);
+}
+
+/// Overrides 'greater than' operator.
+template<class T>  bool operator>(const SafeUInt<T> &lhs, const SafeUInt<T> &rhs)
+{
+    return (lhs.GetValue() > rhs.GetValue());
+}
+
+/// Overrides 'less than' operator.
+template<class T>  bool operator<(const SafeUInt<T> &lhs, const SafeUInt<T> &rhs)
+{
+    return (lhs.GetValue() < rhs.GetValue());
+}
+
+/// Overrides the addition operator '+'.
+template<class T>  SafeUInt<T> operator+(SafeUInt<T> lhs, const SafeUInt<T> &rhs)
+{
+    lhs += rhs;
+    return lhs;
+}
+
+/// Overrides the substraction operator '-'.
+template<class T>  SafeUInt<T> operator-(SafeUInt<T> lhs, const SafeUInt<T> &rhs)
+{
+    lhs -= rhs;
+    return lhs;
+}
+
+/// Overrides the multiplication operator '*'.
+template<class T>  SafeUInt<T> operator*(SafeUInt<T> lhs, const SafeUInt<T> &rhs)
+{
+    lhs *= rhs;
+    return lhs;
+}
+
+/// Overrides the multiplication operator '/'.
+template<class T>  SafeUInt<T> operator/(SafeUInt<T> lhs, const SafeUInt<T> &rhs)
+{
+    lhs /= rhs;
+    return lhs;
+}
+
+/// Overrides the output stream operator.
+template<class T> std::ostream &operator<<(std::ostream &out, SafeUInt<T> &ts)
+{
+    out << ts.m_Value;
+    return out;
+}

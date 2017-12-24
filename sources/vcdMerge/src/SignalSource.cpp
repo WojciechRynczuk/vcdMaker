@@ -64,7 +64,7 @@ TIME::Timestamp MERGE::SignalSource::GetLeadingTime() const
     const TIME::Timestamp t0 = (*(m_pSignalDb->GetSignals().cbegin()))->GetTimestamp();
 
     // The sync point value is out of bounds.
-    if ((t0 > m_SyncPoint) && (m_SyncPoint > 0))
+    if ((t0 > m_SyncPoint) && (m_SyncPoint > TIME::Timestamp(0)))
     {
         throw EXCEPTION::VcdException(EXCEPTION::Error::SYNCHRONIZATION_POINT_OUT_OF_BOUNDS,
                                       "Synchronization point value out of bounds: " + m_SyncPoint.GetValue());

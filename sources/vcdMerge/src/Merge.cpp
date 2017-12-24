@@ -103,8 +103,8 @@ void MERGE::Merge::Run()
             {
                 // Set the signal's new timestamp.
                 pSignal->SetTimestamp(CalculateNewTime(TransformTimestamp(pSignal->GetTimestamp(),
-                                                      m_MinTimeUnit,
-                                                      source_time_unit),
+                                                       m_MinTimeUnit,
+                                                       source_time_unit),
                                       transformed_source_sync));
             }
             catch (std::out_of_range &)
@@ -149,11 +149,11 @@ TIME::Timestamp MERGE::Merge::FindMaxLeadingTime() const
     for (const SignalSource *const source : m_Sources)
     {
         const TIME::Timestamp log_leading_time = TransformTimestamp(source->GetLeadingTime(),
-                                                                      m_MinTimeUnit,
-                                                                      source->GetTimeUnit());
+                                                                    m_MinTimeUnit,
+                                                                    source->GetTimeUnit());
         const TIME::Timestamp user_leading_time = TransformTimestamp(source->GetSyncPoint(),
-                                                                       m_MinTimeUnit,
-                                                                       source->GetTimeUnit());
+                                                                     m_MinTimeUnit,
+                                                                     source->GetTimeUnit());
         const TIME::Timestamp leading_time = std::min(log_leading_time, user_leading_time);
         max_leading_time = std::max(leading_time, max_leading_time);
     }
@@ -187,7 +187,7 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     const double units_ratio =
         static_cast<double>(TEN_POWER[nominator]) / TEN_POWER[denominator];
 
-    return (new_time * units_ratio);
+    return TIME::Timestamp(static_cast<uint64_t>(new_time.GetValue() * units_ratio));
 }
 
 TIME::Timestamp MERGE::Merge::CalculateNewTime(const TIME::Timestamp &rTime,

@@ -178,8 +178,5 @@
     <ClCompile Include="..\..\..\sources\common\src\DefaultSignalFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\sources\common\src\SafeUInt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

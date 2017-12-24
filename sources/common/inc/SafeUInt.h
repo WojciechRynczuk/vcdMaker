@@ -113,7 +113,7 @@ template<class T> class SafeUInt
         }
 
         /// Overrides the output stream operator.
-        friend std::ostream &operator<<(std::ostream &out, SafeUInt<T> &ts);
+        template<class Y> friend std::ostream &operator<<(std::ostream &out, SafeUInt<Y> &ts);
 
     private:
 
@@ -174,7 +174,7 @@ template<class T>  SafeUInt<T> operator/(SafeUInt<T> lhs, const SafeUInt<T> &rhs
 }
 
 /// Overrides the output stream operator.
-template<class T> std::ostream &operator<<(std::ostream &out, SafeUInt<T> &ts)
+template<class Y> std::ostream &operator<<(std::ostream &out, SafeUInt<Y> &ts)
 {
     out << ts.m_Value;
     return out;

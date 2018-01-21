@@ -56,9 +56,7 @@ template<class T> class SafeUInt
         }
 
         /// The default constructor.
-        SafeUInt()
-        {
-        }
+		SafeUInt() = default;
 
         /// Returns the integer value.
         T GetValue() const

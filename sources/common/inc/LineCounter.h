@@ -73,7 +73,7 @@ namespace INSTRUMENT
             };
 
             /// The counter signal map.
-            using CounterSignalT = std::map<uint64_t, CounterValue>;
+            using CounterSignalT = std::map<TIME::Timestamp, CounterValue>;
 
             /// Creates counter name based on desired name.
             std::string CreateCounterName(const std::string &rDesiredName);

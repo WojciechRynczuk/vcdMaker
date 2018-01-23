@@ -38,12 +38,12 @@
 /// The group consists of the base class defining the common behaviours as
 /// well as of the inheriting signal classes specifying concrete signals.
 
-#include <cstdint>
 #include <string>
 #include <vector>
 #include <set>
 
 #include "SourceRegistry.h"
+#include "Timestamp.h"
 
 /// Signal handling.
 namespace SIGNAL
@@ -83,13 +83,13 @@ namespace SIGNAL
             /// the type of the signal and shall equal to "wire" or "real".
             Signal(const std::string &name,
                    size_t size,
-                   uint64_t timestamp,
+                   const TIME::Timestamp &rTimestamp,
                    const std::string &type,
                    SourceRegistry::HandleT sourceHandle) :
                 m_Name(name),
                 m_Type(type),
                 m_Size(size),
-                m_Timestamp(timestamp),
+                m_Timestamp(rTimestamp),
                 m_SourceHandle(sourceHandle)
             {
             }
@@ -139,17 +139,17 @@ namespace SIGNAL
             /// Returns the signal's timestamp in time units.
             ///
             /// The method is used while generating the body of the VCD file.
-            uint64_t GetTimestamp() const
+            const TIME::Timestamp& GetTimestamp() const
             {
                 return m_Timestamp;
             }
 
             /// Sets the timestamp.
             ///
-            /// @param timestamp The new timestamp value.
-            void SetTimestamp(uint64_t timestamp)
+            /// @param rTimestamp The new timestamp value.
+            void SetTimestamp(const TIME::Timestamp &rTimestamp)
             {
-                m_Timestamp = timestamp;
+                m_Timestamp = rTimestamp;
             }
 
             /// Returns the signal's type.
@@ -196,7 +196,7 @@ namespace SIGNAL
             const size_t m_Size = 0;
 
             /// The signal's timestamp.
-            uint64_t m_Timestamp = 0;
+            TIME::Timestamp m_Timestamp;
 
             /// The signal's source.
             const SourceRegistry::HandleT m_SourceHandle =

@@ -122,7 +122,7 @@ namespace MERGE
             }
 
             /// Returns the source synchronization point.
-            uint64_t GetSyncPoint() const
+            const TIME::Timestamp& GetSyncPoint() const
             {
                 return m_SyncPoint;
             }
@@ -131,7 +131,7 @@ namespace MERGE
             /// the synchronization point.
             ///
             /// @throws VcdException if the first source timestamp is greater than the synchronization point.
-            uint64_t GetLeadingTime() const;
+            TIME::Timestamp GetLeadingTime() const;
 
         private:
             /// A type for split source parameters.
@@ -150,7 +150,7 @@ namespace MERGE
             std::unique_ptr<PARSER::SignalFactory> m_pSignalFactory;
 
             /// The source synchronization point.
-            uint64_t m_SyncPoint;
+            TIME::Timestamp m_SyncPoint;
 
             /// The time unit.
             std::string m_TimeUnit;

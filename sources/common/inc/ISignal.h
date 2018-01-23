@@ -52,10 +52,10 @@ namespace SIGNAL
             /// E.g. Module1.Level3.Variable6
             ISignal(const std::string &name,
                     size_t size,
-                    uint64_t timestamp,
+                    const TIME::Timestamp &rTimestamp,
                     uint64_t value,
                     SourceRegistry::HandleT sourceHandle) :
-                Signal(name, size, timestamp, "wire", sourceHandle),
+                Signal(name, size, rTimestamp, "wire", sourceHandle),
                 m_Value(value)
             {
             }

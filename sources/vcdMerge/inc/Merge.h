@@ -80,29 +80,29 @@ namespace MERGE
             /// Returns the minimal unit.
             ///
             /// @param The result time unit.
-            std::string FindMinUnit();
+            std::string FindMinUnit() const;
 
             /// Returns the max leading time - the time between the first
             /// event and the synchronization point.
-            uint64_t FindMaxLeadingTime();
+            TIME::Timestamp FindMaxLeadingTime() const;
 
             /// Returns the time value represented in the target time unit.
             ///
             /// @throws std::runtime_error() if the new time value is out of bounds.
-            /// @param time A time value to be transformed.
+            /// @param rTime A time value to be transformed.
             /// @param rTargetTimeUnit The target time unit.
             /// @param rSourceTimeUnit The source time unit.
-            uint64_t TransformTimestamp(uint64_t time,
-                                        const std::string &rTargetTimeUnit,
-                                        const std::string &rSourceTimeUnit);
+            TIME::Timestamp TransformTimestamp(const TIME::Timestamp &rTime,
+                                               const std::string &rTargetTimeUnit,
+                                               const std::string &rSourceTimeUnit) const;
 
             /// Returns the new signal's time.
             ///
             /// @throws std::runtime_error() is the new time value is out of bounds.
-            /// @param time The original signal's timestamp.
-            /// @param sync The source's sync point.
-            uint64_t CalculateNewTime(uint64_t time,
-                                      uint64_t syncPoint);
+            /// @param rTime The original signal's timestamp.
+            /// @param rSync The source's sync point.
+            TIME::Timestamp CalculateNewTime(const TIME::Timestamp &rTime,
+                                             const TIME::Timestamp &rSyncPoint) const;
 
             /// A type defining a container for signal sources.
             using SignalSourcesT = std::vector<const SignalSource *>;
@@ -124,7 +124,7 @@ namespace MERGE
 
             /// The greatest leading time among sources.
             /// Expressed in the time output unit.
-            uint64_t m_MaxLeadingTime;
+            TIME::Timestamp m_MaxLeadingTime;
 
             /// The output database.
             std::unique_ptr<SIGNAL::SignalDb> m_pMerged;

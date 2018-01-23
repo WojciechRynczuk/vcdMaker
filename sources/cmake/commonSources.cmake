@@ -84,6 +84,8 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/Utils.h
     ${COMMON_HEADERS_DIR}/Instrument.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h
+    ${COMMON_HEADERS_DIR}/SafeUInt.h
+    ${COMMON_HEADERS_DIR}/Timestamp.h
     ${VERSION_HEADER})
 
 # 3rd party directories.

@@ -40,7 +40,6 @@
 #include <memory>
 #include <sstream>
 
-#include "SignalDb.h"
 #include "Instrument.h"
 
 namespace PARSER

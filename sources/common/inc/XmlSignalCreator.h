@@ -60,7 +60,7 @@ namespace PARSER
             /// Returns the timestamp of the signal.
             ///
             /// @param rMatch The regular expression groups.
-            uint64_t GetTimestamp(const std::smatch &rMatch) const;
+            TIME::Timestamp GetTimestamp(const std::smatch &rMatch) const;
 
             /// Returns the name of the signal.
             ///

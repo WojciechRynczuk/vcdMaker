@@ -47,6 +47,7 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/LineCounter.cpp
     ${COMMON_SOURCES_DIR}/TimeFrame.cpp
     ${COMMON_SOURCES_DIR}/Utils.cpp
+    ${COMMON_SOURCES_DIR}/TimeUnit.cpp
     ${COMMON_SOURCES_DIR}/Logger.cpp
     ${COMMON_SOURCES_DIR}/VCDTracer.cpp)
 
@@ -82,6 +83,7 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/Logger.h
     ${COMMON_HEADERS_DIR}/TimeFrame.h
     ${COMMON_HEADERS_DIR}/Utils.h
+    ${COMMON_HEADERS_DIR}/TimeUnit.h
     ${COMMON_HEADERS_DIR}/Instrument.h
     ${COMMON_HEADERS_DIR}/VCDTracer.h
     ${COMMON_HEADERS_DIR}/SafeUInt.h

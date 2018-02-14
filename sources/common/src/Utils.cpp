@@ -29,11 +29,8 @@
 
 #include <algorithm>
 #include <sstream>
-#include <stdexcept>
 
 #include "Utils.h"
-#include "Signal.h"
-#include "VcdException.h"
 
 std::vector<std::string> UTILS::Split(const std::string &rInString,
                                       const char delimiter)
@@ -44,35 +41,8 @@ std::vector<std::string> UTILS::Split(const std::string &rInString,
 
     while (std::getline(inStream, outField, delimiter))
     {
-        if (!outField.empty())
-        {
-            outStrings.push_back(outField);
-        }
+        outStrings.push_back(outField);
     }
 
     return outStrings;
-}
-
-bool UTILS::IsTimeUnitValid(const std::string &rUnit)
-{
-    return (std::find(SIGNAL::Signal::TIME_UNITS.cbegin(),
-                      SIGNAL::Signal::TIME_UNITS.cend(),
-                      rUnit) != SIGNAL::Signal::TIME_UNITS.cend());
-}
-
-size_t UTILS::GetTimeUnitIndex(const std::string &rUnit)
-{
-    const size_t index = (std::find(SIGNAL::Signal::TIME_UNITS.cbegin(),
-                                    SIGNAL::Signal::TIME_UNITS.cend(),
-                                    rUnit) - SIGNAL::Signal::TIME_UNITS.cbegin());
-
-    if (index == SIGNAL::Signal::TIME_UNITS.size())
-    {
-        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_TIME_UNIT,
-                                      "Invalid time unit: " + rUnit);
-    }
-    else
-    {
-        return index;
-    }
 }

@@ -32,6 +32,7 @@
 #include "CliParser.h"
 #include "Signal.h"
 #include "Version.h"
+#include "TimeUnit.h"
 
 namespace CLI
 {
@@ -78,7 +79,7 @@ namespace CLI
         private:
 
             /// Valid timebases constraint.
-            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{SIGNAL::Signal::TIME_UNITS};
+            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{TIME::Unit::GetInstance().GetTimeUnits()};
 
             /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase

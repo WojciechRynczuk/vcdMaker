@@ -34,6 +34,7 @@
 #include "SignalSource.h"
 #include "LineCounter.h"
 #include "Utils.h"
+#include "TimeUnit.h"
 #include "VcdException.h"
 #include "XmlSignalFactory.h"
 #include "DefaultSignalFactory.h"
@@ -145,7 +146,7 @@ void MERGE::SignalSource::SetSyncPoint(const std::string &rSyncPoint)
 
 void MERGE::SignalSource::SetTimeUnit(const std::string &rTimeUnit)
 {
-    if (UTILS::IsTimeUnitValid(rTimeUnit))
+    if (TIME::Unit::GetInstance().IsTimeUnitValid(rTimeUnit))
     {
         m_TimeUnit = rTimeUnit;
     }

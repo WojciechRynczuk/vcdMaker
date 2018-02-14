@@ -60,7 +60,7 @@ namespace TIME
             const std::string &GetTimeUnit(size_t index) const;
 
             /// Returns the list of available time units.
-            constexpr const std::vector<std::string> &GetTimeUnits() const
+            const std::vector<std::string> &GetTimeUnits() const
             {
                 return TIME_UNITS;
             }

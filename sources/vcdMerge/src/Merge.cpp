@@ -28,21 +28,11 @@
 /// IN THE SOFTWARE.
 
 #include <algorithm>
-#include <ratio>
 
 #include "Merge.h"
 #include "Utils.h"
+#include "TimeUnit.h"
 #include "Logger.h"
-
-const uint64_t MERGE::Merge::TEN_POWER[] =
-{
-    1ull,
-    static_cast<uint64_t>(std::kilo::num),
-    static_cast<uint64_t>(std::mega::num),
-    static_cast<uint64_t>(std::giga::num),
-    static_cast<uint64_t>(std::tera::num),
-    static_cast<uint64_t>(std::peta::num)
-};
 
 void MERGE::Merge::Run()
 {
@@ -135,11 +125,11 @@ std::string MERGE::Merge::FindMinUnit() const
 
     for (const SignalSource *const source : m_Sources)
     {
-        const size_t index = UTILS::GetTimeUnitIndex(source->GetTimeUnit());
+        const size_t index = TIME::Unit::GetInstance().GetTimeUnitIndex(source->GetTimeUnit());
         max_index = std::max(index, max_index);
     }
 
-    return SIGNAL::Signal::TIME_UNITS[max_index];
+    return TIME::Unit::GetInstance().GetTimeUnit(max_index);
 }
 
 TIME::Timestamp MERGE::Merge::FindMaxLeadingTime() const
@@ -169,8 +159,8 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    const uint32_t target_power = UTILS::GetTimeUnitIndex(rTargetTimeUnit);
-    const uint32_t source_power = UTILS::GetTimeUnitIndex(rSourceTimeUnit);
+    const uint32_t target_power = TIME::Unit::GetInstance().GetTimeUnitIndex(rTargetTimeUnit);
+    const uint32_t source_power = TIME::Unit::GetInstance().GetTimeUnitIndex(rSourceTimeUnit);
 
     if (target_power > source_power)
     {
@@ -179,13 +169,13 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     else if (target_power < source_power)
     {
         denominator = (source_power - target_power);
-        const TIME::Timestamp rounding(TEN_POWER[denominator] / 2);
+        const TIME::Timestamp rounding(TIME::Unit::GetInstance().GetTenPower(denominator) / 2);
 
         new_time = rTime + rounding;
     }
 
     const double units_ratio =
-        static_cast<double>(TEN_POWER[nominator]) / TEN_POWER[denominator];
+        static_cast<double>(TIME::Unit::GetInstance().GetTenPower(nominator) / TIME::Unit::GetInstance().GetTenPower(denominator));
 
     return TIME::Timestamp(static_cast<uint64_t>(new_time.GetValue() * units_ratio));
 }

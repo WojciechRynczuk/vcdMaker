@@ -74,14 +74,11 @@ namespace TIME
             /// The default constructor.
             Unit();
 
-            /// Number of units.
-            static const uint32_t UNITS_N = 6;
-
             /// Available time units.
             static const std::vector<std::string> TIME_UNITS;
 
             /// A table containing integer values of 10^(3*n) where n equals position in the table.
-            static const uint64_t TEN_POWER[UNITS_N];
+            static const std::vector<uint64_t> TEN_POWER;
     };
     inline Unit::Unit() = default;
 }

@@ -45,6 +45,10 @@ std::vector<std::string> UTILS::Split(const std::string &rInString,
         {
             outStrings.push_back(outField);
         }
+        else
+        {
+            outStrings.push_back("");
+        }
     }
 
     return outStrings;

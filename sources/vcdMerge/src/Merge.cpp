@@ -30,7 +30,6 @@
 #include <algorithm>
 
 #include "Merge.h"
-#include "Utils.h"
 #include "TimeUnit.h"
 #include "Logger.h"
 

@@ -39,7 +39,7 @@
 const std::vector<std::string> TIME::Unit::TIME_UNITS =
 { "s", "ms", "us", "ns", "ps", "fs" };
 
-const uint64_t TIME::Unit::TEN_POWER[] =
+const std::vector<uint64_t> TIME::Unit::TEN_POWER =
 {
     1ull,
     static_cast<uint64_t>(std::kilo::num),
@@ -75,10 +75,20 @@ size_t TIME::Unit::GetTimeUnitIndex(const std::string &rUnit) const
 
 const std::string &TIME::Unit::GetTimeUnit(size_t index) const
 {
+    if (index >= TIME_UNITS.size())
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::TIME_UNIT_INDEX_OUT_OF_BOUNDS,
+                                      "Time unit index out of bounds.");
+    }
     return TIME_UNITS[index];
 }
 
 uint64_t TIME::Unit::GetTenPower(size_t index) const
 {
+    if (index >= TEN_POWER.size())
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::TIME_UNIT_INDEX_OUT_OF_BOUNDS,
+                                      "Time unit index out of bounds.");
+    }
     return TEN_POWER[index];
 }

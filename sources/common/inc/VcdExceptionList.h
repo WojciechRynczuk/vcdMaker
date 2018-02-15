@@ -117,7 +117,10 @@ namespace EXCEPTION
         /// Too many signal sources.
         const uint32_t TOO_MANY_SIGNAL_SOURCES = 9002U;
 
-		/// Invalid regex.
-		const uint32_t INVALID_REGEX = 9003U;
+        /// Invalid regex.
+        const uint32_t INVALID_REGEX = 9003U;
+
+        /// Time unit index out of bounds.
+        const uint32_t TIME_UNIT_INDEX_OUT_OF_BOUNDS = 9004U;
     }
 }

@@ -39,9 +39,9 @@ TEST_CASE("UTILS::Split")
     REQUIRE((UTILS::Split(""s, '\0')) == (StringVector{}));
     REQUIRE((UTILS::Split("abcd"s, '\0')) == (StringVector{"abcd"s}));
     REQUIRE((UTILS::Split("a b c d"s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
-    REQUIRE((UTILS::Split(" a b c d"s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
+    REQUIRE((UTILS::Split(" a b c d"s, ' ')) == (StringVector{""s, "a"s, "b"s, "c"s, "d"s}));
     REQUIRE((UTILS::Split("a b c d "s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
-    REQUIRE((UTILS::Split(" a b c d "s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
-    REQUIRE((UTILS::Split("a b   c  d"s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
+    REQUIRE((UTILS::Split(" a b c d "s, ' ')) == (StringVector{""s, "a"s, "b"s, "c"s, "d"s}));
+    REQUIRE((UTILS::Split("a b   c  d"s, ' ')) == (StringVector{"a"s, "b"s, ""s, ""s, "c"s, ""s, "d"s}));
 }
 

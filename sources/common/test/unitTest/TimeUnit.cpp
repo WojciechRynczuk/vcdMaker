@@ -68,7 +68,7 @@ TEST_CASE("Unit::GetTimeUnitIndex")
 }
 
 /// Unit test for GetTimeUnit().
-TEST_CASE("Unit::IsTimeUnitValid")
+TEST_CASE("Unit::GetTimeUnit")
 {
     REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(0) == "s"s);
     REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(1) == "ms"s);
@@ -83,10 +83,10 @@ TEST_CASE("Unit::IsTimeUnitValid")
 /// Unit test for GetTenPower()
 TEST_CASE("Unit::GetTenPower")
 {
-    for (uint32_t i = 0; i < 5; i++)
+    for (uint32_t i = 0; i < 6; i++)
     {
-        REQUIRE(TIME::Unit::GetInstance().GetTenPower(i) == std::pow(1000, i + 1));
+        REQUIRE(TIME::Unit::GetInstance().GetTenPower(i) == std::pow(1000, i));
     }
 
-    REQUIRE_THROWS(TIME::Unit::GetInstance().GetTenPower(5));
+    REQUIRE_THROWS(TIME::Unit::GetInstance().GetTenPower(6));
 }

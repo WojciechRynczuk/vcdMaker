@@ -34,14 +34,3 @@ std::vector<std::string> UTILS::Split(const std::string &,
 {
     return {};
 }
-
-bool UTILS::IsTimeUnitValid(const std::string &)
-{
-    return false;
-}
-
-size_t UTILS::GetTimeUnitIndex(const std::string &)
-{
-    return 0;
-}
-

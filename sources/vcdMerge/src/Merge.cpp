@@ -175,13 +175,13 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     }
 
     const double units_ratio =
-        static_cast<double>(TIME::Unit::GetInstance().GetTenPower(nominator) / TIME::Unit::GetInstance().GetTenPower(denominator));
+        static_cast<double>(TIME::Unit::GetInstance().GetTenPower(nominator)) / TIME::Unit::GetInstance().GetTenPower(denominator);
 
     return TIME::Timestamp(static_cast<uint64_t>(new_time.GetValue() * units_ratio));
 }
 
 TIME::Timestamp MERGE::Merge::CalculateNewTime(const TIME::Timestamp &rTime,
-                                               const TIME::Timestamp &rSyncPoint) const
+        const TIME::Timestamp &rSyncPoint) const
 {
     const TIME::Timestamp max = std::max(rTime, m_MaxLeadingTime);
     const TIME::Timestamp min = std::min(rTime, m_MaxLeadingTime);

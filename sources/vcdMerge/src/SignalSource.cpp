@@ -64,8 +64,13 @@ TIME::Timestamp MERGE::SignalSource::GetLeadingTime() const
     // Get the timestamp of the first signal in the set.
     const TIME::Timestamp t0 = (*(m_pSignalDb->GetSignals().cbegin()))->GetTimestamp();
 
+    if (TIME::Timestamp(0) == m_SyncPoint)
+    {
+        return t0;
+    }
+
     // The sync point value is out of bounds.
-    if ((t0 > m_SyncPoint) && (m_SyncPoint > TIME::Timestamp(0)))
+    if (t0 > m_SyncPoint)
     {
         throw EXCEPTION::VcdException(EXCEPTION::Error::SYNCHRONIZATION_POINT_OUT_OF_BOUNDS,
                                       "Synchronization point value out of bounds: " + m_SyncPoint.GetValue());

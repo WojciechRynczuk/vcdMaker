@@ -3,24 +3,24 @@
 <signals>
 
 <vector>
-    <line>^#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+)( +.*)?</line>
-    <timestamp>1</timestamp>
-    <name>2</name>
-    <value>3</value>
-    <size>4</size>
+    <line>#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+)</line>
+    <timestamp>dec(/1)</timestamp>
+    <name>/2</name>
+    <value>dec(/3)</value>
+    <size>dec(/4)</size>
 </vector>
 
 <real>
-    <line>^#([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f( +.*)?</line>
-    <timestamp>1</timestamp>
-    <name>2</name>
-    <value>3</value>
+    <line>#([[:d:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f( +.*)?</line>
+    <timestamp>dec(/1)</timestamp>
+    <name>/2</name>
+    <value>/3</value>
 </real>
 
 <event>
-    <line>^#([[:d:]]+) ([[:graph:]]+) e( +.*)?</line>
-    <timestamp>1</timestamp>
-    <name>2</name>
+    <line>#([[:d:]]+) ([[:graph:]]+) e( +.*)?</line>
+    <timestamp>dec(/1)</timestamp>
+    <name>/2</name>
 </event>
 
 </signals >

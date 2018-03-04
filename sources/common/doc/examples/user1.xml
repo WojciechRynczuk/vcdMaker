@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE signals SYSTEM "vcdMaker.dtd">
+<signals>
+
+<vector>
+    <line>([[:d:]]+):([[:d:]]+)\.([[:d:]]+) Sensors-Magnetometer.Mag([XYZ]+) 0x([0-9a-fA-F]+)</line>
+    <timestamp>1000000*dec(/1) + 1000*dec(/2) + dec(/3)</timestamp>
+    <name>FRDM.Sensors.Magnetometer.Mag/4</name>
+    <value>hex(/5)</value>
+    <size>32</size>
+</vector>
+
+<vector>
+    <line>([[:d:]]+):([[:d:]]+)\.([[:d:]]+) Sensors-Slider 0x([0-9a-fA-F]+)</line>
+    <timestamp>1000000*dec(/1) + 1000*dec(/2) + dec(/3)</timestamp>
+    <name>FRDM.Sensors.Slider</name>
+    <value>hex(/4)</value>
+    <size>7</size>
+</vector>
+
+<vector>
+    <line>([[:d:]]+):([[:d:]]+)\.([[:d:]]+) Buttons-SW([13]+) ([[:d:]]+)</line>
+    <timestamp>1000000*dec(/1) + 1000*dec(/2) + dec(/3)</timestamp>
+    <name>FRDM.Buttons-SW/4</name>
+    <value>dec(/5)</value>
+    <size>1</size>
+</vector>
+
+<real>
+    <line>([[:digit:]]+):([[:digit:]]+)\.([[:digit:]]+) ([[:graph:]]+)-([[:graph:]]+) ([[:digit:][:punct:]]+)</line>
+    <timestamp>1000000*dec(/1) + 1000*dec(/2) + dec(/3)</timestamp>
+    <name>FRDM./4./5</name>
+    <value>/6</value>
+</real>
+
+</signals >

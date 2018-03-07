@@ -4,7 +4,7 @@
 ///
 /// @ingroup UnitTest
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -33,12 +33,12 @@
 using namespace std::string_literals;
 
 /// Vector of strings.
-using StringArray = std::array<std::string>;
+using StringArray = std::array<std::string, 6>;
 
 /// Unit test for Split().
 TEST_CASE("Unit::GetTimeUnits")
 {
-    REQUIRE(TIME::Unit::GetTimeUnits() == (StringVector{"s"s, "ms"s, "us"s, "ns"s, "ps"s, "fs"s}));
+    REQUIRE(TIME::Unit::GetTimeUnits() == (StringArray{"s"s, "ms"s, "us"s, "ns"s, "ps"s, "fs"s}));
 }
 
 /// Unit test for IsTimeUnitValid().

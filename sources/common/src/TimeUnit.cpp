@@ -7,7 +7,7 @@
 /// @par Full Description
 /// The functions for handling time units.
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),

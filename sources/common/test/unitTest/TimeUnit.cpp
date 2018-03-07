@@ -33,7 +33,7 @@
 using namespace std::string_literals;
 
 /// Vector of strings.
-using StringVector = std::vector<std::string>;
+using StringArray = std::array<std::string>;
 
 /// Unit test for Split().
 TEST_CASE("Unit::GetTimeUnits")

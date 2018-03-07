@@ -44,40 +44,40 @@ TEST_CASE("Unit::GetTimeUnits")
 /// Unit test for IsTimeUnitValid().
 TEST_CASE("Unit::IsTimeUnitValid")
 {
-    REQUIRE(TIME::Unit::GetInstance().IsTimeUnitValid("s"s));
-    REQUIRE(TIME::Unit::GetInstance().IsTimeUnitValid("ms"s));
-    REQUIRE(TIME::Unit::GetInstance().IsTimeUnitValid("us"s));
-    REQUIRE(TIME::Unit::GetInstance().IsTimeUnitValid("ns"s));
-    REQUIRE(TIME::Unit::GetInstance().IsTimeUnitValid("ps"s));
-    REQUIRE(TIME::Unit::GetInstance().IsTimeUnitValid("fs"s));
+    REQUIRE(TIME::Unit::IsTimeUnitValid("s"s));
+    REQUIRE(TIME::Unit::IsTimeUnitValid("ms"s));
+    REQUIRE(TIME::Unit::IsTimeUnitValid("us"s));
+    REQUIRE(TIME::Unit::IsTimeUnitValid("ns"s));
+    REQUIRE(TIME::Unit::IsTimeUnitValid("ps"s));
+    REQUIRE(TIME::Unit::IsTimeUnitValid("fs"s));
 
-    REQUIRE_FALSE(TIME::Unit::GetInstance().IsTimeUnitValid("ks"s));
+    REQUIRE_FALSE(TIME::Unit::IsTimeUnitValid("ks"s));
 }
 
 /// Unit test for GetTimeUnitIndex().
 TEST_CASE("Unit::GetTimeUnitIndex")
 {
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnitIndex("s"s) == 0);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnitIndex("ms"s) == 1);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnitIndex("us"s) == 2);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnitIndex("ns"s) == 3);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnitIndex("ps"s) == 4);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnitIndex("fs"s) == 5);
+    REQUIRE(TIME::Unit::GetTimeUnitIndex("s"s) == 0);
+    REQUIRE(TIME::Unit::GetTimeUnitIndex("ms"s) == 1);
+    REQUIRE(TIME::Unit::GetTimeUnitIndex("us"s) == 2);
+    REQUIRE(TIME::Unit::GetTimeUnitIndex("ns"s) == 3);
+    REQUIRE(TIME::Unit::GetTimeUnitIndex("ps"s) == 4);
+    REQUIRE(TIME::Unit::GetTimeUnitIndex("fs"s) == 5);
 
-    REQUIRE_THROWS(TIME::Unit::GetInstance().GetTimeUnitIndex("ks"s));
+    REQUIRE_THROWS(TIME::Unit::GetTimeUnitIndex("ks"s));
 }
 
 /// Unit test for GetTimeUnit().
 TEST_CASE("Unit::GetTimeUnit")
 {
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(0) == "s"s);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(1) == "ms"s);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(2) == "us"s);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(3) == "ns"s);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(4) == "ps"s);
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnit(5) == "fs"s);
+    REQUIRE(TIME::Unit::GetTimeUnit(0) == "s"s);
+    REQUIRE(TIME::Unit::GetTimeUnit(1) == "ms"s);
+    REQUIRE(TIME::Unit::GetTimeUnit(2) == "us"s);
+    REQUIRE(TIME::Unit::GetTimeUnit(3) == "ns"s);
+    REQUIRE(TIME::Unit::GetTimeUnit(4) == "ps"s);
+    REQUIRE(TIME::Unit::GetTimeUnit(5) == "fs"s);
 
-    REQUIRE_THROWS(TIME::Unit::GetInstance().GetTimeUnit(6));
+    REQUIRE_THROWS(TIME::Unit::GetTimeUnit(6));
 }
 
 /// Unit test for GetTenPower()
@@ -85,8 +85,8 @@ TEST_CASE("Unit::GetTenPower")
 {
     for (uint32_t i = 0; i < 6; i++)
     {
-        REQUIRE(TIME::Unit::GetInstance().GetTenPower(i) == std::pow(1000, i));
+        REQUIRE(TIME::Unit::GetTenPower(i) == std::pow(1000, i));
     }
 
-    REQUIRE_THROWS(TIME::Unit::GetInstance().GetTenPower(6));
+    REQUIRE_THROWS(TIME::Unit::GetTenPower(6));
 }

@@ -38,7 +38,7 @@ using StringVector = std::vector<std::string>;
 /// Unit test for Split().
 TEST_CASE("Unit::GetTimeUnits")
 {
-    REQUIRE(TIME::Unit::GetInstance().GetTimeUnits() == (StringVector{"s"s, "ms"s, "us"s, "ns"s, "ps"s, "fs"s}));
+    REQUIRE(TIME::Unit::GetTimeUnits() == (StringVector{"s"s, "ms"s, "us"s, "ns"s, "ps"s, "fs"s}));
 }
 
 /// Unit test for IsTimeUnitValid().

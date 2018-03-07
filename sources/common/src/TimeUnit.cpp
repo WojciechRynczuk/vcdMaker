@@ -36,27 +36,27 @@
 #include "TimeUnit.h"
 #include "VcdException.h"
 
-const std::vector<std::string> TIME::Unit::TIME_UNITS =
-{ "s", "ms", "us", "ns", "ps", "fs" };
+const std::array<std::string, TIME::Unit::NO_OF_UNITS> TIME::Unit::TIME_UNITS =
+    { "s", "ms", "us", "ns", "ps", "fs" };
 
-const std::vector<uint64_t> TIME::Unit::TEN_POWER =
-{
-    1ull,
-    static_cast<uint64_t>(std::kilo::num),
-    static_cast<uint64_t>(std::mega::num),
-    static_cast<uint64_t>(std::giga::num),
-    static_cast<uint64_t>(std::tera::num),
-    static_cast<uint64_t>(std::peta::num)
-};
+const std::array<uint64_t, TIME::Unit::NO_OF_UNITS> TIME::Unit::TEN_POWER =
+    {
+        1ull,
+        std::kilo::num,
+        std::mega::num,
+        std::giga::num,
+        std::tera::num,
+        std::peta::num
+    };
 
-bool TIME::Unit::IsTimeUnitValid(const std::string &rUnit) const
+bool TIME::Unit::IsTimeUnitValid(const std::string &rUnit)
 {
     return (std::find(TIME_UNITS.cbegin(),
                       TIME_UNITS.cend(),
                       rUnit) != TIME_UNITS.cend());
 }
 
-size_t TIME::Unit::GetTimeUnitIndex(const std::string &rUnit) const
+size_t TIME::Unit::GetTimeUnitIndex(const std::string &rUnit)
 {
     const size_t index = (std::find(TIME_UNITS.cbegin(),
                                     TIME_UNITS.cend(),
@@ -73,7 +73,7 @@ size_t TIME::Unit::GetTimeUnitIndex(const std::string &rUnit) const
     }
 }
 
-const std::string &TIME::Unit::GetTimeUnit(size_t index) const
+const std::string &TIME::Unit::GetTimeUnit(size_t index)
 {
     if (index >= TIME_UNITS.size())
     {
@@ -83,7 +83,7 @@ const std::string &TIME::Unit::GetTimeUnit(size_t index) const
     return TIME_UNITS[index];
 }
 
-uint64_t TIME::Unit::GetTenPower(size_t index) const
+uint64_t TIME::Unit::GetTenPower(size_t index)
 {
     if (index >= TEN_POWER.size())
     {

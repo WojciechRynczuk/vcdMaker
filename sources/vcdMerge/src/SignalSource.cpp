@@ -151,7 +151,7 @@ void MERGE::SignalSource::SetSyncPoint(const std::string &rSyncPoint)
 
 void MERGE::SignalSource::SetTimeUnit(const std::string &rTimeUnit)
 {
-    if (TIME::Unit::GetInstance().IsTimeUnitValid(rTimeUnit))
+    if (TIME::Unit::IsTimeUnitValid(rTimeUnit))
     {
         m_TimeUnit = rTimeUnit;
     }

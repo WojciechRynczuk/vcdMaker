@@ -79,7 +79,9 @@ namespace CLI
         private:
 
             /// Valid timebases constraint.
-            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{const_cast<std::vector<std::string>&>(TIME::Unit::GetInstance().GetTimeUnits())};
+            std::vector<std::string> m_AllowedTimebasesTclap{TIME::Unit::GetTimeUnits().cbegin(),
+                                                             TIME::Unit::GetTimeUnits().cend() };
+            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{m_AllowedTimebasesTclap};
 
             /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase

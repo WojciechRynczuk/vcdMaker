@@ -98,10 +98,10 @@ int main(int argc, const char *argv[])
     {
         executionStatus = EXECUTION::APP_ERROR;
     }
-	catch (TCLAP::SpecificationException &)
-	{
-		executionStatus = EXECUTION::APP_ERROR;
-	}
+    catch (TCLAP::SpecificationException &)
+    {
+        executionStatus = EXECUTION::APP_ERROR;
+    }
 
     return executionStatus;
 }

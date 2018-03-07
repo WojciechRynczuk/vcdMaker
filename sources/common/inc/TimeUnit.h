@@ -30,6 +30,7 @@
 #pragma once
 
 #include <vector>
+#include <array>
 #include <string>
 
 namespace TIME
@@ -37,30 +38,27 @@ namespace TIME
     /// The time unit class.
     class Unit
     {
-        public:
-            /// Unit is a singleton class.
-            static Unit &GetInstance()
-            {
-                static Unit instance;
-                return instance;
-            }
+        private:
+            /// Number of units
+            static const uint32_t NO_OF_UNITS = 6U;
 
+        public:
             /// Checks if given time unit is supported.
-            bool IsTimeUnitValid(const std::string &rUnit) const;
+            static bool IsTimeUnitValid(const std::string &rUnit);
 
             /// Returns given time unit index in supported units list.
             ///
             /// @throws VcdError if the time unit is out of spec.
             /// @param rUnit The time unit string.
-            size_t GetTimeUnitIndex(const std::string &rUnit) const;
+            static size_t GetTimeUnitIndex(const std::string &rUnit);
 
             /// Returns the literal of the time unit.
             ///
             /// @param index The time unit index.
-            const std::string &GetTimeUnit(size_t index) const;
+            static const std::string &GetTimeUnit(size_t index);
 
             /// Returns the list of available time units.
-            const std::vector<std::string> &GetTimeUnits() const
+            static const std::array<std::string, NO_OF_UNITS> &GetTimeUnits()
             {
                 return TIME_UNITS;
             }
@@ -68,17 +66,16 @@ namespace TIME
             /// Returns the 10^N value according to the given unit index.
             ///
             /// @param index The index of the unit.
-            uint64_t GetTenPower(size_t index) const;
+            static uint64_t GetTenPower(size_t index);
 
         private:
             /// The default constructor.
-            Unit();
+            Unit() = default;
 
             /// Available time units.
-            static const std::vector<std::string> TIME_UNITS;
+            static const std::array<std::string, NO_OF_UNITS> TIME_UNITS;
 
             /// A table containing integer values of 10^(3*n) where n equals position in the table.
-            static const std::vector<uint64_t> TEN_POWER;
+            static const std::array<uint64_t, NO_OF_UNITS> TEN_POWER;
     };
-    inline Unit::Unit() = default;
 }

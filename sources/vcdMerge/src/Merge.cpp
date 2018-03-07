@@ -124,11 +124,11 @@ std::string MERGE::Merge::FindMinUnit() const
 
     for (const SignalSource *const source : m_Sources)
     {
-        const size_t index = TIME::Unit::GetInstance().GetTimeUnitIndex(source->GetTimeUnit());
+        const size_t index = TIME::Unit::GetTimeUnitIndex(source->GetTimeUnit());
         max_index = std::max(index, max_index);
     }
 
-    return TIME::Unit::GetInstance().GetTimeUnit(max_index);
+    return TIME::Unit::GetTimeUnit(max_index);
 }
 
 TIME::Timestamp MERGE::Merge::FindMaxLeadingTime() const
@@ -158,8 +158,8 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    const uint32_t target_power = TIME::Unit::GetInstance().GetTimeUnitIndex(rTargetTimeUnit);
-    const uint32_t source_power = TIME::Unit::GetInstance().GetTimeUnitIndex(rSourceTimeUnit);
+    const uint32_t target_power = TIME::Unit::GetTimeUnitIndex(rTargetTimeUnit);
+    const uint32_t source_power = TIME::Unit::GetTimeUnitIndex(rSourceTimeUnit);
 
     if (target_power > source_power)
     {
@@ -168,13 +168,13 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     else if (target_power < source_power)
     {
         denominator = (source_power - target_power);
-        const TIME::Timestamp rounding(TIME::Unit::GetInstance().GetTenPower(denominator) / 2);
+        const TIME::Timestamp rounding(TIME::Unit::GetTenPower(denominator) / 2);
 
         new_time = rTime + rounding;
     }
 
     const double units_ratio =
-        static_cast<double>(TIME::Unit::GetInstance().GetTenPower(nominator)) / TIME::Unit::GetInstance().GetTenPower(denominator);
+        static_cast<double>(TIME::Unit::GetTenPower(nominator)) / TIME::Unit::GetTenPower(denominator);
 
     return TIME::Timestamp(static_cast<uint64_t>(new_time.GetValue() * units_ratio));
 }

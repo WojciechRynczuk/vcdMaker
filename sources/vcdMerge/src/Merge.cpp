@@ -7,7 +7,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -28,21 +28,10 @@
 /// IN THE SOFTWARE.
 
 #include <algorithm>
-#include <ratio>
 
 #include "Merge.h"
-#include "Utils.h"
+#include "TimeUnit.h"
 #include "Logger.h"
-
-const uint64_t MERGE::Merge::TEN_POWER[] =
-{
-    1ull,
-    static_cast<uint64_t>(std::kilo::num),
-    static_cast<uint64_t>(std::mega::num),
-    static_cast<uint64_t>(std::giga::num),
-    static_cast<uint64_t>(std::tera::num),
-    static_cast<uint64_t>(std::peta::num)
-};
 
 void MERGE::Merge::Run()
 {
@@ -135,11 +124,11 @@ std::string MERGE::Merge::FindMinUnit() const
 
     for (const SignalSource *const source : m_Sources)
     {
-        const size_t index = UTILS::GetTimeUnitIndex(source->GetTimeUnit());
+        const size_t index = TIME::Unit::GetTimeUnitIndex(source->GetTimeUnit());
         max_index = std::max(index, max_index);
     }
 
-    return SIGNAL::Signal::TIME_UNITS[max_index];
+    return TIME::Unit::GetTimeUnit(max_index);
 }
 
 TIME::Timestamp MERGE::Merge::FindMaxLeadingTime() const
@@ -169,8 +158,8 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     uint32_t nominator = 0;
     uint32_t denominator = 0;
 
-    const uint32_t target_power = UTILS::GetTimeUnitIndex(rTargetTimeUnit);
-    const uint32_t source_power = UTILS::GetTimeUnitIndex(rSourceTimeUnit);
+    const uint32_t target_power = TIME::Unit::GetTimeUnitIndex(rTargetTimeUnit);
+    const uint32_t source_power = TIME::Unit::GetTimeUnitIndex(rSourceTimeUnit);
 
     if (target_power > source_power)
     {
@@ -179,19 +168,19 @@ TIME::Timestamp MERGE::Merge::TransformTimestamp(const TIME::Timestamp &rTime,
     else if (target_power < source_power)
     {
         denominator = (source_power - target_power);
-        const TIME::Timestamp rounding(TEN_POWER[denominator] / 2);
+        const TIME::Timestamp rounding(TIME::Unit::GetTenPower(denominator) / 2);
 
         new_time = rTime + rounding;
     }
 
     const double units_ratio =
-        static_cast<double>(TEN_POWER[nominator]) / TEN_POWER[denominator];
+        static_cast<double>(TIME::Unit::GetTenPower(nominator)) / TIME::Unit::GetTenPower(denominator);
 
     return TIME::Timestamp(static_cast<uint64_t>(new_time.GetValue() * units_ratio));
 }
 
 TIME::Timestamp MERGE::Merge::CalculateNewTime(const TIME::Timestamp &rTime,
-                                               const TIME::Timestamp &rSyncPoint) const
+        const TIME::Timestamp &rSyncPoint) const
 {
     const TIME::Timestamp max = std::max(rTime, m_MaxLeadingTime);
     const TIME::Timestamp min = std::min(rTime, m_MaxLeadingTime);

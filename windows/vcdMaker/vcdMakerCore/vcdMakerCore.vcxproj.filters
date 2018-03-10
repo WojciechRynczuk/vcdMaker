@@ -107,6 +107,9 @@
     <ClInclude Include="..\..\..\sources\common\inc\Timestamp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\sources\common\inc\TimeUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp">
@@ -176,6 +179,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\sources\common\src\DefaultSignalFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\common\src\TimeUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -31,12 +31,21 @@
 #include "EventSignalCreator.h"
 #include "FSignalCreator.h"
 #include "ISignalCreator.h"
+#include "VcdException.h"
 
 PARSER::DefaultSignalFactory::DefaultSignalFactory() :
     SignalFactory()
 {
-    m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
-    m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
+    try
+    {
+        m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
+        m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
+        m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
+    }
+    catch (std::regex_error &)
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_REGEX,
+                                      "Invalid regex.");
+    }
 }
 

@@ -159,6 +159,7 @@
     <ClInclude Include="..\..\..\sources\common\inc\SourceRegistry.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Timestamp.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\TimeUnit.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Utils.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VcdException.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SourceRegistry.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\TimeFrame.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\TimeUnit.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\TxtParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Utils.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />

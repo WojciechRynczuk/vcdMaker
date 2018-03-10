@@ -25,6 +25,3 @@
 /// IN THE SOFTWARE.
 
 #include "Signal.h"
-
-std::vector<std::string> SIGNAL::Signal::TIME_UNITS =
-    { "a", "b", "c", "d" };

@@ -39,30 +39,9 @@ TEST_CASE("UTILS::Split")
     REQUIRE((UTILS::Split(""s, '\0')) == (StringVector{}));
     REQUIRE((UTILS::Split("abcd"s, '\0')) == (StringVector{"abcd"s}));
     REQUIRE((UTILS::Split("a b c d"s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
-    REQUIRE((UTILS::Split(" a b c d"s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
+    REQUIRE((UTILS::Split(" a b c d"s, ' ')) == (StringVector{""s, "a"s, "b"s, "c"s, "d"s}));
     REQUIRE((UTILS::Split("a b c d "s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
-    REQUIRE((UTILS::Split(" a b c d "s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
-    REQUIRE((UTILS::Split("a b   c  d"s, ' ')) == (StringVector{"a"s, "b"s, "c"s, "d"s}));
+    REQUIRE((UTILS::Split(" a b c d "s, ' ')) == (StringVector{""s, "a"s, "b"s, "c"s, "d"s}));
+    REQUIRE((UTILS::Split("a b   c  d"s, ' ')) == (StringVector{"a"s, "b"s, ""s, ""s, "c"s, ""s, "d"s}));
 }
 
-/// Unit test for IsTimeUnitValid().
-TEST_CASE("UTILS::IsTimeUnitValid")
-{
-    REQUIRE(UTILS::IsTimeUnitValid("a"s));
-    REQUIRE(UTILS::IsTimeUnitValid("b"s));
-    REQUIRE(UTILS::IsTimeUnitValid("c"s));
-    REQUIRE(UTILS::IsTimeUnitValid("d"s));
-
-    REQUIRE_FALSE(UTILS::IsTimeUnitValid("e"s));
-}
-
-/// Unit test for GetTimeUnitIndex().
-TEST_CASE("UTILS::GetTimeUnitIndex")
-{
-    REQUIRE(UTILS::GetTimeUnitIndex("a"s) == 0);
-    REQUIRE(UTILS::GetTimeUnitIndex("b"s) == 1);
-    REQUIRE(UTILS::GetTimeUnitIndex("c"s) == 2);
-    REQUIRE(UTILS::GetTimeUnitIndex("d"s) == 3);
-
-    REQUIRE_THROWS(UTILS::GetTimeUnitIndex("e"s));
-}

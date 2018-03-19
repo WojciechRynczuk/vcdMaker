@@ -48,14 +48,4 @@ namespace UTILS
     /// @param delimiter The delimiter.
     std::vector<std::string> Split(const std::string &rInString,
                                    const char delimiter);
-
-    /// Checks if given time unit is supported.
-    bool IsTimeUnitValid(const std::string &rUnit);
-
-    /// Returns given time unit index in supported units list.
-    ///
-    /// @throws VcdError if the time unit is out of spec.
-    /// @param rUnit The time unit string.
-    size_t GetTimeUnitIndex(const std::string &rUnit);
-
 }

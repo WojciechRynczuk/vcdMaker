@@ -7,7 +7,7 @@
 ///
 /// @ingroup CLI
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,6 +32,7 @@
 #include "CliParser.h"
 #include "Signal.h"
 #include "Version.h"
+#include "TimeUnit.h"
 
 namespace CLI
 {
@@ -78,7 +79,9 @@ namespace CLI
         private:
 
             /// Valid timebases constraint.
-            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{SIGNAL::Signal::TIME_UNITS};
+            std::vector<std::string> m_AllowedTimebasesTclap{TIME::Unit::GetTimeUnits().cbegin(),
+                                                             TIME::Unit::GetTimeUnits().cend() };
+            TCLAP::ValuesConstraint<std::string> m_AllowedTimebases{m_AllowedTimebasesTclap};
 
             /// Timebase parameter.
             TCLAP::ValueArg<std::string> m_Timebase

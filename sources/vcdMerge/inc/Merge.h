@@ -107,12 +107,6 @@ namespace MERGE
             /// A type defining a container for signal sources.
             using SignalSourcesT = std::vector<const SignalSource *>;
 
-            /// Number of units.
-            static const uint32_t UNITS_N = 6;
-
-            /// A table containing integer values of 10^(3*n) where n equals position in the table.
-            static const uint64_t TEN_POWER[UNITS_N];
-
             /// The set of sources.
             SignalSourcesT m_Sources;
 

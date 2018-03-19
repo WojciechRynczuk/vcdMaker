@@ -2,7 +2,7 @@
 ///
 /// The main module of the vcdMaker application.
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -95,6 +95,10 @@ int main(int argc, const char *argv[])
         executionStatus = EXECUTION::APP_ERROR;
     }
     catch (TCLAP::CmdLineParseException &)
+    {
+        executionStatus = EXECUTION::APP_ERROR;
+    }
+    catch (TCLAP::SpecificationException &)
     {
         executionStatus = EXECUTION::APP_ERROR;
     }

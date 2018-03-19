@@ -60,3 +60,9 @@ set(UT_UTILS_SOURCES
     ${COMMON_SOURCES_DIR}/Utils.cpp)
 
 add_vcdtools_ut(utUtils "${UT_UTILS_SOURCES}")
+
+set(UT_TIMEUNIT_SOURCES
+    ${COMMON_UT_DIR}/TimeUnit.cpp
+    ${COMMON_SOURCES_DIR}/TimeUnit.cpp)
+
+add_vcdtools_ut(utTimeUnit "${UT_TIMEUNIT_SOURCES}")

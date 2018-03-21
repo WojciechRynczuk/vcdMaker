@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -50,6 +50,7 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
     // A signal shall have a valid source once added to the database.
     if (pSignal->GetSource() == SourceRegistry::BAD_HANDLE)
     {
+        delete pSignal;
         throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_SIGNAL_SOURCE,
                                       "Invalid signal source.");
     }
@@ -63,17 +64,21 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
     }
     else
     {
-        if ( (it->second->GetName() == pSignal->GetName()) &&
-             (it->second->GetSource() != pSignal->GetSource()) )
+        // Check signal consistency
+        if (!it->second->SimilarTo(*pSignal))
         {
-            // There are duplicated signal names in different sources.
-            throw EXCEPTION::VcdException(EXCEPTION::Error::CONFLICTING_SIGNAL_NAMES,
-                                          "Conflicting signal names! " +
+            delete pSignal;
+            throw EXCEPTION::VcdException(EXCEPTION::Error::INCONSISTENT_SIGNAL,
+                                          "Inconsistent signal: " +
                                           pSignal->GetName() +
-                                          " in the sources: " +
+                                          ". Types: " +
+                                          it->second->GetType() + " / " + pSignal->GetType() +
+                                          ". Sizes: " +
+                                          std::to_string(it->second->GetSize()) + " / " + std::to_string(pSignal->GetSize()) +
+                                          ". Sources: " +
                                           SIGNAL::SourceRegistry::GetInstance().GetSourceName(it->second->GetSource()) +
                                           " and " +
-                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()));
+                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()) + ".");
         }
     }
 

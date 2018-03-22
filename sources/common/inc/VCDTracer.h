@@ -7,7 +7,7 @@
 ///
 /// @ingroup Tracer
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -63,6 +63,9 @@ namespace TRACER
             void Dump();
 
         private:
+
+            /// Time and date string length
+            static const uint32_t TIME_DATE_BUF_LENGHT = 30U;
 
             /// Generates the VCD header.
             void GenerateHeader();

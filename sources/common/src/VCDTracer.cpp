@@ -8,7 +8,7 @@
 ///
 /// @ingroup Tracer
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -30,6 +30,8 @@
 
 #include <array>
 #include <algorithm>
+#include <chrono>
+#include <ctime>
 
 #include "VCDTracer.h"
 #include "SignalStructureBuilder.h"
@@ -61,9 +63,15 @@ void TRACER::VCDTracer::GenerateHeader()
 
 void TRACER::VCDTracer::GenerateBasicInformation()
 {
-    DumpLine("$date December 8, 2014 14:15:00");
+    char timeStr[TIME_DATE_BUF_LENGHT];
+    auto now = std::chrono::system_clock::now();
+    auto time = std::chrono::system_clock::to_time_t(now);
+    ctime_s(timeStr, sizeof timeStr, &time);
+
+    DumpLine("$date " + std::string(timeStr, strlen(timeStr) - 1));
     DumpLine("$end");
-    DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME) + "\" Release v." + std::string(VERSION::STRING));
+    DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME)
+	                                  + "\" Release v." + std::string(VERSION::STRING));
     DumpLine("$end");
     DumpLine("$timescale 1 " + m_rSignalDb.GetTimeUnit());
     DumpLine("$end");

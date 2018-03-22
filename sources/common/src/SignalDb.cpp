@@ -67,18 +67,22 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
         // Check signal consistency
         if (!it->second->SimilarTo(*pSignal))
         {
+            std::string signalName(pSignal->GetName());
+            std::string signalType(pSignal->GetType());
+            std::string signalSize(std::to_string(pSignal->GetSize()));
+            std::string signalSource(SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()));
             delete pSignal;
             throw EXCEPTION::VcdException(EXCEPTION::Error::INCONSISTENT_SIGNAL,
                                           "Inconsistent signal: " +
-                                          pSignal->GetName() +
+                                          signalName +
                                           ". Types: " +
-                                          it->second->GetType() + " / " + pSignal->GetType() +
+                                          it->second->GetType() + " / " + signalType +
                                           ". Sizes: " +
-                                          std::to_string(it->second->GetSize()) + " / " + std::to_string(pSignal->GetSize()) +
+                                          std::to_string(it->second->GetSize()) + " / " + signalSize +
                                           ". Sources: " +
                                           SIGNAL::SourceRegistry::GetInstance().GetSourceName(it->second->GetSource()) +
                                           " and " +
-                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()) + ".");
+                                          signalSource + ".");
         }
     }
 

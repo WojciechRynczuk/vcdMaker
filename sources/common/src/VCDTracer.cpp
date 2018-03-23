@@ -30,8 +30,9 @@
 
 #include <array>
 #include <algorithm>
-#include <chrono>
 #include <ctime>
+#include <chrono>
+#include <cstring>
 
 #include "VCDTracer.h"
 #include "SignalStructureBuilder.h"
@@ -63,12 +64,17 @@ void TRACER::VCDTracer::GenerateHeader()
 
 void TRACER::VCDTracer::GenerateBasicInformation()
 {
-    char timeStr[TIME_DATE_BUF_LENGHT];
     auto now = std::chrono::system_clock::now();
     auto time = std::chrono::system_clock::to_time_t(now);
-    ctime_s(timeStr, sizeof timeStr, &time);
+    #ifdef WIN32
+#pragma warning(disable : 4996)
+    #endif
+    char *pTimeStr = ctime(&time);
+    #ifdef WIN32
+#pragma warning(default : 4996)
+    #endif
 
-    DumpLine("$date " + std::string(timeStr, strlen(timeStr) - 1));
+    DumpLine("$date " + std::string(pTimeStr, strlen(pTimeStr) - 1));
     DumpLine("$end");
     DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME)
 	                                  + "\" Release v." + std::string(VERSION::STRING));

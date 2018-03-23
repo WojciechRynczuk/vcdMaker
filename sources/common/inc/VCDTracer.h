@@ -64,9 +64,6 @@ namespace TRACER
 
         private:
 
-            /// Time and date string length
-            static const uint32_t TIME_DATE_BUF_LENGHT = 30U;
-
             /// Generates the VCD header.
             void GenerateHeader();
 

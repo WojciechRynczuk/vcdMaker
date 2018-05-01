@@ -71,7 +71,6 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
             std::string signalType(pSignal->GetType());
             std::string signalSize(std::to_string(pSignal->GetSize()));
             std::string signalSource(SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()));
-            delete pSignal;
             throw EXCEPTION::VcdException(EXCEPTION::Error::INCONSISTENT_SIGNAL,
                                           "Inconsistent signal: " +
                                           signalName +

@@ -64,17 +64,7 @@ void TRACER::VCDTracer::GenerateHeader()
 
 void TRACER::VCDTracer::GenerateBasicInformation()
 {
-    auto now = std::chrono::system_clock::now();
-    auto time = std::chrono::system_clock::to_time_t(now);
-    #ifdef WIN32
-#pragma warning(disable : 4996)
-    #endif
-    char *pTimeStr = ctime(&time);
-    #ifdef WIN32
-#pragma warning(default : 4996)
-    #endif
-
-    DumpLine("$date " + std::string(pTimeStr, strlen(pTimeStr) - 1));
+    DumpLine("$date " + GetTimeAndDate());
     DumpLine("$end");
     DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME)
 	                                  + "\" Release v." + std::string(VERSION::STRING));
@@ -126,3 +116,17 @@ void TRACER::VCDTracer::GenerateBody()
     frame.DumpAndClear();
 }
 
+std::string TRACER::VCDTracer::GetTimeAndDate() const
+{
+    auto now = std::chrono::system_clock::now();
+    auto time = std::chrono::system_clock::to_time_t(now);
+#ifdef WIN32
+#pragma warning(disable : 4996)
+#endif
+    char *pTimeStr = ctime(&time);
+#ifdef WIN32
+#pragma warning(default : 4996)
+#endif
+
+    return std::string(pTimeStr, strlen(pTimeStr) - 1);
+}

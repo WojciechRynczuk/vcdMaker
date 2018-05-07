@@ -94,6 +94,11 @@ namespace TRACER
                 m_File << line << '\n';
             }
 
+            /// Provides current time & date information.
+            ///
+            /// Returns time & date string.
+            std::string GetTimeAndDate() const;
+
             /// The VCD output file.
             std::ofstream m_File;
 

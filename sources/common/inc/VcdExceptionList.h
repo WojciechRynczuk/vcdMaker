@@ -8,7 +8,7 @@
 ///
 /// @ingroup Exception
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -57,8 +57,8 @@ namespace EXCEPTION
         /// Cannot open the file.
         const uint32_t CANNOT_OPEN_FILE = 1U;
 
-        /// Conflicting signals names.
-        const uint32_t CONFLICTING_SIGNAL_NAMES = 2U;
+        /// Inconsistent signal.
+        const uint32_t INCONSISTENT_SIGNAL = 2U;
 
         /// Invalid time unit.
         const uint32_t INVALID_TIME_UNIT = 3U;

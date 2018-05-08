@@ -29,6 +29,7 @@
 
 #include "TxtParser.h"
 #include "SignalFactory.h"
+#include "VcdException.h"
 
 PARSER::TxtParser::TxtParser(const std::string &rFilename,
                              const std::string &rTimeBase,
@@ -60,15 +61,32 @@ void PARSER::TxtParser::Parse()
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        const SIGNAL::Signal *signal =
+        const SIGNAL::Signal *pSignal =
             m_rSignalFactory.Create(input_line, m_SourceHandle);
 
-        if (signal)
+        if (pSignal)
         {
-            m_pSignalDb->Add(signal);
+            try
+            {
+                m_pSignalDb->Add(pSignal);
+            }
+            catch (EXCEPTION::VcdException &rException)
+            {
+                delete pSignal;
+                if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+                {
+                    throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
+                                                  " At line " + std::to_string(line_number) + ".");
+                }
+                else
+                {
+                    throw rException;
+                }
+            }
+
             for (auto instrument : m_vpInstruments)
             {
-                instrument->Notify(line_number, *signal);
+                instrument->Notify(line_number, *pSignal);
             }
             ++m_ValidLines;
         }

@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -159,6 +159,11 @@ namespace SIGNAL
             {
                 return m_SourceHandle;
             }
+
+            /// Checks if two signals are similar (differ by value only)
+            ///
+            /// @param rSignal Other signal to compare to.
+            bool SimilarTo(const Signal &rSignal) const;
 
             /// Returns the signal's value as a string in the VCD format.
             ///

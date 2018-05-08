@@ -72,6 +72,7 @@ void PARSER::TxtParser::Parse()
             }
             catch (EXCEPTION::VcdException &rException)
             {
+                delete pSignal;
                 if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
                 {
                     throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +

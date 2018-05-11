@@ -1,9 +1,9 @@
-[submodule "sources/3rdParty/tclap"]
-	path = sources/3rdParty/tclap
-	url = https://github.com/sjm324/tclap
 [submodule "sources/3rdParty/catch"]
 	path = sources/3rdParty/catch
 	url = https://github.com/philsquared/Catch
 [submodule "sources/3rdParty/pugixml"]
 	path = sources/3rdParty/pugixml
 	url = https://github.com/zeux/pugixml
+[submodule "sources/3rdParty/tclap"]
+	path = sources/3rdParty/tclap
+	url = https://github.com/mirror/tclap

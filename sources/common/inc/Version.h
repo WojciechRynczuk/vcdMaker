@@ -33,7 +33,7 @@
 #define D_VERSION_MAJOR 3
 #define D_VERSION_MINOR 0
 #define D_VERSION_PATCH 1
-#define D_RELEASE_NAME  "Perun"
+#define D_RELEASE_NAME  "Nestor"
 /// @}
 
 /// Stringification helpers.

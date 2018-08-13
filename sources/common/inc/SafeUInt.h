@@ -8,7 +8,7 @@
 ///
 /// @ingroup Generic
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -56,7 +56,7 @@ template<class T> class SafeUInt
         }
 
         /// The default constructor.
-		SafeUInt() = default;
+        SafeUInt() = default;
 
         /// Returns the integer value.
         T GetValue() const
@@ -89,7 +89,7 @@ template<class T> class SafeUInt
         /// Overrides the multiplication operator '*='.
         SafeUInt<T> &operator*=(const SafeUInt<T> &rhs)
         {
-            if ((std::numeric_limits<T>::max() / m_Value) > rhs.m_Value)
+            if ((std::numeric_limits<T>::max() / m_Value) < rhs.m_Value)
             {
                 throw std::out_of_range("Arthmetic overflow");
             }
@@ -172,8 +172,8 @@ template<class T>  SafeUInt<T> operator/(SafeUInt<T> lhs, const SafeUInt<T> &rhs
 }
 
 /// Overrides the output stream operator.
-template<class Y> std::ostream &operator<<(std::ostream &out, SafeUInt<Y> &ts)
+template<class Y> std::ostream &operator<<(std::ostream &out, const SafeUInt<Y> &ts)
 {
-    out << ts.m_Value;
+    out << ts.GetValue();
     return out;
 }

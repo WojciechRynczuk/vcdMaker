@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -52,8 +52,10 @@ namespace PARSER
             /// Or nullptr if it couldn't be created.
             ///
             /// @param logLine One line from the log.
+            /// @param lineNumber The log line number.
             /// @param sourceHandle Signal source handle.
             SIGNAL::Signal *Create(std::string &logLine,
+                                   INSTRUMENT::Instrument::LineNumberT lineNumber,
                                    SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
         protected:

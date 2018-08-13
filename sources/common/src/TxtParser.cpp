@@ -55,14 +55,14 @@ PARSER::TxtParser::~TxtParser()
 void PARSER::TxtParser::Parse()
 {
     // Line counter.
-    INSTRUMENT::Instrument::LineNumberT line_number = 1;
+    INSTRUMENT::Instrument::LineNumberT lineNumber = 1;
 
     // Process the log file.
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
         const SIGNAL::Signal *pSignal =
-            m_rSignalFactory.Create(input_line, m_SourceHandle);
+            m_rSignalFactory.Create(input_line, lineNumber, m_SourceHandle);
 
         if (pSignal)
         {
@@ -76,7 +76,7 @@ void PARSER::TxtParser::Parse()
                 if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
                 {
                     throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
-                                                  " At line " + std::to_string(line_number) + ".");
+                                                  " At line " + std::to_string(lineNumber) + ".");
                 }
                 else
                 {
@@ -86,7 +86,7 @@ void PARSER::TxtParser::Parse()
 
             for (auto instrument : m_vpInstruments)
             {
-                instrument->Notify(line_number, *pSignal);
+                instrument->Notify(lineNumber, *pSignal);
             }
             ++m_ValidLines;
         }
@@ -103,6 +103,6 @@ void PARSER::TxtParser::Parse()
             ++m_InvalidLines;
         }
 
-        ++line_number;
+        ++lineNumber;
     }
 }

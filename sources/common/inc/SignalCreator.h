@@ -8,7 +8,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -33,6 +33,7 @@
 #include <regex>
 
 #include "Signal.h"
+#include "Instrument.h"
 
 namespace PARSER
 {
@@ -64,9 +65,11 @@ namespace PARSER
             /// then nullptr is returned.
             ///
             /// @param rLogLine The log line serving as the creation specification.
+            /// @param lineNumber The log line number.
             /// @param sourceHandle Signal source handle.
             /// @return Signal pointer if the object has been created or nullptr.
             virtual SIGNAL::Signal *Create(const std::string &rLogLine,
+                                           INSTRUMENT::Instrument::LineNumberT lineNumber,
                                            SIGNAL::SourceRegistry::HandleT sourceHandle) const = 0;
 
         protected:

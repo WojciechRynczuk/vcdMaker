@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Auto">
+      <UniqueIdentifier>{a886ed4c-5b3f-4b3f-aa69-2546d8278964}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\sources\parsers\auto\DecimalParser.cpp">
+      <Filter>Auto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\src\Evaluator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\auto\FloatParser.cpp">
+      <Filter>Auto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\auto\FloatScanner.cpp">
+      <Filter>Auto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\auto\StringParser.cpp">
+      <Filter>Auto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\auto\StringScanner.cpp">
+      <Filter>Auto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\auto\DecimalScanner.cpp">
+      <Filter>Auto</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\sources\parsers\inc\DecimalNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\DecimalScanner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\Evaluator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\ExpressionContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\ExpressionNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\auto\DecimalParser.hpp">
+      <Filter>Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\auto\FlexLexer.h">
+      <Filter>Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\auto\location.hh">
+      <Filter>Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\auto\position.hh">
+      <Filter>Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\auto\stack.hh">
+      <Filter>Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\auto\FloatParser.hpp">
+      <Filter>Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\FloatNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\FloatScanner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\auto\StringParser.hpp">
+      <Filter>Auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\StringNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\StringScanner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

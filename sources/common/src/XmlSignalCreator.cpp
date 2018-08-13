@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -24,24 +24,42 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
+#include <sstream>
+
 #include "XmlSignalCreator.h"
 
-TIME::Timestamp PARSER::XmlSignalCreator::GetTimestamp(const std::smatch &rMatch) const
+TIME::Timestamp PARSER::XmlSignalCreator::GetTimestamp(const std::smatch &rMatch,
+                                                       INSTRUMENT::Instrument::LineNumberT lineNumber) const
 {
-    return std::stoull(rMatch[std::stoi(m_Timestamp)].str());
+    m_TimestampEvaluator.SetContext(&rMatch, lineNumber);
+    return m_TimestampEvaluator.EvaluateUint();
 }
 
 std::string PARSER::XmlSignalCreator::GetName(const std::smatch &rMatch) const
 {
-    return rMatch[std::stoi(m_Name)].str();
+    m_NameEvaluator.SetContext(&rMatch, 0);
+    return m_NameEvaluator.EvaluateString();
 }
 
-std::string PARSER::XmlSignalCreator::GetValue(const std::smatch &rMatch) const
+SafeUInt<uint64_t> PARSER::XmlSignalCreator::GetDecimalValue(const std::smatch &rMatch) const
 {
-    return rMatch[std::stoi(m_Value)].str();
+    m_DecimalEvaluator.SetContext(&rMatch, 0);
+    return m_DecimalEvaluator.EvaluateUint();
+}
+
+std::string PARSER::XmlSignalCreator::GetFloatValue(const std::smatch &rMatch) const
+{
+    m_FloatEvaluator.SetContext(&rMatch, 0);
+
+    std::ostringstream strStream;
+    strStream << m_FloatEvaluator.EvaluateDouble();
+    std::string doubleStr = strStream.str();
+
+    return doubleStr;
 }
 
 size_t PARSER::XmlSignalCreator::GetSize(const std::smatch &rMatch) const
 {
-    return std::stoi(rMatch[std::stoi(m_Size)].str());
+    m_SizeEvaluator.SetContext(&rMatch, 0);
+    return static_cast<size_t>(m_SizeEvaluator.EvaluateUint());
 }

@@ -54,9 +54,9 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return m_Value;
+                return std::make_tuple(m_Value, "");
             }
     };
 
@@ -80,9 +80,10 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return std::stod(m_rContext.GetElement(m_Index), nullptr);
+                return std::make_tuple(std::stod(m_rContext.GetElement(m_Index), nullptr),
+                                       m_rContext.GetElement(m_Index));
             }
     };
 
@@ -109,9 +110,12 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return -m_pNode->EvaluateDouble();
+                double value;
+                std::string stringValue;
+                std::tie(value, stringValue) = m_pNode->EvaluateDouble();
+                return std::make_tuple(-value, "");
             }
     };
 
@@ -143,9 +147,17 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return m_pLeft->EvaluateDouble() + m_pRight->EvaluateDouble();
+                double leftValue;
+                std::string leftStringValue;
+                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
+
+                double rightValue;
+                std::string rightStringValue;
+                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
+
+                return std::make_tuple(leftValue + rightValue, "");
             }
     };
 
@@ -177,9 +189,17 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return m_pLeft->EvaluateDouble() - m_pRight->EvaluateDouble();
+                double leftValue;
+                std::string leftStringValue;
+                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
+
+                double rightValue;
+                std::string rightStringValue;
+                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
+
+                return std::make_tuple(leftValue - rightValue, "");
             }
     };
 
@@ -211,9 +231,17 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return m_pLeft->EvaluateDouble() * m_pRight->EvaluateDouble();
+                double leftValue;
+                std::string leftStringValue;
+                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
+
+                double rightValue;
+                std::string rightStringValue;
+                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
+
+                return std::make_tuple(leftValue * rightValue, "");
             }
     };
 
@@ -245,9 +273,17 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return m_pLeft->EvaluateDouble() / m_pRight->EvaluateDouble();
+                double leftValue;
+                std::string leftStringValue;
+                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
+
+                double rightValue;
+                std::string rightStringValue;
+                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
+
+                return std::make_tuple(leftValue / rightValue, "");
             }
     };
 }

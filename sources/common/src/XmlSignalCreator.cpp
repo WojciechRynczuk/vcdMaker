@@ -24,8 +24,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <sstream>
-
 #include "XmlSignalCreator.h"
 
 TIME::Timestamp PARSER::XmlSignalCreator::GetTimestamp(const std::smatch &rMatch,
@@ -51,11 +49,11 @@ std::string PARSER::XmlSignalCreator::GetFloatValue(const std::smatch &rMatch) c
 {
     m_FloatEvaluator.SetContext(&rMatch, 0);
 
-    std::ostringstream strStream;
-    strStream << m_FloatEvaluator.EvaluateDouble();
-    std::string doubleStr = strStream.str();
+    double value;
+    std::string stringValue;
+    std::tie(value, stringValue) = m_FloatEvaluator.EvaluateDouble();
 
-    return doubleStr;
+    return stringValue;
 }
 
 size_t PARSER::XmlSignalCreator::GetSize(const std::smatch &rMatch) const

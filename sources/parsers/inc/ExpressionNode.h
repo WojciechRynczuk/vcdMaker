@@ -30,6 +30,7 @@
 #pragma once
 
 #include <string>
+#include <tuple>
 
 #include "SafeUInt.h"
 
@@ -66,10 +67,10 @@ namespace PARSER
             }
 
             /// Evaluates the complete 'double' tree and returns the expression value.
-            virtual double EvaluateDouble() const
+            virtual std::tuple<double, std::string> EvaluateDouble() const
             {
                 /// @todo Throw exception
-                return 0.0;
+                return std::make_tuple(0.0, "");
             }
 
             /// Evaluates the complete 'double' tree and returns the expression value.

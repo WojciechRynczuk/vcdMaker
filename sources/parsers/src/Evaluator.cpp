@@ -84,9 +84,20 @@ PARSER::ExpressionContext &PARSER::Evaluator::GetContext() const
     return m_Context;
 }
 
-double PARSER::Evaluator::EvaluateDouble() const
+std::tuple<double, std::string> PARSER::Evaluator::EvaluateDouble() const
 {
-    return m_Context.GetExpression()->EvaluateDouble();
+    double value;
+    std::string stringValue;
+    std::tie(value, stringValue) = m_Context.GetExpression()->EvaluateDouble();
+
+    if (stringValue.empty())
+    {
+        std::ostringstream strStream;
+        strStream << value;
+        stringValue = strStream.str();
+    }
+
+    return std::make_tuple(value, stringValue);
 }
 
 uint64_t PARSER::Evaluator::EvaluateUint() const

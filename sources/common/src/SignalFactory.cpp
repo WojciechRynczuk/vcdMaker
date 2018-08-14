@@ -38,26 +38,29 @@ PARSER::SignalFactory::SignalFactory() :
 {
 }
 
-SIGNAL::Signal *PARSER::SignalFactory::Create(std::string &logLine,
-                                              INSTRUMENT::Instrument::LineNumberT lineNumber,
-                                              SIGNAL::SourceRegistry::HandleT sourceHandle) const
+std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &logLine,
+                                                                 INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                                 SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     if (m_vpSignalCreators.empty())
     {
         throw EXCEPTION::VcdException(EXCEPTION::Error::NO_SIGNALS_CREATORS,
                                       "No signals creators. Hint: Verify the correctness of the XML file specifying the user log format.");
     }
+
+    std::vector<const SIGNAL::Signal *> vpSignals;
+
     for (const auto &creator : m_vpSignalCreators)
     {
         // Try to use creator.
         SIGNAL::Signal *pSignal = creator->Create(logLine, lineNumber, sourceHandle);
 
-        // If successful return created Signal, if not try next one.
+        // If successful add created Signal to the returned vector.
         if (pSignal != nullptr)
         {
-            return pSignal;
+            vpSignals.push_back(pSignal);
         }
     }
 
-    return nullptr;
+    return vpSignals;
 }

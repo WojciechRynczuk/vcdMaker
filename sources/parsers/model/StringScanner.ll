@@ -75,7 +75,7 @@ typedef PARSER::StringParser::token_type token_type;
 
  /*** Lexer rules ***/
 
-\"[!-~]*\" {
+\"[!#-~]*\" {
     yylval->pString = new std::string(yytext, yyleng);
     return token::TXT_CONSTANT;
 }

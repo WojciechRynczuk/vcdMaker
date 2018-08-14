@@ -50,7 +50,7 @@ namespace PARSER
             /// which will be matched against the log line.
             /// @param rSignalRegEx The regular expression to be matech against the log line.
             SignalCreator(const std::string &rSignalRegEx) :
-                m_SignalRegEx(rSignalRegEx + "\r?$")
+                m_SignalRegEx("^" + rSignalRegEx + "\r?$")
             {
             }
 

@@ -61,32 +61,43 @@ void PARSER::TxtParser::Parse()
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        const SIGNAL::Signal *pSignal =
+        std::vector<const SIGNAL::Signal *> vpSignals =
             m_rSignalFactory.Create(input_line, lineNumber, m_SourceHandle);
+        const SIGNAL::Signal *pSignal = NULL;
 
-        if (pSignal)
+        if (!vpSignals.empty())
         {
-            try
+            while (!vpSignals.empty())
             {
-                m_pSignalDb->Add(pSignal);
-            }
-            catch (EXCEPTION::VcdException &rException)
-            {
-                delete pSignal;
-                if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+                try
                 {
-                    throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
-                                                  " At line " + std::to_string(lineNumber) + ".");
+                    pSignal = vpSignals.back();
+                    vpSignals.pop_back();
+                    m_pSignalDb->Add(pSignal);
                 }
-                else
+                catch (EXCEPTION::VcdException &rException)
                 {
-                    throw rException;
+                    delete pSignal;
+                    while (!vpSignals.empty())
+                    {
+                        delete vpSignals.back();
+                        vpSignals.pop_back();
+                    }
+                    if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+                    {
+                        throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
+                                                      " At line " + std::to_string(lineNumber) + ".");
+                    }
+                    else
+                    {
+                        throw rException;
+                    }
                 }
-            }
 
-            for (auto instrument : m_vpInstruments)
-            {
-                instrument->Notify(lineNumber, *pSignal);
+                for (auto instrument : m_vpInstruments)
+                {
+                    instrument->Notify(lineNumber, *pSignal);
+                }
             }
             ++m_ValidLines;
         }

@@ -46,17 +46,17 @@ namespace PARSER
             /// The signal factory default constructor.
             SignalFactory();
 
-            /// Creates the appropriate signal object.
+            /// Creates the appropriate signal objects.
             ///
-            /// Returns the pointer to the appropriate signal object.
-            /// Or nullptr if it couldn't be created.
+            /// Returns the pointer to the list of created signal objects.
+            /// If emtpy no signal could be created.
             ///
             /// @param logLine One line from the log.
             /// @param lineNumber The log line number.
             /// @param sourceHandle Signal source handle.
-            SIGNAL::Signal *Create(std::string &logLine,
-                                   INSTRUMENT::Instrument::LineNumberT lineNumber,
-                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const;
+			std::vector<const SIGNAL::Signal*> Create(std::string &logLine,
+                                                      INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                      SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
         protected:
 

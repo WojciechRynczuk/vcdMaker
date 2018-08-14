@@ -40,7 +40,7 @@ namespace PARSER
 
             /// The real signal creator constructor.
             FSignalCreator() :
-                SignalCreator("^#([[:digit:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f( +.*)?")
+                SignalCreator("#([[:digit:]]+) ([[:graph:]]+) ([[:d:][:punct:]]+) f( +.*)?")
             {
             }
 

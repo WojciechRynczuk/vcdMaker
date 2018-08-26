@@ -32,6 +32,7 @@
 #include "ISignalCreator.h"
 #include "FSignalCreator.h"
 #include "VcdException.h"
+#include "EvaluatorExceptions.h"
 
 PARSER::SignalFactory::SignalFactory() :
     m_vpSignalCreators()
@@ -52,8 +53,20 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
 
     for (const auto &creator : m_vpSignalCreators)
     {
-        // Try to use creator.
-        SIGNAL::Signal *pSignal = creator->Create(logLine, lineNumber, sourceHandle);
+        SIGNAL::Signal *pSignal = nullptr;
+
+        try
+        {
+            // Try to use creator.
+            pSignal = creator->Create(logLine, lineNumber, sourceHandle);
+        }
+        catch (const PARSER::EXCEPTIONS::EvaluatorException &evaluatorError)
+        {
+            throw EXCEPTION::VcdException(EXCEPTION::Error::EXPRESSION_EVALUATION_ERROR,
+                                          "Evaluation error in " + SIGNAL::SourceRegistry::GetInstance().GetSourceName(sourceHandle) + ".\n" +
+                                          "Line " + std::to_string(lineNumber) + ": " + logLine + "\n" +
+                                          evaluatorError.what());
+        }
 
         // If successful add created Signal to the returned vector.
         if (pSignal != nullptr)

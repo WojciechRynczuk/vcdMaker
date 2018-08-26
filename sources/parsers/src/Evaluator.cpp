@@ -51,27 +51,39 @@
 #include "StringScanner.h"
 
 PARSER::Evaluator::Evaluator(const std::string &rSourceName) :
-    m_Context(NULL, 0),
+    m_Context(nullptr, 0),
     m_rSourceName(rSourceName)
 {
 }
 
-bool PARSER::Evaluator::ParseDecimalString(const std::string &input)
+void PARSER::Evaluator::ParseDecimalString(const std::string &input)
 {
     std::istringstream iss(input);
-    return ParseDecimalStream(iss);
+    if (!ParseDecimalStream(iss))
+    {
+        throw PARSER::EXCEPTIONS::ParsingError(ParsingErrorMessage(input));
+    }
+    m_Expression = input;
 }
 
-bool PARSER::Evaluator::ParseFloatString(const std::string &input)
+void PARSER::Evaluator::ParseFloatString(const std::string &input)
 {
     std::istringstream iss(input);
-    return ParseFloatStream(iss);
+    if (!ParseFloatStream(iss))
+    {
+        throw PARSER::EXCEPTIONS::ParsingError(ParsingErrorMessage(input));
+    }
+    m_Expression = input;
 }
 
-bool PARSER::Evaluator::ParseStringString(const std::string &input)
+void PARSER::Evaluator::ParseStringString(const std::string &input)
 {
     std::istringstream iss(input);
-    return ParseStringStream(iss);
+    if (!ParseStringStream(iss))
+    {
+        throw PARSER::EXCEPTIONS::ParsingError(ParsingErrorMessage(input));
+    }
+    m_Expression = input;
 }
 
 void PARSER::Evaluator::SetContext(const std::smatch *pGroups, uint64_t lineNo) const
@@ -88,7 +100,14 @@ std::tuple<double, std::string> PARSER::Evaluator::EvaluateDouble() const
 {
     double value;
     std::string stringValue;
-    std::tie(value, stringValue) = m_Context.GetExpression()->EvaluateDouble();
+    try
+    {
+        std::tie(value, stringValue) = m_Context.GetExpression()->EvaluateDouble();
+    }
+    catch (const EXCEPTIONS::EvaluatorException& evaluatorError)
+    {
+        throw PARSER::EXCEPTIONS::EvaluatorException(EvaluationErrorMessage(evaluatorError.what()));
+    }
 
     if (stringValue.empty())
     {
@@ -102,12 +121,26 @@ std::tuple<double, std::string> PARSER::Evaluator::EvaluateDouble() const
 
 uint64_t PARSER::Evaluator::EvaluateUint() const
 {
-    return m_Context.GetExpression()->EvaluateUint().GetValue();
+    try
+    {
+        return m_Context.GetExpression()->EvaluateUint().GetValue();
+    }
+    catch (const PARSER::EXCEPTIONS::EvaluatorException& evaluatorError)
+    {
+        throw PARSER::EXCEPTIONS::EvaluatorException(EvaluationErrorMessage(evaluatorError.what()));
+    }
 }
 
 std::string PARSER::Evaluator::EvaluateString() const
 {
-    return m_Context.GetExpression()->EvaluateString();
+    try
+    {
+        return m_Context.GetExpression()->EvaluateString();
+    }
+    catch (const PARSER::EXCEPTIONS::EvaluatorException& evaluatorError)
+    {
+        throw PARSER::EXCEPTIONS::EvaluatorException(EvaluationErrorMessage(evaluatorError.what()));
+    }
 }
 
 bool PARSER::Evaluator::ParseDecimalStream(std::istream &in)
@@ -153,4 +186,17 @@ bool PARSER::Evaluator::ParseStringStream(std::istream &in)
     parser.set_debug_level(false);
     #endif
     return (parser.parse() == 0);
+}
+
+std::string PARSER::Evaluator::ParsingErrorMessage(const std::string& parsedExpression) const
+{
+    std::string arrows(m_SyntaxErrorIndex  - 1, '-');
+    arrows += '^';
+    std::string errorMessage(parsedExpression + '\n' + arrows + '\n');
+    return errorMessage;
+}
+
+std::string PARSER::Evaluator::EvaluationErrorMessage(const std::string& evaluationError) const
+{
+    return std::string ("Expression: " + m_Expression + "\n" + evaluationError);
 }

@@ -84,6 +84,10 @@ namespace PARSER
             /// @return String representing the given regex group.
             std::string GetElement(size_t index) const
             {
+                if (static_cast<int>(index) > m_pGroups->size())
+                {
+                    throw EXCEPTIONS::IndexOutOfRange("Regex group index out of range: " + std::to_string(index));
+                }
                 return (*m_pGroups)[index].str();
             }
 

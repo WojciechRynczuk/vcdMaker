@@ -55,11 +55,11 @@
 namespace PARSER
 {
 
-    /** DecimalScanner is a derived class to add some extra function to the scanner
+    /** FloatScanner is a derived class to add some extra function to the scanner
      * class. Flex itself creates a class named yyFlexLexer, which is renamed using
-     * macros to DecimalFlexLexer. However we change the context of the generated
-     * yylex() function to be contained within the DecimalScanner class. This is required
-     * because the yylex() defined in DecimalFlexLexer has no parameters. */
+     * macros to FloatFlexLexer. However we change the context of the generated
+     * yylex() function to be contained within the FloatScanner class. This is required
+     * because the yylex() defined in FloatFlexLexer has no parameters. */
     class FloatScanner : public FloatFlexLexer
     {
         public:

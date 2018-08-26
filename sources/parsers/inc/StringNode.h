@@ -74,9 +74,10 @@ namespace PARSER
             SNTxt(ExpressionContext &rExpContext, std::string &rString) :
                 ExpressionNode(rExpContext)
             {
+                std::string stringIndex(rString, FIRST_STRING_CHARACTER_POS, rString.length() - GROUP_WRAPPER_LENGTH);
+
                 // Format of the string: txt(position)
-                m_Index = static_cast<size_t>(std::strtoull(std::string(rString, FIRST_STRING_CHARACTER_POS,
-                                              rString.length() - GROUP_WRAPPER_LENGTH).c_str(), nullptr, 10));
+                m_Index = static_cast<size_t>(std::strtoull(stringIndex.c_str(), nullptr, 10));
             }
 
             /// @copydoc ExpressionNode::EvaluateString()

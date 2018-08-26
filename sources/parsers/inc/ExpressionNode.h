@@ -31,8 +31,10 @@
 
 #include <string>
 #include <tuple>
+#include <algorithm>
 
 #include "SafeUInt.h"
+#include "EvaluatorExceptions.h"
 
 namespace PARSER
 {
@@ -62,25 +64,42 @@ namespace PARSER
             /// Evaluates the complete 'uint' tree and returns the expression value.
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
-                /// @todo Throw exception
                 return 0;
             }
 
             /// Evaluates the complete 'double' tree and returns the expression value.
             virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                /// @todo Throw exception
                 return std::make_tuple(0.0, "");
             }
 
             /// Evaluates the complete 'double' tree and returns the expression value.
             virtual std::string EvaluateString() const
             {
-                /// @todo Throw exception
                 return "";
             }
 
         protected:
+            /// Checks if the given string is a valid decimal number.
+            ///
+            /// @param rDecimalString A string to be validated.
+            bool IsDecimal(const std::string &rDecimalString) const
+            {
+                return (std::all_of(rDecimalString.begin(),
+                    rDecimalString.end(),
+                    [](char i) { return (i >= '0' && i <= '9'); }));
+            }
+
+            /// Checks if the given string is a valid hex number.
+            ///
+            /// @param rHexString A string to be validated.
+            bool IsHex(const std::string &rHexString) const
+            {
+                return (std::all_of(rHexString.begin(),
+                    rHexString.end(),
+                    [](char i) { return ((i >= '0' && i <= '9') || (i >= 'a' && i <= 'f') || (i >= 'A' && i <= 'F')); }));
+            }
+
             /// The beginning of the index string.
             const size_t FIRST_STRING_CHARACTER_POS = 4;
 

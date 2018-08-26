@@ -54,7 +54,7 @@ namespace PARSER
             /// @param logLine One line from the log.
             /// @param lineNumber The log line number.
             /// @param sourceHandle Signal source handle.
-			std::vector<const SIGNAL::Signal*> Create(std::string &logLine,
+            std::vector<const SIGNAL::Signal*> Create(std::string &logLine,
                                                       INSTRUMENT::Instrument::LineNumberT lineNumber,
                                                       SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 

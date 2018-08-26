@@ -62,8 +62,8 @@ namespace PARSER
                 m_SizeEvaluator ("XML"),
                 m_NameEvaluator("XML")
             {
-                bool resultTimestamp = m_TimestampEvaluator.ParseDecimalString(rTimestamp);
-                bool resultName = m_NameEvaluator.ParseStringString(rName);
+                m_TimestampEvaluator.ParseDecimalString(rTimestamp);
+                m_NameEvaluator.ParseStringString(rName);
             }
 
         protected:

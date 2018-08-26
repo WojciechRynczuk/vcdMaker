@@ -105,6 +105,12 @@ namespace EXCEPTION
         /// No signals creators.
         const uint32_t NO_SIGNALS_CREATORS = 17U;
 
+        /// User expression parsing error.
+        const uint32_t USER_EXPRESSION_PARSING_ERROR = 18U;
+
+        /// User expression evaluation error.
+        const uint32_t EXPRESSION_EVALUATION_ERROR = 19U;
+
         // Logic errors below shall never happen.
         // They are enumerated from 9000.
 

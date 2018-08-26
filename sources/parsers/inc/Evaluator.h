@@ -35,10 +35,6 @@
 
 namespace PARSER
 {
-
-    // The forward declaration of the expression context class.
-    //class ExpressionContext;
-
     /// The expression evaluator class.
 
     /// The expression evaluator class.
@@ -56,20 +52,20 @@ namespace PARSER
             /// Parses the input decimal string.
             ///
             /// @param inString The input string.
-            /// @return True if successfully parsed.
-            bool ParseDecimalString(const std::string &inString);
+            /// @throws ParsingError On parsing error.
+            void ParseDecimalString(const std::string &inString);
 
             /// Parses the input float string.
             ///
             /// @param inString The input string.
-            /// @return True if successfully parsed.
-            bool ParseFloatString(const std::string &inString);
+            /// @throws ParsingError On parsing error.
+            void ParseFloatString(const std::string &inString);
 
             /// Parses the input string string.
             ///
             /// @param inString The input string.
-            /// @return True if successfully parsed.
-            bool ParseStringString(const std::string &inString);
+            /// @throws ParsingError On parsing error.
+            void ParseStringString(const std::string &inString);
 
             /// Set the expression context.
             ///
@@ -93,6 +89,12 @@ namespace PARSER
 
             /// Evaluates the expression expecting the 'string' value.
             std::string EvaluateString() const;
+
+            /// Sets the syntax error index.
+            void SetSyntaxErrorIndex(size_t index)
+            {
+                m_SyntaxErrorIndex = index;
+            }
 
             /// The lexer pointer must be a public interface as it is
             /// the expected lexer interface.
@@ -125,8 +127,20 @@ namespace PARSER
             /// @return True if successfully parsed.
             bool ParseStringStream(std::istream &inStream);
 
+            /// Prints parsing error message.
+            std::string ParsingErrorMessage(const std::string& parsedExpression) const;
+
+            /// Prints evaluation error message.
+            std::string EvaluationErrorMessage(const std::string& evaluationError) const;
+
+            /// Syntax error index
+            size_t m_SyntaxErrorIndex = 0;
+
             /// The expression source name.
             const std::string &m_rSourceName;
+
+            /// The evaluated expression.
+            std::string m_Expression;
 
             /// Calculation context.
             mutable ExpressionContext m_Context;

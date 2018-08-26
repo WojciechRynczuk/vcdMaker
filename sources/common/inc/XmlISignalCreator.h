@@ -44,8 +44,8 @@ namespace PARSER
                               const std::string &rSize) :
                 XmlSignalCreator(rRegEx, rTimestamp, rName, rValue, rSize)
             {
-                bool resultDecimal = m_DecimalEvaluator.ParseDecimalString(rValue);
-                bool resultSize = m_SizeEvaluator.ParseDecimalString(rSize);
+                m_DecimalEvaluator.ParseDecimalString(rValue);
+                m_SizeEvaluator.ParseDecimalString(rSize);
             }
 
             /// @copydoc SignalCreator::Create()

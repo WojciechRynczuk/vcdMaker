@@ -1181,5 +1181,5 @@ namespace PARSER {
 void PARSER::FloatParser::error(const FloatParser::location_type& l,
                                 const std::string& m)
 {
-    std::cout << "Error: " << m << '\n';
+    evaluator.SetSyntaxErrorIndex(l.begin.column);
 }

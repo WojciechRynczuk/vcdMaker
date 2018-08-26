@@ -30,6 +30,7 @@
 #pragma once
 
 #include <cstdlib>
+#include <limits>
 
 #include "ExpressionNode.h"
 #include "ExpressionContext.h"
@@ -74,16 +75,30 @@ namespace PARSER
             FNFlt(ExpressionContext &rExpContext, std::string &rString) :
                 ExpressionNode(rExpContext)
             {
+                std::string stringIndex(rString, FIRST_STRING_CHARACTER_POS, rString.length() - GROUP_WRAPPER_LENGTH);
+
                 // Format of the string: flt(position)
-                m_Index = static_cast<size_t>(std::strtoull(std::string(rString, FIRST_STRING_CHARACTER_POS,
-                                              rString.length() - GROUP_WRAPPER_LENGTH).c_str(), nullptr, 10));
+                m_Index = static_cast<size_t>(std::strtoull(stringIndex.c_str(), nullptr, 10));
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
             virtual std::tuple<double, std::string> EvaluateDouble() const
             {
-                return std::make_tuple(std::stod(m_rContext.GetElement(m_Index), nullptr),
-                                       m_rContext.GetElement(m_Index));
+                double value = 0;
+                try
+                {
+                    value = std::stod(m_rContext.GetElement(m_Index), nullptr);
+                }
+                catch (const std::invalid_argument&)
+                {
+                    throw EXCEPTIONS::ConversionError("Cannot convert to double: " + m_rContext.GetElement(m_Index));
+                }
+                catch (const std::out_of_range&)
+                {
+                    throw EXCEPTIONS::Overflow("Out of range double value: " + m_rContext.GetElement(m_Index));
+                }
+
+                return std::make_tuple(value, m_rContext.GetElement(m_Index));
             }
     };
 
@@ -157,6 +172,11 @@ namespace PARSER
                 std::string rightStringValue;
                 std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
 
+                if ((std::numeric_limits<double>::max() - leftValue) < rightValue)
+                {
+                    throw EXCEPTIONS::Overflow("Overflow while adding.");
+                }
+
                 return std::make_tuple(leftValue + rightValue, "");
             }
     };
@@ -198,6 +218,11 @@ namespace PARSER
                 double rightValue;
                 std::string rightStringValue;
                 std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
+
+                if ((std::numeric_limits<double>::min() + rightValue) > leftValue)
+                {
+                    throw EXCEPTIONS::Overflow("Underflow while substracting.");
+                }
 
                 return std::make_tuple(leftValue - rightValue, "");
             }
@@ -241,6 +266,11 @@ namespace PARSER
                 std::string rightStringValue;
                 std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
 
+                if ((std::numeric_limits<double>::max() / leftValue) < rightValue)
+                {
+                    throw EXCEPTIONS::Overflow("Overflow while multiplying.");
+                }
+
                 return std::make_tuple(leftValue * rightValue, "");
             }
     };
@@ -282,6 +312,11 @@ namespace PARSER
                 double rightValue;
                 std::string rightStringValue;
                 std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
+
+                if (0 == rightValue)
+                {
+                    throw EXCEPTIONS::DivByZero("");
+                }
 
                 return std::make_tuple(leftValue / rightValue, "");
             }

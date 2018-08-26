@@ -1099,5 +1099,5 @@ namespace PARSER {
 void PARSER::StringParser::error(const StringParser::location_type& l,
                                  const std::string& m)
 {
-    std::cout << "Error: " << m << '\n';
+    evaluator.SetSyntaxErrorIndex(l.begin.column);
 }

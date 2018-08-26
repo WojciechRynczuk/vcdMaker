@@ -50,7 +50,7 @@ namespace PARSER
                               const std::string &rValue) :
                 XmlSignalCreator(rRegEx, rTimestamp, rName, rValue, "")
             {
-                bool resultFloat = m_FloatEvaluator.ParseFloatString(rValue);
+                m_FloatEvaluator.ParseFloatString(rValue);
             }
 
             /// @copydoc SignalCreator::Create()

@@ -133,37 +133,45 @@ PARSER::XmlSignalFactory::XmlSignalFactory(const std::string &rXmlFileName) :
 
     pugi::xml_node signals = doc.child("signals");
 
-    // Traverse the XML.
-    for (const pugi::xml_node &signal : signals.children())
+    try
     {
-        if (!std::strcmp("vector", signal.name()))
+        // Traverse the XML.
+        for (const pugi::xml_node &signal : signals.children())
         {
-            std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
-            m_vpSignalCreators.push_back(std::make_unique<XmlISignalCreator>(description->GetRegex(),
-                                                                             description->GetTimestamp(),
-                                                                             description->GetName(),
-                                                                             description->GetValue(),
-                                                                             description->GetSize()));
+            if (!std::strcmp("vector", signal.name()))
+            {
+                std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
+                m_vpSignalCreators.push_back(std::make_unique<XmlISignalCreator>(description->GetRegex(),
+                                             description->GetTimestamp(),
+                                             description->GetName(),
+                                             description->GetValue(),
+                                             description->GetSize()));
+            }
+            else if (!std::strcmp("real", signal.name()))
+            {
+                std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
+                m_vpSignalCreators.push_back(std::make_unique<XmlFSignalCreator>(description->GetRegex(),
+                                             description->GetTimestamp(),
+                                             description->GetName(),
+                                             description->GetValue()));
+            }
+            else if (!std::strcmp("event", signal.name()))
+            {
+                std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
+                m_vpSignalCreators.push_back(std::make_unique<XmlEventSignalCreator>(description->GetRegex(),
+                                             description->GetTimestamp(),
+                                             description->GetName()));
+            }
+            else
+            {
+                throw EXCEPTION::VcdException(EXCEPTION::Error::UNEXPECTED_TAG,
+                                              "XML - Unexpected tag: " + std::string(signal.name()));
+            }
         }
-        else if (!std::strcmp("real", signal.name()))
-        {
-            std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
-            m_vpSignalCreators.push_back(std::make_unique<XmlFSignalCreator>(description->GetRegex(),
-                                                                             description->GetTimestamp(),
-                                                                             description->GetName(),
-                                                                             description->GetValue()));
-        }
-        else if (!std::strcmp("event", signal.name()))
-        {
-            std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
-            m_vpSignalCreators.push_back(std::make_unique<XmlEventSignalCreator>(description->GetRegex(),
-                                                                                 description->GetTimestamp(),
-                                                                                 description->GetName()));
-        }
-        else
-        {
-            throw EXCEPTION::VcdException(EXCEPTION::Error::UNEXPECTED_TAG,
-                                          "XML - Unexpected tag: " + std::string(signal.name()));
-        }
+    }
+    catch (const PARSER::EXCEPTIONS::ParsingError &parsingError)
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::USER_EXPRESSION_PARSING_ERROR,
+                                      "Parsing error in " + rXmlFileName + ":\n" + parsingError.what());
     }
 }

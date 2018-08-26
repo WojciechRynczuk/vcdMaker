@@ -136,6 +136,7 @@
     <ClInclude Include="..\..\..\sources\parsers\inc\DecimalNode.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\DecimalScanner.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\Evaluator.h" />
+    <ClInclude Include="..\..\..\sources\parsers\inc\EvaluatorExceptions.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\ExpressionContext.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\ExpressionNode.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\FloatNode.h" />

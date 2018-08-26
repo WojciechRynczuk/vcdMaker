@@ -57,7 +57,7 @@ namespace PARSER
      * class. Flex itself creates a class named yyFlexLexer, which is renamed using
      * macros to StringFlexLexer. However we change the context of the generated
      * yylex() function to be contained within the StringScanner class. This is required
-     * because the yylex() defined in DecimalFlexLexer has no parameters. */
+     * because the yylex() defined in StringFlexLexer has no parameters. */
     class StringScanner : public StringFlexLexer
     {
         public:

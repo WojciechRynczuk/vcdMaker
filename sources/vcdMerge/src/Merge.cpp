@@ -53,7 +53,7 @@ void MERGE::Merge::Run()
     {
         m_MaxLeadingTime = FindMaxLeadingTime();
     }
-    catch (std::out_of_range &)
+    catch (const std::out_of_range &)
     {
         // Sources cannot be merged.
         throw EXCEPTION::VcdException(EXCEPTION::Error::LEADING_TIME_OUT_OF_BOUNDS,
@@ -74,12 +74,12 @@ void MERGE::Merge::Run()
             transformed_source_sync =
                 TransformTimestamp(pSource->GetSyncPoint(), m_MinTimeUnit, source_time_unit);
         }
-        catch (std::out_of_range &)
+        catch (const std::out_of_range &)
         {
             LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::SYNCHRONIZATION_TIME_OUT_OF_BOUNDS,
-                              "Synchronization time out of bounds. Cannot merge "
-                              + pSource->GetDescription()
-                              + ".");
+                    "Synchronization time out of bounds. Cannot merge "
+                    + pSource->GetDescription()
+                    + ".");
             continue;
         }
 
@@ -96,14 +96,14 @@ void MERGE::Merge::Run()
                                                        source_time_unit),
                                       transformed_source_sync));
             }
-            catch (std::out_of_range &)
+            catch (const std::out_of_range &)
             {
                 LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::TIMESTAMP_OUT_OF_BOUNDS,
-                                  "Timestamp out of bounds. Cannot merge " +
-                                  pSignal->GetName() +
-                                  " at " +
-                                  std::to_string(pSignal->GetTimestamp().GetValue()) + " " +
-                                  pSource->GetTimeUnit());
+                        "Timestamp out of bounds. Cannot merge " +
+                        pSignal->GetName() +
+                        " at " +
+                        std::to_string(pSignal->GetTimestamp().GetValue()) + " " +
+                        pSource->GetTimeUnit());
 
                 delete pSignal;
                 continue;

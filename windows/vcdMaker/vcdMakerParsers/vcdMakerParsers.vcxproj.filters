@@ -85,5 +85,8 @@
     <ClInclude Include="..\..\..\sources\parsers\inc\StringScanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\EvaluatorExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

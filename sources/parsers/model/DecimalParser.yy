@@ -192,5 +192,5 @@ start       : /* empty */
 void PARSER::DecimalParser::error(const DecimalParser::location_type& l,
                                   const std::string& m)
 {
-    std::cout << "Error: " << m << '\n';
+    evaluator.SetSyntaxErrorIndex(l.begin.column);
 }

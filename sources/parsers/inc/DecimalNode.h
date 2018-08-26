@@ -74,15 +74,33 @@ namespace PARSER
             DNDec(ExpressionContext &rExpContext, std::string &rString) :
                 ExpressionNode(rExpContext)
             {
+                std::string stringIndex(rString, FIRST_STRING_CHARACTER_POS, rString.length() - GROUP_WRAPPER_LENGTH);
+
                 // Format of the string: dec(position)
-                m_Index = static_cast<size_t>(std::strtoull(std::string(rString, FIRST_STRING_CHARACTER_POS,
-                                              rString.length() - GROUP_WRAPPER_LENGTH).c_str(), nullptr, 10));
+                m_Index = static_cast<size_t>(std::strtoull(stringIndex.c_str(), nullptr, 10));
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
-                return std::strtoull(m_rContext.GetElement(m_Index).c_str(), nullptr, 10);
+                SafeUInt<uint64_t> value = 0;
+                if (IsDecimal(m_rContext.GetElement(m_Index)))
+                {
+                    try
+                    {
+                        value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 10);
+                    }
+                    catch (const std::out_of_range&)
+                    {
+                        throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
+                    }
+                }
+                else
+                {
+                    throw EXCEPTIONS::ConversionError("Cannot convert to decimal: " + m_rContext.GetElement(m_Index));
+                }
+
+                return value;
             }
     };
 
@@ -100,15 +118,33 @@ namespace PARSER
             DNHex(ExpressionContext &rExpContext, std::string &rString) :
                 ExpressionNode(rExpContext)
             {
+                std::string stringIndex(rString, FIRST_STRING_CHARACTER_POS, rString.length() - GROUP_WRAPPER_LENGTH);
+
                 // Format of the string: hex(position)
-                m_Index = static_cast<size_t>(std::strtoull(std::string(rString, FIRST_STRING_CHARACTER_POS,
-                                              rString.length() - GROUP_WRAPPER_LENGTH).c_str(), nullptr, 10));
+                m_Index = static_cast<size_t>(std::strtoull(stringIndex.c_str(), nullptr, 10));
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
-                return std::strtoull(m_rContext.GetElement(m_Index).c_str(), nullptr, 16);
+                SafeUInt<uint64_t> value = 0;
+                if (IsHex(m_rContext.GetElement(m_Index)))
+                {
+                    try
+                    {
+                        value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 16);
+                    }
+                    catch (const std::out_of_range&)
+                    {
+                        throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
+                    }
+                }
+                else
+                {
+                    throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + m_rContext.GetElement(m_Index));
+                }
+
+                return value;
             }
     };
 
@@ -162,7 +198,14 @@ namespace PARSER
             /// @copydoc ExpressionNode::EvaluateUint()
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
-                return m_pLeft->EvaluateUint() + m_pRight->EvaluateUint();
+                try
+                {
+                    return m_pLeft->EvaluateUint() + m_pRight->EvaluateUint();
+                }
+                catch (const std::out_of_range&)
+                {
+                    throw EXCEPTIONS::Overflow("Overflow while adding.");
+                }
             }
     };
 
@@ -196,7 +239,14 @@ namespace PARSER
             /// @copydoc ExpressionNode::EvaluateUint()
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
-                return m_pLeft->EvaluateUint() - m_pRight->EvaluateUint();
+                try
+                {
+                    return m_pLeft->EvaluateUint() - m_pRight->EvaluateUint();
+                }
+                catch (const std::out_of_range&)
+                {
+                    throw EXCEPTIONS::Overflow("Underflow while substracting.");
+                }
             }
     };
 
@@ -230,7 +280,14 @@ namespace PARSER
             /// @copydoc ExpressionNode::EvaluateUint()
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
-                return m_pLeft->EvaluateUint() * m_pRight->EvaluateUint();
+                try
+                {
+                    return m_pLeft->EvaluateUint() * m_pRight->EvaluateUint();
+                }
+                catch(const std::out_of_range&)
+                {
+                    throw EXCEPTIONS::Overflow("Overflow while multiplying.");
+                }
             }
     };
 
@@ -264,7 +321,12 @@ namespace PARSER
             /// @copydoc ExpressionNode::EvaluateUint()
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
-                return m_pLeft->EvaluateUint() / m_pRight->EvaluateUint();
+                SafeUInt<uint64_t> rightValue = m_pRight->EvaluateUint();
+                if (0 == rightValue.GetValue())
+                {
+                    throw EXCEPTIONS::DivByZero("");
+                }
+                return m_pLeft->EvaluateUint() / rightValue;
             }
     };
 }

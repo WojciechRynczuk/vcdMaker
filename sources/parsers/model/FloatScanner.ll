@@ -120,7 +120,7 @@ void FloatScanner::set_debug(bool b)
 
 }
 
-/* This implementation of DecimalFlexLexer::yylex() is required to fill the
+/* This implementation of FloatFlexLexer::yylex() is required to fill the
  * vtable of the class ExampleFlexLexer. We define the scanner's main yylex
  * function via YY_DECL to reside in the Scanner class instead. */
 

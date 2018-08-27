@@ -42,6 +42,7 @@
                   InstallCommand="/quiet /norestart"
                   DetectCondition="vcRedistVersion >= &quot;14.12.25810&quot;">
       </ExePackage>
+      <!-- For the 64bit version: https://aka.ms/vs/15/release/vc_redist.x64.exe -->
     </PackageGroup>
   </Fragment>
 </Wix>

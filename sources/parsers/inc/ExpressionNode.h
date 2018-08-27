@@ -80,26 +80,6 @@ namespace PARSER
             }
 
         protected:
-            /// Checks if the given string is a valid decimal number.
-            ///
-            /// @param rDecimalString A string to be validated.
-            bool IsDecimal(const std::string &rDecimalString) const
-            {
-                return (std::all_of(rDecimalString.begin(),
-                    rDecimalString.end(),
-                    [](char i) { return (i >= '0' && i <= '9'); }));
-            }
-
-            /// Checks if the given string is a valid hex number.
-            ///
-            /// @param rHexString A string to be validated.
-            bool IsHex(const std::string &rHexString) const
-            {
-                return (std::all_of(rHexString.begin(),
-                    rHexString.end(),
-                    [](char i) { return ((i >= '0' && i <= '9') || (i >= 'a' && i <= 'f') || (i >= 'A' && i <= 'F')); }));
-            }
-
             /// The beginning of the index string.
             const size_t FIRST_STRING_CHARACTER_POS = 4;
 

@@ -1005,7 +1005,7 @@ case 1:
 YY_RULE_SETUP
 #line 79 "FloatScanner.ll"
 {
-    yylval->doubleValue = std::stod(yytext, NULL);
+    yylval->doubleValue = std::stod(yytext, nullptr);
     return token::DOUBLE;
 }
 	YY_BREAK

@@ -76,7 +76,7 @@ typedef PARSER::FloatParser::token_type token_type;
  /*** Lexer rules ***/
 
 -*[0-9]+\.*[0-9]* {
-    yylval->doubleValue = std::stod(yytext, NULL);
+    yylval->doubleValue = std::stod(yytext, nullptr);
     return token::DOUBLE;
 }
 

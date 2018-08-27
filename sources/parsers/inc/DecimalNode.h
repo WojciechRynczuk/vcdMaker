@@ -84,20 +84,17 @@ namespace PARSER
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
                 SafeUInt<uint64_t> value = 0;
-                if (IsDecimal(m_rContext.GetElement(m_Index)))
+                try
                 {
-                    try
-                    {
-                        value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 10);
-                    }
-                    catch (const std::out_of_range&)
-                    {
-                        throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
-                    }
+                    value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 10);
                 }
-                else
+                catch (const std::out_of_range&)
                 {
-                    throw EXCEPTIONS::ConversionError("Cannot convert to decimal: " + m_rContext.GetElement(m_Index));
+                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
+                }
+                catch (const std::invalid_argument&)
+                {
+                    throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + m_rContext.GetElement(m_Index));
                 }
 
                 return value;
@@ -128,18 +125,15 @@ namespace PARSER
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
                 SafeUInt<uint64_t> value = 0;
-                if (IsHex(m_rContext.GetElement(m_Index)))
+                try
                 {
-                    try
-                    {
-                        value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 16);
-                    }
-                    catch (const std::out_of_range&)
-                    {
-                        throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
-                    }
+                    value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 16);
                 }
-                else
+                catch (const std::out_of_range&)
+                {
+                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
+                }
+                catch (const std::invalid_argument&)
                 {
                     throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + m_rContext.GetElement(m_Index));
                 }

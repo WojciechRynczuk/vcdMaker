@@ -14,7 +14,7 @@
     <line>([[:digit:]]+):([[:digit:]]+)\.([[:digit:]]+) ([[:graph:]]+)-([[:graph:]]+) ([[:digit:][:punct:]]+)</line>
     <timestamp>1000000*dec(1) + 1000*dec(2) + dec(3)</timestamp>
     <name>"Disco." + txt(4) + "." + txt(5)</name>
-    <value>/6</value>
+    <value>flt(6)</value>
 </real>
 
 <event>

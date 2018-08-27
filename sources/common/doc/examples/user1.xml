@@ -19,10 +19,10 @@
 </vector>
 
 <vector>
-    <line>([[:d:]]+):([[:d:]]+)\.([[:d:]]+) Buttons-SW([13]+) ([[:d:]]+)</line>
+    <line>([[:d:]]+):([[:d:]]+)\.([[:d:]]+) Buttons-SW([13]+) ([x[:d:]]+)</line>
     <timestamp>1000000*dec(1) + 1000*dec(2) + dec(3)</timestamp>
-    <name>"FRDM.Buttons-SW" + txt(4)</name>
-    <value>dec(5)</value>
+    <name>"FRDM.Buttons.SW" + txt(4)</name>
+    <value>hex(5)</value>
     <size>1</size>
 </vector>
 

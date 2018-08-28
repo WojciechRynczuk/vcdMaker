@@ -62,6 +62,16 @@ namespace PARSER
 
             /// The table of pointers to signal creators.
             std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
+
+        private:
+
+            /// Returns log line details.
+            ///
+            /// Returns the string containing the log line information.
+            /// @param sourceHandle The handle to the log source.
+            /// @param lineNumber The log line number.
+            /// @param logLine The log line.
+            std::string GetLogLineInfo(uint32_t sourceHandle, size_t lineNumber, const std::string& logLine) const;
     };
 
 }

@@ -49,6 +49,9 @@ namespace EXCEPTION
 
         /// Timestamp out of bounds.
         const uint32_t TIMESTAMP_OUT_OF_BOUNDS = 2U;
+
+        /// Insufficient vector size.
+        const uint32_t INSUFFICIENT_VECTOR_SIZE = 3U;
     }
 
     /// The list of errors.

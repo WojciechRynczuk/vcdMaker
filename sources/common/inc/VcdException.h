@@ -37,6 +37,7 @@
 /// The module provides means for handling errors and warnings.
 
 #include <stdexcept>
+#include <string>
 
 #include "VcdExceptionList.h"
 
@@ -86,6 +87,24 @@ namespace EXCEPTION
                              rMessage +
                              " Please log an issue on https://github.com/WojciechRynczuk/vcdMaker." +
                              " Provide the application version, parameters and input files if possible.")
+            {}
+    };
+
+    /// @brief The exception for handling 'too small vector' warnings.
+    /// It shall be used when too small vector is being created.
+    class TooSmallVector : public std::runtime_error
+    {
+        public:
+            /// The exception constructor.
+            ///
+            /// @param value The value of the signal.
+            /// @param size The size of the vector to hold the value.
+            TooSmallVector(uint64_t value, uint64_t size)
+                : std::runtime_error("Value " +
+                                     std::to_string(value) +
+                                     " exceeds the " +
+                                     std::to_string(size) +
+                                     "-bit size of the vector. Dropping the signal.")
             {}
     };
 }

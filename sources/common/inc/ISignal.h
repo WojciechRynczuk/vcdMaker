@@ -31,6 +31,9 @@
 #pragma once
 
 #include "Signal.h"
+#include "VcdException.h"
+
+#include <cmath>
 
 namespace SIGNAL
 {
@@ -58,6 +61,10 @@ namespace SIGNAL
                 Signal(name, size, rTimestamp, "wire", sourceHandle),
                 m_Value(value)
             {
+                if (value >= std::pow(2, size))
+                {
+                    throw EXCEPTION::TooSmallVector(value, size);
+                }
             }
 
             /// The integer signal cloning method.

@@ -33,6 +33,7 @@
 #include "FSignalCreator.h"
 #include "VcdException.h"
 #include "EvaluatorExceptions.h"
+#include "Logger.h"
 
 PARSER::SignalFactory::SignalFactory() :
     m_vpSignalCreators()
@@ -63,9 +64,14 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
         catch (const PARSER::EXCEPTIONS::EvaluatorException &evaluatorError)
         {
             throw EXCEPTION::VcdException(EXCEPTION::Error::EXPRESSION_EVALUATION_ERROR,
-                                          "Evaluation error in " + SIGNAL::SourceRegistry::GetInstance().GetSourceName(sourceHandle) + ".\n" +
-                                          "Line " + std::to_string(lineNumber) + ": " + logLine + "\n" +
+                                          GetLogLineInfo(sourceHandle, lineNumber, logLine) +
                                           evaluatorError.what());
+        }
+        catch (const EXCEPTION::TooSmallVector &smallVector)
+        {
+            LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::INSUFFICIENT_VECTOR_SIZE,
+                                                     GetLogLineInfo(sourceHandle, lineNumber, logLine) +
+                                                     smallVector.what());
         }
 
         // If successful add created Signal to the returned vector.
@@ -76,4 +82,11 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
     }
 
     return vpSignals;
+}
+
+std::string PARSER::SignalFactory::GetLogLineInfo(uint32_t sourceHandle, size_t lineNumber,
+                                                  const std::string &logLine) const
+{
+    return "Evaluating " + SIGNAL::SourceRegistry::GetInstance().GetSourceName(sourceHandle) + ".\n" +
+           "Line " + std::to_string(lineNumber) + ": " + logLine + "\n";
 }

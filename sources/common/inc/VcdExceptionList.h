@@ -114,6 +114,9 @@ namespace EXCEPTION
         /// User expression evaluation error.
         const uint32_t EXPRESSION_EVALUATION_ERROR = 19U;
 
+        /// Regex error.
+        const uint32_t REGEX_ERROR = 20U;
+
         // Logic errors below shall never happen.
         // They are enumerated from 9000.
 

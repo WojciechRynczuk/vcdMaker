@@ -73,6 +73,12 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
                                                      GetLogLineInfo(sourceHandle, lineNumber, logLine) +
                                                      smallVector.what());
         }
+        catch (const std::regex_error &regexError)
+        {
+            throw EXCEPTION::VcdException(EXCEPTION::Error::REGEX_ERROR,
+                                          regexError.what() +
+                                          std::string("\nRegex: ") + creator->GetRegEx());
+        }
 
         // If successful add created Signal to the returned vector.
         if (pSignal != nullptr)

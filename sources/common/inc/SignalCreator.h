@@ -50,7 +50,8 @@ namespace PARSER
             /// which will be matched against the log line.
             /// @param rSignalRegEx The regular expression to be matech against the log line.
             SignalCreator(const std::string &rSignalRegEx) :
-                m_SignalRegEx("^" + rSignalRegEx + "\r?$")
+                m_SignalRegEx("^" + rSignalRegEx + "\r?$"),
+                m_RegEx(rSignalRegEx)
             {
             }
 
@@ -72,10 +73,19 @@ namespace PARSER
                                            INSTRUMENT::Instrument::LineNumberT lineNumber,
                                            SIGNAL::SourceRegistry::HandleT sourceHandle) const = 0;
 
+            /// Returns the regex.
+            const std::string &GetRegEx() const
+            {
+                return m_RegEx;
+            }
+
         protected:
 
             /// The RegEx matching the signal description.
             const std::regex m_SignalRegEx;
+
+            /// The original RegEx string.
+            const std::string m_RegEx;
     };
 
     inline SignalCreator::~SignalCreator() = default;

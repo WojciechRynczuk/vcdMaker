@@ -32,6 +32,7 @@
 #include <string>
 #include <tuple>
 #include <algorithm>
+#include <cctype>
 
 #include "SafeUInt.h"
 #include "EvaluatorExceptions.h"
@@ -80,6 +81,15 @@ namespace PARSER
             }
 
         protected:
+            /// Checks if the string's empty or contains just white spaces.
+            ///
+            /// @param stringValue The string value to be verified.
+            /// @returns True for empty or all-white-spaces string. False otherwise.
+            bool IsStringEmpty(const std::string &stringValue) const
+            {
+                return std::all_of(stringValue.begin(), stringValue.end(), [](char c) { return std::isspace(c); });
+            }
+
             /// The beginning of the index string.
             const size_t FIRST_STRING_CHARACTER_POS = 4;
 

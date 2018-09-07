@@ -40,80 +40,91 @@ namespace PARSER
         /// expressions contains errors.
         class ParsingError : public std::runtime_error
         {
-        public:
-            /// The exception constructor.
-            ///
-            /// @param rMessage The exception warning.
-            ParsingError(const std::string &rMessage) :
-                std::runtime_error(rMessage)
-            {
-            }
+            public:
+                /// The exception constructor.
+                ///
+                /// @param rMessage The exception warning.
+                ParsingError(const std::string &rMessage) :
+                    std::runtime_error(rMessage)
+                {
+                }
         };
 
         /// The base evaluator exception class.
         class EvaluatorException : public std::runtime_error
         {
-        public:
-            /// The exception constructor.
-            ///
-            /// @param rMessage The exception warning.
-            EvaluatorException(const std::string &rMessage) :
-                std::runtime_error(rMessage)
-            {
-            }
+            public:
+                /// The exception constructor.
+                ///
+                /// @param rMessage The exception warning.
+                EvaluatorException(const std::string &rMessage) :
+                    std::runtime_error(rMessage)
+                {
+                }
         };
 
         /// The conversion error. The exception is raised when a string cannot
         /// be successfully converted to a double, decimal or hexadecimal value.
         class ConversionError : public EvaluatorException
         {
-        public:
-            /// The exception constructor.
-            ///
-            /// @param rMessage The exception warning.
-            ConversionError(const std::string &rMessage) :
-                EvaluatorException(rMessage)
-            {
-            }
+            public:
+                /// The exception constructor.
+                ///
+                /// @param rMessage The exception warning.
+                ConversionError(const std::string &rMessage) :
+                    EvaluatorException(rMessage)
+                {
+                }
         };
 
         /// The overflow error. The arthmetics overflow detection.
         class Overflow : public EvaluatorException
         {
-        public:
-            /// The exception constructor.
-            ///
-            /// @param rMessage The exception warning.
-            Overflow(const std::string &rMessage) :
-                EvaluatorException(rMessage)
-            {
-            }
+            public:
+                /// The exception constructor.
+                ///
+                /// @param rMessage The exception warning.
+                Overflow(const std::string &rMessage) :
+                    EvaluatorException(rMessage)
+                {
+                }
         };
 
         /// The regex index is out of range.
         class IndexOutOfRange : public EvaluatorException
         {
-        public:
-            /// The exception constructor.
-            ///
-            /// @param rMessage The exception warning.
-            IndexOutOfRange(const std::string &rMessage) :
-                EvaluatorException(rMessage)
-            {
-            }
+            public:
+                /// The exception constructor.
+                ///
+                /// @param rMessage The exception warning.
+                IndexOutOfRange(const std::string &rMessage) :
+                    EvaluatorException(rMessage)
+                {
+                }
         };
 
         /// The division by zero error.
         class DivByZero : public EvaluatorException
         {
-        public:
-            /// The exception constructor.
-            ///
-            /// @param rMessage The exception warning.
-            DivByZero(const std::string &rMessage) :
-                EvaluatorException("Division by zero." + rMessage)
-            {
-            }
+            public:
+                /// The exception constructor.
+                ///
+                /// @param rMessage The exception warning.
+                DivByZero(const std::string &rMessage) :
+                    EvaluatorException("Division by zero." + rMessage)
+                {
+                }
+        };
+
+        /// Empty string.
+        class EmptyString : public std::runtime_error
+        {
+            public:
+                /// The exception constructor.
+                EmptyString() :
+                    std::runtime_error("Empty string.")
+                {
+                }
         };
     }
 }

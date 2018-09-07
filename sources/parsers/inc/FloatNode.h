@@ -85,20 +85,25 @@ namespace PARSER
             virtual std::tuple<double, std::string> EvaluateDouble() const
             {
                 double value = 0;
+                std::string stringValue(m_rContext.GetElement(m_Index));
                 try
                 {
-                    value = std::stod(m_rContext.GetElement(m_Index), nullptr);
+                    value = std::stod(stringValue, nullptr);
                 }
-                catch (const std::invalid_argument&)
+                catch (const std::invalid_argument &)
                 {
-                    throw EXCEPTIONS::ConversionError("Cannot convert to double: " + m_rContext.GetElement(m_Index));
+                    if (IsStringEmpty(stringValue))
+                    {
+                        throw EXCEPTIONS::EmptyString();
+                    }
+                    throw EXCEPTIONS::ConversionError("Cannot convert to double: " + stringValue);
                 }
-                catch (const std::out_of_range&)
+                catch (const std::out_of_range &)
                 {
-                    throw EXCEPTIONS::Overflow("Out of range double value: " + m_rContext.GetElement(m_Index));
+                    throw EXCEPTIONS::Overflow("Out of range double value: " + stringValue);
                 }
 
-                return std::make_tuple(value, m_rContext.GetElement(m_Index));
+                return std::make_tuple(value, stringValue);
             }
     };
 

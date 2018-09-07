@@ -82,7 +82,7 @@ namespace PARSER
             ///
             /// @param index The index of the regex group content to be returned.
             /// @return String representing the given regex group.
-            std::string GetElement(size_t index) const
+            const std::string GetElement(size_t index) const
             {
                 if (static_cast<int>(index) > m_pGroups->size())
                 {

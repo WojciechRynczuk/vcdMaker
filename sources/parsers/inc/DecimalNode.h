@@ -84,17 +84,22 @@ namespace PARSER
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
                 SafeUInt<uint64_t> value = 0;
+                std::string stringValue(m_rContext.GetElement(m_Index));
                 try
                 {
-                    value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 10);
+                    value = std::stoll(stringValue.c_str(), nullptr, 10);
                 }
-                catch (const std::out_of_range&)
+                catch (const std::out_of_range &)
                 {
-                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
+                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + stringValue);
                 }
-                catch (const std::invalid_argument&)
+                catch (const std::invalid_argument &)
                 {
-                    throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + m_rContext.GetElement(m_Index));
+                    if (IsStringEmpty(stringValue))
+                    {
+                        throw EXCEPTIONS::EmptyString();
+                    }
+                    throw EXCEPTIONS::ConversionError("Cannot convert to decimal: " + stringValue);
                 }
 
                 return value;
@@ -125,17 +130,22 @@ namespace PARSER
             virtual SafeUInt<uint64_t> EvaluateUint() const
             {
                 SafeUInt<uint64_t> value = 0;
+                std::string stringValue(m_rContext.GetElement(m_Index));
                 try
                 {
-                    value = std::stoll(m_rContext.GetElement(m_Index).c_str(), nullptr, 16);
+                    value = std::stoll(stringValue.c_str(), nullptr, 16);
                 }
-                catch (const std::out_of_range&)
+                catch (const std::out_of_range &)
                 {
-                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + m_rContext.GetElement(m_Index));
+                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + stringValue);
                 }
-                catch (const std::invalid_argument&)
+                catch (const std::invalid_argument &)
                 {
-                    throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + m_rContext.GetElement(m_Index));
+                    if (IsStringEmpty(stringValue))
+                    {
+                        throw EXCEPTIONS::EmptyString();
+                    }
+                    throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + stringValue);
                 }
 
                 return value;
@@ -196,7 +206,7 @@ namespace PARSER
                 {
                     return m_pLeft->EvaluateUint() + m_pRight->EvaluateUint();
                 }
-                catch (const std::out_of_range&)
+                catch (const std::out_of_range &)
                 {
                     throw EXCEPTIONS::Overflow("Overflow while adding.");
                 }
@@ -237,7 +247,7 @@ namespace PARSER
                 {
                     return m_pLeft->EvaluateUint() - m_pRight->EvaluateUint();
                 }
-                catch (const std::out_of_range&)
+                catch (const std::out_of_range &)
                 {
                     throw EXCEPTIONS::Overflow("Underflow while substracting.");
                 }
@@ -278,7 +288,7 @@ namespace PARSER
                 {
                     return m_pLeft->EvaluateUint() * m_pRight->EvaluateUint();
                 }
-                catch(const std::out_of_range&)
+                catch (const std::out_of_range &)
                 {
                     throw EXCEPTIONS::Overflow("Overflow while multiplying.");
                 }

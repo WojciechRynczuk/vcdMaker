@@ -30,7 +30,7 @@
 
 #include <sstream>
 
-#include "Evaluator.h"
+#include "evaluator.h"
 
 #undef yyFlexLexer
 /// Decimal lexer definition.

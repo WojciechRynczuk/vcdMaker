@@ -1,4 +1,4 @@
-/// @file parsers/inc/Evaluator.h
+/// @file parsers/inc/evaluator.h
 ///
 /// The class provides means for evaluating user format expressions.
 ///

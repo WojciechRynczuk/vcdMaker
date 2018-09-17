@@ -53,7 +53,7 @@
 #line 89 "FloatParser.yy"
 
 
-#include "evaluator.h"
+#include "Evaluator.h"
 #include "FloatScanner.h"
 
 /* this "connects" the bison parser in the driver to the flex scanner class

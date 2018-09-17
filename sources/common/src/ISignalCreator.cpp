@@ -33,6 +33,7 @@ SIGNAL::Signal *PARSER::ISignalCreator::Create(const std::string &rLogLine,
 {
     std::smatch result;
 
+    (void)lineNumber;
     if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
     {
         return new SIGNAL::ISignal(result[2].str(),

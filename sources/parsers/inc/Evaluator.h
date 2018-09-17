@@ -1,4 +1,4 @@
-/// @file parsers/inc/evaluator.h
+/// @file parsers/inc/Evaluator.h
 ///
 /// The class provides means for evaluating user format expressions.
 ///
@@ -128,10 +128,10 @@ namespace PARSER
             bool ParseStringStream(std::istream &inStream);
 
             /// Prints parsing error message.
-            std::string ParsingErrorMessage(const std::string& parsedExpression) const;
+            std::string ParsingErrorMessage(const std::string &parsedExpression) const;
 
             /// Prints evaluation error message.
-            std::string EvaluationErrorMessage(const std::string& evaluationError) const;
+            std::string EvaluationErrorMessage(const std::string &evaluationError) const;
 
             /// Syntax error index
             size_t m_SyntaxErrorIndex = 0;

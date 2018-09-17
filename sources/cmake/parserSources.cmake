@@ -44,7 +44,7 @@ set(PARSER_GEN_HEADERS_DIR parsers/auto)
 set(PARSER_HEADERS
     ${PARSER_HEADERS_DIR}/EvaluatorExceptions.h
     ${PARSER_HEADERS_DIR}/StringScanner.h
-    ${PARSER_HEADERS_DIR}/evaluator.h
+    ${PARSER_HEADERS_DIR}/Evaluator.h
     ${PARSER_HEADERS_DIR}/FloatNode.h
     ${PARSER_HEADERS_DIR}/ExpressionContext.h
     ${PARSER_HEADERS_DIR}/FloatScanner.h

@@ -56,10 +56,9 @@ namespace PARSER
                 m_LineNo(lineNo)
             {}
 
-            /// Free the expression.
+            /// Expression context destructor.
             ~ExpressionContext()
             {
-                delete m_pExpression;
             }
 
             /// Set the expression context.
@@ -84,7 +83,7 @@ namespace PARSER
             /// @return String representing the given regex group.
             const std::string GetElement(size_t index) const
             {
-                if (static_cast<int>(index) > m_pGroups->size())
+                if (index > m_pGroups->size())
                 {
                     throw EXCEPTIONS::IndexOutOfRange("Regex group index out of range: " + std::to_string(index));
                 }

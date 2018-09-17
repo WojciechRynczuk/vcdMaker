@@ -30,7 +30,7 @@
 
 #include <sstream>
 
-#include "evaluator.h"
+#include "Evaluator.h"
 
 #undef yyFlexLexer
 /// Decimal lexer definition.
@@ -51,8 +51,8 @@
 #include "StringScanner.h"
 
 PARSER::Evaluator::Evaluator(const std::string &rSourceName) :
-    m_Context(nullptr, 0),
-    m_rSourceName(rSourceName)
+    m_rSourceName(rSourceName),
+    m_Context(nullptr, 0)
 {
 }
 
@@ -104,7 +104,7 @@ std::tuple<double, std::string> PARSER::Evaluator::EvaluateDouble() const
     {
         std::tie(value, stringValue) = m_Context.GetExpression()->EvaluateDouble();
     }
-    catch (const EXCEPTIONS::EvaluatorException& evaluatorError)
+    catch (const EXCEPTIONS::EvaluatorException &evaluatorError)
     {
         throw PARSER::EXCEPTIONS::EvaluatorException(EvaluationErrorMessage(evaluatorError.what()));
     }
@@ -125,7 +125,7 @@ uint64_t PARSER::Evaluator::EvaluateUint() const
     {
         return m_Context.GetExpression()->EvaluateUint().GetValue();
     }
-    catch (const PARSER::EXCEPTIONS::EvaluatorException& evaluatorError)
+    catch (const PARSER::EXCEPTIONS::EvaluatorException &evaluatorError)
     {
         throw PARSER::EXCEPTIONS::EvaluatorException(EvaluationErrorMessage(evaluatorError.what()));
     }
@@ -137,7 +137,7 @@ std::string PARSER::Evaluator::EvaluateString() const
     {
         return m_Context.GetExpression()->EvaluateString();
     }
-    catch (const PARSER::EXCEPTIONS::EvaluatorException& evaluatorError)
+    catch (const PARSER::EXCEPTIONS::EvaluatorException &evaluatorError)
     {
         throw PARSER::EXCEPTIONS::EvaluatorException(EvaluationErrorMessage(evaluatorError.what()));
     }
@@ -188,7 +188,7 @@ bool PARSER::Evaluator::ParseStringStream(std::istream &in)
     return (parser.parse() == 0);
 }
 
-std::string PARSER::Evaluator::ParsingErrorMessage(const std::string& parsedExpression) const
+std::string PARSER::Evaluator::ParsingErrorMessage(const std::string &parsedExpression) const
 {
     std::string arrows(m_SyntaxErrorIndex  - 1, '-');
     arrows += '^';
@@ -196,7 +196,7 @@ std::string PARSER::Evaluator::ParsingErrorMessage(const std::string& parsedExpr
     return errorMessage;
 }
 
-std::string PARSER::Evaluator::EvaluationErrorMessage(const std::string& evaluationError) const
+std::string PARSER::Evaluator::EvaluationErrorMessage(const std::string &evaluationError) const
 {
     return std::string ("Expression: " + m_Expression + "\n" + evaluationError);
 }

@@ -48,7 +48,7 @@
           <Directory Id='SampleDir' Name='samples'>
             <Component Id='SampleFiles' Guid='59F4E01F-5FE3-48B3-97A2-8E7808E6EED7'>
               <File Id="SampleTtx" Name="example.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.txt" KeyPath='yes'></File>
-              <File Id="SampleUsr" Name="example_user.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example_user.txt" KeyPath='yes'></File>
+              <File Id="SampleUsr" Name="example_user.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example_user.txt"></File>
               <File Id="SampleVcd" Name="example.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.vcd"></File>
               <File Id="System1Time1Txt" Name="system1_time1.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system1_time1.txt"></File>
               <File Id="System1Time1Usr" Name="system1_time1_user.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system1_time1_user.txt"></File>

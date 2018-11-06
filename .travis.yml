@@ -23,8 +23,8 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
-    - gcc-6
-    - g++-6
+    - gcc-9
+    - g++-9
     - txt2man
     - doxygen
     - graphviz
@@ -35,7 +35,7 @@ addons:
       version: v3.0
       description: Coverity Scan by Travis CI
     notification_email: vcdmaker@mail.com
-    build_command_prepend: "cov-configure --comptype gcc --compiler g++-6 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
+    build_command_prepend: "cov-configure --comptype gcc --compiler g++-9 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
     build_command: "make"
     branch_pattern: coverity_scan
 

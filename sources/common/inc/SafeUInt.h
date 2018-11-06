@@ -89,18 +89,8 @@ template<class T> class SafeUInt
         /// Overrides the multiplication operator '*='.
         SafeUInt<T> &operator*=(const SafeUInt<T> &rhs)
         {
-            T smaller;
-            T larger;
-            if (m_Value > rhs.m_Value)
-            {
-                larger = m_Value;
-                smaller = rhs.m_Value;
-            }
-            else
-            {
-                larger = rhs.m_Value;
-                smaller = m_Value;
-            }
+            auto [smaller, larger] = std::minmax(m_Value, rhs.m_Value);
+
             if (larger > 0)
             {
                 if ((std::numeric_limits<T>::max() / larger) < smaller)

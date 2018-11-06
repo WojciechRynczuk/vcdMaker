@@ -31,8 +31,8 @@ set(COMMON_LIB_TARGET vcdToolsCommon)
 
 # Function for setting general target properties.
 function(add_common_vcdtools_target_props TARGET_NAME)
-    # Set C++14 support.
-    set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 14)
+    # Set C++17 support.
+    set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17)
     set_target_properties(${TARGET_NAME} PROPERTIES CXX_EXTENSIONS OFF)
     set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD_REQUIRED ON)
 

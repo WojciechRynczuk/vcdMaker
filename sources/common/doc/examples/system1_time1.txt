@@ -1,4 +1,3 @@
-Press joystick pressed for more than 3 seconds to start/stop logging.
 #22800725 Disco.Sensors.Accelerometer.AccX -15106.000000 f
 #22801269 Disco.Sensors.Accelerometer.AccY -465.000000 f
 #22801758 Disco.Sensors.Accelerometer.AccZ 2590.000000 f

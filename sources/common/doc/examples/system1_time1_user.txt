@@ -1,4 +1,3 @@
-Press joystick pressed for more than 3 seconds to start/stop logging.
 22:800.725 Sensors-Accelerometer.AccX -15106.000000
 22:801.269 Sensors-Accelerometer.AccY -465.000000
 22:801.758 Sensors-Accelerometer.AccZ 2590.000000

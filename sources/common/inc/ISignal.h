@@ -33,6 +33,8 @@
 #include "Signal.h"
 #include "VcdException.h"
 
+#include <cmath>
+
 namespace SIGNAL
 {
     /// The class inherits from the Signal class and handles the integer
@@ -59,7 +61,7 @@ namespace SIGNAL
                 Signal(name, size, rTimestamp, "wire", sourceHandle),
                 m_Value(value)
             {
-                if (value >= (static_cast<uint64_t>(1) << size))
+                if (value >= std::pow(2, size))
                 {
                     throw EXCEPTION::TooSmallVector(value, size);
                 }

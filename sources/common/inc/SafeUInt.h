@@ -41,6 +41,7 @@
 #include <limits>
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 
 /// A safe unsigned integer class.
 /// The overridden arthmetic operators throw exceptions on the overflow.

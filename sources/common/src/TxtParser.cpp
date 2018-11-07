@@ -46,7 +46,7 @@ PARSER::TxtParser::TxtParser(const std::string &rFilename,
 
 PARSER::TxtParser::~TxtParser()
 {
-    if (!std::uncaught_exception())
+    if (0 == std::uncaught_exceptions())
     {
         // Print the summary.
         std::cout << '\n' << "Parsed " << m_FileName << ": \n";

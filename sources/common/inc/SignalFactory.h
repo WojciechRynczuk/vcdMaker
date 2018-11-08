@@ -71,7 +71,9 @@ namespace PARSER
             /// @param sourceHandle The handle to the log source.
             /// @param lineNumber The log line number.
             /// @param logLine The log line.
-            std::string GetLogLineInfo(uint32_t sourceHandle, size_t lineNumber, const std::string& logLine) const;
+            std::string GetLogLineInfo(SIGNAL::SourceRegistry::HandleT sourceHandle,
+                                       size_t lineNumber,
+                                       const std::string& logLine) const;
     };
 
 }

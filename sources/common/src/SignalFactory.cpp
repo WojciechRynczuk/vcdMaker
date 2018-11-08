@@ -94,7 +94,8 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
     return vpSignals;
 }
 
-std::string PARSER::SignalFactory::GetLogLineInfo(uint32_t sourceHandle, size_t lineNumber,
+std::string PARSER::SignalFactory::GetLogLineInfo(SIGNAL::SourceRegistry::HandleT sourceHandle,
+                                                  size_t lineNumber,
                                                   const std::string &logLine) const
 {
     return "Evaluating " + SIGNAL::SourceRegistry::GetInstance().GetSourceName(sourceHandle) + ".\n" +

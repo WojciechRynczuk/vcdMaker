@@ -84,6 +84,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\parsers\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include;$(ProjectDir)..\..\..\sources\3rdParty\pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

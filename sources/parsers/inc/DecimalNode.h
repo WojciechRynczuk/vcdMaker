@@ -81,29 +81,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
-            virtual SafeUInt<uint64_t> EvaluateUint() const
-            {
-                SafeUInt<uint64_t> value = 0;
-                std::string stringValue(m_rContext.GetElement(m_Index));
-                try
-                {
-                    value = std::stoll(stringValue.c_str(), nullptr, 10);
-                }
-                catch (const std::out_of_range &)
-                {
-                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + stringValue);
-                }
-                catch (const std::invalid_argument &)
-                {
-                    if (IsStringEmpty(stringValue))
-                    {
-                        throw EXCEPTIONS::EmptyString();
-                    }
-                    throw EXCEPTIONS::ConversionError("Cannot convert to decimal: " + stringValue);
-                }
-
-                return value;
-            }
+            virtual SafeUInt<uint64_t> EvaluateUint() const;
     };
 
     /// The class represents the constant node type based on a hexadecimal string.
@@ -127,29 +105,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
-            virtual SafeUInt<uint64_t> EvaluateUint() const
-            {
-                SafeUInt<uint64_t> value = 0;
-                std::string stringValue(m_rContext.GetElement(m_Index));
-                try
-                {
-                    value = std::stoll(stringValue.c_str(), nullptr, 16);
-                }
-                catch (const std::out_of_range &)
-                {
-                    throw EXCEPTIONS::Overflow("Out of range decimal value: " + stringValue);
-                }
-                catch (const std::invalid_argument &)
-                {
-                    if (IsStringEmpty(stringValue))
-                    {
-                        throw EXCEPTIONS::EmptyString();
-                    }
-                    throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + stringValue);
-                }
-
-                return value;
-            }
+            virtual SafeUInt<uint64_t> EvaluateUint() const;
     };
 
     /// The class represents the constant type of nodes based on a log line number.
@@ -200,17 +156,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
-            virtual SafeUInt<uint64_t> EvaluateUint() const
-            {
-                try
-                {
-                    return m_pLeft->EvaluateUint() + m_pRight->EvaluateUint();
-                }
-                catch (const std::out_of_range &)
-                {
-                    throw EXCEPTIONS::Overflow("Overflow while adding.");
-                }
-            }
+            virtual SafeUInt<uint64_t> EvaluateUint() const;
     };
 
     /// The class represents the subtraction node type.
@@ -241,17 +187,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
-            virtual SafeUInt<uint64_t> EvaluateUint() const
-            {
-                try
-                {
-                    return m_pLeft->EvaluateUint() - m_pRight->EvaluateUint();
-                }
-                catch (const std::out_of_range &)
-                {
-                    throw EXCEPTIONS::Overflow("Underflow while substracting.");
-                }
-            }
+            virtual SafeUInt<uint64_t> EvaluateUint() const;
     };
 
     /// The class represents the multiplication node type.
@@ -282,17 +218,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
-            virtual SafeUInt<uint64_t> EvaluateUint() const
-            {
-                try
-                {
-                    return m_pLeft->EvaluateUint() * m_pRight->EvaluateUint();
-                }
-                catch (const std::out_of_range &)
-                {
-                    throw EXCEPTIONS::Overflow("Overflow while multiplying.");
-                }
-            }
+            virtual SafeUInt<uint64_t> EvaluateUint() const;
     };
 
     /// The class represents the division node type.
@@ -323,14 +249,6 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateUint()
-            virtual SafeUInt<uint64_t> EvaluateUint() const
-            {
-                SafeUInt<uint64_t> rightValue = m_pRight->EvaluateUint();
-                if (0 == rightValue.GetValue())
-                {
-                    throw EXCEPTIONS::DivByZero("");
-                }
-                return m_pLeft->EvaluateUint() / rightValue;
-            }
+            virtual SafeUInt<uint64_t> EvaluateUint() const;
     };
 }

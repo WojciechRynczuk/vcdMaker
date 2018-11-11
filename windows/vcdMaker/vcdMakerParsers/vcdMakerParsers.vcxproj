@@ -77,6 +77,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\parsers\auto;$(ProjectDir)..\..\..\sources\parsers\inc;$(ProjectDir)..\..\..\sources\common\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,7 +124,9 @@
     <ClCompile Include="..\..\..\sources\parsers\auto\FloatScanner.cpp" />
     <ClCompile Include="..\..\..\sources\parsers\auto\StringParser.cpp" />
     <ClCompile Include="..\..\..\sources\parsers\auto\StringScanner.cpp" />
+    <ClCompile Include="..\..\..\sources\parsers\src\DecimalNode.cpp" />
     <ClCompile Include="..\..\..\sources\parsers\src\Evaluator.cpp" />
+    <ClCompile Include="..\..\..\sources\parsers\src\FloatNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\parsers\auto\DecimalParser.hpp" />

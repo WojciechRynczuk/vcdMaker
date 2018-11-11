@@ -28,7 +28,8 @@ set(PARSER_GEN_SOURCES_DIR parsers/auto)
 
 set(PARSER_SOURCES
     ${PARSER_SOURCES_DIR}/Evaluator.cpp
-
+    ${PARSER_SOURCES_DIR}/DecimalNode.cpp
+    ${PARSER_SOURCES_DIR}/FloatNode.cpp
     ${PARSER_GEN_SOURCES_DIR}/FloatParser.cpp
     ${PARSER_GEN_SOURCES_DIR}/FloatScanner.cpp
     ${PARSER_GEN_SOURCES_DIR}/DecimalScanner.cpp

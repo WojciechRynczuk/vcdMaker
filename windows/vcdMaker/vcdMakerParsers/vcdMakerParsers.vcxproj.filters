@@ -35,6 +35,12 @@
     <ClCompile Include="..\..\..\sources\parsers\auto\DecimalScanner.cpp">
       <Filter>Auto</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\src\DecimalNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\src\FloatNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\parsers\inc\DecimalNode.h">

@@ -82,29 +82,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const
-            {
-                double value = 0;
-                std::string stringValue(m_rContext.GetElement(m_Index));
-                try
-                {
-                    value = std::stod(stringValue, nullptr);
-                }
-                catch (const std::invalid_argument &)
-                {
-                    if (IsStringEmpty(stringValue))
-                    {
-                        throw EXCEPTIONS::EmptyString();
-                    }
-                    throw EXCEPTIONS::ConversionError("Cannot convert to double: " + stringValue);
-                }
-                catch (const std::out_of_range &)
-                {
-                    throw EXCEPTIONS::Overflow("Out of range double value: " + stringValue);
-                }
-
-                return std::make_tuple(value, stringValue);
-            }
+            virtual std::tuple<double, std::string> EvaluateDouble() const;
     };
 
     /// The class represents the negate node type.
@@ -130,13 +108,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const
-            {
-                double value;
-                std::string stringValue;
-                std::tie(value, stringValue) = m_pNode->EvaluateDouble();
-                return std::make_tuple(-value, "");
-            }
+            virtual std::tuple<double, std::string> EvaluateDouble() const;
     };
 
     /// The class represents the addition node type.
@@ -167,23 +139,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const
-            {
-                double leftValue;
-                std::string leftStringValue;
-                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
-
-                double rightValue;
-                std::string rightStringValue;
-                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
-
-                if ((std::numeric_limits<double>::max() - leftValue) < rightValue)
-                {
-                    throw EXCEPTIONS::Overflow("Overflow while adding.");
-                }
-
-                return std::make_tuple(leftValue + rightValue, "");
-            }
+            virtual std::tuple<double, std::string> EvaluateDouble() const;
     };
 
     /// The class represents the subtraction node type.
@@ -214,23 +170,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const
-            {
-                double leftValue;
-                std::string leftStringValue;
-                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
-
-                double rightValue;
-                std::string rightStringValue;
-                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
-
-                if ((std::numeric_limits<double>::min() + rightValue) > leftValue)
-                {
-                    throw EXCEPTIONS::Overflow("Underflow while substracting.");
-                }
-
-                return std::make_tuple(leftValue - rightValue, "");
-            }
+            virtual std::tuple<double, std::string> EvaluateDouble() const;
     };
 
     /// The class represents the multiplication node type.
@@ -261,23 +201,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const
-            {
-                double leftValue;
-                std::string leftStringValue;
-                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
-
-                double rightValue;
-                std::string rightStringValue;
-                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
-
-                if ((std::numeric_limits<double>::max() / leftValue) < rightValue)
-                {
-                    throw EXCEPTIONS::Overflow("Overflow while multiplying.");
-                }
-
-                return std::make_tuple(leftValue * rightValue, "");
-            }
+            virtual std::tuple<double, std::string> EvaluateDouble() const;
     };
 
     /// The class represents the division node type.
@@ -308,22 +232,6 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const
-            {
-                double leftValue;
-                std::string leftStringValue;
-                std::tie(leftValue, leftStringValue) = m_pLeft->EvaluateDouble();
-
-                double rightValue;
-                std::string rightStringValue;
-                std::tie(rightValue, rightStringValue) = m_pRight->EvaluateDouble();
-
-                if (0 == rightValue)
-                {
-                    throw EXCEPTIONS::DivByZero("");
-                }
-
-                return std::make_tuple(leftValue / rightValue, "");
-            }
+            virtual std::tuple<double, std::string> EvaluateDouble() const;
     };
 }

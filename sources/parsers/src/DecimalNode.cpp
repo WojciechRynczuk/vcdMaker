@@ -43,11 +43,7 @@ SafeUInt<uint64_t> PARSER::DNDec::EvaluateUint() const
     }
     catch (const std::invalid_argument &)
     {
-        if (IsStringEmpty(stringValue))
-        {
-            throw EXCEPTIONS::EmptyString();
-        }
-        throw EXCEPTIONS::ConversionError("Cannot convert to decimal: " + stringValue);
+        throw EXCEPTIONS::ConversionError("Cannot convert to decimal: ", stringValue);
     }
 
     return value;
@@ -67,11 +63,7 @@ SafeUInt<uint64_t> PARSER::DNHex::EvaluateUint() const
     }
     catch (const std::invalid_argument &)
     {
-        if (IsStringEmpty(stringValue))
-        {
-            throw EXCEPTIONS::EmptyString();
-        }
-        throw EXCEPTIONS::ConversionError("Cannot convert to hex: " + stringValue);
+        throw EXCEPTIONS::ConversionError("Cannot convert to hex: ", stringValue);
     }
 
     return value;

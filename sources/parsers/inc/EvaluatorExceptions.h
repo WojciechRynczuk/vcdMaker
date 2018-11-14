@@ -30,6 +30,8 @@
 #pragma once
 
 #include <stdexcept>
+#include <algorithm>
+#include <cctype>
 
 /// The parser's exceptions.
 namespace PARSER
@@ -71,9 +73,19 @@ namespace PARSER
                 /// The exception constructor.
                 ///
                 /// @param rMessage The exception warning.
-                ConversionError(const std::string &rMessage) :
-                    EvaluatorException(rMessage)
+                /// @param rInvalidString Out of specification string.
+                ConversionError(const std::string &rMessage, const std::string &rInvalidString) :
+                    EvaluatorException(rMessage + ((IsStringEmpty(rInvalidString) ? "<empty string>" : rInvalidString)))
                 {
+                }
+            private:
+                /// Checks if the string's empty or contains just white spaces.
+                ///
+                /// @param stringValue The string value to be verified.
+                /// @returns True for empty or all-white-spaces string. False otherwise.
+                bool IsStringEmpty(const std::string &stringValue) const
+                {
+                    return std::all_of(stringValue.begin(), stringValue.end(), [](char c) { return std::isspace(c); });
                 }
         };
 
@@ -112,17 +124,6 @@ namespace PARSER
                 /// @param rMessage The exception warning.
                 DivByZero(const std::string &rMessage) :
                     EvaluatorException("Division by zero." + rMessage)
-                {
-                }
-        };
-
-        /// Empty string.
-        class EmptyString : public std::runtime_error
-        {
-            public:
-                /// The exception constructor.
-                EmptyString() :
-                    std::runtime_error("Empty string.")
                 {
                 }
         };

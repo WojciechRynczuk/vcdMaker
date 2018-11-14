@@ -39,11 +39,7 @@ std::tuple<double, std::string> PARSER::FNFlt::EvaluateDouble() const
     }
     catch (const std::invalid_argument &)
     {
-        if (IsStringEmpty(stringValue))
-        {
-            throw EXCEPTIONS::EmptyString();
-        }
-        throw EXCEPTIONS::ConversionError("Cannot convert to double: " + stringValue);
+        throw EXCEPTIONS::ConversionError("Cannot convert to double: ", stringValue);
     }
     catch (const std::out_of_range &)
     {

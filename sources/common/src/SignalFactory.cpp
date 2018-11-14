@@ -61,10 +61,6 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
             // Try to use creator.
             pSignal = creator->Create(logLine, lineNumber, sourceHandle);
         }
-        catch (const PARSER::EXCEPTIONS::EmptyString &)
-        {
-            // Just ignore it. The signal won't be created.
-        }
         catch (const PARSER::EXCEPTIONS::EvaluatorException &evaluatorError)
         {
             throw EXCEPTION::VcdException(EXCEPTION::Error::EXPRESSION_EVALUATION_ERROR,

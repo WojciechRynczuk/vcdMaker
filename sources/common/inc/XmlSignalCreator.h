@@ -50,16 +50,16 @@ namespace PARSER
                              const std::string &rTimestamp,
                              const std::string &rName,
                              const std::string &rValue,
-                             const std::string &rSize) :
+                             const std::string &rSize):
                 SignalCreator(rRegEx),
                 m_Timestamp(rTimestamp),
                 m_Name(rName),
                 m_Value(rValue),
                 m_Size(rSize),
-                m_TimestampEvaluator ("XML"),
-                m_DecimalEvaluator ("XML"),
-                m_FloatEvaluator ("XML"),
-                m_SizeEvaluator ("XML"),
+                m_TimestampEvaluator("XML"),
+                m_DecimalEvaluator("XML"),
+                m_FloatEvaluator("XML"),
+                m_SizeEvaluator("XML"),
                 m_NameEvaluator("XML")
             {
                 m_TimestampEvaluator.ParseDecimalString(rTimestamp);

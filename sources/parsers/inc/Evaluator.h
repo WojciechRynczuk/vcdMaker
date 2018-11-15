@@ -74,7 +74,7 @@ namespace PARSER
             ///
             /// @param pGroups The pointer to the parsed regex groups.
             /// @param lineNo The log line number.
-            void SetContext(const std::smatch *pGroups, uint64_t lineNo) const;
+            void SetContext(std::smatch *pGroups, uint64_t lineNo);
 
             /// Returns the calculation context.
             ///

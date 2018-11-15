@@ -71,7 +71,7 @@ namespace PARSER
             /// @return Signal pointer if the object has been created or nullptr.
             virtual SIGNAL::Signal *Create(const std::string &rLogLine,
                                            INSTRUMENT::Instrument::LineNumberT lineNumber,
-                                           SIGNAL::SourceRegistry::HandleT sourceHandle) const = 0;
+                                           SIGNAL::SourceRegistry::HandleT sourceHandle) = 0;
 
             /// Returns the regex.
             const std::string &GetRegEx() const

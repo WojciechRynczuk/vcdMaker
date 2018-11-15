@@ -71,28 +71,28 @@ namespace PARSER
             ///
             /// @param rMatch The regular expression groups.
             /// @param lineNumber The log line number.
-            TIME::Timestamp GetTimestamp(const std::smatch &rMatch,
-                                         INSTRUMENT::Instrument::LineNumberT lineNumber) const;
+            TIME::Timestamp GetTimestamp(std::smatch &rMatch,
+                                         INSTRUMENT::Instrument::LineNumberT lineNumber);
 
             /// Returns the name of the signal.
             ///
             /// @param rMatch The regular expression groups.
-            std::string GetName(const std::smatch &rMatch) const;
+            std::string GetName(std::smatch &rMatch);
 
             /// Returns the decimal value of the signal.
             ///
             /// @param rMatch The regular expression groups.
-            SafeUInt<uint64_t> GetDecimalValue(const std::smatch &rMatch) const;
+            SafeUInt<uint64_t> GetDecimalValue(std::smatch &rMatch);
 
             /// Returns the float value of the signal.
             ///
             /// @param rMatch The regular expression groups.
-            std::string GetFloatValue(const std::smatch &rMatch) const;
+            std::string GetFloatValue(std::smatch &rMatch);
 
             /// Returns the size of the signal.
             ///
             /// @param rMatch The regular expression groups.
-            size_t GetSize(const std::smatch &rMatch) const;
+            size_t GetSize(std::smatch &rMatch);
 
             /// The expression to create the timestamp of the signal.
             const std::string m_Timestamp;

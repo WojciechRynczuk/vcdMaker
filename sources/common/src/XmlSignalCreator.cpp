@@ -26,26 +26,26 @@
 
 #include "XmlSignalCreator.h"
 
-TIME::Timestamp PARSER::XmlSignalCreator::GetTimestamp(const std::smatch &rMatch,
-                                                       INSTRUMENT::Instrument::LineNumberT lineNumber) const
+TIME::Timestamp PARSER::XmlSignalCreator::GetTimestamp(std::smatch &rMatch,
+                                                       INSTRUMENT::Instrument::LineNumberT lineNumber)
 {
     m_TimestampEvaluator.SetContext(&rMatch, lineNumber);
     return m_TimestampEvaluator.EvaluateUint();
 }
 
-std::string PARSER::XmlSignalCreator::GetName(const std::smatch &rMatch) const
+std::string PARSER::XmlSignalCreator::GetName(std::smatch &rMatch)
 {
     m_NameEvaluator.SetContext(&rMatch, 0);
     return m_NameEvaluator.EvaluateString();
 }
 
-SafeUInt<uint64_t> PARSER::XmlSignalCreator::GetDecimalValue(const std::smatch &rMatch) const
+SafeUInt<uint64_t> PARSER::XmlSignalCreator::GetDecimalValue(std::smatch &rMatch)
 {
     m_DecimalEvaluator.SetContext(&rMatch, 0);
     return m_DecimalEvaluator.EvaluateUint();
 }
 
-std::string PARSER::XmlSignalCreator::GetFloatValue(const std::smatch &rMatch) const
+std::string PARSER::XmlSignalCreator::GetFloatValue(std::smatch &rMatch)
 {
     m_FloatEvaluator.SetContext(&rMatch, 0);
 
@@ -56,7 +56,7 @@ std::string PARSER::XmlSignalCreator::GetFloatValue(const std::smatch &rMatch) c
     return stringValue;
 }
 
-size_t PARSER::XmlSignalCreator::GetSize(const std::smatch &rMatch) const
+size_t PARSER::XmlSignalCreator::GetSize(std::smatch &rMatch)
 {
     m_SizeEvaluator.SetContext(&rMatch, 0);
     return static_cast<size_t>(m_SizeEvaluator.EvaluateUint());

@@ -56,9 +56,7 @@ namespace PARSER
             {}
 
             /// Destroys the expression node.
-            virtual ~ExpressionNode()
-            {
-            }
+            virtual ~ExpressionNode() = default;
 
             /// Evaluates the complete 'uint' tree and returns the expression value.
             virtual SafeUInt<uint64_t> EvaluateUint() const

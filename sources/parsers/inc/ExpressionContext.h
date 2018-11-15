@@ -51,15 +51,13 @@ namespace PARSER
             ///
             /// @param pGroups The pointer to the parsed regex groups.
             /// @param lineNo The log line number.
-            ExpressionContext(const std::smatch *pGroups, uint64_t lineNo) :
+            ExpressionContext(std::smatch *pGroups, uint64_t lineNo) :
                 m_pGroups(pGroups),
                 m_LineNo(lineNo)
             {}
 
             /// Expression context destructor.
-            ~ExpressionContext()
-            {
-            }
+            ~ExpressionContext() = default;
 
             /// Set the expression context.
             ///
@@ -68,7 +66,7 @@ namespace PARSER
             ///
             /// @param pGroups The pointer to the parsed regex groups.
             /// @param lineNo The log line number.
-            void Set(const std::smatch *pGroups, uint64_t lineNo) const
+            void Set(std::smatch *pGroups, uint64_t lineNo)
             {
                 m_pGroups = pGroups;
                 m_LineNo = lineNo;
@@ -122,10 +120,10 @@ namespace PARSER
 
         private:
             /// A pointer to the regex groups (the context of the expression).
-            const mutable std::smatch *m_pGroups;
+            std::smatch *m_pGroups;
 
             /// The log line number.
-            mutable uint64_t m_LineNo;
+            uint64_t m_LineNo;
 
             /// The expression.
             ExpressionNode *m_pExpression;

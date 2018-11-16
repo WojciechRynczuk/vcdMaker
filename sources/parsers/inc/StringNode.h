@@ -56,7 +56,10 @@ namespace PARSER
             /// @copydoc ExpressionNode::EvaluateString()
             virtual std::string EvaluateString() const
             {
-                return std::string(m_rString, 1, m_rString.length() - 2);
+                const uint32_t SKIP_FIRST_QUOTE = 1U;
+                const uint32_t TWO_QUOTE_SIGNS = 2U;
+
+                return std::string(m_rString, SKIP_FIRST_QUOTE, m_rString.length() - TWO_QUOTE_SIGNS);
             }
     };
 

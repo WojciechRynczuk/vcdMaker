@@ -147,13 +147,13 @@ bool PARSER::Evaluator::ParseDecimalStream(std::istream &in)
 {
     DecimalScanner scanner(&in);
     #if defined(PARSER_DEBUG)
-    scanner.set_debug(false);
+    scanner.set_debug(true);
     #endif
     m_pDecimalLexer = &scanner;
 
     DecimalParser parser(*this);
     #if defined(PARSER_DEBUG)
-    parser.set_debug_level(false);
+    parser.set_debug_level(1);
     #endif
     return (parser.parse() == 0);
 }
@@ -162,13 +162,13 @@ bool PARSER::Evaluator::ParseFloatStream(std::istream &in)
 {
     FloatScanner scanner(&in);
     #if defined(PARSER_DEBUG)
-    scanner.set_debug(false);
+    scanner.set_debug(true);
     #endif
     m_pFloatLexer = &scanner;
 
     FloatParser parser(*this);
     #if defined(PARSER_DEBUG)
-    parser.set_debug_level(false);
+    parser.set_debug_level(1);
     #endif
     return (parser.parse() == 0);
 }
@@ -177,13 +177,13 @@ bool PARSER::Evaluator::ParseStringStream(std::istream &in)
 {
     StringScanner scanner(&in);
     #if defined(PARSER_DEBUG)
-    scanner.set_debug(false);
+    scanner.set_debug(true);
     #endif
     m_pStringLexer = &scanner;
 
     StringParser parser(*this);
     #if defined(PARSER_DEBUG)
-    parser.set_debug_level(false);
+    parser.set_debug_level(1);
     #endif
     return (parser.parse() == 0);
 }

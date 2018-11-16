@@ -8,7 +8,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -43,27 +43,27 @@ PARSER::XmlDescription::XmlDescription(const pugi::xml_node &rNode) :
 {
     for (const pugi::xml_node &tag : rNode.children())
     {
-        if (!std::strcmp("line", tag.name()))
+        if (0 == std::strcmp("line", tag.name()))
         {
             m_RegexLine = tag.child_value();
         }
 
-        if (!std::strcmp("timestamp", tag.name()))
+        if (0 == std::strcmp("timestamp", tag.name()))
         {
             m_Timestamp = tag.child_value();
         }
 
-        if (!std::strcmp("name", tag.name()))
+        if (0 == std::strcmp("name", tag.name()))
         {
             m_Name = tag.child_value();
         }
 
-        if (!std::strcmp("value", tag.name()))
+        if (0 == std::strcmp("value", tag.name()))
         {
             m_Value = tag.child_value();
         }
 
-        if (!std::strcmp("size", tag.name()))
+        if (0 == std::strcmp("size", tag.name()))
         {
             m_Size = tag.child_value();
         }
@@ -138,26 +138,24 @@ PARSER::XmlSignalFactory::XmlSignalFactory(const std::string &rXmlFileName) :
         // Traverse the XML.
         for (const pugi::xml_node &signal : signals.children())
         {
-            if (!std::strcmp("vector", signal.name()))
+            std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
+            if (0 == std::strcmp("vector", signal.name()))
             {
-                std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
                 m_vpSignalCreators.push_back(std::make_unique<XmlISignalCreator>(description->GetRegex(),
                                              description->GetTimestamp(),
                                              description->GetName(),
                                              description->GetValue(),
                                              description->GetSize()));
             }
-            else if (!std::strcmp("real", signal.name()))
+            else if (0 == std::strcmp("real", signal.name()))
             {
-                std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
                 m_vpSignalCreators.push_back(std::make_unique<XmlFSignalCreator>(description->GetRegex(),
                                              description->GetTimestamp(),
                                              description->GetName(),
                                              description->GetValue()));
             }
-            else if (!std::strcmp("event", signal.name()))
+            else if (0 == std::strcmp("event", signal.name()))
             {
-                std::unique_ptr<XmlDescription> description = std::make_unique<XmlDescription>(signal);
                 m_vpSignalCreators.push_back(std::make_unique<XmlEventSignalCreator>(description->GetRegex(),
                                              description->GetTimestamp(),
                                              description->GetName()));

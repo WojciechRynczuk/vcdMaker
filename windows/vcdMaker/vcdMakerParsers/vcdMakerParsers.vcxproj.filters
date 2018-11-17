@@ -41,6 +41,9 @@
     <ClCompile Include="..\..\..\sources\parsers\src\FloatNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\sources\parsers\src\FloatResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\parsers\inc\DecimalNode.h">
@@ -92,6 +95,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\sources\parsers\inc\EvaluatorExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\sources\parsers\inc\FloatResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

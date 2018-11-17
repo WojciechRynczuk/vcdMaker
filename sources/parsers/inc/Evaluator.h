@@ -82,7 +82,7 @@ namespace PARSER
             ExpressionContext &GetContext() const;
 
             /// Evaluates the expression expecting the 'double' value.
-            std::tuple<double, std::string> EvaluateDouble() const;
+            std::string EvaluateDouble() const;
 
             /// Evaluates the expression expecting the 'uint' value.
             uint64_t EvaluateUint() const;

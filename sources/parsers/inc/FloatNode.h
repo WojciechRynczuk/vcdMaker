@@ -31,6 +31,7 @@
 
 #include <cstdlib>
 #include <limits>
+#include <sstream>
 
 #include "ExpressionNode.h"
 #include "ExpressionContext.h"
@@ -55,9 +56,9 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const
+            virtual FloatResult EvaluateDouble() const
             {
-                return std::make_tuple(m_Value, "");
+                return FloatResult(m_Value);
             }
     };
 
@@ -82,7 +83,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const;
+            virtual FloatResult EvaluateDouble() const;
     };
 
     /// The class represents the negate node type.
@@ -108,7 +109,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const;
+            virtual FloatResult EvaluateDouble() const;
     };
 
     /// The class represents the addition node type.
@@ -139,7 +140,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const;
+            virtual FloatResult EvaluateDouble() const;
     };
 
     /// The class represents the subtraction node type.
@@ -170,7 +171,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const;
+            virtual FloatResult EvaluateDouble() const;
     };
 
     /// The class represents the multiplication node type.
@@ -201,7 +202,7 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const;
+            virtual FloatResult EvaluateDouble() const;
     };
 
     /// The class represents the division node type.
@@ -232,6 +233,6 @@ namespace PARSER
             }
 
             /// @copydoc ExpressionNode::EvaluateDouble()
-            virtual std::tuple<double, std::string> EvaluateDouble() const;
+            virtual FloatResult EvaluateDouble() const;
     };
 }

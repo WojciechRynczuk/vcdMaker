@@ -30,10 +30,10 @@
 #pragma once
 
 #include <string>
-#include <tuple>
 
 #include "SafeUInt.h"
 #include "EvaluatorExceptions.h"
+#include "FloatResult.h"
 
 namespace PARSER
 {
@@ -65,9 +65,9 @@ namespace PARSER
             }
 
             /// Evaluates the complete 'double' tree and returns the expression value.
-            virtual std::tuple<double, std::string> EvaluateDouble() const
+            virtual FloatResult EvaluateDouble() const
             {
-                return std::make_tuple(0.0, "");
+                return FloatResult(0.0);
             }
 
             /// Evaluates the complete 'double' tree and returns the expression value.

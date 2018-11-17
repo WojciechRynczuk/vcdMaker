@@ -1,6 +1,9 @@
-/// @file common/src/XmlSignalCreator.cpp
+/// @file parsers/src/FloatResult.cpp
 ///
-/// The XML signal creator.
+/// A class representing the result of float calculations.
+///
+/// @par Full Description
+/// A class representing the result of float calculations.
 ///
 /// @ingroup Parser
 ///
@@ -24,35 +27,35 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "XmlSignalCreator.h"
+#include <sstream>
 
-TIME::Timestamp PARSER::XmlSignalCreator::GetTimestamp(std::smatch &rMatch,
-                                                       INSTRUMENT::Instrument::LineNumberT lineNumber)
+#include "FloatResult.h"
+#include "EvaluatorExceptions.h"
+
+PARSER::FloatResult::FloatResult(const std::string &rFloatString) :
+    m_String(rFloatString)
 {
-    m_TimestampEvaluator.SetContext(&rMatch, lineNumber);
-    return m_TimestampEvaluator.EvaluateUint();
+    try
+    {
+        m_Value = std::stod(rFloatString, nullptr);
+    }
+    catch (const std::invalid_argument &)
+    {
+        throw EXCEPTIONS::ConversionError("Cannot convert to double: ", rFloatString);
+    }
+    catch (const std::out_of_range &)
+    {
+        throw EXCEPTIONS::Overflow("Out of range double value: " + rFloatString);
+    }
 }
 
-std::string PARSER::XmlSignalCreator::GetName(std::smatch &rMatch)
+std::string PARSER::FloatResult::GetFloatString() const
 {
-    m_NameEvaluator.SetContext(&rMatch, 0);
-    return m_NameEvaluator.EvaluateString();
-}
-
-SafeUInt<uint64_t> PARSER::XmlSignalCreator::GetDecimalValue(std::smatch &rMatch)
-{
-    m_DecimalEvaluator.SetContext(&rMatch, 0);
-    return m_DecimalEvaluator.EvaluateUint();
-}
-
-std::string PARSER::XmlSignalCreator::GetFloatValue(std::smatch &rMatch)
-{
-    m_FloatEvaluator.SetContext(&rMatch, 0);
-    return m_FloatEvaluator.EvaluateDouble();
-}
-
-size_t PARSER::XmlSignalCreator::GetSize(std::smatch &rMatch)
-{
-    m_SizeEvaluator.SetContext(&rMatch, 0);
-    return static_cast<size_t>(m_SizeEvaluator.EvaluateUint());
+    if (m_String.empty())
+    {
+        std::ostringstream strStream;
+        strStream << m_Value;
+        return strStream.str();
+    }
+    return m_String;
 }

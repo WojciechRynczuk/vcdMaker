@@ -30,6 +30,7 @@ set(PARSER_SOURCES
     ${PARSER_SOURCES_DIR}/Evaluator.cpp
     ${PARSER_SOURCES_DIR}/DecimalNode.cpp
     ${PARSER_SOURCES_DIR}/FloatNode.cpp
+    ${PARSER_SOURCES_DIR}/FloatResult.cpp
     ${PARSER_GEN_SOURCES_DIR}/FloatParser.cpp
     ${PARSER_GEN_SOURCES_DIR}/FloatScanner.cpp
     ${PARSER_GEN_SOURCES_DIR}/DecimalScanner.cpp
@@ -47,6 +48,7 @@ set(PARSER_HEADERS
     ${PARSER_HEADERS_DIR}/StringScanner.h
     ${PARSER_HEADERS_DIR}/Evaluator.h
     ${PARSER_HEADERS_DIR}/FloatNode.h
+    ${PARSER_HEADERS_DIR}/FloatResult.h
     ${PARSER_HEADERS_DIR}/ExpressionContext.h
     ${PARSER_HEADERS_DIR}/FloatScanner.h
     ${PARSER_HEADERS_DIR}/StringNode.h

@@ -128,6 +128,7 @@
     <ClCompile Include="..\..\..\sources\parsers\src\DecimalNode.cpp" />
     <ClCompile Include="..\..\..\sources\parsers\src\Evaluator.cpp" />
     <ClCompile Include="..\..\..\sources\parsers\src\FloatNode.cpp" />
+    <ClCompile Include="..\..\..\sources\parsers\src\FloatResult.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\parsers\auto\DecimalParser.hpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="..\..\..\sources\parsers\inc\ExpressionContext.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\ExpressionNode.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\FloatNode.h" />
+    <ClInclude Include="..\..\..\sources\parsers\inc\FloatResult.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\FloatScanner.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\StringNode.h" />
     <ClInclude Include="..\..\..\sources\parsers\inc\StringScanner.h" />

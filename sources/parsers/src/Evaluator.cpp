@@ -96,27 +96,19 @@ PARSER::ExpressionContext &PARSER::Evaluator::GetContext() const
     return m_Context;
 }
 
-std::tuple<double, std::string> PARSER::Evaluator::EvaluateDouble() const
+std::string PARSER::Evaluator::EvaluateDouble() const
 {
-    double value;
     std::string stringValue;
     try
     {
-        std::tie(value, stringValue) = m_Context.GetExpression()->EvaluateDouble();
+        stringValue = m_Context.GetExpression()->EvaluateDouble().GetFloatString();
     }
     catch (const EXCEPTIONS::EvaluatorException &evaluatorError)
     {
         throw PARSER::EXCEPTIONS::EvaluatorException(EvaluationErrorMessage(evaluatorError.what()));
     }
 
-    if (stringValue.empty())
-    {
-        std::ostringstream strStream;
-        strStream << value;
-        stringValue = strStream.str();
-    }
-
-    return std::make_tuple(value, stringValue);
+    return stringValue;
 }
 
 uint64_t PARSER::Evaluator::EvaluateUint() const

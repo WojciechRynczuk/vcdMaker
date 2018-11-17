@@ -33,7 +33,7 @@
 #include "Signal.h"
 #include "VcdException.h"
 
-#include <cmath>
+#include <limits>
 
 namespace SIGNAL
 {
@@ -61,7 +61,7 @@ namespace SIGNAL
                 Signal(name, size, rTimestamp, "wire", sourceHandle),
                 m_Value(value)
             {
-                if (value >= std::pow(2, size))
+                if (value > (std::numeric_limits<uint64_t>::max() >> (64 - size)))
                 {
                     throw EXCEPTION::TooSmallVector(value, size);
                 }

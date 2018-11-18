@@ -61,7 +61,7 @@ namespace SIGNAL
                 Signal(name, size, rTimestamp, "wire", sourceHandle),
                 m_Value(value)
             {
-                if (value > (std::numeric_limits<uint64_t>::max() >> (64 - size)))
+                if ((value > (std::numeric_limits<uint64_t>::max() >> (64 - size))) || (0 == size))
                 {
                     throw EXCEPTION::TooSmallVector(value, size);
                 }

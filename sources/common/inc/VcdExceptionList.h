@@ -117,6 +117,9 @@ namespace EXCEPTION
         /// Regex error.
         const uint32_t REGEX_ERROR = 20U;
 
+        /// Vector size exceeded.
+        const uint32_t VECTOR_SIZE_EXCEEDED = 21U;
+
         // Logic errors below shall never happen.
         // They are enumerated from 9000.
 

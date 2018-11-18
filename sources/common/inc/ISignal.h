@@ -57,15 +57,7 @@ namespace SIGNAL
                     size_t size,
                     const TIME::Timestamp &rTimestamp,
                     uint64_t value,
-                    SourceRegistry::HandleT sourceHandle) :
-                Signal(name, size, rTimestamp, "wire", sourceHandle),
-                m_Value(value)
-            {
-                if ((value > (std::numeric_limits<uint64_t>::max() >> (64 - size))) || (0 == size))
-                {
-                    throw EXCEPTION::TooSmallVector(value, size);
-                }
-            }
+                    SourceRegistry::HandleT sourceHandle);
 
             /// The integer signal cloning method.
             virtual Signal *Clone() const

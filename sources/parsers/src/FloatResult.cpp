@@ -27,8 +27,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <sstream>
-
 #include "FloatResult.h"
 #include "EvaluatorExceptions.h"
 
@@ -53,9 +51,7 @@ std::string PARSER::FloatResult::GetFloatString() const
 {
     if (m_String.empty())
     {
-        std::ostringstream strStream;
-        strStream << m_Value;
-        return strStream.str();
+        return std::to_string(m_Value);
     }
     return m_String;
 }

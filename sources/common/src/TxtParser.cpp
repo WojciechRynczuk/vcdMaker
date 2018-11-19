@@ -34,7 +34,7 @@
 PARSER::TxtParser::TxtParser(const std::string &rFilename,
                              const std::string &rTimeBase,
                              SIGNAL::SourceRegistry &rSourceRegistry,
-                             PARSER::SignalFactory &rSignalFactory,
+                             const PARSER::SignalFactory &rSignalFactory,
                              bool verboseMode) :
     LogParser(rFilename, rTimeBase, rSourceRegistry, verboseMode),
     m_ValidLines(0),

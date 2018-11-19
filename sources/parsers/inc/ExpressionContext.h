@@ -66,7 +66,7 @@ namespace PARSER
             ///
             /// @param pGroups The pointer to the parsed regex groups.
             /// @param lineNo The log line number.
-            void Set(std::smatch *pGroups, uint64_t lineNo)
+            void Set(const std::smatch *pGroups, uint64_t lineNo)
             {
                 m_pGroups = pGroups;
                 m_LineNo = lineNo;
@@ -120,7 +120,7 @@ namespace PARSER
 
         private:
             /// A pointer to the regex groups (the context of the expression).
-            std::smatch *m_pGroups;
+            const std::smatch *m_pGroups;
 
             /// The log line number.
             uint64_t m_LineNo;

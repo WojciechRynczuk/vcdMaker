@@ -42,7 +42,7 @@ PARSER::SignalFactory::SignalFactory() :
 
 std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &logLine,
                                                                  INSTRUMENT::Instrument::LineNumberT lineNumber,
-                                                                 SIGNAL::SourceRegistry::HandleT sourceHandle)
+                                                                 SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     if (m_vpSignalCreators.empty())
     {

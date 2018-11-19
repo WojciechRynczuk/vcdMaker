@@ -56,7 +56,7 @@ namespace PARSER
             /// @param sourceHandle Signal source handle.
             std::vector<const SIGNAL::Signal*> Create(std::string &logLine,
                                                       INSTRUMENT::Instrument::LineNumberT lineNumber,
-                                                      SIGNAL::SourceRegistry::HandleT sourceHandle);
+                                                      SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
         protected:
 

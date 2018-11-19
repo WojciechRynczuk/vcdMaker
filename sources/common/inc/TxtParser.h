@@ -53,7 +53,7 @@ namespace PARSER
             TxtParser(const std::string &rFilename,
                       const std::string &rTimeBase,
                       SIGNAL::SourceRegistry &rSourceRegistry,
-                      SignalFactory &rSignalFactory,
+                      const SignalFactory &rSignalFactory,
                       bool verboseMode);
 
             /// The destructor.
@@ -77,7 +77,7 @@ namespace PARSER
             SIGNAL::SourceRegistry::HandleT m_SourceHandle;
 
             /// The signal factory.
-            SignalFactory &m_rSignalFactory;
+            const SignalFactory &m_rSignalFactory;
     };
 
 }

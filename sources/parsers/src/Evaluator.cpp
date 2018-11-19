@@ -86,7 +86,7 @@ void PARSER::Evaluator::ParseStringString(const std::string &input)
     m_Expression = input;
 }
 
-void PARSER::Evaluator::SetContext(std::smatch *pGroups, uint64_t lineNo)
+void PARSER::Evaluator::SetContext(const std::smatch *pGroups, uint64_t lineNo) const
 {
     m_Context.Set(pGroups, lineNo);
 }

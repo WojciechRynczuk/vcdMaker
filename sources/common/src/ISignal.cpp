@@ -47,7 +47,7 @@ SIGNAL::ISignal::ISignal(const std::string &name,
                                       std::to_string(size) + "-bit size.");
     }
 
-    if ((value > (std::numeric_limits<uint64_t>::max() >> (64 - size))) || (0 == size))
+    if ((0 == size) || (value > (std::numeric_limits<uint64_t>::max() >> (64 - size))))
     {
         throw EXCEPTION::TooSmallVector(value, size);
     }

@@ -8,7 +8,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -142,7 +142,7 @@ void MERGE::SignalSource::SetSyncPoint(const std::string &rSyncPoint)
     {
         m_SyncPoint = std::stoull(rSyncPoint);
     }
-    catch (std::logic_error &)
+    catch (const std::logic_error &)
     {
         throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_SYNCHRONIZATION_POINT_VALUE,
                                       "Invalid synchronization point value: " + rSyncPoint);

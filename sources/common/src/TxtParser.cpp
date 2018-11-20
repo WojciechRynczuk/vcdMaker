@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -46,47 +46,61 @@ PARSER::TxtParser::TxtParser(const std::string &rFilename,
 
 PARSER::TxtParser::~TxtParser()
 {
-    // Print the summary.
-    std::cout << '\n' << "Parsed " << m_FileName << ": \n";
-    std::cout << "Valid lines:   " << m_ValidLines << '\n';
-    std::cout << "Invalid lines: " << m_InvalidLines << '\n';
+    if (0 == std::uncaught_exceptions())
+    {
+        // Print the summary.
+        std::cout << '\n' << "Parsed " << m_FileName << ": \n";
+        std::cout << "Valid lines:   " << m_ValidLines << '\n';
+        std::cout << "Invalid lines: " << m_InvalidLines << '\n';
+    }
 }
 
 void PARSER::TxtParser::Parse()
 {
     // Line counter.
-    INSTRUMENT::Instrument::LineNumberT line_number = 1;
+    INSTRUMENT::Instrument::LineNumberT lineNumber = 1;
 
     // Process the log file.
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        const SIGNAL::Signal *pSignal =
-            m_rSignalFactory.Create(input_line, m_SourceHandle);
+        std::vector<const SIGNAL::Signal *> vpSignals =
+            m_rSignalFactory.Create(input_line, lineNumber, m_SourceHandle);
+        const SIGNAL::Signal *pSignal = nullptr;
 
-        if (pSignal)
+        if (!vpSignals.empty())
         {
-            try
+            while (!vpSignals.empty())
             {
-                m_pSignalDb->Add(pSignal);
-            }
-            catch (EXCEPTION::VcdException &rException)
-            {
-                delete pSignal;
-                if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+                try
                 {
-                    throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
-                                                  " At line " + std::to_string(line_number) + ".");
+                    pSignal = vpSignals.back();
+                    vpSignals.pop_back();
+                    m_pSignalDb->Add(pSignal);
                 }
-                else
+                catch (const EXCEPTION::VcdException &rException)
                 {
-                    throw rException;
+                    delete pSignal;
+                    while (!vpSignals.empty())
+                    {
+                        delete vpSignals.back();
+                        vpSignals.pop_back();
+                    }
+                    if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+                    {
+                        throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
+                                                      " At line " + std::to_string(lineNumber) + ".");
+                    }
+                    else
+                    {
+                        throw rException;
+                    }
                 }
-            }
 
-            for (auto instrument : m_vpInstruments)
-            {
-                instrument->Notify(line_number, *pSignal);
+                for (auto instrument : m_vpInstruments)
+                {
+                    instrument->Notify(lineNumber, *pSignal);
+                }
             }
             ++m_ValidLines;
         }
@@ -103,6 +117,6 @@ void PARSER::TxtParser::Parse()
             ++m_InvalidLines;
         }
 
-        ++line_number;
+        ++lineNumber;
     }
 }

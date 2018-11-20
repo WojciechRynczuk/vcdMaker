@@ -9,10 +9,11 @@
 #
 # Most interesting cmake files are:
 # - commonSources.cmake: list of all common sources and dirs.
+# - parserSources.cmake: list of parser related files.
 # - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
 # - unitTests.cmake: list of unit tests.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2018 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -44,6 +45,8 @@ include(version)
 project(vcdMakerTools VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
 
 include(commonSources)
+
+include(parserSources)
 
 include(commonTarget)
 

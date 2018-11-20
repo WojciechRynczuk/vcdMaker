@@ -94,11 +94,11 @@ int main(int argc, const char *argv[])
         LOGGER::Logger::GetInstance().LogError(rException);
         executionStatus = EXECUTION::APP_ERROR;
     }
-    catch (TCLAP::CmdLineParseException &)
+    catch (const TCLAP::CmdLineParseException &)
     {
         executionStatus = EXECUTION::APP_ERROR;
     }
-    catch (TCLAP::SpecificationException &)
+    catch (const TCLAP::SpecificationException &)
     {
         executionStatus = EXECUTION::APP_ERROR;
     }

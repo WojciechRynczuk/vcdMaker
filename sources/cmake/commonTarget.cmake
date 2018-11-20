@@ -2,7 +2,7 @@
 #
 # vcdMaker and vcdMerge common build target functions.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2018 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -31,8 +31,8 @@ set(COMMON_LIB_TARGET vcdToolsCommon)
 
 # Function for setting general target properties.
 function(add_common_vcdtools_target_props TARGET_NAME)
-    # Set C++14 support.
-    set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 14)
+    # Set C++17 support.
+    set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD 17)
     set_target_properties(${TARGET_NAME} PROPERTIES CXX_EXTENSIONS OFF)
     set_target_properties(${TARGET_NAME} PROPERTIES CXX_STANDARD_REQUIRED ON)
 
@@ -46,7 +46,9 @@ endfunction(add_common_vcdtools_target_props)
 
 # Function for target creation.
 function(add_vcdtools_target TARGET_NAME TARGET_SOURCES TARGET_HEADERS TARGET_HEADERS_DIR)
-    add_executable(${TARGET_NAME} $<TARGET_OBJECTS:${COMMON_LIB_TARGET}> ${TARGET_SOURCES} ${COMMON_HEADERS} ${TARGET_HEADERS})
+    add_executable(${TARGET_NAME}
+                   $<TARGET_OBJECTS:${COMMON_LIB_TARGET}> ${TARGET_SOURCES}
+                   ${COMMON_HEADERS} ${PARSER_HEADERS_DIR} ${PARSER_GEN_HEADERS_DIR} ${TARGET_HEADERS})
 
     target_include_directories(${TARGET_NAME} PUBLIC ${COMMON_HEADERS_DIR} ${TARGET_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
 
@@ -57,8 +59,8 @@ endfunction(add_vcdtools_target)
 
 # Set common sources build
 
-add_library(${COMMON_LIB_TARGET} OBJECT ${COMMON_SOURCES} ${COMMON_HEADERS})
+add_library(${COMMON_LIB_TARGET} OBJECT ${COMMON_SOURCES} ${PARSER_SOURCES} ${COMMON_HEADERS} ${PARSER_HEADERS})
 
-target_include_directories(${COMMON_LIB_TARGET} PUBLIC ${COMMON_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
+target_include_directories(${COMMON_LIB_TARGET} PUBLIC ${COMMON_HEADERS_DIR} ${PARSER_HEADERS_DIR} ${PARSER_GEN_HEADERS_DIR} ${TCLAP_HEADERS_DIR})
 
 add_common_vcdtools_target_props(${COMMON_LIB_TARGET})

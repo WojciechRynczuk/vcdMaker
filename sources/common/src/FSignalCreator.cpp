@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -28,10 +28,12 @@
 #include "FSignal.h"
 
 SIGNAL::Signal *PARSER::FSignalCreator::Create(const std::string &rLogLine,
+                                               INSTRUMENT::Instrument::LineNumberT lineNumber,
                                                SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 
+    (void)lineNumber;
     if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
     {
         return new SIGNAL::FSignal(result[2].str(),

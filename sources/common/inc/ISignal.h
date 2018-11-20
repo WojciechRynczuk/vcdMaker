@@ -31,6 +31,9 @@
 #pragma once
 
 #include "Signal.h"
+#include "VcdException.h"
+
+#include <limits>
 
 namespace SIGNAL
 {
@@ -54,11 +57,7 @@ namespace SIGNAL
                     size_t size,
                     const TIME::Timestamp &rTimestamp,
                     uint64_t value,
-                    SourceRegistry::HandleT sourceHandle) :
-                Signal(name, size, rTimestamp, "wire", sourceHandle),
-                m_Value(value)
-            {
-            }
+                    SourceRegistry::HandleT sourceHandle);
 
             /// The integer signal cloning method.
             virtual Signal *Clone() const

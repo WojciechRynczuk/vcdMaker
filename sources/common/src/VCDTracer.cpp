@@ -67,7 +67,7 @@ void TRACER::VCDTracer::GenerateBasicInformation()
     DumpLine("$date " + GetTimeAndDate());
     DumpLine("$end");
     DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME)
-	                                  + "\" Release v." + std::string(VERSION::STRING));
+                                      + "\" Release v." + std::string(VERSION::STRING));
     DumpLine("$end");
     DumpLine("$timescale 1 " + m_rSignalDb.GetTimeUnit());
     DumpLine("$end");

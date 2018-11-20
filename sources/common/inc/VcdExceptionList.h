@@ -49,6 +49,9 @@ namespace EXCEPTION
 
         /// Timestamp out of bounds.
         const uint32_t TIMESTAMP_OUT_OF_BOUNDS = 2U;
+
+        /// Insufficient vector size.
+        const uint32_t INSUFFICIENT_VECTOR_SIZE = 3U;
     }
 
     /// The list of errors.
@@ -104,6 +107,18 @@ namespace EXCEPTION
 
         /// No signals creators.
         const uint32_t NO_SIGNALS_CREATORS = 17U;
+
+        /// User expression parsing error.
+        const uint32_t USER_EXPRESSION_PARSING_ERROR = 18U;
+
+        /// User expression evaluation error.
+        const uint32_t EXPRESSION_EVALUATION_ERROR = 19U;
+
+        /// Regex error.
+        const uint32_t REGEX_ERROR = 20U;
+
+        /// Vector size exceeded.
+        const uint32_t VECTOR_SIZE_EXCEEDED = 21U;
 
         // Logic errors below shall never happen.
         // They are enumerated from 9000.

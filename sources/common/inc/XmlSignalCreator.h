@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -27,6 +27,9 @@
 #pragma once
 
 #include "SignalCreator.h"
+#include "Evaluator.h"
+#include "ExpressionContext.h"
+#include "ExpressionNode.h"
 
 namespace PARSER
 {
@@ -47,30 +50,44 @@ namespace PARSER
                              const std::string &rTimestamp,
                              const std::string &rName,
                              const std::string &rValue,
-                             const std::string &rSize) :
+                             const std::string &rSize):
                 SignalCreator(rRegEx),
                 m_Timestamp(rTimestamp),
                 m_Name(rName),
                 m_Value(rValue),
-                m_Size(rSize)
+                m_Size(rSize),
+                m_TimestampEvaluator("XML"),
+                m_DecimalEvaluator("XML"),
+                m_FloatEvaluator("XML"),
+                m_SizeEvaluator("XML"),
+                m_NameEvaluator("XML")
             {
+                m_TimestampEvaluator.ParseDecimalString(rTimestamp);
+                m_NameEvaluator.ParseStringString(rName);
             }
 
         protected:
             /// Returns the timestamp of the signal.
             ///
             /// @param rMatch The regular expression groups.
-            TIME::Timestamp GetTimestamp(const std::smatch &rMatch) const;
+            /// @param lineNumber The log line number.
+            TIME::Timestamp GetTimestamp(const std::smatch &rMatch,
+                                         INSTRUMENT::Instrument::LineNumberT lineNumber) const;
 
             /// Returns the name of the signal.
             ///
             /// @param rMatch The regular expression groups.
             std::string GetName(const std::smatch &rMatch) const;
 
-            /// Returns the value of the signal.
+            /// Returns the decimal value of the signal.
             ///
             /// @param rMatch The regular expression groups.
-            std::string GetValue(const std::smatch &rMatch) const;
+            SafeUInt<uint64_t> GetDecimalValue(const std::smatch &rMatch) const;
+
+            /// Returns the float value of the signal.
+            ///
+            /// @param rMatch The regular expression groups.
+            std::string GetFloatValue(const std::smatch &rMatch) const;
 
             /// Returns the size of the signal.
             ///
@@ -88,5 +105,20 @@ namespace PARSER
 
             /// The expression to create the size of the signal.
             const std::string m_Size;
+
+            /// The timestamp evaluator.
+            Evaluator m_TimestampEvaluator;
+
+            /// The decimal(vector) value evaluator.
+            Evaluator m_DecimalEvaluator;
+
+            /// The float value evaluator.
+            Evaluator m_FloatEvaluator;
+
+            /// The size evaluator.
+            Evaluator m_SizeEvaluator;
+
+            /// The name evaluator.
+            Evaluator m_NameEvaluator;
     };
 }

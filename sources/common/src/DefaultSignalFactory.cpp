@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -42,7 +42,7 @@ PARSER::DefaultSignalFactory::DefaultSignalFactory() :
         m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
         m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
     }
-    catch (std::regex_error &)
+    catch (const std::regex_error &)
     {
         throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_REGEX,
                                       "Invalid regex.");

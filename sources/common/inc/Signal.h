@@ -226,7 +226,7 @@ namespace SIGNAL
     {
         public:
             /// Checks if one signal's timestamp is lower than other signal's timestamp.
-            bool operator()(const Signal *lhs, const Signal *rhs)
+            bool operator()(const Signal *lhs, const Signal *rhs) const
             {
                 return (lhs->GetTimestamp() < rhs->GetTimestamp());
             }

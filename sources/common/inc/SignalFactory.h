@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -46,20 +46,34 @@ namespace PARSER
             /// The signal factory default constructor.
             SignalFactory();
 
-            /// Creates the appropriate signal object.
+            /// Creates the appropriate signal objects.
             ///
-            /// Returns the pointer to the appropriate signal object.
-            /// Or nullptr if it couldn't be created.
+            /// Returns the pointer to the list of created signal objects.
+            /// If emtpy no signal could be created.
             ///
             /// @param logLine One line from the log.
+            /// @param lineNumber The log line number.
             /// @param sourceHandle Signal source handle.
-            SIGNAL::Signal *Create(std::string &logLine,
-                                   SIGNAL::SourceRegistry::HandleT sourceHandle) const;
+            std::vector<const SIGNAL::Signal*> Create(std::string &logLine,
+                                                      INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                      SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
         protected:
 
             /// The table of pointers to signal creators.
             std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
+
+        private:
+
+            /// Returns log line details.
+            ///
+            /// Returns the string containing the log line information.
+            /// @param sourceHandle The handle to the log source.
+            /// @param lineNumber The log line number.
+            /// @param logLine The log line.
+            std::string GetLogLineInfo(SIGNAL::SourceRegistry::HandleT sourceHandle,
+                                       size_t lineNumber,
+                                       const std::string &logLine) const;
     };
 
 }

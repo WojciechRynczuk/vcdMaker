@@ -1932,7 +1932,7 @@ void yyfree (void * ptr )
 namespace PARSER {
 
 StringScanner::StringScanner(std::istream* in,
-                               std::ostream* out)
+                             std::ostream* out)
     : StringFlexLexer(in, out)
 {
 }

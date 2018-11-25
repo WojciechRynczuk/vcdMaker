@@ -57,7 +57,10 @@ namespace PARSER
             {}
 
             /// Expression context destructor.
-            ~ExpressionContext() = default;
+            ~ExpressionContext()
+            {
+                delete m_pExpression;
+            }
 
             /// Set the expression context.
             ///

@@ -40,17 +40,23 @@ namespace PARSER
     class SNConstant : public ExpressionNode
     {
             /// The constatnt value.
-            std::string &m_rString;
+            std::string *m_pString;
 
         public:
             /// Constructs a constant type node from a value.
             ///
             /// @param rExpContext The expression context.
-            /// @param value The constant value used to create the node.
-            SNConstant(ExpressionContext &rExpContext, std::string &value) :
+            /// @param pValue The constant value used to create the node.
+            SNConstant(ExpressionContext &rExpContext, std::string *pValue) :
                 ExpressionNode(rExpContext),
-                m_rString(value)
+                m_pString(pValue)
             {
+            }
+
+            /// Destructor.
+            ~SNConstant()
+            {
+                delete m_pString;
             }
 
             /// @copydoc ExpressionNode::EvaluateString()
@@ -59,7 +65,7 @@ namespace PARSER
                 const uint32_t SKIP_FIRST_QUOTE = 1U;
                 const uint32_t TWO_QUOTE_SIGNS = 2U;
 
-                return std::string(m_rString, SKIP_FIRST_QUOTE, m_rString.length() - TWO_QUOTE_SIGNS);
+                return std::string(*m_pString, SKIP_FIRST_QUOTE, m_pString->length() - TWO_QUOTE_SIGNS);
             }
     };
 
@@ -73,11 +79,11 @@ namespace PARSER
             /// Constructs a string node.
             ///
             /// @param rExpContext The expression context.
-            /// @param rString The string containing information about the string index in the parsed regex group.
-            SNTxt(ExpressionContext &rExpContext, std::string &rString) :
+            /// @param pString The string containing information about the string index in the parsed regex group.
+            SNTxt(ExpressionContext &rExpContext, std::string *pString) :
                 ExpressionNode(rExpContext)
             {
-                std::string stringIndex(rString, FIRST_STRING_CHARACTER_POS, rString.length() - GROUP_WRAPPER_LENGTH);
+                std::string stringIndex(*pString, FIRST_STRING_CHARACTER_POS, pString->length() - GROUP_WRAPPER_LENGTH);
 
                 // Format of the string: txt(position)
                 m_Index = static_cast<size_t>(std::strtoull(stringIndex.c_str(), nullptr, 10));

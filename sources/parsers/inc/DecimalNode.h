@@ -70,11 +70,11 @@ namespace PARSER
             /// Constructs a constant type node based on a decimal string.
             ///
             /// @param rExpContext The expression context.
-            /// @param rString The string containing information about the decimal string index in the parsed regex group.
-            DNDec(ExpressionContext &rExpContext, std::string &rString) :
+            /// @param pString The string containing information about the decimal string index in the parsed regex group.
+            DNDec(ExpressionContext &rExpContext, std::string *pString) :
                 ExpressionNode(rExpContext)
             {
-                std::string stringIndex(rString, FIRST_STRING_CHARACTER_POS, rString.length() - GROUP_WRAPPER_LENGTH);
+                std::string stringIndex(*pString, FIRST_STRING_CHARACTER_POS, pString->length() - GROUP_WRAPPER_LENGTH);
 
                 // Format of the string: dec(position)
                 m_Index = static_cast<size_t>(std::strtoull(stringIndex.c_str(), nullptr, 10));
@@ -94,11 +94,11 @@ namespace PARSER
             /// Constructs a constant type node based on a hexadecimal string.
             ///
             /// @param rExpContext The expression context.
-            /// @param rString The string containing information about the hexadecimal string index in the parsed regex group.
-            DNHex(ExpressionContext &rExpContext, std::string &rString) :
+            /// @param pString The string containing information about the hexadecimal string index in the parsed regex group.
+            DNHex(ExpressionContext &rExpContext, std::string *pString) :
                 ExpressionNode(rExpContext)
             {
-                std::string stringIndex(rString, FIRST_STRING_CHARACTER_POS, rString.length() - GROUP_WRAPPER_LENGTH);
+                std::string stringIndex(*pString, FIRST_STRING_CHARACTER_POS, pString->length() - GROUP_WRAPPER_LENGTH);
 
                 // Format of the string: hex(position)
                 m_Index = static_cast<size_t>(std::strtoull(stringIndex.c_str(), nullptr, 10));

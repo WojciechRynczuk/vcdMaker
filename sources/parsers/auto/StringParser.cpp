@@ -50,7 +50,7 @@
 
 /* User implementation prologue.  */
 /* Line 285 of lalr1.cc  */
-#line 87 "StringParser.yy"
+#line 84 "StringParser.yy"
 
 
 #include "Evaluator.h"
@@ -261,54 +261,33 @@ namespace PARSER {
 
     switch (yytype)
       {
-        case 3: /* "text" */
+        case 7: /* constant */
 /* Line 455 of lalr1.cc  */
 #line 77 "StringParser.yy"
-        { delete ((*yyvaluep).pString); };
+        { delete ((*yyvaluep).pExprNode); };
 /* Line 455 of lalr1.cc  */
 #line 270 "StringParser.cpp"
         break;
-      case 4: /* "text constant" */
+      case 8: /* variable */
 /* Line 455 of lalr1.cc  */
 #line 78 "StringParser.yy"
-        { delete ((*yyvaluep).pString); };
+        { delete ((*yyvaluep).pExprNode); };
 /* Line 455 of lalr1.cc  */
 #line 277 "StringParser.cpp"
         break;
-      case 7: /* constant */
+      case 10: /* addexpr */
 /* Line 455 of lalr1.cc  */
 #line 79 "StringParser.yy"
         { delete ((*yyvaluep).pExprNode); };
 /* Line 455 of lalr1.cc  */
 #line 284 "StringParser.cpp"
         break;
-      case 8: /* variable */
+      case 11: /* expr */
 /* Line 455 of lalr1.cc  */
 #line 80 "StringParser.yy"
         { delete ((*yyvaluep).pExprNode); };
 /* Line 455 of lalr1.cc  */
 #line 291 "StringParser.cpp"
-        break;
-      case 9: /* atomexpr */
-/* Line 455 of lalr1.cc  */
-#line 81 "StringParser.yy"
-        { delete ((*yyvaluep).pExprNode); };
-/* Line 455 of lalr1.cc  */
-#line 298 "StringParser.cpp"
-        break;
-      case 10: /* addexpr */
-/* Line 455 of lalr1.cc  */
-#line 82 "StringParser.yy"
-        { delete ((*yyvaluep).pExprNode); };
-/* Line 455 of lalr1.cc  */
-#line 305 "StringParser.cpp"
-        break;
-      case 11: /* expr */
-/* Line 455 of lalr1.cc  */
-#line 83 "StringParser.yy"
-        { delete ((*yyvaluep).pExprNode); };
-/* Line 455 of lalr1.cc  */
-#line 312 "StringParser.cpp"
         break;
 
 	default:
@@ -519,24 +498,24 @@ namespace PARSER {
       {
           case 2:
 /* Line 670 of lalr1.cc  */
-#line 103 "StringParser.yy"
+#line 100 "StringParser.yy"
     {
-                (yyval.pExprNode) = new SNConstant(evaluator.GetContext(), *(yysemantic_stack_[(1) - (1)].pString));
+                (yyval.pExprNode) = new SNConstant(evaluator.GetContext(), (yysemantic_stack_[(1) - (1)].pString));
             }
     break;
 
   case 3:
 /* Line 670 of lalr1.cc  */
-#line 108 "StringParser.yy"
+#line 105 "StringParser.yy"
     {
-                (yyval.pExprNode) = new SNTxt(evaluator.GetContext(), *(yysemantic_stack_[(1) - (1)].pString));
+                (yyval.pExprNode) = new SNTxt(evaluator.GetContext(), (yysemantic_stack_[(1) - (1)].pString));
                 delete (yysemantic_stack_[(1) - (1)].pString);
             }
     break;
 
   case 4:
 /* Line 670 of lalr1.cc  */
-#line 114 "StringParser.yy"
+#line 111 "StringParser.yy"
     {
                 (yyval.pExprNode) = (yysemantic_stack_[(1) - (1)].pExprNode);
             }
@@ -544,7 +523,7 @@ namespace PARSER {
 
   case 5:
 /* Line 670 of lalr1.cc  */
-#line 118 "StringParser.yy"
+#line 115 "StringParser.yy"
     {
                 (yyval.pExprNode) = (yysemantic_stack_[(1) - (1)].pExprNode);
             }
@@ -552,7 +531,7 @@ namespace PARSER {
 
   case 6:
 /* Line 670 of lalr1.cc  */
-#line 123 "StringParser.yy"
+#line 120 "StringParser.yy"
     {
                 (yyval.pExprNode) = (yysemantic_stack_[(1) - (1)].pExprNode);
             }
@@ -560,7 +539,7 @@ namespace PARSER {
 
   case 7:
 /* Line 670 of lalr1.cc  */
-#line 127 "StringParser.yy"
+#line 124 "StringParser.yy"
     {
                 (yyval.pExprNode) = new SNAdd(evaluator.GetContext(), (yysemantic_stack_[(3) - (1)].pExprNode), (yysemantic_stack_[(3) - (3)].pExprNode));
             }
@@ -568,7 +547,7 @@ namespace PARSER {
 
   case 8:
 /* Line 670 of lalr1.cc  */
-#line 132 "StringParser.yy"
+#line 129 "StringParser.yy"
     {
                 (yyval.pExprNode) = (yysemantic_stack_[(1) - (1)].pExprNode);
             }
@@ -576,7 +555,7 @@ namespace PARSER {
 
   case 10:
 /* Line 670 of lalr1.cc  */
-#line 138 "StringParser.yy"
+#line 135 "StringParser.yy"
     {
                 evaluator.GetContext().SetExpression((yysemantic_stack_[(3) - (2)].pExprNode));
             }
@@ -584,7 +563,7 @@ namespace PARSER {
 
 
 /* Line 670 of lalr1.cc  */
-#line 588 "StringParser.cpp"
+#line 567 "StringParser.cpp"
       default:
         break;
       }
@@ -1002,8 +981,8 @@ namespace PARSER {
   const unsigned char
   StringParser::yyrline_[] =
   {
-         0,   102,   102,   107,   113,   117,   122,   126,   131,   136,
-     137
+         0,    99,    99,   104,   110,   114,   119,   123,   128,   133,
+     134
   };
 
   // Print the state stack on the debug stream.
@@ -1091,9 +1070,9 @@ namespace PARSER {
 
 } // PARSER
 /* Line 1141 of lalr1.cc  */
-#line 1095 "StringParser.cpp"
+#line 1074 "StringParser.cpp"
 /* Line 1142 of lalr1.cc  */
-#line 142 "StringParser.yy"
+#line 139 "StringParser.yy"
  /*** Additional Code ***/
 
 void PARSER::StringParser::error(const StringParser::location_type& l,

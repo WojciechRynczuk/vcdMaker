@@ -102,7 +102,7 @@ txt\([ ]*[0-9]+[ ]*\) {
 namespace PARSER {
 
 StringScanner::StringScanner(std::istream* in,
-                               std::ostream* out)
+                             std::ostream* out)
     : StringFlexLexer(in, out)
 {
 }

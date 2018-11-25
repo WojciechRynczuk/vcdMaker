@@ -108,7 +108,7 @@ constant    :   DOUBLE
 
 variable    :   FLT
             {
-                $$ = new FNFlt(evaluator.GetContext(), *$1);
+                $$ = new FNFlt(evaluator.GetContext(), $1);
                 delete $1;
             }
             

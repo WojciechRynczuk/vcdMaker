@@ -536,7 +536,7 @@ namespace PARSER {
 /* Line 670 of lalr1.cc  */
 #line 110 "FloatParser.yy"
     {
-                (yyval.pExprNode) = new FNFlt(evaluator.GetContext(), *(yysemantic_stack_[(1) - (1)].pString));
+                (yyval.pExprNode) = new FNFlt(evaluator.GetContext(), (yysemantic_stack_[(1) - (1)].pString));
                 delete (yysemantic_stack_[(1) - (1)].pString);
             }
     break;

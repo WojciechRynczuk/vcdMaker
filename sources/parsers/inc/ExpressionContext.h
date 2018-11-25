@@ -53,13 +53,17 @@ namespace PARSER
             /// @param lineNo The log line number.
             ExpressionContext(std::smatch *pGroups, uint64_t lineNo) :
                 m_pGroups(pGroups),
-                m_LineNo(lineNo)
+                m_LineNo(lineNo),
+                m_pExpression(nullptr)
             {}
 
             /// Expression context destructor.
             ~ExpressionContext()
             {
-                delete m_pExpression;
+                if (m_pExpression != nullptr)
+                {
+                    delete m_pExpression;
+                }
             }
 
             /// Set the expression context.

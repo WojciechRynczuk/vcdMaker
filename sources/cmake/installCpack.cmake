@@ -26,7 +26,7 @@
 
 set(AUTHOR "vcdMaker team")
 set(WEBSITE "https://vcdmaker.org")
-set(DESCRIPTION "Commandline tools that can generate VCD files from text logs")
+set(DESCRIPTION "Command line tools that can generate VCD files from text logs")
 
 set(CPACK_PACKAGE_NAME "vcdMaker")
 set(CPACK_PACKAGE_VENDOR ${AUTHOR})

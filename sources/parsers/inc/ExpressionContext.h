@@ -60,10 +60,7 @@ namespace PARSER
             /// Expression context destructor.
             ~ExpressionContext()
             {
-                if (m_pExpression != nullptr)
-                {
-                    delete m_pExpression;
-                }
+                delete m_pExpression;
             }
 
             /// Set the expression context.

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE signals SYSTEM "vcdMaker.dtd">
+<signals>
+
+<vector>
+    <line>([[:digit:]]+):([[:digit:]]+)\.([[:digit:]]+) Buttons-([[:graph:]]+) 0x([0-9a-fA-F]+)</line>
+    <timestamp>1000000*dec(1) + 1000*dec(2) + dec(3)</timestamp>
+    <name>"Disco.Buttons." + txt(4)</name>
+    <value>dec(5)</value>
+    <size>1</size>
+</vector>
+
+<real>
+    <line>([[:digit:]]+):([[:digit:]]+)\.([[:digit:]]+) ([[:graph:]]+)-([[:graph:]]+) ([[:digit:][:punct:]]+)</line>
+    <timestamp>1000000*dec(1) + 1000*dec(2) + dec(3)</timestamp>
+    <name>"Disco." + txt(4) + "." + txt(5)</name>
+    <value>flt(6)</value>
+</real>
+
+<event>
+    <line>([[:digit:]]+):([[:digit:]]+)\.([[:digit:]]+) Sync.*</line>
+    <timestamp>1000000*dec(1) + 1000*dec(2) + dec(3)</timestamp>
+    <name>"Disco.Sync"</name>
+</event>
+
+</signals >

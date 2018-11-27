@@ -1,4 +1,4 @@
-/// @file VCDTracer.h
+/// @file common/inc/VCDTracer.h
 ///
 /// The VCD generation module.
 ///
@@ -7,7 +7,7 @@
 ///
 /// @ingroup Tracer
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -40,12 +40,12 @@
 
 #include "SignalDb.h"
 
+/// VCD tracer.
 namespace TRACER
 {
+    /// The VCD file creator.
     /// The class provides means for creating
     /// the output VCD file.
-
-    ///  This class creates the output VCD file.
     class VCDTracer
     {
         public:
@@ -93,6 +93,11 @@ namespace TRACER
             {
                 m_File << line << '\n';
             }
+
+            /// Provides current time & date information.
+            ///
+            /// Returns time & date string.
+            std::string GetTimeAndDate() const;
 
             /// The VCD output file.
             std::ofstream m_File;

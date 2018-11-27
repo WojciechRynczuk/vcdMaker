@@ -1,4 +1,4 @@
-/// @file SignalStructureBuilder.h
+/// @file common/inc/SignalStructureBuilder.h
 ///
 /// VCD signal structure builder class.
 ///

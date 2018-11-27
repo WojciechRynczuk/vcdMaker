@@ -1,10 +1,10 @@
-/// @file ISignalCreator.h
+/// @file common/inc/ISignalCreator.h
 ///
 /// The integer signal creator.
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -38,12 +38,13 @@ namespace PARSER
         public:
             /// The integer signal creator constructor.
             ISignalCreator() :
-                SignalCreator("^#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+).*$")
+                SignalCreator("#([[:digit:]]+) ([[:graph:]]+) ([[:digit:]]+) ([[:digit:]]+)( +.*)?")
             {
             }
 
             /// @copydoc SignalCreator::Create()
-            virtual SIGNAL::Signal *Create(const std::string &logLine,
+            virtual SIGNAL::Signal *Create(const std::string &rLogLine,
+                                           INSTRUMENT::Instrument::LineNumberT lineNumber,
                                            SIGNAL::SourceRegistry::HandleT sourceHandle) const;
     };
 

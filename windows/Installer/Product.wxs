@@ -48,12 +48,18 @@
           <Directory Id='SampleDir' Name='samples'>
             <Component Id='SampleFiles' Guid='59F4E01F-5FE3-48B3-97A2-8E7808E6EED7'>
               <File Id="SampleTtx" Name="example.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.txt" KeyPath='yes'></File>
+              <File Id="SampleUsr" Name="example_user.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example_user.txt"></File>
               <File Id="SampleVcd" Name="example.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\example.vcd"></File>
               <File Id="System1Time1Txt" Name="system1_time1.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system1_time1.txt"></File>
+              <File Id="System1Time1Usr" Name="system1_time1_user.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system1_time1_user.txt"></File>
               <File Id="System2Time1Txt" Name="system2_time1.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system2_time1.txt"></File>
               <File Id="System2Time2Txt" Name="system2_time2.txt" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\system2_time2.txt"></File>
               <File Id="MergeT1T2Vcd" Name="merge_t1_t1.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\merge_t1_t1.vcd"></File>
               <File Id="MergeT1T1Vcd" Name="merge_t1_t2.vcd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\merge_t1_t2.vcd"></File>
+              <File Id="user1Xml" Name="user1.xml" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\user1.xml"></File>
+              <File Id="user2Xml" Name="user2.xml" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\user2.xml"></File>
+              <File Id="vcdMakerXml" Name="vcdMaker.xml" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\vcdMaker.xml"></File>
+              <File Id="vcdMakerDtd" Name="vcdMaker.dtd" Source="$(var.SolutionDir)..\..\sources\common\doc\examples\vcdMaker.dtd"></File>
             </Component>
           </Directory>
         

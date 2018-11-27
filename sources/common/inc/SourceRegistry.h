@@ -1,4 +1,4 @@
-/// @file SourceRegistry.h
+/// @file common/inc/SourceRegistry.h
 ///
 /// The signal source registry.
 ///
@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -46,19 +46,32 @@ namespace SIGNAL
             static constexpr HandleT BAD_HANDLE =
                 std::numeric_limits<HandleT>::min();
 
+            /// Source registry is unique. Let it be a singleton.
+            static SourceRegistry &GetInstance()
+            {
+                static SourceRegistry instance;
+                return instance;
+            }
+
             /// Registers a signal source.
             ///
-            /// @param sourceName The name of the signal source.
+            /// @param rSourceName The name of the signal source.
             /// @return The handle of the registered signal source.
             ///         BAD_HANDLE if operation failed.
             ///
             /// @note C++17 std::optional should be used here.
-            HandleT Register(const std::string &sourceName);
+            HandleT Register(const std::string &rSourceName);
 
             /// Returns the name of the signal source.
-            std::string GetSourceName(HandleT sourceHandle);
+            ///
+            /// @throws VcdError if cannot find the source name.
+            /// @param sourceHandle The source handle.
+            std::string GetSourceName(HandleT sourceHandle) const;
 
         private:
+            /// The default constructor.
+            SourceRegistry();
+
             /// A registry type.
             using RegistryT = std::map<std::string, HandleT>;
 
@@ -71,17 +84,17 @@ namespace SIGNAL
 
             /// Returns a handle of the given signal source.
             ///
-            /// @param sourceName The name of the signal source.
+            /// @param rSourceName The name of the signal source.
             /// @return The handle of the registered signal source.
             ///         BAD_HANDLE if operation failed.
             ///
             /// @note C++17 std::optional should be used here.
-            HandleT GetHandleForSource(const std::string &sourceName);
+            HandleT GetHandleForSource(const std::string &rSourceName);
 
             /// Returns new handle.
             ///
-            /// @throw std::runtime_error if no handles available.
+            /// @throws VcdError if no handles available.
             HandleT GetNewHandle();
     };
-
+    inline SourceRegistry::SourceRegistry() = default;
 }

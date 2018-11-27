@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+A sample test definition (containing all tags):
+
+    <merge>
+    <info>
+        <name>Test name</name>
+        <description>Brief test description</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>output_filename</output_file>
+        <golden_file>golden_filename</golden_file>
+    </common>
+    <unique>
+        <time_unit>output_time_unit</time_unit>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>71050601</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>input1_filename</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>234256037</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>input2_filename</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+-->
+
+<test>
+
+  <merge>
+    <info>
+        <name>Smoke test 0</name>
+        <description>A test with the output in the default time units. Not synchronized sources.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>test0_us.output</output_file>
+        <golden_file>test0_us.vcd</golden_file>
+    </common>
+    <unique>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>71050601</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>234256037</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time2.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 1</name>
+        <description>A test with the output in 'ns'. Not synchronized sources.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>test0_ns.output</output_file>
+        <golden_file>test0_ns.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ns</time_unit>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>71050601</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>234256037</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time2.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 2</name>
+        <description>A test with the output in 'ms'. Not synchronized sources.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>test0_ms.output</output_file>
+        <golden_file>test0_ms.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ms</time_unit>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>71050601</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>234256037</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time2.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 3</name>
+        <description>A test with the output in the default time units. Synchronized sources.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>test1_us.output</output_file>
+        <golden_file>test1_us.vcd</golden_file>
+    </common>
+    <unique>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time1.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 4</name>
+        <description>A test with the output in 'ns'. Synchronized sources.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>test1_ns.output</output_file>
+        <golden_file>test1_ns.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ns</time_unit>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time1.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 5</name>
+        <description>A test with the output in 'ms'. Synchronized sources.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>test1_ms.output</output_file>
+        <golden_file>test1_ms.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ms</time_unit>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time1.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+  
+  <!-- User log format tests.-->
+  <merge>
+    <info>
+        <name>Smoke test 6</name>
+        <description>A test with the output in the default time units. Not synchronized sources. User log format.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>ul_test0_us.output</output_file>
+        <golden_file>test0_us.vcd</golden_file>
+    </common>
+    <unique>
+        <sources>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>71050601</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>234256037</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time2.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 7</name>
+        <description>A test with the output in 'ns'. Not synchronized sources. User log format.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>ul_test0_ns.output</output_file>
+        <golden_file>test0_ns.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ns</time_unit>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>71050601</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>234256037</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time2.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 8</name>
+        <description>A test with the output in 'ms'. Not synchronized sources. User log format.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>ul_test0_ms.output</output_file>
+        <golden_file>test0_ms.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ms</time_unit>
+        <sources>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>71050601</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>234256037</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time2.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 9</name>
+        <description>A test with the output in the default time units. Synchronized sources. User log format.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>ul_test1_us.output</output_file>
+        <golden_file>test1_us.vcd</golden_file>
+    </common>
+    <unique>
+        <sources>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time1.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 10</name>
+        <description>A test with the output in 'ns'. Synchronized sources. User log format.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>ul_test1_ns.output</output_file>
+        <golden_file>test1_ns.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ns</time_unit>
+        <sources>
+            <source>
+                <format>T</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time1.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+  <merge>
+    <info>
+        <name>Smoke test 11</name>
+        <description>A test with the output in 'ms'. Synchronized sources. User log format.</description>
+    </info>
+    <common>
+        <verbose>False</verbose>
+        <output_file>ul_test1_ms.output</output_file>
+        <golden_file>test1_ms.vcd</golden_file>
+    </common>
+    <unique>
+        <time_unit>ms</time_unit>
+        <sources>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System1</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system1_time1.txt</input_file>
+            </source>
+            <source>
+                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <time_stamp>0</time_stamp>
+                <time_unit>us</time_unit>
+                <prefix>System2</prefix>
+                <line_counter>Counter</line_counter>
+                <input_file>system2_time1.txt</input_file>
+            </source>
+        </sources>
+    </unique>
+  </merge>
+
+</test>

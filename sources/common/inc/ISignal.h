@@ -1,4 +1,4 @@
-/// @file ISignal.h
+/// @file common/inc/ISignal.h
 ///
 /// The signal class supporting integer numbers.
 ///
@@ -31,6 +31,9 @@
 #pragma once
 
 #include "Signal.h"
+#include "VcdException.h"
+
+#include <limits>
 
 namespace SIGNAL
 {
@@ -52,13 +55,9 @@ namespace SIGNAL
             /// E.g. Module1.Level3.Variable6
             ISignal(const std::string &name,
                     size_t size,
-                    uint64_t timestamp,
+                    const TIME::Timestamp &rTimestamp,
                     uint64_t value,
-                    SourceRegistry::HandleT sourceHandle) :
-                Signal(name, size, timestamp, "wire", sourceHandle),
-                m_Value(value)
-            {
-            }
+                    SourceRegistry::HandleT sourceHandle);
 
             /// The integer signal cloning method.
             virtual Signal *Clone() const

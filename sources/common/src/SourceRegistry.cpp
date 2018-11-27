@@ -1,4 +1,4 @@
-/// @file SourceRegistry.cpp
+/// @file common/src/SourceRegistry.cpp
 ///
 /// The signal source registry.
 ///
@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,15 +29,16 @@
 /// IN THE SOFTWARE.
 
 #include "SourceRegistry.h"
+#include "VcdException.h"
 
-SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::Register(const std::string &sourceName)
+SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::Register(const std::string &rSourceName)
 {
-    const HandleT existing_handle = GetHandleForSource(sourceName);
+    const HandleT existing_handle = GetHandleForSource(rSourceName);
 
     if (existing_handle == BAD_HANDLE)
     {
         const HandleT new_handle = GetNewHandle();
-        m_Registry[sourceName] = new_handle;
+        m_Registry[rSourceName] = new_handle;
 
         return new_handle;
     }
@@ -47,7 +48,7 @@ SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::Register(const std::stri
     }
 }
 
-std::string SIGNAL::SourceRegistry::GetSourceName(const HandleT sourceHandle)
+std::string SIGNAL::SourceRegistry::GetSourceName(const HandleT sourceHandle) const
 {
     for (const auto &registryItem : m_Registry)
     {
@@ -57,12 +58,13 @@ std::string SIGNAL::SourceRegistry::GetSourceName(const HandleT sourceHandle)
         }
     }
 
-    throw std::runtime_error("Couldn't find source signal name!");
+    throw EXCEPTION::VcdLogicException(EXCEPTION::Error::CANNOT_FIND_SOURCE_SIGNAL_NAME,
+                                       "Couldn't find source signal name!");
 }
 
-SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::GetHandleForSource(const std::string &sourceName)
+SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::GetHandleForSource(const std::string &rSourceName)
 {
-    const RegistryT::const_iterator it = m_Registry.find(sourceName);
+    const RegistryT::const_iterator it = m_Registry.find(rSourceName);
 
     if (it != m_Registry.end())
     {
@@ -84,6 +86,7 @@ SIGNAL::SourceRegistry::HandleT SIGNAL::SourceRegistry::GetNewHandle()
     }
     else
     {
-        throw std::runtime_error("Too many signal sources!");
+        throw EXCEPTION::VcdLogicException(EXCEPTION::Error::TOO_MANY_SIGNAL_SOURCES,
+                                           "Too many signal sources!");
     }
 }

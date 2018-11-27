@@ -1,4 +1,4 @@
-/// @file TxtParser.cpp
+/// @file common/src/TxtParser.cpp
 ///
 /// The text log parser.
 ///
@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -27,51 +27,80 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <iostream>
-
 #include "TxtParser.h"
 #include "SignalFactory.h"
+#include "VcdException.h"
 
 PARSER::TxtParser::TxtParser(const std::string &rFilename,
                              const std::string &rTimeBase,
                              SIGNAL::SourceRegistry &rSourceRegistry,
+                             const PARSER::SignalFactory &rSignalFactory,
                              bool verboseMode) :
     LogParser(rFilename, rTimeBase, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
-    m_SourceHandle(rSourceRegistry.Register(rFilename))
+    m_SourceHandle(rSourceRegistry.Register(rFilename)),
+    m_rSignalFactory(rSignalFactory)
 {
 }
 
 PARSER::TxtParser::~TxtParser()
 {
-    // Print the summary.
-    std::cout << '\n' << "Parsed " << m_FileName << ": \n";
-    std::cout << "Valid lines:   " << m_ValidLines << '\n';
-    std::cout << "Invalid lines: " << m_InvalidLines << '\n';
+    if (0 == std::uncaught_exceptions())
+    {
+        // Print the summary.
+        std::cout << '\n' << "Parsed " << m_FileName << ": \n";
+        std::cout << "Valid lines:   " << m_ValidLines << '\n';
+        std::cout << "Invalid lines: " << m_InvalidLines << '\n';
+    }
 }
 
 void PARSER::TxtParser::Parse()
 {
-    // Create the signal factory.
-    const SignalFactory signal_factory;
-
     // Line counter.
-    INSTRUMENT::Instrument::LineNumberT line_number = 1;
+    INSTRUMENT::Instrument::LineNumberT lineNumber = 1;
 
     // Process the log file.
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        const SIGNAL::Signal *signal =
-            signal_factory.Create(input_line, m_SourceHandle);
+        std::vector<const SIGNAL::Signal *> vpSignals =
+            m_rSignalFactory.Create(input_line, lineNumber, m_SourceHandle);
+        const SIGNAL::Signal *pSignal = nullptr;
 
-        if (signal)
+        if (!vpSignals.empty())
         {
-            m_pSignalDb->Add(signal);
-            for (auto instrument : m_vpInstruments)
+            while (!vpSignals.empty())
             {
-                instrument->Notify(line_number, *signal);
+                try
+                {
+                    pSignal = vpSignals.back();
+                    vpSignals.pop_back();
+                    m_pSignalDb->Add(pSignal);
+                }
+                catch (const EXCEPTION::VcdException &rException)
+                {
+                    delete pSignal;
+                    while (!vpSignals.empty())
+                    {
+                        delete vpSignals.back();
+                        vpSignals.pop_back();
+                    }
+                    if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+                    {
+                        throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
+                                                      " At line " + std::to_string(lineNumber) + ".");
+                    }
+                    else
+                    {
+                        throw rException;
+                    }
+                }
+
+                for (auto instrument : m_vpInstruments)
+                {
+                    instrument->Notify(lineNumber, *pSignal);
+                }
             }
             ++m_ValidLines;
         }
@@ -88,6 +117,6 @@ void PARSER::TxtParser::Parse()
             ++m_InvalidLines;
         }
 
-        ++line_number;
+        ++lineNumber;
     }
 }

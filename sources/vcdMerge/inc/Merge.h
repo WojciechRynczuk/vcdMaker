@@ -1,4 +1,4 @@
-/// @file Merge.h
+/// @file vcdMerge/inc/Merge.h
 ///
 /// The merging unit.
 ///
@@ -7,7 +7,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -38,22 +38,22 @@
 
 #include "SignalSource.h"
 
+/// The merging engine.
 namespace MERGE
 {
-    /// The merging unit class. Allows for merging different
-    /// signal sources.
-
     /// The merging unit class.
+    /// Allows for merging different signal sources.
     class Merge
     {
         public:
             /// The merge constructor.
             ///
+            /// @throws VcdError if sources cannot be merged.
             /// @param verboseMode 'true' enables the verbose mode.
-            /// @param timeUnit The time unit of the output file.
-            Merge(bool verboseMode, const std::string &timeUnit) :
+            /// @param rTimeUnit The time unit of the output file.
+            Merge(bool verboseMode, const std::string &rTimeUnit) :
                 m_Sources(),
-                m_TimeUnit(timeUnit),
+                m_TimeUnit(rTimeUnit),
                 m_MaxLeadingTime(),
                 m_pMerged(),
                 m_VerboseMode(verboseMode)
@@ -61,9 +61,9 @@ namespace MERGE
             }
 
             /// Adds a signal source to be merged.
-            void AddSource(const SignalSource *source)
+            void AddSource(const SignalSource *pSource)
             {
-                m_Sources.push_back(source);
+                m_Sources.push_back(pSource);
             }
 
             /// Triggers the merge.
@@ -80,36 +80,32 @@ namespace MERGE
             /// Returns the minimal unit.
             ///
             /// @param The result time unit.
-            std::string FindMinUnit();
+            std::string FindMinUnit() const;
 
             /// Returns the max leading time - the time between the first
             /// event and the synchronization point.
-            uint64_t FindMaxLeadingTime();
+            TIME::Timestamp FindMaxLeadingTime() const;
 
             /// Returns the time value represented in the target time unit.
             ///
-            /// @param time A time value to be transformed.
-            /// @param targetTimeUnit The target time unit.
-            /// @param sourceTimeUnit The source time unit.
-            uint64_t TransformTimestamp(uint64_t time,
-                                        const std::string &targetTimeUnit,
-                                        const std::string &sourceTimeUnit);
+            /// @throws std::runtime_error() if the new time value is out of bounds.
+            /// @param rTime A time value to be transformed.
+            /// @param rTargetTimeUnit The target time unit.
+            /// @param rSourceTimeUnit The source time unit.
+            TIME::Timestamp TransformTimestamp(const TIME::Timestamp &rTime,
+                                               const std::string &rTargetTimeUnit,
+                                               const std::string &rSourceTimeUnit) const;
 
             /// Returns the new signal's time.
             ///
-            /// @param time The original signal's timestamp.
-            /// @param sync The source's sync point.
-            uint64_t CalculateNewTime(uint64_t time,
-                                      uint64_t syncPoint);
+            /// @throws std::runtime_error() is the new time value is out of bounds.
+            /// @param rTime The original signal's timestamp.
+            /// @param rSync The source's sync point.
+            TIME::Timestamp CalculateNewTime(const TIME::Timestamp &rTime,
+                                             const TIME::Timestamp &rSyncPoint) const;
 
             /// A type defining a container for signal sources.
             using SignalSourcesT = std::vector<const SignalSource *>;
-
-            /// Number of units.
-            static const uint32_t UNITS_N = 6;
-
-            /// A table containing integer values of 10^(3*n) where n equals position in the table.
-            static const uint64_t TEN_POWER[UNITS_N];
 
             /// The set of sources.
             SignalSourcesT m_Sources;
@@ -122,7 +118,7 @@ namespace MERGE
 
             /// The greatest leading time among sources.
             /// Expressed in the time output unit.
-            uint64_t m_MaxLeadingTime;
+            TIME::Timestamp m_MaxLeadingTime;
 
             /// The output database.
             std::unique_ptr<SIGNAL::SignalDb> m_pMerged;

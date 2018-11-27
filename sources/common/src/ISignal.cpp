@@ -1,4 +1,4 @@
-/// @file ISignal.h
+/// @file common/src/ISignal.cpp
 ///
 /// The signal class supporting integer numbers.
 ///
@@ -31,6 +31,27 @@
 #include <bitset>
 
 #include "ISignal.h"
+
+SIGNAL::ISignal::ISignal(const std::string &name,
+                         size_t size,
+                         const TIME::Timestamp &rTimestamp,
+                         uint64_t value,
+                         SourceRegistry::HandleT sourceHandle) :
+    Signal(name, size, rTimestamp, "wire", sourceHandle),
+    m_Value(value)
+{
+    if (size > 64)
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::VECTOR_SIZE_EXCEEDED,
+                                      "Vectors sizes greater than 64 bits are not allowed. Requested " +
+                                      std::to_string(size) + "-bit size.");
+    }
+
+    if ((0 == size) || (value > (std::numeric_limits<uint64_t>::max() >> (64 - size))))
+    {
+        throw EXCEPTION::TooSmallVector(value, size);
+    }
+}
 
 std::string SIGNAL::ISignal::Print() const
 {

@@ -44,7 +44,8 @@ class Maker(Test):
         self.command = []
         self.unique_params = {'input_file': ['', 'Missing input file'],
                               'time_unit': ['', 'Missing time unit'],
-                              'line_counter': ['', '']}
+                              'line_counter': ['', ''],
+                              'user_format': ['', '']}
 
         for element in node.iter(tag='unique'):
             self.unique = Flat(element, self.unique_params)
@@ -60,6 +61,10 @@ class Maker(Test):
         if self.unique.get_parameter('line_counter'):
             self.command.append('-c')
             self.command.append(self.unique.get_parameter('line_counter'))
+            
+        if self.unique.get_parameter('user_format'):
+            self.command.append('-u')
+            self.command.append(self.unique.get_parameter('user_format'))
 
         self.command.append('-o')
         self.command.append(os.path.join(test_directory,

@@ -1,4 +1,4 @@
-/// @file CliParser.h
+/// @file common/inc/CliParser.h
 ///
 /// The CLI facade class.
 ///
@@ -39,6 +39,7 @@
 
 #include "tclap/CmdLine.h"
 
+/// Command Line Interface
 namespace CLI
 {
 

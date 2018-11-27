@@ -1,4 +1,4 @@
-/// @file EventSignal.h
+/// @file common/inc/EventSignal.h
 ///
 /// The signal class supporting events
 ///
@@ -46,9 +46,9 @@ namespace SIGNAL
             /// levels are separated with '.'.
             /// E.g. Module1.Level3.Variable6
             EventSignal(const std::string &name,
-                        uint64_t timestamp,
+                        const TIME::Timestamp &rTimestamp,
                         SourceRegistry::HandleT sourceHandle) :
-                Signal(name, 0, timestamp, "event", sourceHandle)
+                Signal(name, 0, rTimestamp, "event", sourceHandle)
             {
             }
 

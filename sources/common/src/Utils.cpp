@@ -1,4 +1,4 @@
-/// @file Utils.h
+/// @file common/src/Utils.cpp
 ///
 /// The utilities.
 ///
@@ -7,7 +7,7 @@
 ///
 /// @ingroup Utils
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,45 +29,27 @@
 
 #include <algorithm>
 #include <sstream>
-#include <stdexcept>
 
 #include "Utils.h"
-#include "Signal.h"
 
-std::vector<std::string> UTILS::Split(const std::string &inString,
+std::vector<std::string> UTILS::Split(const std::string &rInString,
                                       const char delimiter)
 {
     std::vector<std::string> outStrings;
-    std::stringstream inStream(inString);
+    std::stringstream inStream(rInString);
     std::string outField;
 
     while (std::getline(inStream, outField, delimiter))
     {
-        outStrings.push_back(outField);
+        if (!outField.empty())
+        {
+            outStrings.push_back(outField);
+        }
+        else
+        {
+            outStrings.push_back("");
+        }
     }
 
     return outStrings;
-}
-
-bool UTILS::IsTimeUnitValid(const std::string &unit)
-{
-    return (std::find(SIGNAL::Signal::TIME_UNITS.cbegin(),
-                      SIGNAL::Signal::TIME_UNITS.cend(),
-                      unit) != SIGNAL::Signal::TIME_UNITS.cend());
-}
-
-size_t UTILS::GetTimeUnitIndex(const std::string &unit)
-{
-    const size_t index = (std::find(SIGNAL::Signal::TIME_UNITS.cbegin(),
-                                    SIGNAL::Signal::TIME_UNITS.cend(),
-                                    unit) - SIGNAL::Signal::TIME_UNITS.cbegin());
-
-    if (index == SIGNAL::Signal::TIME_UNITS.size())
-    {
-        throw std::runtime_error("Invalid time unit " + unit);
-    }
-    else
-    {
-        return index;
-    }
 }

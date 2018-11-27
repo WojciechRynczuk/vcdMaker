@@ -1,4 +1,4 @@
-/// @file TimeFrame.h
+/// @file common/inc/TimeFrame.h
 ///
 /// The time frame class.
 ///
@@ -42,11 +42,11 @@ namespace TRACER
         public:
             /// The time frame constructor.
             ///
-            /// @param timestamp The initial timestamp.
-            /// @param file The output stream.
-            TimeFrame(const uint64_t timestamp, std::ofstream &file) :
-                m_Timestamp(timestamp),
-                m_rFile(file),
+            /// @param rTimestamp The initial timestamp.
+            /// @param rFile The output stream.
+            TimeFrame(const TIME::Timestamp &rTimestamp, std::ofstream &rFile) :
+                m_Timestamp(rTimestamp),
+                m_rFile(rFile),
                 m_FrameSignals(),
                 m_Signals()
             {
@@ -55,15 +55,15 @@ namespace TRACER
             /// Sets the beginning of the frame.
             ///
             /// @param frameStart New timestamp characterizing a frame.
-            void SetTime(uint64_t frameStart)
+            void SetTime(TIME::Timestamp frameStart)
             {
                 m_Timestamp = frameStart;
             }
 
             /// Adds the signal information to the time frame.
             ///
-            /// @param signal The signal.
-            void Add(const SIGNAL::Signal *signal);
+            /// @param pSignal The signal.
+            void Add(const SIGNAL::Signal *pSignal);
 
             /// Dumps the time frame information.
             ///
@@ -73,20 +73,20 @@ namespace TRACER
         private:
 
             /// Write on line to output file.
-            void DumpLine(const std::string &line)
+            void DumpLine(const std::string &rLine)
             {
-                m_rFile << line << '\n';
+                m_rFile << rLine << '\n';
             }
 
             /// Check weather given signal value has been already added.
             ///
-            /// @param signal The signal.
+            /// @param pSignal The signal.
             /// @retval true Signal with this value has been already added.
             /// @retval false Signal with this value has not been added.
-            bool WasSignalValueAdded(const SIGNAL::Signal *signal);
+            bool WasSignalValueAdded(const SIGNAL::Signal *pSignal);
 
             /// The timestamp of the time frame.
-            uint64_t m_Timestamp;
+            TIME::Timestamp m_Timestamp;
 
             /// The output stream.
             std::ofstream &m_rFile;

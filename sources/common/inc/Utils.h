@@ -1,4 +1,4 @@
-/// @file Utils.h
+/// @file common/inc/Utils.h
 ///
 /// The utilities.
 ///
@@ -7,7 +7,7 @@
 ///
 /// @ingroup Utils
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2017 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -40,19 +40,12 @@
 /// The utilities used among vcdMaker applications.
 
 /// Utilities namespace.
-namespace UTILS {
-
+namespace UTILS
+{
     /// Returns a vector of separated strings.
     ///
-    /// @param inString The string to be split.
+    /// @param rInString The string to be split.
     /// @param delimiter The delimiter.
-    std::vector<std::string> Split(const std::string &inString,
+    std::vector<std::string> Split(const std::string &rInString,
                                    const char delimiter);
-
-    /// Checks if given time unit is supported.
-    bool IsTimeUnitValid(const std::string &unit);
-
-    /// Returns given time unit index in supported units list.
-    size_t GetTimeUnitIndex(const std::string &unit);
-
 }

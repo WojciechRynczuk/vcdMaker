@@ -1,4 +1,4 @@
-/// @file LogParser.cpp
+/// @file common/src/LogParser.cpp
 ///
 /// The log parser interface class.
 ///
@@ -28,6 +28,7 @@
 /// IN THE SOFTWARE.
 
 #include "LogParser.h"
+#include "VcdException.h"
 
 PARSER::LogParser::LogParser(const std::string &rFilename,
                              const std::string &rTimeBase,
@@ -41,8 +42,8 @@ PARSER::LogParser::LogParser(const std::string &rFilename,
 {
     if (!m_LogFile.is_open())
     {
-        throw std::runtime_error("Opening file '" + m_FileName +
-                                 "' failed, it either doesn't exist or is inaccessible.");
+        throw EXCEPTION::VcdException(EXCEPTION::Error::CANNOT_OPEN_FILE,
+                                      "Opening file '" + m_FileName + "' failed, it either doesn't exist or is inaccessible.");
     }
 }
 

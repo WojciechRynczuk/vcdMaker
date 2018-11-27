@@ -1,4 +1,4 @@
-/// @file LineCounter.h
+/// @file common/inc/LineCounter.h
 ///
 /// The line counting class.
 ///
@@ -45,10 +45,10 @@ namespace INSTRUMENT
             /// If the counter name does not provide the top module name
             /// it will be automatically set to "Top".
             ///
-            /// @param filename The name of the file associated with the counter.
-            /// @param counterName The counter signal name.
-            /// @param sourceRegistry Signal sources registry.
-            /// @param signalDb The signal database to be used.
+            /// @param rFilename The name of the file associated with the counter.
+            /// @param rCounterName The counter signal name.
+            /// @param rSourceRegistry Signal sources registry.
+            /// @param rSignalDb The signal database to be used.
             LineCounter(const std::string &rFilename,
                         const std::string &rCounterName,
                         SIGNAL::SourceRegistry &rSourceRegistry,
@@ -73,7 +73,7 @@ namespace INSTRUMENT
             };
 
             /// The counter signal map.
-            using CounterSignalT = std::map<uint64_t, CounterValue>;
+            using CounterSignalT = std::map<TIME::Timestamp, CounterValue>;
 
             /// Creates counter name based on desired name.
             std::string CreateCounterName(const std::string &rDesiredName);

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -22,32 +22,32 @@
     <ProjectGuid>{DBC389FC-FB63-430B-9443-F4DE90F1AB0E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>vcdMakerCore</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -83,7 +83,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\parsers\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include;$(ProjectDir)..\..\..\sources\3rdParty\pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,7 +113,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\sources\common\inc;$(ProjectDir)..\..\..\sources\parsers\inc;$(ProjectDir)..\..\..\sources\3rdParty\tclap\include;$(ProjectDir)..\..\..\sources\3rdParty\pugixml\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\sources\common\inc\CliParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\DefaultSignalFactory.h" />
     <ClInclude Include="..\..\..\sources\common\inc\EventSignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\EventSignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\FSignal.h" />
@@ -147,7 +150,9 @@
     <ClInclude Include="..\..\..\sources\common\inc\ISignal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\ISignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\LineCounter.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Logger.h" />
     <ClInclude Include="..\..\..\sources\common\inc\LogParser.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SafeUInt.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h" />
@@ -155,19 +160,29 @@
     <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SourceRegistry.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TimeFrame.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\Timestamp.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\TimeUnit.h" />
     <ClInclude Include="..\..\..\sources\common\inc\TxtParser.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Utils.h" />
-    <ClInclude Include="..\..\..\sources\common\inc\VcdExceptions.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VcdException.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\VcdExceptionList.h" />
     <ClInclude Include="..\..\..\sources\common\inc\VCDTracer.h" />
     <ClInclude Include="..\..\..\sources\common\inc\Version.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlEventSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlFSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlISignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlSignalCreator.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\XmlSignalFactory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\sources\common\src\DefaultSignalFactory.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\EventSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\FSignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\ISignalCreator.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\LineCounter.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\Logger.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\LogParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />
@@ -175,9 +190,15 @@
     <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SourceRegistry.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\TimeFrame.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\TimeUnit.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\TxtParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Utils.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\VCDTracer.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlEventSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlFSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlISignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlSignalCreator.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\XmlSignalFactory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

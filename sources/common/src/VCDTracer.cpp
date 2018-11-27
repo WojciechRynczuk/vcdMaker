@@ -1,4 +1,4 @@
-/// @file VCDTracer.h
+/// @file common/src/VCDTracer.cpp
 ///
 /// The VCD generation module.
 ///
@@ -8,7 +8,7 @@
 ///
 /// @ingroup Tracer
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -30,6 +30,9 @@
 
 #include <array>
 #include <algorithm>
+#include <ctime>
+#include <chrono>
+#include <cstring>
 
 #include "VCDTracer.h"
 #include "SignalStructureBuilder.h"
@@ -61,9 +64,10 @@ void TRACER::VCDTracer::GenerateHeader()
 
 void TRACER::VCDTracer::GenerateBasicInformation()
 {
-    DumpLine("$date December 8, 2014 14:15:00");
+    DumpLine("$date " + GetTimeAndDate());
     DumpLine("$end");
-    DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME) + "\" Release v." + std::string(VERSION::STRING));
+    DumpLine("$version VCD Tracer \"" + std::string(VERSION::RELEASE_NAME)
+                                      + "\" Release v." + std::string(VERSION::STRING));
     DumpLine("$end");
     DumpLine("$timescale 1 " + m_rSignalDb.GetTimeUnit());
     DumpLine("$end");
@@ -92,11 +96,11 @@ void TRACER::VCDTracer::GenerateSignalDefaults()
 void TRACER::VCDTracer::GenerateBody()
 {
     TimeFrame frame(0, m_File);
-    uint64_t previous_timestamp = 0;
+    TIME::Timestamp previous_timestamp = 0;
 
     for (const SIGNAL::Signal *current_signal : m_rSignalDb.GetSignals())
     {
-        const uint64_t current_timestamp = current_signal->GetTimestamp();
+        const TIME::Timestamp current_timestamp = current_signal->GetTimestamp();
 
         if (current_timestamp != previous_timestamp)
         {
@@ -112,3 +116,17 @@ void TRACER::VCDTracer::GenerateBody()
     frame.DumpAndClear();
 }
 
+std::string TRACER::VCDTracer::GetTimeAndDate() const
+{
+    auto now = std::chrono::system_clock::now();
+    auto time = std::chrono::system_clock::to_time_t(now);
+#ifdef WIN32
+#pragma warning(disable : 4996)
+#endif
+    char *pTimeStr = ctime(&time);
+#ifdef WIN32
+#pragma warning(default : 4996)
+#endif
+
+    return std::string(pTimeStr, strlen(pTimeStr) - 1);
+}

@@ -1,4 +1,4 @@
-/// @file FSignal.h
+/// @file common/inc/FSignal.h
 ///
 /// The signal class supporting real numbers.
 ///
@@ -51,10 +51,10 @@ namespace SIGNAL
             /// levels are separated with '.'.
             /// E.g. Module1.Level3.Variable6
             FSignal(const std::string &name,
-                    uint64_t timestamp,
+                    const TIME::Timestamp &rTimestamp,
                     const std::string &value,
                     SourceRegistry::HandleT sourceHandle) :
-                Signal(name, 64, timestamp, "real", sourceHandle),
+                Signal(name, 64, rTimestamp, "real", sourceHandle),
                 m_Value(value)
             {
             }

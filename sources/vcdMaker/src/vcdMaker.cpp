@@ -1,8 +1,8 @@
-/// @file vcdMaker.cpp
+/// @file vcdMaker/src/vcdMaker.cpp
 ///
 /// The main module of the vcdMaker application.
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -22,8 +22,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <iostream>
-#include <string>
 #include <memory>
 
 #include "VCDTracer.h"
@@ -31,7 +29,10 @@
 #include "TxtParser.h"
 #include "SourceRegistry.h"
 #include "LineCounter.h"
-#include "VcdExceptions.h"
+#include "VcdException.h"
+#include "Logger.h"
+#include "XmlSignalFactory.h"
+#include "DefaultSignalFactory.h"
 
 ///  The vcdMaker main function.
 ///
@@ -40,19 +41,31 @@
 ///  @return The execution status.
 int main(int argc, const char *argv[])
 {
-    // Parse input parameters
-    CLI::CliMaker cli;
-    cli.Parse(argc, argv);
-
-    // Source registry.
-    SIGNAL::SourceRegistry registry;
+    // The application execution status.
+    int32_t executionStatus = EXECUTION::APP_OK;
 
     try
     {
+        // Parse input parameters
+        CLI::CliMaker cli;
+        cli.Parse(argc, argv);
+
+        // Build the signal factory.
+        std::unique_ptr<PARSER::SignalFactory> pSignalFactory = NULL;
+        if (!cli.GetUserLogFormat().empty())
+        {
+            pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(cli.GetUserLogFormat());
+        }
+        else
+        {
+            pSignalFactory = std::make_unique<PARSER::DefaultSignalFactory>();
+        }
+
         // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
                                  cli.GetTimebase(),
-                                 registry,
+                                 SIGNAL::SourceRegistry::GetInstance(),
+                                 *pSignalFactory,
                                  cli.IsVerboseMode());
 
         // Line counter.
@@ -63,7 +76,7 @@ int main(int argc, const char *argv[])
             // Register the line counting instrument.
             lineCounter = std::make_unique<INSTRUMENT::LineCounter>(cli.GetInputFileName(),
                                                                     cli.GetLineCounterName(),
-                                                                    registry,
+                                                                    SIGNAL::SourceRegistry::GetInstance(),
                                                                     txtLog.GetSignalDb());
             txtLog.Attach(*lineCounter);
         }
@@ -76,21 +89,19 @@ int main(int argc, const char *argv[])
                                     txtLog.GetSignalDb());
         vcd_trace.Dump();
     }
-    catch (const EXCEPTION::ConflictingNames &exception)
+    catch (const EXCEPTION::VcdException &rException)
     {
-        // Conflicting signal names in different sources.
-        std::cerr << exception.what()
-                  << " Signal "
-                  << exception.GetName()
-                  << " in the sources: "
-                  << registry.GetSourceName(exception.GetSourceA())
-                  << " and "
-                  << registry.GetSourceName(exception.GetSourceB())
-                  << '\n';
+        LOGGER::Logger::GetInstance().LogError(rException);
+        executionStatus = EXECUTION::APP_ERROR;
     }
-    catch (const std::runtime_error &exception)
+    catch (const TCLAP::CmdLineParseException &)
     {
-        std::cerr << exception.what() << '\n';
+        executionStatus = EXECUTION::APP_ERROR;
     }
-}
+    catch (const TCLAP::SpecificationException &)
+    {
+        executionStatus = EXECUTION::APP_ERROR;
+    }
 
+    return executionStatus;
+}

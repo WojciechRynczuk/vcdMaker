@@ -1,4 +1,4 @@
-/// @file SignalDb.cpp
+/// @file common/src/SignalDb.cpp
 ///
 /// Signal database class.
 ///
@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,10 +29,11 @@
 /// IN THE SOFTWARE.
 
 #include "SignalDb.h"
-#include "VcdExceptions.h"
+#include "VcdException.h"
+#include "SourceRegistry.h"
 
-SIGNAL::SignalDb::SignalDb(const std::string &timeUnit) :
-    m_TimeUnit(timeUnit)
+SIGNAL::SignalDb::SignalDb(const std::string &rTimeUnit) :
+    m_TimeUnit(rTimeUnit)
 {
 }
 
@@ -44,33 +45,46 @@ SIGNAL::SignalDb::~SignalDb()
     }
 }
 
-void SIGNAL::SignalDb::Add(const SIGNAL::Signal *signal)
+void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
 {
     // A signal shall have a valid source once added to the database.
-    if (signal->GetSource() == SourceRegistry::BAD_HANDLE)
+    if (pSignal->GetSource() == SourceRegistry::BAD_HANDLE)
     {
-        throw std::logic_error("Invalid signal source.");
+        delete pSignal;
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_SIGNAL_SOURCE,
+                                      "Invalid signal source.");
     }
 
-    const auto it = m_AddedSignals.find(signal->GetName());
+    const auto it = m_AddedSignals.find(pSignal->GetName());
 
     // Is this a new signal to be logged?
     if (it == m_AddedSignals.end())
     {
-        m_AddedSignals[signal->GetName()] = signal;
+        m_AddedSignals[pSignal->GetName()] = pSignal;
     }
     else
     {
-        if ( (it->second->GetName() == signal->GetName()) &&
-             (it->second->GetSource() != signal->GetSource()) )
+        // Check signal consistency
+        if (!it->second->SimilarTo(*pSignal))
         {
-            // There are duplicated signal names in different sources.
-            throw EXCEPTION::ConflictingNames(signal->GetName(),
-                                              it->second->GetSource(),
-                                              signal->GetSource());
+            std::string signalName(pSignal->GetName());
+            std::string signalType(pSignal->GetType());
+            std::string signalSize(std::to_string(pSignal->GetSize()));
+            std::string signalSource(SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()));
+            throw EXCEPTION::VcdException(EXCEPTION::Error::INCONSISTENT_SIGNAL,
+                                          "Inconsistent signal: " +
+                                          signalName +
+                                          ". Types: " +
+                                          it->second->GetType() + " / " + signalType +
+                                          ". Sizes: " +
+                                          std::to_string(it->second->GetSize()) + " / " + signalSize +
+                                          ". Sources: " +
+                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(it->second->GetSource()) +
+                                          " and " +
+                                          signalSource + ".");
         }
     }
 
     // Store the full signal data
-    m_SignalSet.insert(signal);
+    m_SignalSet.insert(pSignal);
 }

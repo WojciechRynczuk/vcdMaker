@@ -1,4 +1,4 @@
-/// @file Signal.h
+/// @file common/inc/Signal.h
 ///
 /// The base VCD signal class.
 ///
@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -38,19 +38,19 @@
 /// The group consists of the base class defining the common behaviours as
 /// well as of the inheriting signal classes specifying concrete signals.
 
-#include <cstdint>
 #include <string>
 #include <vector>
 #include <set>
 
 #include "SourceRegistry.h"
+#include "Timestamp.h"
 
+/// Signal handling.
 namespace SIGNAL
 {
+    /// A base signal class.
     /// The base VCD signal class. The integer and real signal classes
     /// inherit from it.
-
-    /// A base signal class.
     class Signal
     {
         public:
@@ -59,12 +59,6 @@ namespace SIGNAL
 
             /// Signal name components delimeter.
             static const char SIGNAL_NAME_DELIM = '.';
-
-            /// List of allowed time units.
-            /// @note This can't be const because of TCLAP's stupidity -
-            ///       TCLAP::ValuesConstraint constructor doesn't take its
-            ///       argument using constant reference like it should.
-            static std::vector<std::string> TIME_UNITS;
 
             /// The signal constructor.
             ///
@@ -83,13 +77,13 @@ namespace SIGNAL
             /// the type of the signal and shall equal to "wire" or "real".
             Signal(const std::string &name,
                    size_t size,
-                   uint64_t timestamp,
+                   const TIME::Timestamp &rTimestamp,
                    const std::string &type,
                    SourceRegistry::HandleT sourceHandle) :
                 m_Name(name),
                 m_Type(type),
                 m_Size(size),
-                m_Timestamp(timestamp),
+                m_Timestamp(rTimestamp),
                 m_SourceHandle(sourceHandle)
             {
             }
@@ -139,17 +133,17 @@ namespace SIGNAL
             /// Returns the signal's timestamp in time units.
             ///
             /// The method is used while generating the body of the VCD file.
-            uint64_t GetTimestamp() const
+            const TIME::Timestamp &GetTimestamp() const
             {
                 return m_Timestamp;
             }
 
             /// Sets the timestamp.
             ///
-            /// @param timestamp The new timestamp value.
-            void SetTimestamp(uint64_t timestamp)
+            /// @param rTimestamp The new timestamp value.
+            void SetTimestamp(const TIME::Timestamp &rTimestamp)
             {
-                m_Timestamp = timestamp;
+                m_Timestamp = rTimestamp;
             }
 
             /// Returns the signal's type.
@@ -165,6 +159,11 @@ namespace SIGNAL
             {
                 return m_SourceHandle;
             }
+
+            /// Checks if two signals are similar (differ by value only)
+            ///
+            /// @param rSignal Other signal to compare to.
+            bool SimilarTo(const Signal &rSignal) const;
 
             /// Returns the signal's value as a string in the VCD format.
             ///
@@ -196,7 +195,7 @@ namespace SIGNAL
             const size_t m_Size = 0;
 
             /// The signal's timestamp.
-            uint64_t m_Timestamp = 0;
+            TIME::Timestamp m_Timestamp;
 
             /// The signal's source.
             const SourceRegistry::HandleT m_SourceHandle =
@@ -227,7 +226,7 @@ namespace SIGNAL
     {
         public:
             /// Checks if one signal's timestamp is lower than other signal's timestamp.
-            bool operator()(const Signal *lhs, const Signal *rhs)
+            bool operator()(const Signal *lhs, const Signal *rhs) const
             {
                 return (lhs->GetTimestamp() < rhs->GetTimestamp());
             }

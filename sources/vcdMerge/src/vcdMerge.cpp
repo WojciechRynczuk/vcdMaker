@@ -1,8 +1,8 @@
-/// @file vcdMerge.cpp
+/// @file vcdMerge/src/vcdMerge.cpp
 ///
 /// The main module of the vcdMerge application.
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -25,9 +25,10 @@
 #include "CliMerge.h"
 #include "VCDTracer.h"
 #include "SourceRegistry.h"
-#include "VcdExceptions.h"
+#include "VcdException.h"
 #include "SignalSource.h"
 #include "Merge.h"
+#include "Logger.h"
 
 ///  The vcdMerge main function.
 ///
@@ -36,15 +37,15 @@
 ///  @return The execution status.
 int main(int argc, const char *argv[])
 {
-    // Parse input parameters
-    CLI::CliMerge cli;
-    cli.Parse(argc, argv);
-
-    // Source registry.
-    SIGNAL::SourceRegistry registry;
+    // The application execution status.
+    int32_t executionStatus = EXECUTION::APP_OK;
 
     try
     {
+        // Parse input parameters
+        CLI::CliMerge cli;
+        cli.Parse(argc, argv);
+
         // Get input sources.
         const std::vector<std::string> &in_parameters = cli.GetInputSources();
 
@@ -58,13 +59,14 @@ int main(int argc, const char *argv[])
         // There must be at least 2 files to be merged.
         if (in_parameters.size() < 2)
         {
-            throw std::runtime_error("There are at least two signal sources required.");
+            throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_NO_OF_SOURCES,
+                                          "There are at least two signal sources required.");
         }
 
         for (const std::string &source : in_parameters)
         {
             in_sources.push_back(std::make_unique<MERGE::SignalSource>(source,
-                                                                       registry,
+                                                                       SIGNAL::SourceRegistry::GetInstance(),
                                                                        cli.IsVerboseMode()));
 
             merge.AddSource(in_sources.back().get());
@@ -85,22 +87,19 @@ int main(int argc, const char *argv[])
         std::cout << '\n' << "Dumping " << cli.GetOutputFileName() << '\n';
         vcd_trace.Dump();
     }
-    catch (const EXCEPTION::ConflictingNames &exception)
+    catch (const EXCEPTION::VcdException &rException)
     {
-        // Conflicting signal names in different sources.
-        std::cerr << exception.what()
-                  << " Signal "
-                  << exception.GetName()
-                  << " in the sources: "
-                  << registry.GetSourceName(exception.GetSourceA())
-                  << " and "
-                  << registry.GetSourceName(exception.GetSourceB())
-                  << '\n';
+        LOGGER::Logger::GetInstance().LogError(rException);
+        executionStatus = EXECUTION::APP_ERROR;
     }
-    catch (const std::runtime_error &exception)
+    catch (const TCLAP::CmdLineParseException &)
     {
-        std::cerr << exception.what() << '\n';
+        executionStatus = EXECUTION::APP_ERROR;
     }
+    catch (const TCLAP::SpecificationException &)
+    {
+        executionStatus = EXECUTION::APP_ERROR;
+    }
+
+    return executionStatus;
 }
-
-

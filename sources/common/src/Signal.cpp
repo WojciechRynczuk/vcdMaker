@@ -1,4 +1,4 @@
-/// @file Signal.cpp
+/// @file common/src/Signal.cpp
 ///
 /// The base VCD signal class.
 ///
@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -31,10 +31,14 @@
 #include "Signal.h"
 #include "Utils.h"
 
-std::vector<std::string> SIGNAL::Signal::TIME_UNITS =
-    { "s", "ms", "us", "ns", "ps", "fs" };
-
 SIGNAL::Signal::SignalNameFieldsT SIGNAL::Signal::GetNameFields() const
 {
     return UTILS::Split(m_Name, SIGNAL_NAME_DELIM);
+}
+
+bool SIGNAL::Signal::SimilarTo(const Signal &rSignal) const
+{
+    return ((m_Type == rSignal.GetType()) &&
+            (m_Size == rSignal.GetSize()) &&
+            (m_SourceHandle == rSignal.GetSource()));
 }

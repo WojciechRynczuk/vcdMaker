@@ -1,6 +1,6 @@
-$date December 8, 2014 14:15:00
+$date Tue Dec 18 17:57:25 2018
 $end
-$version VCD Tracer "Nestor" Release v.3.0.1
+$version VCD Tracer "Nestor" Release v.3.0.2
 $end
 $timescale 1 us
 $end
@@ -16,6 +16,7 @@ $scope module Top $end
 		$var wire 64 Top.Counter.Low Low $end
 	$upscope $end
 $upscope $end
+$enddefinitions $end
 $dumpvars
 bxxxxxxxx A.Val
 bxxxxxxxx B.Val

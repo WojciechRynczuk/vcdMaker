@@ -15,7 +15,7 @@ markdown: kramdown
 
 ### content configuration ###
 title:       "vcdMaker Home Page"
-keywords:    "vcdMaker, vcd, variable change dump, log, debug trace, debugging, embedded"
+keywords:    "vcdMaker, vcd, variable change dump, log, analysis, debug trace, debugging, embedded"
 description: "vcdMaker Home Page"
 source_link: "https://github.com/t413/SinglePaged"
 favicon:     "img/Electronics-48.png"

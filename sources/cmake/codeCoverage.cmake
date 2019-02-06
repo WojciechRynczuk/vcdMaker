@@ -26,6 +26,7 @@ if (CODE_COVERAGE_ENABLE)
     # Generate code coverage just for the Linux target
     if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
         set(CMAKE_BUILD_TYPE Debug ... FORCE )
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+        add_compile_options(--coverage)
+        set(MORE_LIBS gcov)
     endif()
 endif()

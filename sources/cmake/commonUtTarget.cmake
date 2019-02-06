@@ -45,6 +45,7 @@ function(add_vcdtools_ut UT_NAME UT_SOURCES)
 
     add_test(NAME ${UT_NAME}
              COMMAND ${UT_NAME} --use-colour yes)
+    target_link_libraries(${UT_NAME} ${MORE_LIBS})
     add_dependencies(check ${UT_NAME})
 endfunction(add_vcdtools_ut)
 

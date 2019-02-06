@@ -12,8 +12,9 @@
 # - parserSources.cmake: list of parser related files.
 # - vcdMaker.cmake, vcdMerge.cmake: executable targets with source list.
 # - unitTests.cmake: list of unit tests.
+# - codeCoverage.cmake: enables creating coverage data. Just for Linux target.
 #
-# Copyright (c) 2018 vcdMaker team
+# Copyright (c) 2019 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -49,6 +50,8 @@ include(commonSources)
 include(parserSources)
 
 include(commonTarget)
+
+include(codeCoverage)
 
 include(vcdMaker)
 

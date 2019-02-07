@@ -77,7 +77,4 @@ include(doxygen)
 
 include(pugixml)
 
-target_link_libraries(vcdMaker ${MORE_LIBS})
-target_link_libraries(vcdMerge ${MORE_LIBS})
-
 feature_summary(WHAT ALL)

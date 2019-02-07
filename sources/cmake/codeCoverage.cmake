@@ -22,11 +22,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
+option(CODE_COVERAGE_ENABLE "Enable code coverage generation" OFF)
+add_feature_info(GCOV CODE_COVERAGE_ENABLE "Code coverage generation enabled.")
 if (CODE_COVERAGE_ENABLE)
     # Generate code coverage just for the Linux target
     if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
         set(CMAKE_BUILD_TYPE Debug ... FORCE )
+        set(CMAKE_EXE_LINKER_FLAGS "-lgcov --coverage")
+        add_compile_options(-g)
         add_compile_options(--coverage)
-        set(MORE_LIBS gcov)
     endif()
 endif()

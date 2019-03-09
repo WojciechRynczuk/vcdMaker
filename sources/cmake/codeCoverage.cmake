@@ -22,13 +22,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-option(CODE_COVERAGE_ENABLE "Enable code coverage generation" OFF)
-add_feature_info(GCOV CODE_COVERAGE_ENABLE "Code coverage generation enabled.")
-if (CODE_COVERAGE_ENABLE)
+option(CODE_COVERAGE "Enable code coverage generation")
+add_feature_info(GCOV CODE_COVERAGE "Code coverage generation enabled.")
+
+if (CODE_COVERAGE)
+
+    #Build type must be Debug
+    if (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+        message(FATAL_ERROR, "To generate code coverage data Debug build type must be used.")
+    endif()
+
     # Generate code coverage just for the Linux target
     if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
-        set(CMAKE_BUILD_TYPE Debug ... FORCE )
-        set(CMAKE_EXE_LINKER_FLAGS "-lgcov --coverage")
         add_compile_options(--coverage)
+        link_libraries(--coverage)
     endif()
+
 endif()

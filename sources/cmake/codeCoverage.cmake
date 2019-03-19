@@ -27,15 +27,17 @@ add_feature_info(GCOV CODE_COVERAGE "Code coverage generation enabled.")
 
 if (CODE_COVERAGE)
 
-    #Build type must be Debug
-    if (NOT ${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-        message(FATAL_ERROR, "To generate code coverage data Debug build type must be used.")
+    # Build type must be Debug
+    if (NOT ${CMAKE_BUILD_TYPE} STREQUAL Debug)
+        message(FATAL_ERROR "To generate code coverage data Debug build type must be used.")
     endif()
 
     # Generate code coverage just for the Linux target
     if (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
         add_compile_options(--coverage)
         link_libraries(--coverage)
+    else()
+        message(FATAL_ERROR "Code coverage generation available only for the GNU compiler.")
     endif()
 
 endif()

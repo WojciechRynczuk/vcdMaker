@@ -48,8 +48,8 @@ addons:
     branch_pattern: coverity_scan
 
 install:
-  - if [env(CODE_COVERAGE) = 1]; then gem install coveralls-lcov ; fi
-  - if [env(CODE_COVERAGE) = 1]; then apt-get -y install lcov ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then gem install coveralls-lcov ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then apt-get -y install lcov ; fi
 
 # Safelist - branches to be built.
 branches:
@@ -62,19 +62,19 @@ branches:
 before_script:
   - git submodule update --init --recursive
   - cd ./sources
-  - if [env(CODE_COVERAGE) = 1]; then mkdir CodeCoverage ; fi
-  - if [env(CODE_COVERAGE) = 1]; then lcov --directory . --zerocounters ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then mkdir CodeCoverage ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then lcov --directory . --zerocounters ; fi
 
 
 script:
-  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then cmake $OPTIONS ; fi
-  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then VERBOSE=1 make ; fi
-  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then make check ; fi
+  - if [ "$COVERITY_SCAN_BRANCH" != "1" ]; then cmake $OPTIONS ; fi
+  - if [ "$COVERITY_SCAN_BRANCH" != "1" ]; then VERBOSE=1 make ; fi
+  - if [ "$COVERITY_SCAN_BRANCH" != "1" ]; then make check ; fi
 
 after_success:
-  - if [env(CODE_COVERAGE) = 1]; then find CMakeFiles -type f -name "*.gc*" -exec mv {} CodeCoverage \; ; fi
-  - if [env(CODE_COVERAGE) = 1]; then lcov --directory CodeCoverage --capture --output-file coverage.info ; fi
-  - if [env(CODE_COVERAGE) = 1]; then lcov --remove coverage.info '*/unitTests/*' '/usr/*' --output-file coverage.info ; fi
-  - if [env(CODE_COVERAGE) = 1]; then lcov --list coverage.info ; fi
-  - if [env(CODE_COVERAGE) = 1]; then coveralls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then find CMakeFiles -type f -name "*.gc*" -exec mv {} CodeCoverage \; ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then lcov --directory CodeCoverage --capture --output-file coverage.info ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then lcov --remove coverage.info '*/unitTests/*' '/usr/*' --output-file coverage.info ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then lcov --list coverage.info ; fi
+  - if [ "$CODE_COVERAGE" == "1" ]; then coveralls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info ; fi
 

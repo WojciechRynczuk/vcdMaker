@@ -63,17 +63,14 @@ matrix:
       before_script:
         - git submodule update --init --recursive
         - cd ./sources
-        - mkdir CodeCoverage
         - lcov --directory . --zerocounters
       script:
         - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE=ON .
         - VERBOSE=1 make
         - make check
       after_success:
-        - find CMakeFiles -type f -name "*.gc*" -exec mv {} CodeCoverage \;
-        - ls CodeCoverage
-        - lcov --directory CodeCoverage --capture --output-file coverage.info
-        - lcov --remove coverage.info '*/unitTests/*' '/usr/*' --output-file coverage.info
+        - lcov --directory . --capture --output-file raw.info
+        - lcov --remove raw.info '/usr/*' '*/3rdParty/*' '*/test/*' --output-file coverage.info
         - lcov --list coverage.info
         - overalls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info
 

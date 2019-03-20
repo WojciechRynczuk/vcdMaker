@@ -109,3 +109,11 @@ matrix:
         - cd ./sources
       script:
         - tail cov-int/scm_log.txt
+
+# Safelist - branches to be built.
+branches:
+  only:
+  - master
+  - v3_release
+  - v4_release
+  - coverity_scan

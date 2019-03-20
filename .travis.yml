@@ -1,61 +1,122 @@
-#The initial configuration came from the article: http://genbattle.bitbucket.org/blog/2016/01/17/c++-travis-ci/
-
-sudo: required
-dist: trusty
-
 python:
   - "3.5"
-
-env:
-  global:
-    #COVERITY_SCAN_TOKEN
-    - secure: "OtVLkLQ+O18ZOxFCVTotdxWwxOqE0HcCh7LEguFPpPOp5KX9JsBrRdN8Hq689AK+GnQVuYVHkRPdiduYq8CUoLppZy0AMus7muJp2bdnotwufOIZ0r9lqzau9F4HKcdg8LBjyoHq2gnJZgNsSlrma9AGJ8nKBlVCsOJU/2DB0zJ0ufUR92otRsbKlF0TFXC2SARHYL1fgjoJBtwtKyUkHcn5/85EZjUeZGVvvRIA1oqFN2ksHv2QSevSb4auZgi8Gz4LdkQFfWa+SYDoguMYDZCkJRg4kP/ciuAxWfulroXUyAHOGvg29AwkK7hpnFCiGCxm+mOoDousBrJymuqdblwyTzy3d84i1QZQWEAaSROuPA/cpmSPHBvx+H/YTkmdPKXp46728I1wSILOclN1icWll9KhuiDMGY48e2Zmux5SKuLTjg1wzFNrVEwLeiGT7kExWXeKdPMRo/xmH2vPDlBUVrl2z12RRinpGLW0lgG70f5EJl0K30ArNXmFfFZ775nUBokc9nVgK/bjA9t2olRlOC3tzkhgZnDYp7N/AudKeOnpsWeZEQjf9p/o7SjvMvqgbGXL6kZ74n8Jkau1nKIB+9viplLpBInxEYyMSZ/9qFZf3roYmBVYRA8v6G6PsFagYnqp4vl1zGjiO49KEW1jEF56gWKRYuYHQOaebsI="
-    #Compilers
-    - CC=gcc-8
-    - CXX=g++-8
+  
+git:
+  depth: 5
 
 #Disable the default Travis submodule behavior.
 git:
   submodules: false
 
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - gcc-8
-    - g++-8
-    - txt2man
-    - doxygen
-    - graphviz
+env:
+  global:
+    #Compilers
+    - CC=gcc-8
+    - CXX=g++-8
 
-  coverity_scan:
-    project:
-      name: vcdMaker
-      version: v3.0
-      description: Coverity Scan by Travis CI
-    notification_email: vcdmaker@mail.com
-    build_command_prepend: "cov-configure --comptype gcc --compiler g++-8 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
-    build_command: "make"
-    branch_pattern: coverity_scan
+matrix:
+  fast_finish: true
+  include:
+    # Just run tests
+    - if: NOT branch = coverity_scan
+      os: linux
+      dist: trusty
+      sudo: required
+      name: "vcdMaker Tests"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - txt2man
+            - doxygen
+            - graphviz
+      before_script:
+        - git submodule update --init --recursive
+        - cd ./sources
+      script:
+        - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
+        - VERBOSE=1 make
+        - make check
 
-# Blocklist - branches not to be built. RegEx is allowed.
-branches:
-  except:
-  - r2_release
+    # Code coverage
+    - if: NOT branch = coverity_scan
+      os: linux
+      dist: xenial
+      sudo: required
+      name: "vcdMaker Code Coverage"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - txt2man
+            - doxygen
+            - graphviz
+            - lcov
+      install:
+        - gem install coveralls-lcov
+      before_script:
+        - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 0
+        - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 100
+        - sudo update-alternatives --auto gcov
+        - wget http://mirrors.kernel.org/ubuntu/pool/universe/l/lcov/lcov_1.13-4_all.deb
+        - sudo dpkg -i lcov_1.13-4_all.deb
+        - rm -f lcov_1.13-4_all.deb
+        - git submodule update --init --recursive
+        - cd ./sources
+        - lcov --directory . --zerocounters
+      script:
+        - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE=ON .
+        - VERBOSE=1 make
+        - make check
+      after_success:
+        - lcov --directory . --capture --output-file raw.info
+        - lcov --remove raw.info '/usr/*' '*/3rdParty/*' '*/test/*' --output-file coverage.info
+        - lcov --list coverage.info
+        - coveralls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info
+
+    # Coverity
+    - if: branch = coverity_scan
+      os: linux
+      dist: trusty
+      sudo: required
+      name: "vcdMaker Coverity"
+      env:
+        - secure: "OtVLkLQ+O18ZOxFCVTotdxWwxOqE0HcCh7LEguFPpPOp5KX9JsBrRdN8Hq689AK+GnQVuYVHkRPdiduYq8CUoLppZy0AMus7muJp2bdnotwufOIZ0r9lqzau9F4HKcdg8LBjyoHq2gnJZgNsSlrma9AGJ8nKBlVCsOJU/2DB0zJ0ufUR92otRsbKlF0TFXC2SARHYL1fgjoJBtwtKyUkHcn5/85EZjUeZGVvvRIA1oqFN2ksHv2QSevSb4auZgi8Gz4LdkQFfWa+SYDoguMYDZCkJRg4kP/ciuAxWfulroXUyAHOGvg29AwkK7hpnFCiGCxm+mOoDousBrJymuqdblwyTzy3d84i1QZQWEAaSROuPA/cpmSPHBvx+H/YTkmdPKXp46728I1wSILOclN1icWll9KhuiDMGY48e2Zmux5SKuLTjg1wzFNrVEwLeiGT7kExWXeKdPMRo/xmH2vPDlBUVrl2z12RRinpGLW0lgG70f5EJl0K30ArNXmFfFZ775nUBokc9nVgK/bjA9t2olRlOC3tzkhgZnDYp7N/AudKeOnpsWeZEQjf9p/o7SjvMvqgbGXL6kZ74n8Jkau1nKIB+9viplLpBInxEYyMSZ/9qFZf3roYmBVYRA8v6G6PsFagYnqp4vl1zGjiO49KEW1jEF56gWKRYuYHQOaebsI="
+      addons:
+        apt:
+          sources:
+           - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - txt2man
+            - doxygen
+            - graphviz
+        coverity_scan:
+          project:
+            name: vcdMaker
+            version: v4.0
+            description: Coverity Scan by Travis CI
+          notification_email: vcdmaker@mail.com
+          build_command_prepend: "cov-configure --comptype gcc --compiler g++-8 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
+          build_command: "make"
+          branch_pattern: coverity_scan
+      before_script:
+        - git submodule update --init --recursive
+        - cd ./sources
+      script:
+        - tail cov-int/scm_log.txt
 
 # Safelist - branches to be built.
 branches:
   only:
   - master
   - v3_release
+  - v4_release
   - coverity_scan
-
-before_script:
-  - git submodule update --init --recursive
-  - cd ./sources
-
-script:
-  - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
-  - VERBOSE=1 make
-  - make check

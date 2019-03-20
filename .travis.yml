@@ -1,10 +1,12 @@
-#The initial configuration came from the article: http://genbattle.bitbucket.org/blog/2016/01/17/c++-travis-ci/
-
+language: cpp
 sudo: required
 dist: trusty
 
 python:
   - "3.5"
+  
+git:
+  depth: 5
 
 env:
   global:
@@ -13,6 +15,12 @@ env:
     #Compilers
     - CC=gcc-8
     - CXX=g++-8
+  matrix:
+    include:
+    -name: "vcdMaker Tests"
+     env: CODE_COVERAGE=0 OPTIONS="-DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
+    -name: "vcdMaker Code Coverage"
+     env: CODE_COVERAGE=1 OPTIONS="-DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE_ENABLE=ON ."
 
 #Disable the default Travis submodule behavior.
 git:
@@ -32,30 +40,41 @@ addons:
   coverity_scan:
     project:
       name: vcdMaker
-      version: v3.0
+      version: v4.0
       description: Coverity Scan by Travis CI
     notification_email: vcdmaker@mail.com
     build_command_prepend: "cov-configure --comptype gcc --compiler g++-8 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
     build_command: "make"
     branch_pattern: coverity_scan
 
-# Blocklist - branches not to be built. RegEx is allowed.
-branches:
-  except:
-  - r2_release
+install:
+  - if [env(CODE_COVERAGE) = 1]; then gem install coveralls-lcov ; fi
+  - if [env(CODE_COVERAGE) = 1]; then apt-get -y install lcov ; fi
 
 # Safelist - branches to be built.
 branches:
   only:
   - master
   - v3_release
+  - v4_release
   - coverity_scan
 
 before_script:
   - git submodule update --init --recursive
   - cd ./sources
+  - if [env(CODE_COVERAGE) = 1]; then mkdir CodeCoverage ; fi
+  - if [env(CODE_COVERAGE) = 1]; then lcov --directory . --zerocounters ; fi
+
 
 script:
-  - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
-  - VERBOSE=1 make
-  - make check
+  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then cmake $OPTIONS ; fi
+  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then VERBOSE=1 make ; fi
+  - if [ ${COVERITY_SCAN_BRANCH} != 1 ]; then make check ; fi
+
+after_success:
+  - if [env(CODE_COVERAGE) = 1]; then find CMakeFiles -type f -name "*.gc*" -exec mv {} CodeCoverage \; ; fi
+  - if [env(CODE_COVERAGE) = 1]; then lcov --directory CodeCoverage --capture --output-file coverage.info ; fi
+  - if [env(CODE_COVERAGE) = 1]; then lcov --remove coverage.info '*/unitTests/*' '/usr/*' --output-file coverage.info ; fi
+  - if [env(CODE_COVERAGE) = 1]; then lcov --list coverage.info ; fi
+  - if [env(CODE_COVERAGE) = 1]; then coveralls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info ; fi
+

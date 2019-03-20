@@ -66,7 +66,7 @@ matrix:
         - mkdir CodeCoverage
         - lcov --directory . --zerocounters
       script:
-        - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE_ENABLE=ON .
+        - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE=ON .
         - VERBOSE=1 make
         - make check
       after_success:

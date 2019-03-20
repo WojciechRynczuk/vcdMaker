@@ -17,104 +17,103 @@ env:
 matrix:
   fast_finish: true
   include:
-
     # Just run tests
     - os: linux
-       dist: trusty
-       sudo: required
-       name:"vcdMaker Tests"
-       addons:
-         apt:
-           sources:
-             - ubuntu-toolchain-r-test
-        packages:
-          - gcc-8
-          - g++-8
-          - txt2man
-          - doxygen
-          - graphviz
-       before_script:
-         - git submodule update --init --recursive
-         - cd ./sources
-       script:
-         - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
-         - VERBOSE=1 make
-         - make check
-       branches:
-         only:
-           - master
-           - v3_release
-           - v4_release
+      dist: trusty
+      sudo: required
+      name: "vcdMaker Tests"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - txt2man
+            - doxygen
+            - graphviz
+      before_script:
+        - git submodule update --init --recursive
+        - cd ./sources
+      script:
+        - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
+        - VERBOSE=1 make
+        - make check
+      branches:
+        only:
+          - master
+          - v3_release
+          - v4_release
 
     # Code coverage
     - os: linux
-       dist: trusty
-       sudo: required
-       name:"vcdMaker Code Coverage"
-       addons:
-         apt:
-           sources:
-             - ubuntu-toolchain-r-test
-           packages:
-             - gcc-8
-             - g++-8
-             - txt2man
-             - doxygen
-             - graphviz
-       install:
-         - gem install coveralls-lcov
-         - sudo apt-get -y install lcov
-       before_script:
-         - git submodule update --init --recursive
-         - cd ./sources
-         - mkdir CodeCoverage
-         - lcov --directory . --zerocounters
-       script:
-         - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE_ENABLE=ON .
-         - VERBOSE=1 make
-         - make check
-       after_success:
-         - find CMakeFiles -type f -name "*.gc*" -exec mv {} CodeCoverage \;
-         - ls CodeCoverage
-         - lcov --directory CodeCoverage --capture --output-file coverage.info
-         - lcov --remove coverage.info '*/unitTests/*' '/usr/*' --output-file coverage.info
-         - lcov --list coverage.info
-         - overalls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info
-       branches:
-         only:
-           - master
-           - v3_release
-           - v4_release
+      dist: trusty
+      sudo: required
+      name: "vcdMaker Code Coverage"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - txt2man
+            - doxygen
+            - graphviz
+      install:
+        - gem install coveralls-lcov
+        - sudo apt-get -y install lcov
+      before_script:
+        - git submodule update --init --recursive
+        - cd ./sources
+        - mkdir CodeCoverage
+        - lcov --directory . --zerocounters
+      script:
+        - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE_ENABLE=ON .
+        - VERBOSE=1 make
+        - make check
+      after_success:
+        - find CMakeFiles -type f -name "*.gc*" -exec mv {} CodeCoverage \;
+        - ls CodeCoverage
+        - lcov --directory CodeCoverage --capture --output-file coverage.info
+        - lcov --remove coverage.info '*/unitTests/*' '/usr/*' --output-file coverage.info
+        - lcov --list coverage.info
+        - overalls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info
+      branches:
+        only:
+          - master
+          - v3_release
+          - v4_release
 
     # Coverity
     - os: linux
-       dist: trusty
-       sudo: required
-       name:"vcdMaker Tests"
-       env:
-         - secure: "OtVLkLQ+O18ZOxFCVTotdxWwxOqE0HcCh7LEguFPpPOp5KX9JsBrRdN8Hq689AK+GnQVuYVHkRPdiduYq8CUoLppZy0AMus7muJp2bdnotwufOIZ0r9lqzau9F4HKcdg8LBjyoHq2gnJZgNsSlrma9AGJ8nKBlVCsOJU/2DB0zJ0ufUR92otRsbKlF0TFXC2SARHYL1fgjoJBtwtKyUkHcn5/85EZjUeZGVvvRIA1oqFN2ksHv2QSevSb4auZgi8Gz4LdkQFfWa+SYDoguMYDZCkJRg4kP/ciuAxWfulroXUyAHOGvg29AwkK7hpnFCiGCxm+mOoDousBrJymuqdblwyTzy3d84i1QZQWEAaSROuPA/cpmSPHBvx+H/YTkmdPKXp46728I1wSILOclN1icWll9KhuiDMGY48e2Zmux5SKuLTjg1wzFNrVEwLeiGT7kExWXeKdPMRo/xmH2vPDlBUVrl2z12RRinpGLW0lgG70f5EJl0K30ArNXmFfFZ775nUBokc9nVgK/bjA9t2olRlOC3tzkhgZnDYp7N/AudKeOnpsWeZEQjf9p/o7SjvMvqgbGXL6kZ74n8Jkau1nKIB+9viplLpBInxEYyMSZ/9qFZf3roYmBVYRA8v6G6PsFagYnqp4vl1zGjiO49KEW1jEF56gWKRYuYHQOaebsI="
-       addons:
-         apt:
-           sources:
-             - ubuntu-toolchain-r-test
-           packages:
-           - gcc-8
-           - g++-8
-           - txt2man
-           - doxygen
-           - graphviz
-       before_script:
-         - git submodule update --init --recursive
-         - cd ./sources
-       branches:
-         only:
-           - coverity_scan
-       coverity_scan:
-         project:
-           name: vcdMaker
-           version: v4.0
-           description: Coverity Scan by Travis CI
-         notification_email: vcdmaker@mail.com
-         build_command_prepend: "cov-configure --comptype gcc --compiler g++-8 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
-         build_command: "make"
-         branch_pattern: coverity_scan
+      dist: trusty
+      sudo: required
+      name: "vcdMaker Tests"
+      env:
+        - secure: "OtVLkLQ+O18ZOxFCVTotdxWwxOqE0HcCh7LEguFPpPOp5KX9JsBrRdN8Hq689AK+GnQVuYVHkRPdiduYq8CUoLppZy0AMus7muJp2bdnotwufOIZ0r9lqzau9F4HKcdg8LBjyoHq2gnJZgNsSlrma9AGJ8nKBlVCsOJU/2DB0zJ0ufUR92otRsbKlF0TFXC2SARHYL1fgjoJBtwtKyUkHcn5/85EZjUeZGVvvRIA1oqFN2ksHv2QSevSb4auZgi8Gz4LdkQFfWa+SYDoguMYDZCkJRg4kP/ciuAxWfulroXUyAHOGvg29AwkK7hpnFCiGCxm+mOoDousBrJymuqdblwyTzy3d84i1QZQWEAaSROuPA/cpmSPHBvx+H/YTkmdPKXp46728I1wSILOclN1icWll9KhuiDMGY48e2Zmux5SKuLTjg1wzFNrVEwLeiGT7kExWXeKdPMRo/xmH2vPDlBUVrl2z12RRinpGLW0lgG70f5EJl0K30ArNXmFfFZ775nUBokc9nVgK/bjA9t2olRlOC3tzkhgZnDYp7N/AudKeOnpsWeZEQjf9p/o7SjvMvqgbGXL6kZ74n8Jkau1nKIB+9viplLpBInxEYyMSZ/9qFZf3roYmBVYRA8v6G6PsFagYnqp4vl1zGjiO49KEW1jEF56gWKRYuYHQOaebsI="
+      addons:
+        apt:
+          sources:
+           - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - txt2man
+            - doxygen
+            - graphviz
+      before_script:
+        - git submodule update --init --recursive
+        - cd ./sources
+      branches:
+        only:
+          - coverity_scan
+      coverity_scan:
+        project:
+          name: vcdMaker
+          version: v4.0
+          description: Coverity Scan by Travis CI
+        notification_email: vcdmaker@mail.com
+        build_command_prepend: "cov-configure --comptype gcc --compiler g++-8 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
+        build_command: "make"
+        branch_pattern: coverity_scan

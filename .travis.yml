@@ -17,10 +17,10 @@ env:
     - CXX=g++-8
   matrix:
     include:
-    -name: "vcdMaker Tests"
-     env: CODE_COVERAGE=0 OPTIONS="-DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
-    -name: "vcdMaker Code Coverage"
-     env: CODE_COVERAGE=1 OPTIONS="-DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE_ENABLE=ON ."
+      -name:"vcdMaker Tests"
+       env:CODE_COVERAGE=0 OPTIONS="-DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
+      -name:"vcdMaker Code Coverage"
+       env:CODE_COVERAGE=1 OPTIONS="-DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Debug -DCODE_COVERAGE_ENABLE=ON ."
 
 #Disable the default Travis submodule behavior.
 git:

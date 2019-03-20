@@ -40,11 +40,6 @@ matrix:
         - cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release .
         - VERBOSE=1 make
         - make check
-      branches:
-        only:
-          - master
-          - v3_release
-          - v4_release
 
     # Code coverage
     - if: NOT branch = coverity_scan
@@ -81,11 +76,6 @@ matrix:
         - lcov --remove coverage.info '*/unitTests/*' '/usr/*' --output-file coverage.info
         - lcov --list coverage.info
         - overalls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info
-      branches:
-        only:
-          - master
-          - v3_release
-          - v4_release
 
     # Coverity
     - if: branch = coverity_scan
@@ -105,18 +95,18 @@ matrix:
             - txt2man
             - doxygen
             - graphviz
+        coverity_scan:
+          project:
+            name: vcdMaker
+            version: v4.0
+            description: Coverity Scan by Travis CI
+          notification_email: vcdmaker@mail.com
+          build_command_prepend: "cov-configure --comptype gcc --compiler g++-8 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
+          build_command: "make"
+          branch_pattern: coverity_scan
       before_script:
         - git submodule update --init --recursive
         - cd ./sources
-      branches:
-        only:
-          - coverity_scan
-      coverity_scan:
-        project:
-          name: vcdMaker
-          version: v4.0
-          description: Coverity Scan by Travis CI
-        notification_email: vcdmaker@mail.com
-        build_command_prepend: "cov-configure --comptype gcc --compiler g++-8 --template && cmake -DUSE_STATIC_PUGIXML=ON -DCMAKE_BUILD_TYPE=Release ."
-        build_command: "make"
-        branch_pattern: coverity_scan
+      script:
+        - tail ../cov-int/build-log.txt
+        - tail ../cov-int/scm_log.txt

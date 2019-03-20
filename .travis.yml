@@ -18,7 +18,8 @@ matrix:
   fast_finish: true
   include:
     # Just run tests
-    - os: linux
+    - if: NOT branch = coverity_scan
+      os: linux
       dist: trusty
       sudo: required
       name: "vcdMaker Tests"
@@ -46,7 +47,8 @@ matrix:
           - v4_release
 
     # Code coverage
-    - os: linux
+    - if: NOT branch = coverity_scan
+      os: linux
       dist: trusty
       sudo: required
       name: "vcdMaker Code Coverage"

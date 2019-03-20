@@ -86,7 +86,8 @@ matrix:
           - v4_release
 
     # Coverity
-    - os: linux
+    - if: branch = coverity_scan
+      os: linux
       dist: trusty
       sudo: required
       name: "vcdMaker Coverity"

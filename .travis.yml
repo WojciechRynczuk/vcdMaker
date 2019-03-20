@@ -89,7 +89,7 @@ matrix:
     - os: linux
       dist: trusty
       sudo: required
-      name: "vcdMaker Tests"
+      name: "vcdMaker Coverity"
       env:
         - secure: "OtVLkLQ+O18ZOxFCVTotdxWwxOqE0HcCh7LEguFPpPOp5KX9JsBrRdN8Hq689AK+GnQVuYVHkRPdiduYq8CUoLppZy0AMus7muJp2bdnotwufOIZ0r9lqzau9F4HKcdg8LBjyoHq2gnJZgNsSlrma9AGJ8nKBlVCsOJU/2DB0zJ0ufUR92otRsbKlF0TFXC2SARHYL1fgjoJBtwtKyUkHcn5/85EZjUeZGVvvRIA1oqFN2ksHv2QSevSb4auZgi8Gz4LdkQFfWa+SYDoguMYDZCkJRg4kP/ciuAxWfulroXUyAHOGvg29AwkK7hpnFCiGCxm+mOoDousBrJymuqdblwyTzy3d84i1QZQWEAaSROuPA/cpmSPHBvx+H/YTkmdPKXp46728I1wSILOclN1icWll9KhuiDMGY48e2Zmux5SKuLTjg1wzFNrVEwLeiGT7kExWXeKdPMRo/xmH2vPDlBUVrl2z12RRinpGLW0lgG70f5EJl0K30ArNXmFfFZ775nUBokc9nVgK/bjA9t2olRlOC3tzkhgZnDYp7N/AudKeOnpsWeZEQjf9p/o7SjvMvqgbGXL6kZ74n8Jkau1nKIB+9viplLpBInxEYyMSZ/9qFZf3roYmBVYRA8v6G6PsFagYnqp4vl1zGjiO49KEW1jEF56gWKRYuYHQOaebsI="
       addons:

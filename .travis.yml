@@ -108,5 +108,4 @@ matrix:
         - git submodule update --init --recursive
         - cd ./sources
       script:
-        - tail ../cov-int/build-log.txt
-        - tail ../cov-int/scm_log.txt
+        - tail cov-int/scm_log.txt

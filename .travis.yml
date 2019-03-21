@@ -44,7 +44,7 @@ matrix:
     # Code coverage
     - if: NOT branch = coverity_scan
       os: linux
-      dist: trusty
+      dist: xenial
       sudo: required
       name: "vcdMaker Code Coverage"
       addons:

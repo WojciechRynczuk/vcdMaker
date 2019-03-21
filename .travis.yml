@@ -57,10 +57,13 @@ matrix:
             - txt2man
             - doxygen
             - graphviz
+            - lcov
       install:
         - gem install coveralls-lcov
-        - sudo apt-get -y install lcov
       before_script:
+        - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 0
+        - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 100
+        - sudo update-alternatives --auto gcov
         - git submodule update --init --recursive
         - cd ./sources
         - lcov --directory . --zerocounters

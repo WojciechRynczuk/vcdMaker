@@ -61,7 +61,7 @@ matrix:
       install:
         - gem install coveralls-lcov
       before_script:
-        - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 0
+        - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 0
         - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 100
         - sudo update-alternatives --auto gcov
         - wget http://mirrors.kernel.org/ubuntu/pool/universe/l/lcov/lcov_1.13-4_all.deb

@@ -78,7 +78,7 @@ matrix:
         - lcov --directory . --capture --output-file raw.info
         - lcov --remove raw.info '/usr/*' '*/3rdParty/*' '*/test/*' --output-file coverage.info
         - lcov --list coverage.info
-        - overalls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info
+        - coveralls-lcov --repo-token ${COVERALLS_REPO_TOKEN} coverage.info
 
     # Coverity
     - if: branch = coverity_scan

@@ -117,7 +117,7 @@ class Executor(object):
         golden_file.readline()
         output_date_line = output_file.readline()
 
-        if not re.match(r'\$date\s+[a-zA-Z]{3} [a-zA-Z]{3} \d\d \d\d:\d\d:\d\d \d{4}',
+        if not re.match(r'\$date\s+[a-zA-Z]{3} [a-zA-Z]{3} {1,2}\d{1,2} \d\d:\d\d:\d\d \d{4}',
                         output_date_line):
             print('FAIL: DATE WRONG IN {}'.format(self.output_filename))
             return False

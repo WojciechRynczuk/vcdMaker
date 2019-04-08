@@ -40,4 +40,19 @@ if (CODE_COVERAGE)
         message(FATAL_ERROR "Code coverage generation available only for the GNU compiler.")
     endif()
 
+    # Clean code coverage html
+    list(APPEND MAKE_CLEAN_FILES CodeCoverage)
+    list(APPEND MAKE_CLEAN_FILES raw.info)
+    list(APPEND MAKE_CLEAN_FILES coverage.info)
+
 endif()
+
+add_custom_target(coverage
+    COMMAND mkdir CodeCoverage
+    COMMAND lcov --directory . --capture --rc lcov_branch_coverage=1 --output-file=raw.info
+    COMMAND lcov --remove raw.info '/usr/*' '*/3rdParty/*' '*/test/*' --rc lcov_branch_coverage=1 --output-file=coverage.info
+    COMMAND genhtml --output-directory CodeCoverage --rc lcov_branch_coverage=1 coverage.info
+    DEPENDS check
+    COMMENT "Generating code coverage."
+)
+

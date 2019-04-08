@@ -62,7 +62,7 @@ if (USE_STATIC_PUGIXML)
 
     target_include_directories(${COMMON_LIB_TARGET} PUBLIC ${PUGIXML_INCLUDE_DIR})
 
-    set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES ${PUGIXML_LIB_FILE})
+    list(APPEND MAKE_CLEAN_FILES ${PUGIXML_LIB_FILE})
 else()
     find_package(pugixml REQUIRED)
     set_package_properties(pugixml PROPERTIES

@@ -77,4 +77,6 @@ include(doxygen)
 
 include(pugixml)
 
+include(clean)
+
 feature_summary(WHAT ALL)

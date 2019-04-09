@@ -43,16 +43,23 @@ if (CODE_COVERAGE)
     # Clean code coverage html
     list(APPEND MAKE_CLEAN_FILES CodeCoverage)
     list(APPEND MAKE_CLEAN_FILES raw.info)
-    list(APPEND MAKE_CLEAN_FILES coverage.info)
+    list(APPEND MAKE_CLEAN_FILES vcdMaker.coverage)
 
 endif()
+
+add_custom_target(coverage_clean
+    COMMAND rm -rf CodeCoverage
+    COMMAND rm -f raw.info vcdMaker.coverage
+    COMMAND find . -type f -name '*.gcda' -delete
+    COMMENT "Cleaning code coverage data."
+)
 
 add_custom_target(coverage
     COMMAND mkdir CodeCoverage
     COMMAND lcov --directory . --capture --rc lcov_branch_coverage=1 --output-file=raw.info
-    COMMAND lcov --remove raw.info '/usr/*' '*/3rdParty/*' '*/test/*' --rc lcov_branch_coverage=1 --output-file=coverage.info
-    COMMAND genhtml --output-directory CodeCoverage --rc lcov_branch_coverage=1 coverage.info
-    DEPENDS check
+    COMMAND lcov --remove raw.info '/usr/*' '*/3rdParty/*' '*/test/*' --rc lcov_branch_coverage=1 --output-file=vcdMaker.coverage
+    COMMAND genhtml --output-directory CodeCoverage --rc lcov_branch_coverage=1 vcdMaker.coverage
+    DEPENDS coverage_clean check
     COMMENT "Generating code coverage."
 )
 

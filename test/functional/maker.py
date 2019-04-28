@@ -2,7 +2,7 @@
 #
 # A class representing vcdMaker specific test.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2019 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -61,7 +61,7 @@ class Maker(Test):
         if self.unique.get_parameter('line_counter'):
             self.command.append('-c')
             self.command.append(self.unique.get_parameter('line_counter'))
-            
+
         if self.unique.get_parameter('user_format'):
             self.command.append('-u')
             self.command.append(self.unique.get_parameter('user_format'))

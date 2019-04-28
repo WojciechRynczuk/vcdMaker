@@ -11,6 +11,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>output_filename</output_file>
         <golden_file>golden_filename</golden_file>
+        <stdout_file>standard_output_filename</stdout_file>
     </common>
     <unique>
         <time_unit>output_time_unit</time_unit>
@@ -48,6 +49,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>test0_us.output</output_file>
         <golden_file>test0_us.vcd</golden_file>
+        <stdout_file>test0_us.std</stdout_file>
     </common>
     <unique>
         <sources>
@@ -80,6 +82,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>test0_ns.output</output_file>
         <golden_file>test0_ns.vcd</golden_file>
+        <stdout_file>test0_ns.std</stdout_file>
     </common>
     <unique>
         <time_unit>ns</time_unit>
@@ -113,6 +116,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>test0_ms.output</output_file>
         <golden_file>test0_ms.vcd</golden_file>
+        <stdout_file>test0_ms.std</stdout_file>
     </common>
     <unique>
         <time_unit>ms</time_unit>
@@ -146,6 +150,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>test1_us.output</output_file>
         <golden_file>test1_us.vcd</golden_file>
+        <stdout_file>test1_us.std</stdout_file>
     </common>
     <unique>
         <sources>
@@ -178,6 +183,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>test1_ns.output</output_file>
         <golden_file>test1_ns.vcd</golden_file>
+        <stdout_file>test1_ns.std</stdout_file>
     </common>
     <unique>
         <time_unit>ns</time_unit>
@@ -211,6 +217,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>test1_ms.output</output_file>
         <golden_file>test1_ms.vcd</golden_file>
+        <stdout_file>test1_ms.std</stdout_file>
     </common>
     <unique>
         <time_unit>ms</time_unit>
@@ -245,11 +252,12 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>ul_test0_us.output</output_file>
         <golden_file>test0_us.vcd</golden_file>
+        <stdout_file>test0_us_ul.std</stdout_file>
     </common>
     <unique>
         <sources>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>71050601</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -277,6 +285,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>ul_test0_ns.output</output_file>
         <golden_file>test0_ns.vcd</golden_file>
+        <stdout_file>test0_ns_ul.std</stdout_file>
     </common>
     <unique>
         <time_unit>ns</time_unit>
@@ -290,7 +299,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>234256037</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>
@@ -310,12 +319,13 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>ul_test0_ms.output</output_file>
         <golden_file>test0_ms.vcd</golden_file>
+        <stdout_file>test0_ms_ul.std</stdout_file>
     </common>
     <unique>
         <time_unit>ms</time_unit>
         <sources>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>71050601</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -323,7 +333,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>234256037</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>
@@ -343,11 +353,12 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>ul_test1_us.output</output_file>
         <golden_file>test1_us.vcd</golden_file>
+        <stdout_file>test1_us_ul.std</stdout_file>
     </common>
     <unique>
         <sources>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -375,6 +386,7 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>ul_test1_ns.output</output_file>
         <golden_file>test1_ns.vcd</golden_file>
+        <stdout_file>test1_ns_ul.std</stdout_file>
     </common>
     <unique>
         <time_unit>ns</time_unit>
@@ -388,7 +400,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>
@@ -408,12 +420,13 @@ A sample test definition (containing all tags):
         <verbose>False</verbose>
         <output_file>ul_test1_ms.output</output_file>
         <golden_file>test1_ms.vcd</golden_file>
+        <stdout_file>test1_ms_ul.std</stdout_file>
     </common>
     <unique>
         <time_unit>ms</time_unit>
         <sources>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System1</prefix>
@@ -421,7 +434,7 @@ A sample test definition (containing all tags):
                 <input_file>system1_time1.txt</input_file>
             </source>
             <source>
-                <format>U{../common/test/functional/vcdMaker.xml}</format>
+                <format>U{common/test/functional/vcdMaker.xml}</format>
                 <time_stamp>0</time_stamp>
                 <time_unit>us</time_unit>
                 <prefix>System2</prefix>

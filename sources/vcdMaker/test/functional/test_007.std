@@ -1,0 +1,2 @@
+[Error 0002]: Inconsistent signal: A.Val. Types: wire / wire. Sizes: 8 / 9. Sources: vcdMaker/test/functional/test_007.txt and vcdMaker/test/functional/test_007.txt. At line 2.
+

@@ -2,7 +2,7 @@
 #
 # The base test class.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2019 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -56,6 +56,11 @@ class Test(object):
         """Returns the absolute path to the test golden file."""
 
         return self.common.get_golden_file()
+
+    def get_stdout_file(self):
+        """Returns the absolute path to the test standard output file."""
+
+        return self.common.get_stdout_file()
 
     def get_name(self):
         """Returns the test name."""

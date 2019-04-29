@@ -131,13 +131,15 @@ class Executor(object):
         True if the standard output and the reference file are equal, false otherwise.
         """
 
+        line_number = 1
         with open(self.stdout_filename) as stdout_ref, open(self.stdout_output) as stdout_out:
-            line_nubmer = 1
-            for stdref_line, stdout_line in itertools.zip_longest(stdout_ref, stdout_out):
+            for stdout_line, stdref_line in itertools.zip_longest(stdout_out, stdout_ref):
+                stdout_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdout_line)
+                stdref_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdref_line)
                 if stdout_line != stdref_line:
                     print('FAIL: STDOUT DOESN\'T EQUAL {} AT LINE {}'.format(self.stdout_filename, line_nubmer))
                     return False
-                line_nubmer += 1
+                line_number += 1
 
             print('PASS: STDOUT EQUALS {}'.format(self.output_filename))
             return True

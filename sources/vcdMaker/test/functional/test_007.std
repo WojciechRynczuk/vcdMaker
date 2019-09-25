@@ -1,2 +1,2 @@
-[Error 0002]: Inconsistent signal: A.Val. Types: wire / wire. Sizes: 8 / 9. Sources: /home/wojtek/devel/vcdMaker/sources/vcdMaker/test/functional/test_007.txt and /home/wojtek/devel/vcdMaker/sources/vcdMaker/test/functional/test_007.txt. At line 2.
+[Error 0002]: Inconsistent signal: A.Val. Types: wire / wire. Sizes: 8 / 9. Sources: test_007.txt and test_007.txt. At line 2.
 

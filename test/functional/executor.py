@@ -137,7 +137,7 @@ class Executor(object):
                 stdout_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdout_line)
                 stdref_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdref_line)
                 if stdout_line != stdref_line:
-                    print('FAIL: STDOUT DOESN\'T EQUAL {} AT LINE {}'.format(self.stdout_filename, line_nubmer))
+                    print('FAIL: STDOUT DOESN\'T EQUAL {} AT LINE {}'.format(self.stdout_filename, line_number))
                     return False
                 line_number += 1
 

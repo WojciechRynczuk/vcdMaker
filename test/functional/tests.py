@@ -2,7 +2,7 @@
 #
 # The master class creating test objects.
 #
-# Copyright (c) 2019 vcdMaker team
+# Copyright (c) 2017 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),

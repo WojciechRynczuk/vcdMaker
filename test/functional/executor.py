@@ -134,7 +134,10 @@ class Executor(object):
         line_number = 1
         with open(self.stdout_filename) as stdout_ref, open(self.stdout_output) as stdout_out:
             for stdout_line, stdref_line in itertools.zip_longest(stdout_out, stdout_ref):
-                stdout_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdout_line)
+                if os.name == 'nt':
+                    stdout_line = re.sub(r'(\w+\\[^\s,\.\{]+\\)', '', stdout_line)
+                else:
+                    stdout_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdout_line)
                 stdref_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdref_line)
                 if stdout_line != stdref_line:
                     print('FAIL: STDOUT DOESN\'T EQUAL {} AT LINE {}'.format(self.stdout_filename, line_number))

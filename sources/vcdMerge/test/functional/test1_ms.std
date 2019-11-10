@@ -1,0 +1,18 @@
+Reading sources
+
+T,0,us,System1,Counter,system1_time1.txt
+
+Parsed system1_time1.txt: 
+Valid lines:   7255
+Invalid lines: 2
+
+T,0,us,System2,Counter,system2_time1.txt
+
+Parsed system2_time1.txt: 
+Valid lines:   4352
+Invalid lines: 1
+
+Merging sources
+
+Dumping test1_ms.output
+

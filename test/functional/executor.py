@@ -2,7 +2,7 @@
 #
 # The common test executor.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2019 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -44,6 +44,8 @@ class Executor(object):
         self.tests = tests
         self.output_filename = ''
         self.golden_filename = ''
+        self.stdout_filename = ''
+        self.stdout_output = ''
         self.verbose = verbose
 
     def run(self):
@@ -57,26 +59,42 @@ class Executor(object):
         """
         failed = 0
         passed = 0
+
         for test in self.tests:
             cmd = [self.executable, *test.get_command()]
+            self.output_filename = test.get_output_file()
+            self.golden_filename = test.get_golden_file()
+            self.stdout_filename = test.get_stdout_file()
+            self.stdout_output = test.get_stdout_file() + '.txt'
+            ret = subprocess.run(cmd, stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
             if self.verbose:
                 print('TEST: ', test.get_name())
                 print('DESCRIPTION: ', test.get_description())
                 print('RUNNING: ', *cmd)
-                ret = subprocess.run(cmd, stdout=subprocess.PIPE,
-                                     stderr=subprocess.STDOUT)
                 print(ret.stdout.decode(sys.stdout.encoding))
-            else:
-                ret = subprocess.run(cmd, stdout=subprocess.DEVNULL,
-                                     stderr=subprocess.DEVNULL)
-            if ret.returncode != 0:
+
+            if ret.returncode == 0:
+                with open(self.stdout_output, 'w', newline='') as stdout_file:
+                    print(ret.stdout.decode(sys.stdout.encoding), file=stdout_file)
+                    stdout_file.close()
+
+            if ret.returncode != 0 and self.golden_filename is not None:
                 print('Test FAILED for an unknown reason.')
                 failed += 1
                 continue
-            self.output_filename = test.get_output_file()
-            self.golden_filename = test.get_golden_file()
-            if self.is_gold_and_output_equal():
-                os.remove(test.get_output_file())
+
+            if ret.returncode != 0 and self.golden_filename is None:
+                with open(self.stdout_output, 'w', newline='') as stdout_file:
+                    print(ret.stderr.decode(sys.stderr.encoding), file=stdout_file)
+                    stdout_file.close()
+
+            if self.is_gold_and_output_equal() and self.is_standard_output_equal():
+                try:
+                    os.remove(test.get_output_file())
+                except OSError:
+                    pass
+                os.remove(self.stdout_output)
                 passed += 1
             else:
                 failed += 1
@@ -88,6 +106,9 @@ class Executor(object):
         Returns:
         True if the golden and the output are equal, false otherwise.
         """
+
+        if not self.golden_filename:
+            return True
 
         with open(self.golden_filename) as golden_file, open(self.output_filename) as output_file:
 
@@ -101,6 +122,29 @@ class Executor(object):
                 return False
 
             print('PASS: {} EQUALS {}'.format(self.output_filename, self.golden_filename))
+            return True
+
+    def is_standard_output_equal(self):
+        """Compares the standard output with the reference file.
+
+        Returns:
+        True if the standard output and the reference file are equal, false otherwise.
+        """
+
+        line_number = 1
+        with open(self.stdout_filename) as stdout_ref, open(self.stdout_output) as stdout_out:
+            for stdout_line, stdref_line in itertools.zip_longest(stdout_out, stdout_ref):
+                if os.name == 'nt':
+                    stdout_line = re.sub(r'(\w+\\[^\s,\.\{]+\\)', '', stdout_line)
+                else:
+                    stdout_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdout_line)
+                stdref_line = re.sub(r'(\/[^\s,\.\{]+\/)', '', stdref_line)
+                if stdout_line != stdref_line:
+                    print('FAIL: STDOUT DOESN\'T EQUAL {} AT LINE {}'.format(self.stdout_filename, line_number))
+                    return False
+                line_number += 1
+
+            print('PASS: STDOUT EQUALS {}'.format(self.output_filename))
             return True
 
     def is_date_equal(self, golden_file, output_file):

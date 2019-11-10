@@ -2,7 +2,7 @@
 #
 # A storage for parameters read from a flat (not tested) XML structure.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2019 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -37,9 +37,9 @@ class Flat(object):
                          parameters to be read.
 
         Example:
-        parameters =  {'name': ['', ''],
-                       'output_file': ['', 'Missing output file'],
-                       'golden_file': ['', 'Missing golden file']}
+        parameters =  {'output_file': ['', 'Missing output file'],
+                       'golden_file': ['', ''],
+                       'stdout_file': ['', '']}
 
         The 'key' is the name of the parameter to be read.
 
@@ -93,7 +93,8 @@ class CommonFlat(Flat):
         test parameters.
         """
         self.common_params = {'output_file': ['', 'Missing output file'],
-                              'golden_file': ['', 'Missing golden file']}
+                              'golden_file': ['', ''],
+                              'stdout_file': ['', '']}
 
         self.test_directory = test_directory
         Flat.__init__(self, node, self.common_params)
@@ -106,9 +107,16 @@ class CommonFlat(Flat):
 
     def get_golden_file(self):
         """Returns the absolute golden file path."""
+        if self.get_parameter('golden_file'):
+            return os.path.join(self.test_directory,
+                                self.get_parameter('golden_file'))
+        return None
+
+    def get_stdout_file(self):
+        """Returns the absolute standard output file path."""
 
         return os.path.join(self.test_directory,
-                            self.get_parameter('golden_file'))
+                            self.get_parameter('stdout_file'))
 
 
 class InfoFlat(Flat):

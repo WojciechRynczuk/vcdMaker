@@ -1,0 +1,18 @@
+Reading sources
+
+U{..vcdMaker.xml},71050601,us,System1,Counter,system1_time1.txt
+
+Parsed system1_time1.txt: 
+Valid lines:   7255
+Invalid lines: 2
+
+U{..vcdMaker.xml},234256037,us,System2,Counter,system2_time2.txt
+
+Parsed system2_time2.txt: 
+Valid lines:   4352
+Invalid lines: 1
+
+Merging sources
+
+Dumping ul_test0_ms.output
+

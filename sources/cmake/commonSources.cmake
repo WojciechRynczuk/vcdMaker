@@ -2,7 +2,7 @@
 #
 # List of common source files and directories.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2019 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -88,6 +88,7 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/VCDTracer.h
     ${COMMON_HEADERS_DIR}/SafeUInt.h
     ${COMMON_HEADERS_DIR}/Timestamp.h
+    ${COMMON_HEADERS_DIR}/OutOfMemory.h
     ${VERSION_HEADER})
 
 # 3rd party directories.

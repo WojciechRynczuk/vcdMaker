@@ -2,7 +2,7 @@
 ///
 /// The main module of the vcdMerge application.
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2019 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,6 +29,7 @@
 #include "SignalSource.h"
 #include "Merge.h"
 #include "Logger.h"
+#include "OutOfMemory.h"
 
 ///  The vcdMerge main function.
 ///
@@ -39,6 +40,8 @@ int main(int argc, const char *argv[])
 {
     // The application execution status.
     int32_t executionStatus = EXECUTION::APP_OK;
+
+    std::set_new_handler(OutOfMemory);
 
     try
     {

@@ -8,7 +8,7 @@
 ///
 /// @ingroup Exception
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2019 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -119,6 +119,9 @@ namespace EXCEPTION
 
         /// Vector size exceeded.
         const uint32_t VECTOR_SIZE_EXCEEDED = 21U;
+
+        /// Out of memory.
+        const uint32_t OUT_OF_MEMORY = 22U;
 
         // Logic errors below shall never happen.
         // They are enumerated from 9000.

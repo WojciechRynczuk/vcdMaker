@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,8 +32,9 @@
 #include "VcdException.h"
 #include "SourceRegistry.h"
 
-SIGNAL::SignalDb::SignalDb(const std::string &rTimeUnit) :
-    m_TimeUnit(rTimeUnit)
+SIGNAL::SignalDb::SignalDb(const std::string &rTimeUnit, const std::string &rPrefix) :
+    m_TimeUnit(rTimeUnit),
+    m_Prefix(rPrefix)
 {
 }
 

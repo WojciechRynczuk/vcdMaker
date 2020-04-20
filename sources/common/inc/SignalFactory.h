@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -43,7 +43,7 @@ namespace PARSER
     {
         public:
 
-            /// The signal factory default constructor.
+            /// The signal factory constructor.
             SignalFactory();
 
             /// Creates the appropriate signal objects.
@@ -62,6 +62,9 @@ namespace PARSER
 
             /// The table of pointers to signal creators.
             std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
+
+            /// Factory specific signal prefix.
+            const std::string m_Prefix;
 
         private:
 

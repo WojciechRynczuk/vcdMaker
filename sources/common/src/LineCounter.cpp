@@ -8,7 +8,7 @@
 ///
 /// @ingroup Instrument
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -39,8 +39,10 @@ const std::string INSTRUMENT::LineCounter::LOW_COUNTER_NAME = "Low";
 INSTRUMENT::LineCounter::LineCounter(const std::string &rFilename,
                                      const std::string &rCounterName,
                                      SIGNAL::SourceRegistry &rSourceRegistry,
+                                     SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
                                      SIGNAL::SignalDb &rSignalDb) :
     Instrument(rSourceRegistry, rSignalDb, rFilename + LINE_COUNTER_SUFFIX),
+    m_rSignalDescriptorRegistry(rSignalDescriptorRegistry),
     m_CounterName(CreateCounterName(rCounterName)),
     m_CounterNameLow(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + LOW_COUNTER_NAME),
     m_CounterNameHigh(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + HIGH_COUNTER_NAME)
@@ -80,20 +82,18 @@ void INSTRUMENT::LineCounter::Terminate() const
 {
     for (const auto &counterRecord : m_Counter)
     {
+        const std::shared_ptr<const SIGNAL::SignalDescriptor> low_descriptor = m_rSignalDescriptorRegistry.Register(m_CounterNameLow, "wire", COUNTER_SIGNAL_SIZE, m_InstrumentHandle);
+
         SIGNAL::ISignal *low_counter =
-            new SIGNAL::ISignal(m_CounterNameLow,
-                                COUNTER_SIGNAL_SIZE,
-                                counterRecord.first,
-                                counterRecord.second.m_LineLow,
-                                m_InstrumentHandle);
+            new SIGNAL::ISignal(low_descriptor, counterRecord.first, counterRecord.second.m_LineLow);
+
         m_rSignalDb.Add(low_counter);
 
+        const std::shared_ptr<const SIGNAL::SignalDescriptor> high_descriptor = m_rSignalDescriptorRegistry.Register(m_CounterNameHigh, "wire", COUNTER_SIGNAL_SIZE, m_InstrumentHandle);
+
         SIGNAL::ISignal *high_counter =
-            new SIGNAL::ISignal(m_CounterNameHigh,
-                                COUNTER_SIGNAL_SIZE,
-                                counterRecord.first,
-                                counterRecord.second.m_LineHigh,
-                                m_InstrumentHandle);
+            new SIGNAL::ISignal(high_descriptor, counterRecord.first, counterRecord.second.m_LineLow);
+
         m_rSignalDb.Add(high_counter);
     }
 }

@@ -7,7 +7,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -40,15 +40,13 @@ namespace SIGNAL
 
             /// The event signal constructor.
             ///
-            /// It initializes the basic signal properties: the name and the timestamp.
+            /// It sets the event's timestamp.
             ///
-            /// The name shall consist of any alphanumeric string in which the module's
-            /// levels are separated with '.'.
-            /// E.g. Module1.Level3.Variable6
-            EventSignal(const std::string &name,
-                        const TIME::Timestamp &rTimestamp,
-                        SourceRegistry::HandleT sourceHandle) :
-                Signal(name, 0, rTimestamp, "event", sourceHandle)
+            /// @param rSignalDescriptor Signal descriptor.
+            /// @param rTimestamp The timestamp of the event.
+            EventSignal(const std::shared_ptr<const SIGNAL::SignalDescriptor> &rSignalDescriptor,
+                        const TIME::Timestamp &rTimestamp) :
+                Signal(rSignalDescriptor, rTimestamp)
             {
             }
 
@@ -61,7 +59,7 @@ namespace SIGNAL
             /// @copydoc Signal::Print()
             virtual std::string Print() const
             {
-                return ("1" + m_Name);
+                return ("1" + GetName());
             }
 
             /// @copydoc Signal::Footprint()

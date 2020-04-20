@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -37,12 +37,13 @@ namespace PARSER
     {
         public:
             /// @copydoc XmlSignalCreator::XmlSignalCreator()
-            XmlISignalCreator(const std::string &rRegEx,
+            XmlISignalCreator(SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
+                              const std::string &rRegEx,
                               const std::string &rTimestamp,
                               const std::string &rName,
                               const std::string &rValue,
                               const std::string &rSize) :
-                XmlSignalCreator(rRegEx, rTimestamp, rName, rValue, rSize)
+                XmlSignalCreator(rSignalDescriptorRegistry, rRegEx, rTimestamp, rName, rValue, rSize)
             {
                 m_DecimalEvaluator.ParseDecimalString(rValue);
                 m_SizeEvaluator.ParseDecimalString(rSize);

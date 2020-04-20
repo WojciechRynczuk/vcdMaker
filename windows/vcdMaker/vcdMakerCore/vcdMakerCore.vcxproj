@@ -157,6 +157,8 @@
     <ClInclude Include="..\..\..\sources\common\inc\Signal.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalCreator.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalDb.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalDescriptor.h" />
+    <ClInclude Include="..\..\..\sources\common\inc\SignalDescriptorRegistry.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalFactory.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SignalStructureBuilder.h" />
     <ClInclude Include="..\..\..\sources\common\inc\SourceRegistry.h" />
@@ -187,6 +189,8 @@
     <ClCompile Include="..\..\..\sources\common\src\LogParser.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\Signal.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalDb.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalDescriptor.cpp" />
+    <ClCompile Include="..\..\..\sources\common\src\SignalDescriptorRegistry.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalFactory.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SignalStructureBuilder.cpp" />
     <ClCompile Include="..\..\..\sources\common\src\SourceRegistry.cpp" />

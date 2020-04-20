@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -47,17 +47,14 @@ namespace SIGNAL
 
             /// The integer signal constructor.
             ///
-            /// It initializes the basic signal properties: the name, the size, the timestamp
-            /// and the value.
+            /// It sets the signal's timestamp and the value.
             ///
-            /// The name shall consist of any alphanumeric string in which the module's
-            /// levels are separated with '.'.
-            /// E.g. Module1.Level3.Variable6
-            ISignal(const std::string &name,
-                    size_t size,
+            /// @param rSignalDescriptor Signal descriptor.
+            /// @param rTimestamp Signal timestamp.
+            /// @param rValue Signal value.
+            ISignal(const std::shared_ptr<const SignalDescriptor> &rSignalDescriptor,
                     const TIME::Timestamp &rTimestamp,
-                    uint64_t value,
-                    SourceRegistry::HandleT sourceHandle);
+                    uint64_t value);
 
             /// The integer signal cloning method.
             virtual Signal *Clone() const

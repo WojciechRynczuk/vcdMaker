@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -43,7 +43,8 @@ namespace SIGNAL
             /// The SignalDb constructor.
             ///
             /// @param rTimeUnit The time unit in which logged signals are timestamped.
-            SignalDb(const std::string &rTimeUnit);
+            /// @param rPrefix The collection specific prefix.
+            SignalDb(const std::string &rTimeUnit, const std::string &rPrefix = "");
 
             /// The destructor.
             ~SignalDb();
@@ -77,9 +78,18 @@ namespace SIGNAL
                 return m_TimeUnit;
             }
 
+            /// Returns the database prefix.
+            std::string GetPrefix() const
+            {
+                return m_Prefix;
+            }
+
         private:
             /// The VCD time unit in which the signals are timestamped.
             const std::string m_TimeUnit;
+
+            /// The collection specifix prefix.
+            const std::string m_Prefix;
 
             /// The unique signals collection.
             SIGNAL::UniqueSignalsCollectionT m_AddedSignals;

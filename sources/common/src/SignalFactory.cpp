@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -54,7 +54,7 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
 
     for (const auto &creator : m_vpSignalCreators)
     {
-        SIGNAL::Signal *pSignal = nullptr;
+        const SIGNAL::Signal *pSignal = nullptr;
 
         try
         {

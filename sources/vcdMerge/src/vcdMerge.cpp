@@ -2,7 +2,7 @@
 ///
 /// The main module of the vcdMerge application.
 ///
-/// @par Copyright (c) 2019 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -58,6 +58,9 @@ int main(int argc, const char *argv[])
 
         // All added sources.
         std::vector<std::unique_ptr<MERGE::SignalSource>> in_sources;
+        
+        // One signal descriptors registry for all sources.
+        SIGNAL::SignalDescriptorRegistry SignalDescriptorRegistry;
 
         // There must be at least 2 files to be merged.
         if (in_parameters.size() < 2)
@@ -69,6 +72,7 @@ int main(int argc, const char *argv[])
         for (const std::string &source : in_parameters)
         {
             in_sources.push_back(std::make_unique<MERGE::SignalSource>(source,
+                                                                       SignalDescriptorRegistry,
                                                                        SIGNAL::SourceRegistry::GetInstance(),
                                                                        cli.IsVerboseMode()));
 

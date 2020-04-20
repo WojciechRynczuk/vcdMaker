@@ -8,7 +8,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -88,10 +88,11 @@ namespace MERGE
             /// shall be validated to return any syntax errors as quickly as possible.
             ///
             /// @param rDescription The description of the source.
-            /// @param rSignalRegistry The reference to the signal registry common for all sources.
+            /// @param rSourceRegistry The reference to the signal source registry.
             /// @param verboseMode 'true' enables the verbose mode.
             SignalSource(const std::string &rDescription,
-                         SIGNAL::SourceRegistry &rSignalRegistry,
+                         SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
+                         SIGNAL::SourceRegistry &rSourceRegistry,
                          bool verboseMode);
 
             /// Creates the source data.
@@ -140,8 +141,11 @@ namespace MERGE
             /// The source description.
             const std::string m_SourceDescription;
 
-            /// The signal registry.
-            SIGNAL::SourceRegistry &m_rSignalRegistry;
+            /// The signal source registry.
+            SIGNAL::SourceRegistry &m_rSourceRegistry;
+
+            /// The signal descriptors registry.
+            SIGNAL::SignalDescriptorRegistry &m_rSignalDescriptorRegistry;
 
             /// The signals database.
             std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;

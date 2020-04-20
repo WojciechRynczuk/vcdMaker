@@ -8,7 +8,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -91,9 +91,11 @@ namespace PARSER
     {
         public:
 
-            /// The XML signal factory default constructor.
+            /// The XML signal factory constructor.
             ///
+            /// @param rSignalDescriptorRegistry The signal descriptors registry.
             /// @param rXmlFileName The name of the XML file specifying the user log syntax.
-            XmlSignalFactory(const std::string &rXmlFileName);
+            XmlSignalFactory(SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
+                             const std::string &rXmlFileName);
     };
 }

@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -35,11 +35,12 @@ SIGNAL::Signal *PARSER::XmlISignalCreator::Create(const std::string &rLogLine,
 
     if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
     {
-        return new SIGNAL::ISignal(GetName(result),
-                                   GetSize(result),
+        return new SIGNAL::ISignal(m_rSignalDescriptorRegistry.Register(GetName(result),
+                                                                        "wire",
+                                                                        GetSize(result),
+                                                                        sourceHandle),
                                    GetTimestamp(result, lineNumber),
-                                   GetDecimalValue(result).GetValue(),
-                                   sourceHandle);
+                                   GetDecimalValue(result).GetValue());
     }
     else
     {

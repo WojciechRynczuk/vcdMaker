@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -41,7 +41,9 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <memory>
 
+#include "SignalDescriptor.h"
 #include "SourceRegistry.h"
 #include "Timestamp.h"
 
@@ -62,29 +64,14 @@ namespace SIGNAL
 
             /// The signal constructor.
             ///
-            /// This constructor shall be used by the iheriting classes.
-            /// It initializes the basic signal properties: the name, the size
-            /// and the type.
+            /// It sets common signal properties: its descriptor and the timestamp.
             ///
-            /// The name shall consist of any alphanumeric string in which the module's
-            /// levels are separated with '.'.
-            /// E.g. Module1.Level3.Variable6
-            ///
-            /// The size usually corresponds to any of the integral data type
-            /// sizes: 8, 16, 32 or 64.
-            ///
-            /// The type string is used to produce the VCD header. It describes
-            /// the type of the signal and shall equal to "wire" or "real".
-            Signal(const std::string &name,
-                   size_t size,
-                   const TIME::Timestamp &rTimestamp,
-                   const std::string &type,
-                   SourceRegistry::HandleT sourceHandle) :
-                m_Name(name),
-                m_Type(type),
-                m_Size(size),
-                m_Timestamp(rTimestamp),
-                m_SourceHandle(sourceHandle)
+            /// @param rSignalDesc Signal descriptor.
+            /// @param rTimestamp Signal timestamp.
+            Signal(const std::shared_ptr<const SignalDescriptor> &rSignalDesc,
+                   const TIME::Timestamp &rTimestamp) :
+                m_pSignalDesc(rSignalDesc),
+                m_Timestamp(rTimestamp)
             {
             }
 
@@ -105,15 +92,7 @@ namespace SIGNAL
             /// of the VCD file.
             const std::string &GetName() const
             {
-                return m_Name;
-            }
-
-            /// Sets the new signal's name.
-            ///
-            /// @param name The new signal's name.
-            void SetName(const std::string &name)
-            {
-                m_Name = name;
+                return m_pSignalDesc->GetName();
             }
 
             /// Returns signal name splited into fields.
@@ -127,7 +106,7 @@ namespace SIGNAL
             /// The method is used while generating the VCD header.
             size_t GetSize() const
             {
-                return m_Size;
+                return m_pSignalDesc->GetSize();
             }
 
             /// Returns the signal's timestamp in time units.
@@ -151,13 +130,13 @@ namespace SIGNAL
             /// The method is used while generating the VCD header.
             const std::string &GetType() const
             {
-                return m_Type;
+                return m_pSignalDesc->GetType();
             }
 
             /// Returns the source handle of the signal.
             SourceRegistry::HandleT GetSource() const
             {
-                return m_SourceHandle;
+                return m_pSignalDesc->GetSource();
             }
 
             /// Checks if two signals are similar (differ by value only)
@@ -185,21 +164,8 @@ namespace SIGNAL
             /// determine its change.
             virtual bool EqualTo(Signal const &other) const = 0;
 
-            /// The signal's name.
-            std::string m_Name {};
-
-            /// The signal's type.
-            const std::string m_Type {};
-
-            /// The signal's size.
-            const size_t m_Size = 0;
-
             /// The signal's timestamp.
             TIME::Timestamp m_Timestamp;
-
-            /// The signal's source.
-            const SourceRegistry::HandleT m_SourceHandle =
-                SIGNAL::SourceRegistry::BAD_HANDLE;
 
         private:
 
@@ -219,6 +185,8 @@ namespace SIGNAL
                 return !lsignal.EqualTo(rsignal);
             }
 
+            /// Signal's description.
+            std::shared_ptr<const SIGNAL::SignalDescriptor> m_pSignalDesc;
     };
 
     /// Comparator for multiset.

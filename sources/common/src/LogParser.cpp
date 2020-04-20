@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -31,10 +31,10 @@
 #include "VcdException.h"
 
 PARSER::LogParser::LogParser(const std::string &rFilename,
-                             const std::string &rTimeBase,
+                             std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
                              SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
-    m_pSignalDb(std::make_unique<SIGNAL::SignalDb>(rTimeBase)),
+    m_rSignalDb(rSignalDb),
     m_FileName(rFilename),
     m_LogFile(m_FileName),
     m_SourceHandle(rSourceRegistry.Register(rFilename)),

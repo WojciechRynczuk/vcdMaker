@@ -1,11 +1,12 @@
-/// @file common/src/DefaultSignalFactory.cpp
+/// @file common/inc/SignalDescriptorRegistry.cpp
 ///
-/// The default signal factory class.
+/// The signal descriptor registry.
 ///
 /// @par Full Description
-/// The standard vcdMaker signal factory.
+/// The signal descriptor registry. It is supposed to create unique signal 
+/// descriptors and maintain its collection during the whole application lifetime.
 ///
-/// @ingroup Parser
+/// @ingroup Signal
 ///
 /// @par Copyright (c) 2020 vcdMaker team
 ///
@@ -27,25 +28,23 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include "DefaultSignalFactory.h"
-#include "EventSignalCreator.h"
-#include "FSignalCreator.h"
-#include "ISignalCreator.h"
-#include "VcdException.h"
+#include "SignalDescriptorRegistry.h"
 
-PARSER::DefaultSignalFactory::DefaultSignalFactory(SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry) :
-    SignalFactory()
+const std::shared_ptr<const SIGNAL::SignalDescriptor> SIGNAL::SignalDescriptorRegistry::Register(const std::string& rName,
+    const std::string& rType,
+    size_t size,
+    SourceRegistry::HandleT sourceHandle)
 {
-    try
-    {
-        m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>(rSignalDescriptorRegistry));
-        m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>(rSignalDescriptorRegistry));
-        m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>(rSignalDescriptorRegistry));
-    }
-    catch (const std::regex_error &)
-    {
-        throw EXCEPTION::VcdException(EXCEPTION::Error::INVALID_REGEX,
-                                      "Invalid regex.");
-    }
-}
+    const auto it = m_SignalDescriptors.find(rName);
 
+    // Is this a new signal to be registered?
+    if (it == m_SignalDescriptors.end())
+    {
+        auto signalDescriptor = std::make_shared<const SignalDescriptor>(rName, size, rType, sourceHandle);
+        m_SignalDescriptors[rName] = signalDescriptor;
+        return signalDescriptor;
+    }
+    /// \todo Consistency check here
+
+    return it->second;
+}

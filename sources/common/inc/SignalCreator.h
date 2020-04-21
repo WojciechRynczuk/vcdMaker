@@ -73,9 +73,11 @@ namespace PARSER
             /// @param rLogLine The log line serving as the creation specification.
             /// @param lineNumber The log line number.
             /// @param sourceHandle Signal source handle.
+            /// @param rPrefix Signal prefix.
             /// @return Signal pointer if the object has been created or nullptr.
             virtual const SIGNAL::Signal *Create(const std::string &rLogLine,
                                                  INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                 const std::string &rPrefix,
                                                  SIGNAL::SourceRegistry::HandleT sourceHandle) const = 0;
 
             /// Returns the regex.

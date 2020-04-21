@@ -29,6 +29,7 @@
 
 const SIGNAL::Signal *PARSER::EventSignalCreator::Create(const std::string &rLogLine,
                                                          INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                         const std::string &rPrefix,
                                                          SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
@@ -36,7 +37,7 @@ const SIGNAL::Signal *PARSER::EventSignalCreator::Create(const std::string &rLog
     (void)lineNumber;
     if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
     {
-        return new SIGNAL::EventSignal(m_rSignalDescriptorRegistry.Register(result[2].str(),
+        return new SIGNAL::EventSignal(m_rSignalDescriptorRegistry.Register(rPrefix + result[2].str(),
                                                                             "event",
                                                                              0,
                                                                             sourceHandle),

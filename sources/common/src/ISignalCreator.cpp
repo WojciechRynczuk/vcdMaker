@@ -29,6 +29,7 @@
 
 const SIGNAL::Signal *PARSER::ISignalCreator::Create(const std::string &rLogLine,
                                                      INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                     const std::string &rPrefix,
                                                      SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
@@ -36,7 +37,7 @@ const SIGNAL::Signal *PARSER::ISignalCreator::Create(const std::string &rLogLine
     (void)lineNumber;
     if (true == std::regex_search(rLogLine, result, m_SignalRegEx))
     {
-        return new SIGNAL::ISignal(m_rSignalDescriptorRegistry.Register(result[2].str(),
+        return new SIGNAL::ISignal(m_rSignalDescriptorRegistry.Register(rPrefix + result[2].str(),
                                                                         "wire",
                                                                         std::stoi(result[4].str()),
                                                                         sourceHandle),

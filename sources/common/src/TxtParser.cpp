@@ -65,7 +65,7 @@ void PARSER::TxtParser::Parse()
     while (std::getline(m_LogFile, input_line))
     {
         std::vector<const SIGNAL::Signal *> vpSignals =
-            m_rSignalFactory.Create(input_line, lineNumber, m_SourceHandle);
+            m_rSignalFactory.Create(input_line, lineNumber, m_rSignalDb->GetPrefix(), m_SourceHandle);
         const SIGNAL::Signal *pSignal = nullptr;
 
         if (!vpSignals.empty())

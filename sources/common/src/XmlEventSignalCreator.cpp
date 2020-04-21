@@ -29,13 +29,14 @@
 
 SIGNAL::Signal *PARSER::XmlEventSignalCreator::Create(const std::string &rLogLine,
                                                       INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                      const std::string &rPrefix,
                                                       SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 
     if (std::regex_search(rLogLine, result, m_SignalRegEx))
     {
-        return new SIGNAL::EventSignal(m_rSignalDescriptorRegistry.Register(GetName(result),
+        return new SIGNAL::EventSignal(m_rSignalDescriptorRegistry.Register(rPrefix + GetName(result),
                                                                             "event",
                                                                             0,
                                                                             sourceHandle),

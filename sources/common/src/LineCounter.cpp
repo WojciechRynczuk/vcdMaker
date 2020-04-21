@@ -82,14 +82,16 @@ void INSTRUMENT::LineCounter::Terminate() const
 {
     for (const auto &counterRecord : m_Counter)
     {
-        const std::shared_ptr<const SIGNAL::SignalDescriptor> low_descriptor = m_rSignalDescriptorRegistry.Register(m_CounterNameLow, "wire", COUNTER_SIGNAL_SIZE, m_InstrumentHandle);
+        const std::shared_ptr<const SIGNAL::SignalDescriptor> low_descriptor = 
+            m_rSignalDescriptorRegistry.Register(m_rSignalDb.GetPrefix() + m_CounterNameLow, "wire", COUNTER_SIGNAL_SIZE, m_InstrumentHandle);
 
         SIGNAL::ISignal *low_counter =
             new SIGNAL::ISignal(low_descriptor, counterRecord.first, counterRecord.second.m_LineLow);
 
         m_rSignalDb.Add(low_counter);
 
-        const std::shared_ptr<const SIGNAL::SignalDescriptor> high_descriptor = m_rSignalDescriptorRegistry.Register(m_CounterNameHigh, "wire", COUNTER_SIGNAL_SIZE, m_InstrumentHandle);
+        const std::shared_ptr<const SIGNAL::SignalDescriptor> high_descriptor =
+            m_rSignalDescriptorRegistry.Register(m_rSignalDb.GetPrefix() + m_CounterNameHigh, "wire", COUNTER_SIGNAL_SIZE, m_InstrumentHandle);
 
         SIGNAL::ISignal *high_counter =
             new SIGNAL::ISignal(high_descriptor, counterRecord.first, counterRecord.second.m_LineLow);

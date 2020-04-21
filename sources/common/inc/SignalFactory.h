@@ -51,11 +51,13 @@ namespace PARSER
             /// Returns the pointer to the list of created signal objects.
             /// If emtpy no signal could be created.
             ///
-            /// @param logLine One line from the log.
+            /// @param rLogLine One line from the log.
             /// @param lineNumber The log line number.
+            /// @param rPrefix Signal prefix.
             /// @param sourceHandle Signal source handle.
-            std::vector<const SIGNAL::Signal*> Create(std::string &logLine,
+            std::vector<const SIGNAL::Signal*> Create(const std::string &rLogLine,
                                                       INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                      const std::string &rPrefix,
                                                       SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
         protected:

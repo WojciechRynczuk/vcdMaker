@@ -80,10 +80,10 @@ namespace PARSER
             /// It opens the input log file and sets the verbose mode.
             ///
             /// @throws VcdError if the file cannot be open.
+            /// @param rFilename The log file name.
             /// @param rSignalDb The signal databse. The container for parsed signals.
-            /// @param rTimeBase The time base used in the log.
-            /// @param verboseMode Value 'true' enables the verbose mode.
             /// @param rSourceRegistry Signal sources registry.
+            /// @param verboseMode Value 'true' enables the verbose mode.
             LogParser(const std::string &rFilename,
                       std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
                       SIGNAL::SourceRegistry &rSourceRegistry,

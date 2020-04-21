@@ -33,8 +33,8 @@
 #include "ISignal.h"
 
 SIGNAL::ISignal::ISignal(const std::shared_ptr<const SignalDescriptor> &rSignalDescriptor,
-    const TIME::Timestamp &rTimestamp,
-    uint64_t value) :
+                         const TIME::Timestamp &rTimestamp,
+                         uint64_t value) :
     Signal(rSignalDescriptor, rTimestamp),
     m_Value(value)
 {

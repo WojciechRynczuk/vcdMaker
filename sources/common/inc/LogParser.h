@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -58,13 +58,7 @@ namespace PARSER
             /// Returns the non-const reference to the signal database.
             SIGNAL::SignalDb &GetSignalDb()
             {
-                return *(m_pSignalDb.get());
-            }
-
-            /// Moves ownership of signal database somewhere else.
-            std::unique_ptr<SIGNAL::SignalDb> MoveSignalDb()
-            {
-                return std::move(m_pSignalDb);
+                return *(m_rSignalDb.get());
             }
 
             /// Invokes the parser.
@@ -86,12 +80,12 @@ namespace PARSER
             /// It opens the input log file and sets the verbose mode.
             ///
             /// @throws VcdError if the file cannot be open.
-            /// @param rFilename The name of the log file to be open.
-            /// @param rTimeBase The time base used in the log.
-            /// @param verboseMode Value 'true' enables the verbose mode.
+            /// @param rFilename The log file name.
+            /// @param rSignalDb The signal databse. The container for parsed signals.
             /// @param rSourceRegistry Signal sources registry.
+            /// @param verboseMode Value 'true' enables the verbose mode.
             LogParser(const std::string &rFilename,
-                      const std::string &rTimeBase,
+                      std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
                       SIGNAL::SourceRegistry &rSourceRegistry,
                       bool verboseMode);
 
@@ -102,7 +96,7 @@ namespace PARSER
             virtual void Parse() = 0;
 
             /// The signal database.
-            std::unique_ptr<SIGNAL::SignalDb> m_pSignalDb;
+            std::unique_ptr<SIGNAL::SignalDb> &m_rSignalDb;
 
             /// Instruments.
             std::vector<INSTRUMENT::Instrument *> m_vpInstruments;

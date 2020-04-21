@@ -2,7 +2,7 @@
 ///
 /// The main module of the vcdMerge application.
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,6 +29,7 @@
 #include "SignalSource.h"
 #include "Merge.h"
 #include "Logger.h"
+#include "OutOfMemory.h"
 
 ///  The vcdMerge main function.
 ///
@@ -40,21 +41,36 @@ int main(int argc, const char *argv[])
     // The application execution status.
     int32_t executionStatus = EXECUTION::APP_OK;
 
+    std::set_new_handler(OutOfMemory);
+
     try
     {
         // Parse input parameters
-        CLI::CliMerge cli;
-        cli.Parse(argc, argv);
+        CLI::CliMerge *cli;
+        try
+        {
+            cli = new CLI::CliMerge();
+        }
+        catch (const std::logic_error &)
+        {
+            throw EXCEPTION::VcdException(EXCEPTION::Error::EMPTY_VALIDATION_LIST,
+                                          "Empty argument initialization list.");
+        }
+
+        cli->Parse(argc, argv);
 
         // Get input sources.
-        const std::vector<std::string> &in_parameters = cli.GetInputSources();
+        const std::vector<std::string> &in_parameters = cli->GetInputSources();
 
         // Merging unit.
-        MERGE::Merge merge(cli.IsVerboseMode(),
-                           cli.GetTimeBase());
+        MERGE::Merge merge(cli->IsVerboseMode(),
+                           cli->GetTimeBase());
 
         // All added sources.
         std::vector<std::unique_ptr<MERGE::SignalSource>> in_sources;
+
+        // One signal descriptors registry for all sources.
+        SIGNAL::SignalDescriptorRegistry SignalDescriptorRegistry;
 
         // There must be at least 2 files to be merged.
         if (in_parameters.size() < 2)
@@ -66,8 +82,9 @@ int main(int argc, const char *argv[])
         for (const std::string &source : in_parameters)
         {
             in_sources.push_back(std::make_unique<MERGE::SignalSource>(source,
+                                                                       SignalDescriptorRegistry,
                                                                        SIGNAL::SourceRegistry::GetInstance(),
-                                                                       cli.IsVerboseMode()));
+                                                                       cli->IsVerboseMode()));
 
             merge.AddSource(in_sources.back().get());
         }
@@ -83,8 +100,8 @@ int main(int argc, const char *argv[])
         merge.Run();
 
         // Create the VCD tracer and dump the output file.
-        TRACER::VCDTracer vcd_trace(cli.GetOutputFileName(), merge.GetSignals());
-        std::cout << '\n' << "Dumping " << cli.GetOutputFileName() << '\n';
+        TRACER::VCDTracer vcd_trace(cli->GetOutputFileName(), merge.GetSignals());
+        std::cout << '\n' << "Dumping " << cli->GetOutputFileName() << '\n';
         vcd_trace.Dump();
     }
     catch (const EXCEPTION::VcdException &rException)

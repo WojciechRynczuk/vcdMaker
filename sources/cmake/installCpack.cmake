@@ -2,7 +2,7 @@
 #
 # CPack settings.
 #
-# Copyright (c) 2017 vcdMaker team
+# Copyright (c) 2018 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -25,9 +25,10 @@
 # Set Cpack.
 
 set(AUTHOR "vcdMaker team")
-set(WEBSITE "http://vcdmaker.org")
-set(DESCRIPTION "Commandline tools that can generate VCD files from text logs")
+set(WEBSITE "https://vcdmaker.org")
+set(DESCRIPTION "Command line tools that can generate VCD files from text logs")
 
+set(CPACK_PACKAGE_NAME "vcdMaker")
 set(CPACK_PACKAGE_VENDOR ${AUTHOR})
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Generates VCD files from text logs")
 set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
@@ -52,5 +53,6 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER ${AUTHOR})
 set(CPACK_DEBIAN_PACKAGE_DESCRIPTION ${DESCRIPTION})
 set(CPACK_DEBIAN_PACKAGE_SECTION "electronics")
 set(CPACK_DEBIAN_PACKAGE_HOMEPAGE ${WEBSITE})
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 
 include(CPack)

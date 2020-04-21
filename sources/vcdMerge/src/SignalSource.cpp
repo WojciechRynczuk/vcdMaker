@@ -8,7 +8,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -43,10 +43,12 @@ const char MERGE::SignalSource::Formats::VCD_TEXT_FORMAT = 'T';
 const char MERGE::SignalSource::Formats::USER_XML_FORMAT = 'U';
 
 MERGE::SignalSource::SignalSource(const std::string &rDescription,
-                                  SIGNAL::SourceRegistry &rSignalRegistry,
+                                  SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
+                                  SIGNAL::SourceRegistry &rSourceRegistry,
                                   bool verboseMode) :
     m_SourceDescription(rDescription),
-    m_rSignalRegistry(rSignalRegistry),
+    m_rSourceRegistry(rSourceRegistry),
+    m_rSignalDescriptorRegistry(rSignalDescriptorRegistry),
     m_pSignalDb(),
     m_pSignalFactory(),
     m_SyncPoint(),
@@ -81,10 +83,13 @@ TIME::Timestamp MERGE::SignalSource::GetLeadingTime() const
 
 void MERGE::SignalSource::Create()
 {
+    // Create the unique source signal database.
+    m_pSignalDb = std::make_unique<SIGNAL::SignalDb>(m_TimeUnit, m_Prefix);
+
     // Parse the log file.
     PARSER::TxtParser parser(m_Filename,
-                             m_TimeUnit,
-                             m_rSignalRegistry,
+                             m_pSignalDb,
+                             m_rSourceRegistry,
                              *m_pSignalFactory,
                              m_VerboseMode);
 
@@ -96,22 +101,21 @@ void MERGE::SignalSource::Create()
         // Register the line counting instrument.
         lineCounter = std::make_unique<INSTRUMENT::LineCounter>(m_Filename,
                                                                 m_LineCounter,
-                                                                m_rSignalRegistry,
+                                                                m_rSourceRegistry,
+                                                                m_rSignalDescriptorRegistry,
                                                                 parser.GetSignalDb());
         parser.Attach(*lineCounter);
     }
 
     // Start parsing.
     parser.Execute();
-
-    m_pSignalDb = parser.MoveSignalDb();
 }
 
 void MERGE::SignalSource::SetFormat(const std::string &rFormat)
 {
     if (IsVcdFormat(rFormat))
     {
-        m_pSignalFactory = std::make_unique<PARSER::DefaultSignalFactory>();
+        m_pSignalFactory = std::make_unique<PARSER::DefaultSignalFactory>(m_rSignalDescriptorRegistry);
         return;
     }
 
@@ -128,7 +132,7 @@ void MERGE::SignalSource::SetFormat(const std::string &rFormat)
             ThrowFileInaccessibleException(filename);
         }
 
-        m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(filename);
+        m_pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(m_rSignalDescriptorRegistry, filename);
         return;
     }
 

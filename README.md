@@ -2,7 +2,7 @@
 [![GitHub License](https://github-basic-badges.herokuapp.com/license/WojciechRynczuk/vcdMaker.svg)](https://github.com/WojciechRynczuk/vcdMaker/blob/master/LICENSE)
 [![GitHub Release](https://github-basic-badges.herokuapp.com/release/WojciechRynczuk/vcdMaker.svg)](https://github.com/WojciechRynczuk/vcdMaker/releases/latest)
 [![Build Status](https://travis-ci.org/WojciechRynczuk/vcdMaker.svg?branch=master)](https://travis-ci.org/WojciechRynczuk/vcdMaker)
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/11276/badge.svg)](https://scan.coverity.com/projects/vcdmaker)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/11276/badge.svg)](https://scan.coverity.com/projects/vcdmaker) [![Coverage Status](https://coveralls.io/repos/github/WojciechRynczuk/vcdMaker/badge.svg)](https://coveralls.io/github/WojciechRynczuk/vcdMaker)
 
 
 ## Basic information

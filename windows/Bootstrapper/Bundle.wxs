@@ -5,7 +5,7 @@
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
   <!-- Can be added to bundle to change the installation icon: IconSourceFile="..\Installer\resources\vcdMaker128.ico"-->
-	<Bundle Name="vcdMaker $(var.ProductVersionInfo)" Version="3.0.1.0" Manufacturer="vcdMaker team" UpgradeCode="aa694554-90fe-4f5b-b432-1373894aa8da">
+	<Bundle Name="vcdMaker $(var.ProductVersionInfo)" Version="3.0.2.0" Manufacturer="vcdMaker team" UpgradeCode="aa694554-90fe-4f5b-b432-1373894aa8da">
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
       <Payload SourceFile="resources\bootstrapper_logo.png"/>
       <bal:WixStandardBootstrapperApplication

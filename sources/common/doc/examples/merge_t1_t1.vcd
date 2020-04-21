@@ -1,6 +1,6 @@
-$date Tue Aug 28 21:47:21 2018
+$date Tue Dec 18 17:57:25 2018
 $end
-$version VCD Tracer "Nestor" Release v.3.0.1
+$version VCD Tracer "Nestor" Release v.3.0.2
 $end
 $timescale 1 us
 $end
@@ -63,6 +63,7 @@ $scope module System2 $end
 		$upscope $end
 	$upscope $end
 $upscope $end
+$enddefinitions $end
 $dumpvars
 bx System1.Disco.Buttons.Center
 bx System1.Disco.Buttons.Down

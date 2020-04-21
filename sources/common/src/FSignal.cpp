@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -34,7 +34,7 @@
 
 std::string SIGNAL::FSignal::Print() const
 {
-    return ('r' + m_Value + ' ' + m_Name);
+    return ('r' + m_Value + ' ' + GetName());
 }
 
 bool SIGNAL::FSignal::EqualTo(Signal const &other) const

@@ -81,6 +81,7 @@ void TRACER::VCDTracer::GenerateSignalStructure()
 
 void TRACER::VCDTracer::GenerateSignalDefaults()
 {
+    DumpLine("$enddefinitions $end");
     DumpLine("$dumpvars");
     for (const auto &signal : m_rSignalDb.GetSignalFootprint())
     {

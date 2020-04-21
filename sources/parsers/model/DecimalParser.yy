@@ -113,12 +113,12 @@ constant    :   INTEGER
 
 variable    :   HEX
             {
-                $$ = new DNHex(evaluator.GetContext(), *$1);
+                $$ = new DNHex(evaluator.GetContext(), $1);
                 delete $1;
             }
             |   DEC
             {
-                $$ = new DNDec(evaluator.GetContext(), *$1);
+                $$ = new DNDec(evaluator.GetContext(), $1);
                 delete $1;
             }
             |   LINE

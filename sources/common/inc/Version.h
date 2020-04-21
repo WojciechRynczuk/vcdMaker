@@ -5,7 +5,7 @@
 /// @par Full Description
 /// Version information header.
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2018 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,7 +32,7 @@
 /// @{
 #define D_VERSION_MAJOR 3
 #define D_VERSION_MINOR 0
-#define D_VERSION_PATCH 1
+#define D_VERSION_PATCH 2
 #define D_RELEASE_NAME  "Nestor"
 /// @}
 
@@ -47,20 +47,21 @@
     XSTR(D_VERSION_MAJOR) "." XSTR(D_VERSION_MINOR) "." XSTR(D_VERSION_PATCH)
 
 /// Version information namespace.
-namespace VERSION {
+namespace VERSION
+{
 
-/// Application version components.
-/// @{
-constexpr int MAJOR = D_VERSION_MAJOR;
-constexpr int MINOR = D_VERSION_MINOR;
-constexpr int PATCH = D_VERSION_PATCH;
-/// @}
+    /// Application version components.
+    /// @{
+    constexpr int MAJOR = D_VERSION_MAJOR;
+    constexpr int MINOR = D_VERSION_MINOR;
+    constexpr int PATCH = D_VERSION_PATCH;
+    /// @}
 
-/// Application version string.
-constexpr const char *STRING = MAKE_VERSION_STR;
+    /// Application version string.
+    constexpr const char *STRING = MAKE_VERSION_STR;
 
-/// Application release name.
-constexpr const char *RELEASE_NAME = D_RELEASE_NAME;
+    /// Application release name.
+    constexpr const char *RELEASE_NAME = D_RELEASE_NAME;
 
 }
 

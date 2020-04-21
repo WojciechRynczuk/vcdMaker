@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,8 +32,9 @@
 #include "VcdException.h"
 #include "SourceRegistry.h"
 
-SIGNAL::SignalDb::SignalDb(const std::string &rTimeUnit) :
-    m_TimeUnit(rTimeUnit)
+SIGNAL::SignalDb::SignalDb(const std::string &rTimeUnit, const std::string &rPrefix) :
+    m_TimeUnit(rTimeUnit),
+    m_Prefix(rPrefix)
 {
 }
 
@@ -61,28 +62,6 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
     if (it == m_AddedSignals.end())
     {
         m_AddedSignals[pSignal->GetName()] = pSignal;
-    }
-    else
-    {
-        // Check signal consistency
-        if (!it->second->SimilarTo(*pSignal))
-        {
-            std::string signalName(pSignal->GetName());
-            std::string signalType(pSignal->GetType());
-            std::string signalSize(std::to_string(pSignal->GetSize()));
-            std::string signalSource(SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()));
-            throw EXCEPTION::VcdException(EXCEPTION::Error::INCONSISTENT_SIGNAL,
-                                          "Inconsistent signal: " +
-                                          signalName +
-                                          ". Types: " +
-                                          it->second->GetType() + " / " + signalType +
-                                          ". Sizes: " +
-                                          std::to_string(it->second->GetSize()) + " / " + signalSize +
-                                          ". Sources: " +
-                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(it->second->GetSource()) +
-                                          " and " +
-                                          signalSource + ".");
-        }
     }
 
     // Store the full signal data

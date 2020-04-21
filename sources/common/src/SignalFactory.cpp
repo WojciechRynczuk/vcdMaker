@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -40,8 +40,9 @@ PARSER::SignalFactory::SignalFactory() :
 {
 }
 
-std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &logLine,
+std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(const std::string &rLogLine,
                                                                  INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                                 const std::string &rPrefix,
                                                                  SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     if (m_vpSignalCreators.empty())
@@ -54,23 +55,23 @@ std::vector<const SIGNAL::Signal*> PARSER::SignalFactory::Create(std::string &lo
 
     for (const auto &creator : m_vpSignalCreators)
     {
-        SIGNAL::Signal *pSignal = nullptr;
+        const SIGNAL::Signal *pSignal = nullptr;
 
         try
         {
             // Try to use creator.
-            pSignal = creator->Create(logLine, lineNumber, sourceHandle);
+            pSignal = creator->Create(rLogLine, lineNumber, rPrefix, sourceHandle);
         }
         catch (const PARSER::EXCEPTIONS::EvaluatorException &evaluatorError)
         {
             throw EXCEPTION::VcdException(EXCEPTION::Error::EXPRESSION_EVALUATION_ERROR,
-                                          GetLogLineInfo(sourceHandle, lineNumber, logLine) +
+                                          GetLogLineInfo(sourceHandle, lineNumber, rLogLine) +
                                           evaluatorError.what());
         }
         catch (const EXCEPTION::TooSmallVector &smallVector)
         {
             LOGGER::Logger::GetInstance().LogWarning(EXCEPTION::Warning::INSUFFICIENT_VECTOR_SIZE,
-                                                     GetLogLineInfo(sourceHandle, lineNumber, logLine) +
+                                                     GetLogLineInfo(sourceHandle, lineNumber, rLogLine) +
                                                      smallVector.what());
         }
         catch (const std::regex_error &regexError)

@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,11 +32,11 @@
 #include "VcdException.h"
 
 PARSER::TxtParser::TxtParser(const std::string &rFilename,
-                             const std::string &rTimeBase,
+                             std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
                              SIGNAL::SourceRegistry &rSourceRegistry,
                              const PARSER::SignalFactory &rSignalFactory,
                              bool verboseMode) :
-    LogParser(rFilename, rTimeBase, rSourceRegistry, verboseMode),
+    LogParser(rFilename, rSignalDb, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
     m_SourceHandle(rSourceRegistry.Register(rFilename)),
@@ -65,7 +65,7 @@ void PARSER::TxtParser::Parse()
     while (std::getline(m_LogFile, input_line))
     {
         std::vector<const SIGNAL::Signal *> vpSignals =
-            m_rSignalFactory.Create(input_line, lineNumber, m_SourceHandle);
+            m_rSignalFactory.Create(input_line, lineNumber, m_rSignalDb->GetPrefix(), m_SourceHandle);
         const SIGNAL::Signal *pSignal = nullptr;
 
         if (!vpSignals.empty())
@@ -76,7 +76,7 @@ void PARSER::TxtParser::Parse()
                 {
                     pSignal = vpSignals.back();
                     vpSignals.pop_back();
-                    m_pSignalDb->Add(pSignal);
+                    m_rSignalDb->Add(pSignal);
                 }
                 catch (const EXCEPTION::VcdException &rException)
                 {

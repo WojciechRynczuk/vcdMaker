@@ -8,7 +8,7 @@
 ///
 /// @ingroup Exception
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -120,6 +120,9 @@ namespace EXCEPTION
         /// Vector size exceeded.
         const uint32_t VECTOR_SIZE_EXCEEDED = 21U;
 
+        /// Out of memory.
+        const uint32_t OUT_OF_MEMORY = 22U;
+
         // Logic errors below shall never happen.
         // They are enumerated from 9000.
 
@@ -137,5 +140,8 @@ namespace EXCEPTION
 
         /// Time unit index out of bounds.
         const uint32_t TIME_UNIT_INDEX_OUT_OF_BOUNDS = 9004U;
+
+        /// Empty validation list.
+        const uint32_t EMPTY_VALIDATION_LIST = 9005U;
     }
 }

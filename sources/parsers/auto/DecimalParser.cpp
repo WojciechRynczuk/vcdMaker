@@ -550,7 +550,7 @@ namespace PARSER {
 /* Line 670 of lalr1.cc  */
 #line 115 "DecimalParser.yy"
     {
-                (yyval.pExprNode) = new DNHex(evaluator.GetContext(), *(yysemantic_stack_[(1) - (1)].pString));
+                (yyval.pExprNode) = new DNHex(evaluator.GetContext(), (yysemantic_stack_[(1) - (1)].pString));
                 delete (yysemantic_stack_[(1) - (1)].pString);
             }
     break;
@@ -559,7 +559,7 @@ namespace PARSER {
 /* Line 670 of lalr1.cc  */
 #line 120 "DecimalParser.yy"
     {
-                (yyval.pExprNode) = new DNDec(evaluator.GetContext(), *(yysemantic_stack_[(1) - (1)].pString));
+                (yyval.pExprNode) = new DNDec(evaluator.GetContext(), (yysemantic_stack_[(1) - (1)].pString));
                 delete (yysemantic_stack_[(1) - (1)].pString);
             }
     break;

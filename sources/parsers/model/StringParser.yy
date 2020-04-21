@@ -74,11 +74,8 @@
 
 %type <pExprNode>   constant variable atomexpr addexpr expr
 
-%destructor { delete $$; } TXT
-%destructor { delete $$; } TXT_CONSTANT
 %destructor { delete $$; } constant
 %destructor { delete $$; } variable
-%destructor { delete $$; } atomexpr
 %destructor { delete $$; } addexpr
 %destructor { delete $$; } expr
 
@@ -101,12 +98,12 @@
 
 constant    :   TXT_CONSTANT
             {
-                $$ = new SNConstant(evaluator.GetContext(), *$1);
+                $$ = new SNConstant(evaluator.GetContext(), $1);
             }
 
 variable    :   TXT
             {
-                $$ = new SNTxt(evaluator.GetContext(), *$1);
+                $$ = new SNTxt(evaluator.GetContext(), $1);
                 delete $1;
             }
 

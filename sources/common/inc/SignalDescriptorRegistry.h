@@ -3,7 +3,7 @@
 /// The signal descriptor registry.
 ///
 /// @par Full Description
-/// The signal descriptor registry. It is supposed to create unique signal 
+/// The signal descriptor registry. It is supposed to create unique signal
 /// descriptors and maintain its collection during the whole application lifetime.
 ///
 /// @ingroup Signal
@@ -30,6 +30,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "SignalDescriptor.h"
 
 namespace SIGNAL
@@ -38,33 +40,33 @@ namespace SIGNAL
     /// The database keep a record of unique signal descriptors.
     class SignalDescriptorRegistry
     {
-    public:
-        /// The signal descriptor databse constructor.
-        ///
-        /// Initializes the database.
-        ///
-        SignalDescriptorRegistry() : m_SignalDescriptors()
-        {
-        }
+        public:
+            /// The signal descriptor databse constructor.
+            ///
+            /// Initializes the database.
+            ///
+            SignalDescriptorRegistry() : m_SignalDescriptors()
+            {
+            }
 
-        /// The default destructor.
-        ~SignalDescriptorRegistry() = default;
+            /// The default destructor.
+            ~SignalDescriptorRegistry() = default;
 
-        /// Creates the descriptor and adds it to the database.
-        ///
-        /// @param rName Signal name.
-        /// @param rType Signal type.
-        /// @param size Signal size. 
-        /// @param sourceHandle Signal source.
-        /// @return The created signal descriptor.
-        const std::shared_ptr<const SignalDescriptor> Register(const std::string& rName,
-                                                               const std::string& rType,
-                                                               size_t size,
-                                                               SourceRegistry::HandleT sourceHandle);
+            /// Creates the descriptor and adds it to the database.
+            ///
+            /// @param rName Signal name.
+            /// @param rType Signal type.
+            /// @param size Signal size.
+            /// @param sourceHandle Signal source.
+            /// @return The created signal descriptor.
+            const std::shared_ptr<const SignalDescriptor> Register(const std::string &rName,
+                                                                   const std::string &rType,
+                                                                   size_t size,
+                                                                   SourceRegistry::HandleT sourceHandle);
 
-    private:
+        private:
 
-        /// The set of pointers to signal descriptors indexed by names.
-        std::map<const std::string, std::shared_ptr<const SignalDescriptor>> m_SignalDescriptors{};
+            /// The set of pointers to signal descriptors indexed by names.
+            std::map<const std::string, std::shared_ptr<const SignalDescriptor>> m_SignalDescriptors{};
     };
 }

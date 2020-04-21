@@ -70,8 +70,8 @@ namespace SIGNAL
             /// @param rTimestamp Signal timestamp.
             Signal(const std::shared_ptr<const SignalDescriptor> &rSignalDesc,
                    const TIME::Timestamp &rTimestamp) :
-                m_pSignalDesc(rSignalDesc),
-                m_Timestamp(rTimestamp)
+                m_Timestamp(rTimestamp),
+                m_pSignalDesc(rSignalDesc)
             {
             }
 

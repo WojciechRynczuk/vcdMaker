@@ -31,6 +31,9 @@
 
 #include "VcdException.h"
 
+/// Out of memory handler.
+///
+/// @throws EXCEPTION::VcdException.
 inline void OutOfMemory()
 {
     throw EXCEPTION::VcdException(EXCEPTION::Error::OUT_OF_MEMORY, "Out of memory.");

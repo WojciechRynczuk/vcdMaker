@@ -88,6 +88,7 @@ namespace MERGE
             /// shall be validated to return any syntax errors as quickly as possible.
             ///
             /// @param rDescription The description of the source.
+            /// @param rSignalDescriptorRegistry The descriptors registry.
             /// @param rSourceRegistry The reference to the signal source registry.
             /// @param verboseMode 'true' enables the verbose mode.
             SignalSource(const std::string &rDescription,
@@ -123,7 +124,7 @@ namespace MERGE
             }
 
             /// Returns the source synchronization point.
-            const TIME::Timestamp& GetSyncPoint() const
+            const TIME::Timestamp &GetSyncPoint() const
             {
                 return m_SyncPoint;
             }

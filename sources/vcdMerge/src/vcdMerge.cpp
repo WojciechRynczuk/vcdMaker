@@ -58,7 +58,7 @@ int main(int argc, const char *argv[])
 
         // All added sources.
         std::vector<std::unique_ptr<MERGE::SignalSource>> in_sources;
-        
+
         // One signal descriptors registry for all sources.
         SIGNAL::SignalDescriptorRegistry SignalDescriptorRegistry;
 

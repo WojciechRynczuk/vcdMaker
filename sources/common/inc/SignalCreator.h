@@ -49,7 +49,7 @@ namespace PARSER
             ///
             /// The constructor initializes the regular expression member variable
             /// which will be matched against the log line.
-			///
+            ///
             /// @param rDescriptorRegistry The reference to the signal descriptors registry.
             /// @param rSignalRegEx The regular expression to be match against the log line.
             SignalCreator(SIGNAL::SignalDescriptorRegistry &rDescriptorRegistry,

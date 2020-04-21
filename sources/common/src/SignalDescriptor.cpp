@@ -1,4 +1,4 @@
-/// @file common/inc/SignalDescriptor.cpp
+/// @file common/src/SignalDescriptor.cpp
 ///
 /// The signal descriptor.
 ///
@@ -54,7 +54,6 @@ SIGNAL::SourceRegistry::HandleT SIGNAL::SignalDescriptor::GetSource() const
     return m_SourceHandle;
 }
 
-
 /// Check signal consistency.
 bool SIGNAL::SignalDescriptor::SimilarTo(const std::string &rType, size_t size, SourceRegistry::HandleT sourceHandle) const
 {
@@ -67,24 +66,7 @@ bool SIGNAL::SignalDescriptor::SimilarTo(const std::string &rType, size_t size, 
 bool SIGNAL::SignalDescriptor::EqualTo(SignalDescriptor const &other) const
 {
     return ((m_Name == other.GetName()) &&
-        (m_Type == other.GetType()) &&
-        (m_Size == other.GetSize()) &&
-        (m_SourceHandle == other.GetSource()));
+            (m_Type == other.GetType()) &&
+            (m_Size == other.GetSize()) &&
+            (m_SourceHandle == other.GetSource()));
 }
-
-/// The overloaded == operator.
-///
-/// Checks if two signal descriptors are equal. EqualTo is used.
-bool SIGNAL::operator == (const SIGNAL::SignalDescriptor &lSignalDesc, const SIGNAL::SignalDescriptor &rSignalDesc)
-{
-    return lSignalDesc.EqualTo(rSignalDesc);
-}
-
-/// The overloaded != operator.
-///
-/// Checks if two signal descriptors are not equal. EqualTo is used.
-bool SIGNAL::operator != (const SIGNAL::SignalDescriptor &lSignalDesc, const SIGNAL::SignalDescriptor &rSignalDesc)
-{
-    return !lSignalDesc.EqualTo(rSignalDesc);
-}
-

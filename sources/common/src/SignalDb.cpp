@@ -63,28 +63,6 @@ void SIGNAL::SignalDb::Add(const SIGNAL::Signal *pSignal)
     {
         m_AddedSignals[pSignal->GetName()] = pSignal;
     }
-    else
-    {
-        // Check signal consistency
-        if (!it->second->SimilarTo(*pSignal))
-        {
-            std::string signalName(pSignal->GetName());
-            std::string signalType(pSignal->GetType());
-            std::string signalSize(std::to_string(pSignal->GetSize()));
-            std::string signalSource(SIGNAL::SourceRegistry::GetInstance().GetSourceName(pSignal->GetSource()));
-            throw EXCEPTION::VcdException(EXCEPTION::Error::INCONSISTENT_SIGNAL,
-                                          "Inconsistent signal: " +
-                                          signalName +
-                                          ". Types: " +
-                                          it->second->GetType() + " / " + signalType +
-                                          ". Sizes: " +
-                                          std::to_string(it->second->GetSize()) + " / " + signalSize +
-                                          ". Sources: " +
-                                          SIGNAL::SourceRegistry::GetInstance().GetSourceName(it->second->GetSource()) +
-                                          " and " +
-                                          signalSource + ".");
-        }
-    }
 
     // Store the full signal data
     m_SignalSet.insert(pSignal);

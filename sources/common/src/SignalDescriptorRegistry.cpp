@@ -29,6 +29,7 @@
 /// IN THE SOFTWARE.
 
 #include "SignalDescriptorRegistry.h"
+#include "VcdException.h"
 
 const std::shared_ptr<const SIGNAL::SignalDescriptor> SIGNAL::SignalDescriptorRegistry::Register(const std::string& rName,
     const std::string& rType,
@@ -44,7 +45,22 @@ const std::shared_ptr<const SIGNAL::SignalDescriptor> SIGNAL::SignalDescriptorRe
         m_SignalDescriptors[rName] = signalDescriptor;
         return signalDescriptor;
     }
-    /// \todo Consistency check here
+
+    // Check signal consistency.
+    if (!it->second->SimilarTo(rType, size, sourceHandle))
+    {
+        throw EXCEPTION::VcdException(EXCEPTION::Error::INCONSISTENT_SIGNAL,
+            "Inconsistent signal: " +
+            rName +
+            ". Types: " +
+            it->second->GetType() + " / " + rType +
+            ". Sizes: " +
+            std::to_string(it->second->GetSize()) + " / " + std::to_string(size) +
+            ". Sources: " +
+            SIGNAL::SourceRegistry::GetInstance().GetSourceName(it->second->GetSource()) +
+            " and " +
+            SIGNAL::SourceRegistry::GetInstance().GetSourceName(sourceHandle) + ".");
+    }
 
     return it->second;
 }

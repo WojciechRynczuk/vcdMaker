@@ -86,8 +86,14 @@ namespace SIGNAL
         /// Returns the source handle of the signal.
         SourceRegistry::HandleT GetSource() const;
 
-        /// Why do we need it? EqualTo() isn't enough?
-        bool SimilarTo(const std::shared_ptr<const SignalDescriptor> &rSignal) const;
+        /// Check signal consistency.
+        ///
+        /// To be invoked for the signals having the same name. It verifies the consistency of other
+        /// signal properties.
+        /// @param rType Signal type.
+        /// @param size Signal size.
+        /// @param sourceHandle Signal source.
+        bool SimilarTo(const std::string &rType, size_t size, SourceRegistry::HandleT sourceHandle) const;
 
     private:
 

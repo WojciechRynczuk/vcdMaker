@@ -55,12 +55,12 @@ SIGNAL::SourceRegistry::HandleT SIGNAL::SignalDescriptor::GetSource() const
 }
 
 
-/// Why do we need it? EqualTo() isn't enough?
-bool SIGNAL::SignalDescriptor::SimilarTo(const std::shared_ptr<const SignalDescriptor> &rSignal) const
+/// Check signal consistency.
+bool SIGNAL::SignalDescriptor::SimilarTo(const std::string &rType, size_t size, SourceRegistry::HandleT sourceHandle) const
 {
-    return ((GetType() == rSignal->GetType()) &&
-        (GetSize() == rSignal->GetSize()) &&
-        (GetSource() == rSignal->GetSource()));
+    return ((GetType() == rType) &&
+            (GetSize() == size) &&
+            (GetSource() == sourceHandle));
 }
 
 /// Checks if two descriptors match.

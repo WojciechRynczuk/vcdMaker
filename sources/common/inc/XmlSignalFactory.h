@@ -30,7 +30,6 @@
 
 #pragma once
 
-#include <memory>
 #include <pugixml.hpp>
 
 #include "SignalFactory.h"

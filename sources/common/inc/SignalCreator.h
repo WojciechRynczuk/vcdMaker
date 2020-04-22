@@ -32,7 +32,6 @@
 
 #include <regex>
 
-#include "Signal.h"
 #include "SignalDescriptorRegistry.h"
 #include "Instrument.h"
 

@@ -42,10 +42,10 @@ INSTRUMENT::LineCounter::LineCounter(const std::string &rFilename,
                                      SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
                                      SIGNAL::SignalDb &rSignalDb) :
     Instrument(rSourceRegistry, rSignalDb, rFilename + LINE_COUNTER_SUFFIX),
-    m_rSignalDescriptorRegistry(rSignalDescriptorRegistry),
     m_CounterName(CreateCounterName(rCounterName)),
     m_CounterNameLow(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + LOW_COUNTER_NAME),
-    m_CounterNameHigh(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + HIGH_COUNTER_NAME)
+    m_CounterNameHigh(m_CounterName + SIGNAL::Signal::SIGNAL_NAME_DELIM + HIGH_COUNTER_NAME),
+    m_rSignalDescriptorRegistry(rSignalDescriptorRegistry)
 {
 }
 

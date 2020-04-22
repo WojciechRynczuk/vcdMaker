@@ -33,8 +33,6 @@
 #include "Signal.h"
 #include "VcdException.h"
 
-#include <limits>
-
 namespace SIGNAL
 {
     /// The class inherits from the Signal class and handles the integer

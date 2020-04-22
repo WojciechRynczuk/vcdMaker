@@ -56,7 +56,6 @@ int main(int argc, const char *argv[])
             throw EXCEPTION::VcdException(EXCEPTION::Error::EMPTY_VALIDATION_LIST,
                                           "Empty argument initialization list.");
         }
-
         cli->Parse(argc, argv);
 
         // Get input sources.

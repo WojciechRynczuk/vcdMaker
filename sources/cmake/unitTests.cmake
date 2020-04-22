@@ -27,23 +27,27 @@
 set(UT_SIGNAL_SOURCES
     ${COMMON_UT_DIR}/Signal.cpp
     ${COMMON_UT_STUB_DIR}/UtilsEmpty.cpp
+    ${COMMON_SOURCES_DIR}/SignalDescriptor.cpp
     ${COMMON_SOURCES_DIR}/Signal.cpp)
 
 add_vcdtools_ut(utSignal "${UT_SIGNAL_SOURCES}")
 
 set(UT_ISIGNAL_SOURCES
     ${COMMON_UT_DIR}/ISignal.cpp
+    ${COMMON_SOURCES_DIR}/SignalDescriptor.cpp
     ${COMMON_SOURCES_DIR}/ISignal.cpp)
 
 add_vcdtools_ut(utISignal "${UT_ISIGNAL_SOURCES}")
 
 set(UT_FSIGNAL_SOURCES
     ${COMMON_UT_DIR}/FSignal.cpp
+    ${COMMON_SOURCES_DIR}/SignalDescriptor.cpp
     ${COMMON_SOURCES_DIR}/FSignal.cpp)
 
 add_vcdtools_ut(utFSignal "${UT_FSIGNAL_SOURCES}")
 
 set(UT_EVENTSIGNAL_SOURCES
+    ${COMMON_SOURCES_DIR}/SignalDescriptor.cpp
     ${COMMON_UT_DIR}/EventSignal.cpp)
 
 add_vcdtools_ut(utEventSignal "${UT_EVENTSIGNAL_SOURCES}")

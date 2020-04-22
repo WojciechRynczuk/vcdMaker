@@ -4,7 +4,7 @@
 ///
 /// @ingroup UnitTest
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -42,11 +42,9 @@ static inline std::string getISignalPrint(const std::string &value)
 static inline SIGNAL::ISignal getISignal(uint64_t value,
                                          size_t size = DummySignal::DUMMY_SIZE)
 {
-    return {DummySignal::DUMMY_NAME,
-            size,
+    return {std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, size, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE),
             DummySignal::DUMMY_TIMESTAMP,
-            value,
-            DummySignal::DUMMY_HANDLE};
+            value};
 }
 
 /// Structure describing expected signal value.

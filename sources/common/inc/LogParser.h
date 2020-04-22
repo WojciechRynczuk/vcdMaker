@@ -37,7 +37,6 @@
 /// The group provides means for reading input files.
 
 #include <fstream>
-#include <memory>
 #include <sstream>
 
 #include "Instrument.h"

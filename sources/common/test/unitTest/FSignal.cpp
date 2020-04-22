@@ -4,7 +4,7 @@
 ///
 /// @ingroup UnitTest
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -39,10 +39,9 @@ static inline std::string getFSignalPrint(const std::string &value)
 /// Other parameters are dummies.
 static inline SIGNAL::FSignal getFSignal(const std::string &value)
 {
-    return {DummySignal::DUMMY_NAME,
+    return { std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE),
             DummySignal::DUMMY_TIMESTAMP,
-            value,
-            DummySignal::DUMMY_HANDLE};
+            value };
 }
 
 /// Unit test for FSignal::Print().

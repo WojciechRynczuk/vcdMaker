@@ -38,13 +38,11 @@
 /// The group consists of the base class defining the common behaviours as
 /// well as of the inheriting signal classes specifying concrete signals.
 
-#include <string>
 #include <vector>
 #include <set>
 #include <memory>
 
 #include "SignalDescriptor.h"
-#include "SourceRegistry.h"
 #include "Timestamp.h"
 
 /// Signal handling.

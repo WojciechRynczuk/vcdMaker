@@ -1209,5 +1209,6 @@ namespace PARSER {
 void PARSER::DecimalParser::error(const DecimalParser::location_type& l,
                                   const std::string& m)
 {
+    (void)m;
     evaluator.SetSyntaxErrorIndex(l.begin.column);
 }

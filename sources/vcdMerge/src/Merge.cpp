@@ -27,8 +27,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
 
-#include <algorithm>
-
 #include "Merge.h"
 #include "TimeUnit.h"
 #include "Logger.h"

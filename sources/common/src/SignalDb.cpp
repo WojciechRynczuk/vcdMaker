@@ -30,7 +30,6 @@
 
 #include "SignalDb.h"
 #include "VcdException.h"
-#include "SourceRegistry.h"
 
 SIGNAL::SignalDb::SignalDb(const std::string &rTimeUnit, const std::string &rPrefix) :
     m_TimeUnit(rTimeUnit),

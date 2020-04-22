@@ -29,8 +29,6 @@
 
 #pragma once
 
-#include <memory>
-
 #include "SignalCreator.h"
 
 namespace PARSER

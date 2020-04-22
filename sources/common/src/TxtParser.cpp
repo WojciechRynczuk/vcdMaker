@@ -64,37 +64,35 @@ void PARSER::TxtParser::Parse()
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        std::vector<const SIGNAL::Signal *> vpSignals =
-            m_rSignalFactory.Create(input_line, lineNumber, m_rSignalDb->GetPrefix(), m_SourceHandle);
+        std::vector<const SIGNAL::Signal *> vpSignals{};
+        try
+        {
+            std::vector<const SIGNAL::Signal *> vpSignals =
+                m_rSignalFactory.Create(input_line, lineNumber, m_rSignalDb->GetPrefix(), m_SourceHandle);
+        }
+        catch (const EXCEPTION::VcdException &rException)
+        {
+            if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+            {
+                throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
+                                              " At line " + std::to_string(lineNumber) + ".");
+            }
+        }
         const SIGNAL::Signal *pSignal = nullptr;
 
         if (!vpSignals.empty())
         {
             while (!vpSignals.empty())
             {
-                try
+                pSignal = vpSignals.back();
+                vpSignals.pop_back();
+                m_rSignalDb->Add(pSignal);
+
+                delete pSignal;
+                while (!vpSignals.empty())
                 {
-                    pSignal = vpSignals.back();
+                    delete vpSignals.back();
                     vpSignals.pop_back();
-                    m_rSignalDb->Add(pSignal);
-                }
-                catch (const EXCEPTION::VcdException &rException)
-                {
-                    delete pSignal;
-                    while (!vpSignals.empty())
-                    {
-                        delete vpSignals.back();
-                        vpSignals.pop_back();
-                    }
-                    if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
-                    {
-                        throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
-                                                      " At line " + std::to_string(lineNumber) + ".");
-                    }
-                    else
-                    {
-                        throw rException;
-                    }
                 }
 
                 for (auto instrument : m_vpInstruments)

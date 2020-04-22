@@ -8,7 +8,7 @@
 ///
 /// @ingroup UnitTest
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -52,11 +52,8 @@ class DummySignal : public SIGNAL::Signal
                     uint64_t timestamp,
                     const std::string &value = DUMMY_VALUE,
                     SIGNAL::SourceRegistry::HandleT source = DUMMY_HANDLE) :
-            Signal(name,
-                   DUMMY_SIZE,
-                   timestamp,
-                   DUMMY_TYPE,
-                   source),
+            Signal(std::make_shared<const SIGNAL::SignalDescriptor>(name, DUMMY_SIZE, DUMMY_TYPE, source),
+                   timestamp),
             m_Value(value)
         {
         }

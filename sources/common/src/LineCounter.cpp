@@ -94,7 +94,7 @@ void INSTRUMENT::LineCounter::Terminate() const
             m_rSignalDescriptorRegistry.Register(m_rSignalDb.GetPrefix() + m_CounterNameHigh, "wire", COUNTER_SIGNAL_SIZE, m_InstrumentHandle);
 
         SIGNAL::ISignal *high_counter =
-            new SIGNAL::ISignal(high_descriptor, counterRecord.first, counterRecord.second.m_LineLow);
+            new SIGNAL::ISignal(high_descriptor, counterRecord.first, counterRecord.second.m_LineHigh);
 
         m_rSignalDb.Add(high_counter);
     }

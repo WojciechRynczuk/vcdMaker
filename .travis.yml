@@ -64,9 +64,9 @@ matrix:
         - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 0
         - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 100
         - sudo update-alternatives --auto gcov
-        - wget http://mirrors.kernel.org/ubuntu/pool/universe/l/lcov/lcov_1.13-4_all.deb
-        - sudo dpkg -i lcov_1.13-4_all.deb
-        - rm -f lcov_1.13-4_all.deb
+        - wget http://mirrors.kernel.org/ubuntu/pool/universe/l/lcov/lcov_1.14-2_all.deb
+        - sudo dpkg -i lcov_1.14-2_all.deb
+        - rm -f lcov_1.14-2_all.deb
         - git submodule update --init --recursive
         - cd ./sources
         - lcov --directory . --zerocounters

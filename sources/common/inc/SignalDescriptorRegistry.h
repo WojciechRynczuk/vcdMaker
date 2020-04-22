@@ -30,6 +30,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include "SignalDescriptor.h"
 
 namespace SIGNAL

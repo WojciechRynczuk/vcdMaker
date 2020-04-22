@@ -67,11 +67,15 @@ void PARSER::TxtParser::Parse()
         std::vector<const SIGNAL::Signal *> vpSignals{};
         try
         {
-            std::vector<const SIGNAL::Signal *> vpSignals =
-                m_rSignalFactory.Create(input_line, lineNumber, m_rSignalDb->GetPrefix(), m_SourceHandle);
+            vpSignals = m_rSignalFactory.Create(input_line, lineNumber, m_rSignalDb->GetPrefix(), m_SourceHandle);
         }
         catch (const EXCEPTION::VcdException &rException)
         {
+            while (!vpSignals.empty())
+            {
+                delete vpSignals.back();
+                vpSignals.pop_back();
+            }
             if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
             {
                 throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
@@ -87,13 +91,6 @@ void PARSER::TxtParser::Parse()
                 pSignal = vpSignals.back();
                 vpSignals.pop_back();
                 m_rSignalDb->Add(pSignal);
-
-                delete pSignal;
-                while (!vpSignals.empty())
-                {
-                    delete vpSignals.back();
-                    vpSignals.pop_back();
-                }
 
                 for (auto instrument : m_vpInstruments)
                 {

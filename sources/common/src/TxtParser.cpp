@@ -71,13 +71,13 @@ void PARSER::TxtParser::Parse()
         }
         catch (const EXCEPTION::VcdException &rException)
         {
-            while (!vpSignals.empty())
-            {
-                delete vpSignals.back();
-                vpSignals.pop_back();
-            }
             if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
             {
+                while (!vpSignals.empty())
+                {
+                    delete vpSignals.back();
+                    vpSignals.pop_back();
+                }
                 throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
                                               " At line " + std::to_string(lineNumber) + ".");
             }

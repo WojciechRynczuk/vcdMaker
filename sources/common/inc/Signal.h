@@ -137,11 +137,6 @@ namespace SIGNAL
                 return m_pSignalDesc->GetSource();
             }
 
-            /// Checks if two signals are similar (differ by value only)
-            ///
-            /// @param rSignal Other signal to compare to.
-            bool SimilarTo(const Signal &rSignal) const;
-
             /// Returns the signal's value as a string in the VCD format.
             ///
             /// The method is used while generating the body of the VCD file.

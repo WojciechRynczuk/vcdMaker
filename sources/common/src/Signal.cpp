@@ -35,10 +35,3 @@ SIGNAL::Signal::SignalNameFieldsT SIGNAL::Signal::GetNameFields() const
 {
     return UTILS::Split(GetName(), SIGNAL_NAME_DELIM);
 }
-
-bool SIGNAL::Signal::SimilarTo(const Signal &rSignal) const
-{
-    return ((GetType() == rSignal.GetType()) &&
-            (GetSize() == rSignal.GetSize()) &&
-            (GetSource() == rSignal.GetSource()));
-}

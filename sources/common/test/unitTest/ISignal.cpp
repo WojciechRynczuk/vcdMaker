@@ -42,7 +42,10 @@ static inline std::string getISignalPrint(const std::string &value)
 static inline SIGNAL::ISignal getISignal(uint64_t value,
                                          size_t size = DummySignal::DUMMY_SIZE)
 {
-    return {std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, size, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE).get(),
+    static std::vector<std::unique_ptr<const SIGNAL::SignalDescriptor>> vDesc = {};
+    vDesc.push_back(std::make_unique<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, size, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE));
+
+    return {vDesc.back().get(),
             DummySignal::DUMMY_TIMESTAMP,
             value};
 }

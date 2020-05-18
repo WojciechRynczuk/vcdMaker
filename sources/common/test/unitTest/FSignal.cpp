@@ -39,7 +39,10 @@ static inline std::string getFSignalPrint(const std::string &value)
 /// Other parameters are dummies.
 static inline SIGNAL::FSignal getFSignal(const std::string &value)
 {
-    return { std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE).get(),
+    static std::vector<std::shared_ptr<const SIGNAL::SignalDescriptor>> vDesc = {};
+    vDesc.push_back(std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE));
+
+    return { vDesc.back().get(),
             DummySignal::DUMMY_TIMESTAMP,
             value };
 }

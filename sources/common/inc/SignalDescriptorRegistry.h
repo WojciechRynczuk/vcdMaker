@@ -59,7 +59,7 @@ namespace SIGNAL
             /// @param size Signal size.
             /// @param sourceHandle Signal source.
             /// @return The created signal descriptor.
-            const SignalDescriptor * const Register(const std::string &rName,
+            const SignalDescriptor * Register(const std::string &rName,
                                                     const std::string &rType,
                                                     size_t size,
                                                     SourceRegistry::HandleT sourceHandle);
@@ -67,6 +67,6 @@ namespace SIGNAL
         private:
 
             /// The set of pointers to signal descriptors indexed by names.
-            std::map<const std::string, std::shared_ptr<const SignalDescriptor>> m_SignalDescriptors{};
+            std::map<const std::string, std::unique_ptr<const SignalDescriptor>> m_SignalDescriptors{};
     };
 }

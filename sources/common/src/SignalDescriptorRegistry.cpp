@@ -31,7 +31,7 @@
 #include "SignalDescriptorRegistry.h"
 #include "VcdException.h"
 
-const SIGNAL::SignalDescriptor * const SIGNAL::SignalDescriptorRegistry::Register(
+const SIGNAL::SignalDescriptor * SIGNAL::SignalDescriptorRegistry::Register(
     const std::string &rName,
     const std::string &rType,
     size_t size,
@@ -42,9 +42,8 @@ const SIGNAL::SignalDescriptor * const SIGNAL::SignalDescriptorRegistry::Registe
     // Is this a new signal to be registered?
     if (it == m_SignalDescriptors.end())
     {
-        auto signalDescriptor = std::make_shared<const SignalDescriptor>(rName, size, rType, sourceHandle);
-        m_SignalDescriptors[rName] = signalDescriptor;
-        return signalDescriptor.get();
+        m_SignalDescriptors[rName] = std::make_unique<const SignalDescriptor>(rName, size, rType, sourceHandle);
+        return m_SignalDescriptors[rName].get();
     }
 
     // Check signal consistency.

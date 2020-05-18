@@ -52,7 +52,7 @@ class DummySignal : public SIGNAL::Signal
                     uint64_t timestamp,
                     const std::string &value = DUMMY_VALUE,
                     SIGNAL::SourceRegistry::HandleT source = DUMMY_HANDLE) :
-            Signal(std::make_shared<const SIGNAL::SignalDescriptor>(name, DUMMY_SIZE, DUMMY_TYPE, source),
+            Signal(std::make_shared<const SIGNAL::SignalDescriptor>(name, DUMMY_SIZE, DUMMY_TYPE, source).get(),
                    timestamp),
             m_Value(value)
         {

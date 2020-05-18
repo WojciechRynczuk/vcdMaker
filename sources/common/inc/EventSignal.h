@@ -44,7 +44,7 @@ namespace SIGNAL
             ///
             /// @param pSignalDescriptor Signal descriptor.
             /// @param rTimestamp The timestamp of the event.
-            EventSignal(const SIGNAL::SignalDescriptor *pSignalDescriptor,
+            EventSignal(const SIGNAL::SignalDescriptor * const pSignalDescriptor,
                         const TIME::Timestamp &rTimestamp) :
                 Signal(pSignalDescriptor, rTimestamp)
             {

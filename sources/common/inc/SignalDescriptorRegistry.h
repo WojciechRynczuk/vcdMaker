@@ -60,9 +60,9 @@ namespace SIGNAL
             /// @param sourceHandle Signal source.
             /// @return The created signal descriptor.
             const SignalDescriptor * const Register(const std::string &rName,
-                                                                   const std::string &rType,
-                                                                   size_t size,
-                                                                   SourceRegistry::HandleT sourceHandle);
+                                                    const std::string &rType,
+                                                    size_t size,
+                                                    SourceRegistry::HandleT sourceHandle);
 
         private:
 

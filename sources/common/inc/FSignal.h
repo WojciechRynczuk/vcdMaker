@@ -49,7 +49,7 @@ namespace SIGNAL
             /// @param pSignalDescriptor Signal descriptor.
             /// @param rTimestamp Signal timestamp.
             /// @param rValue Signal value.
-            FSignal(const SignalDescriptor *pSignalDescriptor,
+            FSignal(const SignalDescriptor * const pSignalDescriptor,
                     const TIME::Timestamp &rTimestamp,
                     const std::string &rValue) :
                 Signal(pSignalDescriptor, rTimestamp),

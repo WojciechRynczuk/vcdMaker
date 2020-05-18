@@ -32,7 +32,7 @@
 
 #include "ISignal.h"
 
-SIGNAL::ISignal::ISignal(const SignalDescriptor *pSignalDescriptor,
+SIGNAL::ISignal::ISignal(const SignalDescriptor * const pSignalDescriptor,
                          const TIME::Timestamp &rTimestamp,
                          uint64_t value) :
     Signal(pSignalDescriptor, rTimestamp),

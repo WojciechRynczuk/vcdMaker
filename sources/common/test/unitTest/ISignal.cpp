@@ -42,7 +42,7 @@ static inline std::string getISignalPrint(const std::string &value)
 static inline SIGNAL::ISignal getISignal(uint64_t value,
                                          size_t size = DummySignal::DUMMY_SIZE)
 {
-    return {std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, size, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE),
+    return {std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, size, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE).get(),
             DummySignal::DUMMY_TIMESTAMP,
             value};
 }

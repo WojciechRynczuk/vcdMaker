@@ -38,7 +38,7 @@ static inline std::string getEventSignalPrint()
 /// Create EventSignal.
 static inline SIGNAL::EventSignal getEventSignal()
 {
-    return { std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE),
+    return { std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE).get(),
             DummySignal::DUMMY_TIMESTAMP};
 }
 

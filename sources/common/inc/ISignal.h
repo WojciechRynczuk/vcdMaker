@@ -50,7 +50,7 @@ namespace SIGNAL
             /// @param pSignalDescriptor Signal descriptor.
             /// @param rTimestamp Signal timestamp.
             /// @param value Signal value.
-            ISignal(const SignalDescriptor *pSignalDescriptor,
+            ISignal(const SignalDescriptor * const pSignalDescriptor,
                     const TIME::Timestamp &rTimestamp,
                     uint64_t value);
 

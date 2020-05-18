@@ -46,12 +46,12 @@ namespace PARSER
             /// It opens the input log file, sets the timebase and the verbose mode.
             ///
             /// @param rFilename The name of the log file to be open.
-            /// @param rSignalDb The signal databse. The container for parsed signals.
+            /// @param pSignalDb The signal databse. The container for parsed signals.
             /// @param rSourceRegistry Signal sources registry.
             /// @param rSignalFactory The signal factory.
             /// @param verboseMode Value 'true' enables the verbose mode.
             TxtParser(const std::string &rFilename,
-                      std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
+                      SIGNAL::SignalDb * const pSignalDb,
                       SIGNAL::SourceRegistry &rSourceRegistry,
                       const SignalFactory &rSignalFactory,
                       bool verboseMode);

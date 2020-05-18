@@ -64,12 +64,12 @@ namespace SIGNAL
             ///
             /// It sets common signal properties: its descriptor and the timestamp.
             ///
-            /// @param rSignalDesc Signal descriptor.
+            /// @param pSignalDesc Signal descriptor.
             /// @param rTimestamp Signal timestamp.
-            Signal(const std::shared_ptr<const SignalDescriptor> &rSignalDesc,
+            Signal(const SignalDescriptor *pSignalDesc,
                    const TIME::Timestamp &rTimestamp) :
                 m_Timestamp(rTimestamp),
-                m_pSignalDesc(rSignalDesc)
+                m_pSignalDesc(pSignalDesc)
             {
             }
 
@@ -179,7 +179,7 @@ namespace SIGNAL
             }
 
             /// Signal's description.
-            std::shared_ptr<const SIGNAL::SignalDescriptor> m_pSignalDesc;
+            const SIGNAL::SignalDescriptor *m_pSignalDesc;
     };
 
     /// Comparator for multiset.

@@ -31,10 +31,10 @@
 #include "VcdException.h"
 
 PARSER::LogParser::LogParser(const std::string &rFilename,
-                             std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
+                             SIGNAL::SignalDb * const pSignalDb,
                              SIGNAL::SourceRegistry &rSourceRegistry,
                              bool verboseMode) :
-    m_rSignalDb(rSignalDb),
+    m_pSignalDb(pSignalDb),
     m_FileName(rFilename),
     m_LogFile(m_FileName),
     m_SourceHandle(rSourceRegistry.Register(rFilename)),

@@ -59,7 +59,7 @@ namespace SIGNAL
             /// @param size Signal size.
             /// @param sourceHandle Signal source.
             /// @return The created signal descriptor.
-            const std::shared_ptr<const SignalDescriptor> Register(const std::string &rName,
+            const SignalDescriptor * const Register(const std::string &rName,
                                                                    const std::string &rType,
                                                                    size_t size,
                                                                    SourceRegistry::HandleT sourceHandle);

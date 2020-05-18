@@ -46,24 +46,24 @@ int main(int argc, const char *argv[])
     try
     {
         // Parse input parameters
-        CLI::CliMerge *cli;
+        std::unique_ptr<CLI::CliMerge> pCli;
         try
         {
-            cli = new CLI::CliMerge();
+            pCli = std::make_unique<CLI::CliMerge>();
         }
         catch (const std::logic_error &)
         {
             throw EXCEPTION::VcdException(EXCEPTION::Error::EMPTY_VALIDATION_LIST,
                                           "Empty argument initialization list.");
         }
-        cli->Parse(argc, argv);
+        pCli->Parse(argc, argv);
 
         // Get input sources.
-        const std::vector<std::string> &in_parameters = cli->GetInputSources();
+        const std::vector<std::string> &in_parameters = pCli->GetInputSources();
 
         // Merging unit.
-        MERGE::Merge merge(cli->IsVerboseMode(),
-                           cli->GetTimeBase());
+        MERGE::Merge merge(pCli->IsVerboseMode(),
+                           pCli->GetTimeBase());
 
         // All added sources.
         std::vector<std::unique_ptr<MERGE::SignalSource>> in_sources;
@@ -83,7 +83,7 @@ int main(int argc, const char *argv[])
             in_sources.push_back(std::make_unique<MERGE::SignalSource>(source,
                                                                        SignalDescriptorRegistry,
                                                                        SIGNAL::SourceRegistry::GetInstance(),
-                                                                       cli->IsVerboseMode()));
+                                                                       pCli->IsVerboseMode()));
 
             merge.AddSource(in_sources.back().get());
         }
@@ -99,8 +99,8 @@ int main(int argc, const char *argv[])
         merge.Run();
 
         // Create the VCD tracer and dump the output file.
-        TRACER::VCDTracer vcd_trace(cli->GetOutputFileName(), merge.GetSignals());
-        std::cout << '\n' << "Dumping " << cli->GetOutputFileName() << '\n';
+        TRACER::VCDTracer vcd_trace(pCli->GetOutputFileName(), merge.GetSignals());
+        std::cout << '\n' << "Dumping " << pCli->GetOutputFileName() << '\n';
         vcd_trace.Dump();
     }
     catch (const EXCEPTION::VcdException &rException)

@@ -88,7 +88,7 @@ void MERGE::SignalSource::Create()
 
     // Parse the log file.
     PARSER::TxtParser parser(m_Filename,
-                             m_pSignalDb,
+                             m_pSignalDb.get(),
                              m_rSourceRegistry,
                              *m_pSignalFactory,
                              m_VerboseMode);

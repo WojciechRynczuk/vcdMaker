@@ -32,13 +32,13 @@
 
 #include "ISignal.h"
 
-SIGNAL::ISignal::ISignal(const std::shared_ptr<const SignalDescriptor> &rSignalDescriptor,
+SIGNAL::ISignal::ISignal(const SignalDescriptor *pSignalDescriptor,
                          const TIME::Timestamp &rTimestamp,
                          uint64_t value) :
-    Signal(rSignalDescriptor, rTimestamp),
+    Signal(pSignalDescriptor, rTimestamp),
     m_Value(value)
 {
-    size_t size = rSignalDescriptor->GetSize();
+    size_t size = pSignalDescriptor->GetSize();
 
     if (size > 64)
     {

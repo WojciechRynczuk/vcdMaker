@@ -32,11 +32,11 @@
 #include "VcdException.h"
 
 PARSER::TxtParser::TxtParser(const std::string &rFilename,
-                             std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
+                             SIGNAL::SignalDb * const pSignalDb,
                              SIGNAL::SourceRegistry &rSourceRegistry,
                              const PARSER::SignalFactory &rSignalFactory,
                              bool verboseMode) :
-    LogParser(rFilename, rSignalDb, rSourceRegistry, verboseMode),
+    LogParser(rFilename, pSignalDb, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
     m_SourceHandle(rSourceRegistry.Register(rFilename)),
@@ -67,7 +67,7 @@ void PARSER::TxtParser::Parse()
         std::vector<const SIGNAL::Signal *> vpSignals{};
         try
         {
-            vpSignals = m_rSignalFactory.Create(input_line, lineNumber, m_rSignalDb->GetPrefix(), m_SourceHandle);
+            vpSignals = m_rSignalFactory.Create(input_line, lineNumber, m_pSignalDb->GetPrefix(), m_SourceHandle);
         }
         catch (const EXCEPTION::VcdException &rException)
         {
@@ -90,7 +90,7 @@ void PARSER::TxtParser::Parse()
             {
                 pSignal = vpSignals.back();
                 vpSignals.pop_back();
-                m_rSignalDb->Add(pSignal);
+                m_pSignalDb->Add(pSignal);
 
                 for (auto instrument : m_vpInstruments)
                 {

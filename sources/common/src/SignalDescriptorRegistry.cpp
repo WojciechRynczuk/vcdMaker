@@ -31,7 +31,7 @@
 #include "SignalDescriptorRegistry.h"
 #include "VcdException.h"
 
-const std::shared_ptr<const SIGNAL::SignalDescriptor> SIGNAL::SignalDescriptorRegistry::Register(
+const SIGNAL::SignalDescriptor * const SIGNAL::SignalDescriptorRegistry::Register(
     const std::string &rName,
     const std::string &rType,
     size_t size,
@@ -44,7 +44,7 @@ const std::shared_ptr<const SIGNAL::SignalDescriptor> SIGNAL::SignalDescriptorRe
     {
         auto signalDescriptor = std::make_shared<const SignalDescriptor>(rName, size, rType, sourceHandle);
         m_SignalDescriptors[rName] = signalDescriptor;
-        return signalDescriptor;
+        return signalDescriptor.get();
     }
 
     // Check signal consistency.
@@ -63,5 +63,5 @@ const std::shared_ptr<const SIGNAL::SignalDescriptor> SIGNAL::SignalDescriptorRe
                                       SIGNAL::SourceRegistry::GetInstance().GetSourceName(sourceHandle) + ".");
     }
 
-    return it->second;
+    return it->second.get();
 }

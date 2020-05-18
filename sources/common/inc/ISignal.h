@@ -47,10 +47,10 @@ namespace SIGNAL
             ///
             /// It sets the signal's timestamp and the value.
             ///
-            /// @param rSignalDescriptor Signal descriptor.
+            /// @param pSignalDescriptor Signal descriptor.
             /// @param rTimestamp Signal timestamp.
             /// @param value Signal value.
-            ISignal(const std::shared_ptr<const SignalDescriptor> &rSignalDescriptor,
+            ISignal(const SignalDescriptor *pSignalDescriptor,
                     const TIME::Timestamp &rTimestamp,
                     uint64_t value);
 

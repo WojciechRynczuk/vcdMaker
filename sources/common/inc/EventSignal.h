@@ -42,11 +42,11 @@ namespace SIGNAL
             ///
             /// It sets the event's timestamp.
             ///
-            /// @param rSignalDescriptor Signal descriptor.
+            /// @param pSignalDescriptor Signal descriptor.
             /// @param rTimestamp The timestamp of the event.
-            EventSignal(const std::shared_ptr<const SIGNAL::SignalDescriptor> &rSignalDescriptor,
+            EventSignal(const SIGNAL::SignalDescriptor *pSignalDescriptor,
                         const TIME::Timestamp &rTimestamp) :
-                Signal(rSignalDescriptor, rTimestamp)
+                Signal(pSignalDescriptor, rTimestamp)
             {
             }
 

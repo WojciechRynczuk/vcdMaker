@@ -57,7 +57,7 @@ namespace PARSER
             /// Returns the non-const reference to the signal database.
             SIGNAL::SignalDb &GetSignalDb()
             {
-                return *(m_rSignalDb.get());
+                return *m_pSignalDb;
             }
 
             /// Invokes the parser.
@@ -80,11 +80,11 @@ namespace PARSER
             ///
             /// @throws VcdError if the file cannot be open.
             /// @param rFilename The log file name.
-            /// @param rSignalDb The signal databse. The container for parsed signals.
+            /// @param pSignalDb The signal databse. The container for parsed signals.
             /// @param rSourceRegistry Signal sources registry.
             /// @param verboseMode Value 'true' enables the verbose mode.
             LogParser(const std::string &rFilename,
-                      std::unique_ptr<SIGNAL::SignalDb> &rSignalDb,
+                      SIGNAL::SignalDb * const pSignalDb,
                       SIGNAL::SourceRegistry &rSourceRegistry,
                       bool verboseMode);
 
@@ -95,7 +95,7 @@ namespace PARSER
             virtual void Parse() = 0;
 
             /// The signal database.
-            std::unique_ptr<SIGNAL::SignalDb> &m_rSignalDb;
+            SIGNAL::SignalDb * const m_pSignalDb;
 
             /// Instruments.
             std::vector<INSTRUMENT::Instrument *> m_vpInstruments;

@@ -69,7 +69,7 @@ int main(int argc, const char *argv[])
 
         // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
-                                 pSignalDb,
+                                 pSignalDb.get(),
                                  SIGNAL::SourceRegistry::GetInstance(),
                                  *pSignalFactory,
                                  cli.IsVerboseMode());

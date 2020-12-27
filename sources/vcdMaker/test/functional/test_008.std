@@ -1,0 +1,9 @@
+[Warning 0003]: Evaluating test_008.txt.
+Line 2: #2 A.Val 25 4
+Value 25 exceeds the 4-bit size of the vector. Dropping the signal.
+
+
+Parsed test_008.txt: 
+Valid lines:   1
+Invalid lines: 1
+

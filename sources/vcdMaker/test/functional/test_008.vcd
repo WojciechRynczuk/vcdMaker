@@ -1,0 +1,15 @@
+$date Sun Dec 27 18:54:18 2020
+$end
+$version VCD Tracer "Nestor" Release v.3.0.2
+$end
+$timescale 1 us
+$end
+$scope module A $end
+	$var wire 4 A.Val Val $end
+$upscope $end
+$enddefinitions $end
+$dumpvars
+bxxxx A.Val
+$end
+#1
+b0100 A.Val

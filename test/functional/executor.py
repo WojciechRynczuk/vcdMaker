@@ -76,6 +76,8 @@ class Executor(object):
 
             if ret.returncode == 0:
                 with open(self.stdout_output, 'w', newline='') as stdout_file:
+                    if ret.stderr:
+                        print(ret.stderr.decode(sys.stderr.encoding), file=stdout_file)
                     print(ret.stdout.decode(sys.stdout.encoding), file=stdout_file)
                     stdout_file.close()
 

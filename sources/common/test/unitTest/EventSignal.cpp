@@ -4,7 +4,7 @@
 ///
 /// @ingroup UnitTest
 ///
-/// @par Copyright (c) 2020 vcdMaker team
+/// @par Copyright (c) 2021 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -38,10 +38,9 @@ static inline std::string getEventSignalPrint()
 /// Create EventSignal.
 static inline SIGNAL::EventSignal getEventSignal()
 {
-    static std::vector<std::shared_ptr<const SIGNAL::SignalDescriptor>> vDesc = {};
-    vDesc.push_back(std::make_shared<const SIGNAL::SignalDescriptor>(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE));
+    static const SIGNAL::SignalDescriptor DummyDescriptor(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE);
 
-    return { vDesc.back().get(),
+    return {&DummyDescriptor,
             DummySignal::DUMMY_TIMESTAMP};
 }
 

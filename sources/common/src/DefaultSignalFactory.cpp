@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -33,14 +33,14 @@
 #include "ISignalCreator.h"
 #include "VcdException.h"
 
-PARSER::DefaultSignalFactory::DefaultSignalFactory() :
+PARSER::DefaultSignalFactory::DefaultSignalFactory(SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry) :
     SignalFactory()
 {
     try
     {
-        m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>());
-        m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>());
-        m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>());
+        m_vpSignalCreators.push_back(std::make_unique<ISignalCreator>(rSignalDescriptorRegistry));
+        m_vpSignalCreators.push_back(std::make_unique<FSignalCreator>(rSignalDescriptorRegistry));
+        m_vpSignalCreators.push_back(std::make_unique<EventSignalCreator>(rSignalDescriptorRegistry));
     }
     catch (const std::regex_error &)
     {

@@ -8,7 +8,7 @@
 ///
 /// @ingroup Instrument
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -33,6 +33,7 @@
 #include <climits>
 
 #include "Instrument.h"
+#include "SignalDescriptorRegistry.h"
 
 namespace INSTRUMENT
 {
@@ -48,10 +49,12 @@ namespace INSTRUMENT
             /// @param rFilename The name of the file associated with the counter.
             /// @param rCounterName The counter signal name.
             /// @param rSourceRegistry Signal sources registry.
+            /// @param rSignalDescriptorRegistry The registry of unique signal descriptors.
             /// @param rSignalDb The signal database to be used.
             LineCounter(const std::string &rFilename,
                         const std::string &rCounterName,
                         SIGNAL::SourceRegistry &rSourceRegistry,
+                        SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
                         SIGNAL::SignalDb &rSignalDb);
 
             /// @copydoc Instrument::Notify()
@@ -102,6 +105,9 @@ namespace INSTRUMENT
 
             /// The name of the counter signal high boundary.
             const std::string m_CounterNameHigh{};
+
+            /// The signal descriptor registry.
+            SIGNAL::SignalDescriptorRegistry &m_rSignalDescriptorRegistry;
 
             /// The counter storage.
             CounterSignalT m_Counter{};

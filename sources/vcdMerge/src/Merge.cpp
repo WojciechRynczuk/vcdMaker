@@ -7,7 +7,7 @@
 ///
 /// @ingroup Merge
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -26,8 +26,6 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 /// IN THE SOFTWARE.
-
-#include <algorithm>
 
 #include "Merge.h"
 #include "TimeUnit.h"
@@ -108,9 +106,6 @@ void MERGE::Merge::Run()
                 delete pSignal;
                 continue;
             }
-
-            // Update its name.
-            pSignal->SetName(pSource->GetPrefix() + pSignal->GetName());
 
             // Add to the output signals database.
             m_pMerged->Add(pSignal);

@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -44,18 +44,16 @@ namespace SIGNAL
 
             /// The floating signal constructor.
             ///
-            /// It initializes the basic signal properties: the name, the timestamp
-            /// and the value.
+            /// It sets the signal's timestamp and the value.
             ///
-            /// The name shall consist of any alphanumeric string in which the module's
-            /// levels are separated with '.'.
-            /// E.g. Module1.Level3.Variable6
-            FSignal(const std::string &name,
+            /// @param pSignalDescriptor Signal descriptor.
+            /// @param rTimestamp Signal timestamp.
+            /// @param rValue Signal value.
+            FSignal(const SignalDescriptor * const pSignalDescriptor,
                     const TIME::Timestamp &rTimestamp,
-                    const std::string &value,
-                    SourceRegistry::HandleT sourceHandle) :
-                Signal(name, 64, rTimestamp, "real", sourceHandle),
-                m_Value(value)
+                    const std::string &rValue) :
+                Signal(pSignalDescriptor, rTimestamp),
+                m_Value(rValue)
             {
             }
 
@@ -77,7 +75,7 @@ namespace SIGNAL
             /// @copydoc Signal::Footprint()
             virtual std::string Footprint() const
             {
-                return ("r0.0 " + m_Name);
+                return ("r0.0 " + GetName());
             }
 
         protected:

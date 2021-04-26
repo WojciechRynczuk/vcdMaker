@@ -8,7 +8,7 @@
 ///
 /// @ingroup UnitTest
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -40,11 +40,11 @@ class DummySignal : public SIGNAL::Signal
         /// Dummy values used to construct dummy signal.
         /// @{
         static constexpr const char *DUMMY_NAME = "signal";
-        static const size_t DUMMY_SIZE = 32;
-        static const uint64_t DUMMY_TIMESTAMP = 0;
+        static constexpr size_t DUMMY_SIZE = 32;
+        static constexpr uint64_t DUMMY_TIMESTAMP = 0;
         static constexpr const char *DUMMY_VALUE = "0";
         static constexpr const char *DUMMY_TYPE = "dummy";
-        static const SIGNAL::SourceRegistry::HandleT DUMMY_HANDLE = 1;
+        static constexpr SIGNAL::SourceRegistry::HandleT DUMMY_HANDLE = 1;
         /// @}
 
         /// Dummy signal signal constructor.
@@ -52,11 +52,8 @@ class DummySignal : public SIGNAL::Signal
                     uint64_t timestamp,
                     const std::string &value = DUMMY_VALUE,
                     SIGNAL::SourceRegistry::HandleT source = DUMMY_HANDLE) :
-            Signal(name,
-                   DUMMY_SIZE,
-                   timestamp,
-                   DUMMY_TYPE,
-                   source),
+            Signal(std::make_unique<const SIGNAL::SignalDescriptor>(name, DUMMY_SIZE, DUMMY_TYPE, source).get(),
+                   timestamp),
             m_Value(value)
         {
         }

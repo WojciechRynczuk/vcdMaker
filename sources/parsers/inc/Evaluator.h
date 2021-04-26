@@ -8,7 +8,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -100,13 +100,13 @@ namespace PARSER
             /// the expected lexer interface.
 
             /// The decimal(vector) lexer.
-            class DecimalScanner *m_pDecimalLexer;
+            class DecimalScanner *m_pDecimalLexer = nullptr;
 
             /// The float lexer.
-            class FloatScanner *m_pFloatLexer;
+            class FloatScanner *m_pFloatLexer = nullptr;
 
             /// The string lexer.
-            class StringScanner *m_pStringLexer;
+            class StringScanner *m_pStringLexer = nullptr;
 
         private:
             /// Parses the input decimal stream.

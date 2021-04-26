@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -41,17 +41,19 @@ namespace PARSER
         public:
             /// The XML signal creator constructor.
             ///
+            /// @param rSignalDescriptorRegistry The signal descriptors registry.
             /// @param rRegEx The regular expression matching the log line.
             /// @param rTimestamp The expression to create the timestamp of the signal.
             /// @param rName The expression to create the name of the signal.
             /// @param rValue The expression to create the value of the signal.
             /// @param rSize The expression to create the size of the signal.
-            XmlSignalCreator(const std::string &rRegEx,
+            XmlSignalCreator(SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
+                             const std::string &rRegEx,
                              const std::string &rTimestamp,
                              const std::string &rName,
                              const std::string &rValue,
                              const std::string &rSize):
-                SignalCreator(rRegEx),
+                SignalCreator(rSignalDescriptorRegistry, rRegEx),
                 m_Timestamp(rTimestamp),
                 m_Name(rName),
                 m_Value(rValue),

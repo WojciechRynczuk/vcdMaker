@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -46,12 +46,12 @@ namespace PARSER
             /// It opens the input log file, sets the timebase and the verbose mode.
             ///
             /// @param rFilename The name of the log file to be open.
-            /// @param rTimeBase The time base used in the log.
+            /// @param pSignalDb The signal databse. The container for parsed signals.
             /// @param rSourceRegistry Signal sources registry.
             /// @param rSignalFactory The signal factory.
             /// @param verboseMode Value 'true' enables the verbose mode.
             TxtParser(const std::string &rFilename,
-                      const std::string &rTimeBase,
+                      SIGNAL::SignalDb * const pSignalDb,
                       SIGNAL::SourceRegistry &rSourceRegistry,
                       const SignalFactory &rSignalFactory,
                       bool verboseMode);

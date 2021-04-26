@@ -4,7 +4,7 @@
 ///
 /// @ingroup UnitTest
 ///
-/// @par Copyright (c) 2017 vcdMaker team
+/// @par Copyright (c) 2021 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -38,9 +38,10 @@ static inline std::string getEventSignalPrint()
 /// Create EventSignal.
 static inline SIGNAL::EventSignal getEventSignal()
 {
-    return {DummySignal::DUMMY_NAME,
-            DummySignal::DUMMY_TIMESTAMP,
-            DummySignal::DUMMY_HANDLE};
+    static const SIGNAL::SignalDescriptor DummyDescriptor(DummySignal::DUMMY_NAME, DummySignal::DUMMY_SIZE, DummySignal::DUMMY_TYPE, DummySignal::DUMMY_HANDLE);
+
+    return {&DummyDescriptor,
+            DummySignal::DUMMY_TIMESTAMP};
 }
 
 /// Unit test for EventSignal::Print().

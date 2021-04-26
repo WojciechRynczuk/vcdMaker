@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -40,15 +40,17 @@ namespace PARSER
 
             /// The XML real signal creator constructor.
             ///
+            /// @param rSignalDescriptorRegistry The signal descriptors registry.
             /// @param rRegEx The regular expression matching the log line.
             /// @param rTimestamp The expression to create the timestamp of the signal.
             /// @param rName The expression to create the name of the signal.
             /// @param rValue The expression to create the value of the signal.
-            XmlFSignalCreator(const std::string &rRegEx,
+            XmlFSignalCreator(SIGNAL::SignalDescriptorRegistry &rSignalDescriptorRegistry,
+                              const std::string &rRegEx,
                               const std::string &rTimestamp,
                               const std::string &rName,
                               const std::string &rValue) :
-                XmlSignalCreator(rRegEx, rTimestamp, rName, rValue, "")
+                XmlSignalCreator(rSignalDescriptorRegistry, rRegEx, rTimestamp, rName, rValue, "")
             {
                 m_FloatEvaluator.ParseFloatString(rValue);
             }
@@ -56,6 +58,7 @@ namespace PARSER
             /// @copydoc SignalCreator::Create()
             virtual SIGNAL::Signal *Create(const std::string &rLogLine,
                                            INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                           const std::string &rPrefix,
                                            SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
     };

@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,8 +29,6 @@
 
 #pragma once
 
-#include <memory>
-
 #include "SignalCreator.h"
 
 namespace PARSER
@@ -43,7 +41,7 @@ namespace PARSER
     {
         public:
 
-            /// The signal factory default constructor.
+            /// The signal factory constructor.
             SignalFactory();
 
             /// Creates the appropriate signal objects.
@@ -51,17 +49,22 @@ namespace PARSER
             /// Returns the pointer to the list of created signal objects.
             /// If emtpy no signal could be created.
             ///
-            /// @param logLine One line from the log.
+            /// @param rLogLine One line from the log.
             /// @param lineNumber The log line number.
+            /// @param rPrefix Signal prefix.
             /// @param sourceHandle Signal source handle.
-            std::vector<const SIGNAL::Signal*> Create(std::string &logLine,
+            std::vector<const SIGNAL::Signal*> Create(const std::string &rLogLine,
                                                       INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                      const std::string &rPrefix,
                                                       SIGNAL::SourceRegistry::HandleT sourceHandle) const;
 
         protected:
 
             /// The table of pointers to signal creators.
             std::vector<std::unique_ptr<SignalCreator>> m_vpSignalCreators;
+
+            /// Factory specific signal prefix.
+            const std::string m_Prefix;
 
         private:
 

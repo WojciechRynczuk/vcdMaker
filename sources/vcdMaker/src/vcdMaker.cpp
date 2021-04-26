@@ -2,7 +2,7 @@
 ///
 /// The main module of the vcdMaker application.
 ///
-/// @par Copyright (c) 2019 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -53,20 +53,23 @@ int main(int argc, const char *argv[])
         CLI::CliMaker cli;
         cli.Parse(argc, argv);
 
-        // Build the signal factory.
+        // Build the signal factory artifacts.
         std::unique_ptr<PARSER::SignalFactory> pSignalFactory = NULL;
+        SIGNAL::SignalDescriptorRegistry SignalDescriptorRegistry;
+        std::unique_ptr<SIGNAL::SignalDb> pSignalDb = std::make_unique<SIGNAL::SignalDb>(cli.GetTimebase(), "");
+
         if (!cli.GetUserLogFormat().empty())
         {
-            pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(cli.GetUserLogFormat());
+            pSignalFactory = std::make_unique<PARSER::XmlSignalFactory>(SignalDescriptorRegistry, cli.GetUserLogFormat());
         }
         else
         {
-            pSignalFactory = std::make_unique<PARSER::DefaultSignalFactory>();
+            pSignalFactory = std::make_unique<PARSER::DefaultSignalFactory>(SignalDescriptorRegistry);
         }
 
         // Create the log parser.
         PARSER::TxtParser txtLog(cli.GetInputFileName(),
-                                 cli.GetTimebase(),
+                                 pSignalDb.get(),
                                  SIGNAL::SourceRegistry::GetInstance(),
                                  *pSignalFactory,
                                  cli.IsVerboseMode());
@@ -80,6 +83,7 @@ int main(int argc, const char *argv[])
             lineCounter = std::make_unique<INSTRUMENT::LineCounter>(cli.GetInputFileName(),
                                                                     cli.GetLineCounterName(),
                                                                     SIGNAL::SourceRegistry::GetInstance(),
+                                                                    SignalDescriptorRegistry,
                                                                     txtLog.GetSignalDb());
             txtLog.Attach(*lineCounter);
         }

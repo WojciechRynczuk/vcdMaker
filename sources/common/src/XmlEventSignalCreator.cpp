@@ -4,7 +4,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -29,15 +29,18 @@
 
 SIGNAL::Signal *PARSER::XmlEventSignalCreator::Create(const std::string &rLogLine,
                                                       INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                      const std::string &rPrefix,
                                                       SIGNAL::SourceRegistry::HandleT sourceHandle) const
 {
     std::smatch result;
 
     if (std::regex_search(rLogLine, result, m_SignalRegEx))
     {
-        return new SIGNAL::EventSignal(GetName(result),
-                                       GetTimestamp(result, lineNumber),
-                                       sourceHandle);
+        return new SIGNAL::EventSignal(m_rSignalDescriptorRegistry.Register(rPrefix + GetName(result),
+                                                                            "event",
+                                                                            0,
+                                                                            sourceHandle),
+                                       GetTimestamp(result, lineNumber));
     }
     else
     {

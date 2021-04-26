@@ -8,7 +8,7 @@
 ///
 /// @ingroup Signal
 ///
-/// @par Copyright (c) 2016 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,14 +32,14 @@
 
 #include "ISignal.h"
 
-SIGNAL::ISignal::ISignal(const std::string &name,
-                         size_t size,
+SIGNAL::ISignal::ISignal(const SignalDescriptor * const pSignalDescriptor,
                          const TIME::Timestamp &rTimestamp,
-                         uint64_t value,
-                         SourceRegistry::HandleT sourceHandle) :
-    Signal(name, size, rTimestamp, "wire", sourceHandle),
+                         uint64_t value) :
+    Signal(pSignalDescriptor, rTimestamp),
     m_Value(value)
 {
+    size_t size = pSignalDescriptor->GetSize();
+
     if (size > 64)
     {
         throw EXCEPTION::VcdException(EXCEPTION::Error::VECTOR_SIZE_EXCEEDED,
@@ -57,15 +57,15 @@ std::string SIGNAL::ISignal::Print() const
 {
     const std::bitset<64> valueBits(m_Value);
     const std::string valueBitStr =
-        valueBits.to_string().substr(valueBits.size() - m_Size);
+        valueBits.to_string().substr(valueBits.size() - GetSize());
 
-    return ('b' + valueBitStr + ' ' + m_Name);
+    return ('b' + valueBitStr + ' ' + GetName());
 }
 
 std::string SIGNAL::ISignal::Footprint() const
 {
-    const std::string sizeFootprint(m_Size, 'x');
-    return ('b' + sizeFootprint + ' ' + m_Name);
+    const std::string sizeFootprint(GetSize(), 'x');
+    return ('b' + sizeFootprint + ' ' + GetName());
 }
 
 bool SIGNAL::ISignal::EqualTo(Signal const &other) const

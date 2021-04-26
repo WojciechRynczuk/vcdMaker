@@ -8,7 +8,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,7 +32,7 @@
 
 #include <regex>
 
-#include "Signal.h"
+#include "SignalDescriptorRegistry.h"
 #include "Instrument.h"
 
 namespace PARSER
@@ -48,10 +48,14 @@ namespace PARSER
             ///
             /// The constructor initializes the regular expression member variable
             /// which will be matched against the log line.
-            /// @param rSignalRegEx The regular expression to be matech against the log line.
-            SignalCreator(const std::string &rSignalRegEx) :
+            ///
+            /// @param rDescriptorRegistry The reference to the signal descriptors registry.
+            /// @param rSignalRegEx The regular expression to be match against the log line.
+            SignalCreator(SIGNAL::SignalDescriptorRegistry &rDescriptorRegistry,
+                          const std::string &rSignalRegEx) :
                 m_SignalRegEx("^" + rSignalRegEx + "\r?$"),
-                m_RegEx(rSignalRegEx)
+                m_RegEx(rSignalRegEx),
+                m_rSignalDescriptorRegistry(rDescriptorRegistry)
             {
             }
 
@@ -68,10 +72,12 @@ namespace PARSER
             /// @param rLogLine The log line serving as the creation specification.
             /// @param lineNumber The log line number.
             /// @param sourceHandle Signal source handle.
+            /// @param rPrefix Signal prefix.
             /// @return Signal pointer if the object has been created or nullptr.
-            virtual SIGNAL::Signal *Create(const std::string &rLogLine,
-                                           INSTRUMENT::Instrument::LineNumberT lineNumber,
-                                           SIGNAL::SourceRegistry::HandleT sourceHandle) const = 0;
+            virtual const SIGNAL::Signal *Create(const std::string &rLogLine,
+                                                 INSTRUMENT::Instrument::LineNumberT lineNumber,
+                                                 const std::string &rPrefix,
+                                                 SIGNAL::SourceRegistry::HandleT sourceHandle) const = 0;
 
             /// Returns the regex.
             const std::string &GetRegEx() const
@@ -86,6 +92,9 @@ namespace PARSER
 
             /// The original RegEx string.
             const std::string m_RegEx;
+
+            /// The signal descriptors registry.
+            SIGNAL::SignalDescriptorRegistry &m_rSignalDescriptorRegistry;
     };
 
     inline SignalCreator::~SignalCreator() = default;

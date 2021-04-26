@@ -3,7 +3,7 @@
 <signals>
 
 <vector>
-    <line>#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+)</line>
+    <line>#([[:d:]]+) ([[:graph:]]+) ([[:d:]]+) ([[:d:]]+)( +.*)?</line>
     <timestamp>dec(1)</timestamp>
     <name>txt(2)</name>
     <value>dec(3)</value>

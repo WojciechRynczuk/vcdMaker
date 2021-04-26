@@ -1,6 +1,6 @@
 /** Contains the float expression Bison parser source.
     
-    Copyright (c) 2018 vcdMaker team
+    Copyright (c) 2020 vcdMaker team
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
     to deal in the Software without restriction, including without limitation
@@ -181,5 +181,6 @@ start       : /* empty */
 void PARSER::FloatParser::error(const FloatParser::location_type& l,
                                 const std::string& m)
 {
+    (void)m;
     evaluator.SetSyntaxErrorIndex(l.begin.column);
 }

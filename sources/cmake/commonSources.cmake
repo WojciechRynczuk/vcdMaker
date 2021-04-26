@@ -2,7 +2,7 @@
 #
 # List of common source files and directories.
 #
-# Copyright (c) 2019 vcdMaker team
+# Copyright (c) 2020 vcdMaker team
 #
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
@@ -42,6 +42,8 @@ set(COMMON_SOURCES
     ${COMMON_SOURCES_DIR}/Signal.cpp
     ${COMMON_SOURCES_DIR}/SignalDb.cpp
     ${COMMON_SOURCES_DIR}/SourceRegistry.cpp
+    ${COMMON_SOURCES_DIR}/SignalDescriptor.cpp
+    ${COMMON_SOURCES_DIR}/SignalDescriptorRegistry.cpp
     ${COMMON_SOURCES_DIR}/TxtParser.cpp
     ${COMMON_SOURCES_DIR}/LogParser.cpp
     ${COMMON_SOURCES_DIR}/LineCounter.cpp
@@ -77,6 +79,8 @@ set(COMMON_HEADERS
     ${COMMON_HEADERS_DIR}/SignalStructureBuilder.h
     ${COMMON_HEADERS_DIR}/Signal.h
     ${COMMON_HEADERS_DIR}/SourceRegistry.h
+    ${COMMON_HEADERS_DIR}/SignalDescriptor.h
+    ${COMMON_HEADERS_DIR}/SignalDescriptorRegistry.h
     ${COMMON_HEADERS_DIR}/SignalDb.h
     ${COMMON_HEADERS_DIR}/VcdException.h
     ${COMMON_HEADERS_DIR}/VcdExceptionList.h

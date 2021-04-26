@@ -7,7 +7,7 @@
 ///
 /// @ingroup Parser
 ///
-/// @par Copyright (c) 2018 vcdMaker team
+/// @par Copyright (c) 2020 vcdMaker team
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a
 /// copy of this software and associated documentation files (the "Software"),
@@ -32,11 +32,11 @@
 #include "VcdException.h"
 
 PARSER::TxtParser::TxtParser(const std::string &rFilename,
-                             const std::string &rTimeBase,
+                             SIGNAL::SignalDb * const pSignalDb,
                              SIGNAL::SourceRegistry &rSourceRegistry,
                              const PARSER::SignalFactory &rSignalFactory,
                              bool verboseMode) :
-    LogParser(rFilename, rTimeBase, rSourceRegistry, verboseMode),
+    LogParser(rFilename, pSignalDb, rSourceRegistry, verboseMode),
     m_ValidLines(0),
     m_InvalidLines(0),
     m_SourceHandle(rSourceRegistry.Register(rFilename)),
@@ -64,38 +64,33 @@ void PARSER::TxtParser::Parse()
     std::string input_line;
     while (std::getline(m_LogFile, input_line))
     {
-        std::vector<const SIGNAL::Signal *> vpSignals =
-            m_rSignalFactory.Create(input_line, lineNumber, m_SourceHandle);
+        std::vector<const SIGNAL::Signal *> vpSignals{};
+        try
+        {
+            vpSignals = m_rSignalFactory.Create(input_line, lineNumber, m_pSignalDb->GetPrefix(), m_SourceHandle);
+        }
+        catch (const EXCEPTION::VcdException &rException)
+        {
+            if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
+            {
+                while (!vpSignals.empty())
+                {
+                    delete vpSignals.back();
+                    vpSignals.pop_back();
+                }
+                throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
+                                              " At line " + std::to_string(lineNumber) + ".");
+            }
+        }
         const SIGNAL::Signal *pSignal = nullptr;
 
         if (!vpSignals.empty())
         {
             while (!vpSignals.empty())
             {
-                try
-                {
-                    pSignal = vpSignals.back();
-                    vpSignals.pop_back();
-                    m_pSignalDb->Add(pSignal);
-                }
-                catch (const EXCEPTION::VcdException &rException)
-                {
-                    delete pSignal;
-                    while (!vpSignals.empty())
-                    {
-                        delete vpSignals.back();
-                        vpSignals.pop_back();
-                    }
-                    if (EXCEPTION::Error::INCONSISTENT_SIGNAL == rException.GetId())
-                    {
-                        throw EXCEPTION::VcdException(rException.GetId(), std::string(rException.what()) +
-                                                      " At line " + std::to_string(lineNumber) + ".");
-                    }
-                    else
-                    {
-                        throw rException;
-                    }
-                }
+                pSignal = vpSignals.back();
+                vpSignals.pop_back();
+                m_pSignalDb->Add(pSignal);
 
                 for (auto instrument : m_vpInstruments)
                 {
